@@ -1,0 +1,1515 @@
+<?php 
+session_start();
+if(isset($_SESSION['seudonimo'])) {
+
+  }
+    else {
+        header("Location: login.php");
+        exit();
+      }
+  
+  require_once("../../class/clases.php");
+
+  $obj1= new Trabajo();
+  $ramo = $obj1->get_element('dramo','cod_ramo'); 
+
+  $obj2= new Trabajo();
+  $cia = $obj2->get_element('dcia','nomcia'); 
+
+  $obj3= new Trabajo();
+  $asesor = $obj3->get_element('ena','idena'); 
+
+  $obj4= new Trabajo();
+  $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','id_enp'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','id_enr'); 
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../assets/img/apple-icon.png">
+    <link rel="icon" href="../../assets/img/logo1.png">
+    <title>
+        Versatil Seguros
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../assets/css/material-kit.css?v=2.0.1">
+    <!-- Documentation extras -->
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
+    <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+
+    <link href="../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
+    
+    <!-- Alertify -->
+    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/themes/bootstrap.css">
+    <script src="../../assets/alertify/alertify.js"></script>
+
+
+    <!-- DataTables -->
+    <link href="../../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <script type="text/javascript">
+        function tabular(e,obj) {
+            tecla=(document.all) ? e.keyCode : e.which;
+            if(tecla!=13) return;
+            frm=obj.form;
+            for(i=0;i<frm.elements.length;i++) 
+            if(frm.elements[i]==obj) { 
+                if (i==frm.elements.length-1) i=-1;
+            break }
+            frm.elements[i+1].focus();
+            return false;
+        }
+    </script>
+    <style>
+        
+        
+        @media only screen and (min-width : 570px) {
+            #tablaAsesor{
+                width: 100%;
+                margin-left: 14px;
+            }
+        }
+        @media only screen and (min-width : 600px) {
+            #tablaAsesor{
+                width: 100%;
+                margin-left: 18px;
+            }
+        }
+        @media only screen and (min-width : 670px) {
+            #tablaAsesor{
+                width: 100%;
+                margin-left: 20px;
+            }
+        }
+        @media only screen and (min-width : 768px) {
+            #tablaAsesor{
+                width: 90%;
+                margin-left: 110px;
+            }
+        }
+        @media only screen and (min-width : 900px) {
+            #tablaAsesor{
+                width: 75%;
+                margin-left: 35px;
+            }
+        }
+        @media only screen and (min-width : 991px) {
+            #tablaAsesor{
+                width: 50%;
+                margin-left: 10px;
+            }
+        }
+        @media only screen and (min-width : 1200px) {
+            #tablaAsesor{
+                width: 10%;
+                margin-left: 10px;
+            }
+        }
+
+        @media only screen and (min-width : 768px) {
+            #tablaRamo{
+                margin-left: 60px;
+            }
+        }
+        @media only screen and (min-width : 991px) {
+            #tablaRamo{
+                margin-left: 0px;
+            }
+        }
+            
+    </style>
+</head>
+
+<body class="profile-page ">
+    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="../sesionadmin.php"> <img src="../../assets/img/logo1.png" width="45%" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li><b>[Producción]</b></li>
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">plus_one</i> Cargar Datos
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="crear_poliza.php" class="dropdown-item">
+                                <i class="material-icons">add_to_photos</i> Póliza
+                            </a>
+                            <a href="crear_comision.php" class="dropdown-item">
+                                <i class="material-icons">add_to_photos</i> Comisión
+                            </a>
+                            <a href="crear_asesor.php" class="dropdown-item">
+                                <i class="material-icons">person_add</i> Asesor
+                            </a>
+                            <a href="crear_compania.php" class="dropdown-item">
+                                <i class="material-icons">markunread_mailbox</i> Compañía
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">search</i> Buscar
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="../b_asesor.php" class="dropdown-item">
+                                <i class="material-icons">accessibility</i> Asesor
+                            </a>
+                            <a href="../b_cliente.php" class="dropdown-item">
+                                <i class="material-icons">accessibility</i> Cliente
+                            </a>
+                            <a href="../b_poliza.php" class="dropdown-item">
+                                <i class="material-icons">content_paste</i> Póliza
+                            </a>
+                            <a href="../b_vehiculo.php" class="dropdown-item">
+                                <i class="material-icons">commute</i> Vehículo
+                            </a>
+                            <a href="../b_comp.php" class="dropdown-item">
+                                <i class="material-icons">markunread_mailbox</i> Compañía
+                            </a>
+                            <a href="../b_reportes.php" class="dropdown-item">
+                                <i class="material-icons">library_books</i> Reportes de Cobranza
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">trending_up</i> Gráficos
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="../grafic/porcentaje.php" class="dropdown-item">
+                                <i class="material-icons">pie_chart</i> Porcentajes
+                            </a>
+                            <a href="../grafic/primas_s.php" class="dropdown-item">
+                                <i class="material-icons">bar_chart</i> Primas Suscritas
+                            </a>
+                            <a href="../grafic/primas_c.php" class="dropdown-item">
+                                <i class="material-icons">thumb_up</i> Primas Cobradas
+                            </a>
+                            <a href="../grafic/comisiones_c.php" class="dropdown-item">
+                                <i class="material-icons">timeline</i> Comisiones Cobradas
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="material-icons">show_chart</i> Gestión de Cobranza
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../sys/cerrar_sesion.php" onclick="scrollToDownload()">
+                            <i class="material-icons">eject</i> Cerrar Sesión
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../assets/img/logo2.png');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="brand">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="main main-raised">
+        
+
+        
+
+        <div class="section">
+            <div class="container" >
+                <center>
+                <div class="col-md-auto col-md-offset-2">
+                    <?php 
+                        if (isset($_GET['cond'])) {
+                    ?> 
+                    <h1 class="title"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i>&nbsp;Agregada con Éxito</h1>  
+                    <?php       
+                        }
+                    ?>
+                    <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Añadir Nueva Póliza</h1>  
+                </div>
+
+
+            
+                <h2 id="existeP" class="bg-success text-white"><strong></strong></h2>
+                <h2 id="no_existeP" class="bg-danger text-white"><strong></strong></h2>
+                <form class="form-horizontal" id="frmnuevo" action="poliza.php" method="post" >
+                    <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>N° de Póliza *</th>
+                                   <!-- <th>Fecha Emisión *</th> -->
+                                    <th>Fecha Desde Seguro *</th>
+                                    <th>Fecha Hasta Seguro *</th>
+                                    <th>Tipo de Póliza *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input onblur="cargarRecibo(this);validarPoliza(this)" onkeypress="return tabular(event,this)" type="text" class="form-control validanumericos" id="n_poliza" name="n_poliza" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                    <!-- <td hidden="true"><div class="input-group date">
+                                            <input onblur="cargarFecha(this)" type="text" class="form-control" id="emisionP" name="emisionP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"> 
+                                        </div>
+                                    </td>
+                                    <td hidden="true">
+                                        <input type="text" class="form-control" id="emisionP1" name="emisionP1">
+                                    </td>-->
+                                    <td><div class="input-group date">
+                                            <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" > 
+                                        </div>
+                                    </td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="hastaP" name="hastaP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                        </div>
+                                    </td>
+                                    <td><select class="custom-select" id="tipo_poliza" name="tipo_poliza" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="">Seleccione Tipo Póliza</option>
+                                            <option value="1">Primer Año</option>
+                                            <option value="2">Renovación</option>
+                                            <option value="3">Traspaso de Cartera</option>
+                                            <option value="4">Anexos</option>
+                                            <option value="5">N/A</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    <div class="form-row">  
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="tablaRamo">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Ramo *</th>
+                                    <th>Compañía *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <tr style="background-color: white">
+                                    <td><select class="custom-select" id="ramo" name="ramo" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="">Seleccione el Ramo</option>
+                                                <?php
+                                                for($i=0;$i<sizeof($ramo);$i++)
+                                                    {  
+                                                ?>
+                                                    <option value="<?php echo $ramo[$i]["cod_ramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                                                <?php } ?> 
+                                        </select>
+                                    </td>
+                                    <td><select class="custom-select" id="cia" name="cia" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="">Seleccione Compañía</option>
+                                                <?php
+                                                for($i=0;$i<sizeof($cia);$i++)
+                                                    {  
+                                                ?>
+                                                    <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                                                <?php } ?> 
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th hidden>Tipo de Cobertura</th>
+                                    <th>Moneda</th>
+                                    <th>Suma Asegurada</th>
+                                    <th style="background-color: #E54848;">Prima Total sin Impuesto *</th>
+                                    <th>Forma de Pago *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td hidden><input type="text" class="form-control" id="t_cobertura" name="t_cobertura" onkeyup="mayus(this);" onkeypress="return tabular(event,this)"></td>
+                                    <td><select class="custom-select" id="currency" name="currency" required>
+                                            <option value="1">$</option>
+                                            <option value="2">BsS</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control validanumericos1" id="sumaA" name="sumaA" data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números y punto (.) como separador decimal" onkeypress="return tabular(event,this)"></td>
+                                    <td><input type="text" class="form-control validanumericos2" id="prima" name="prima" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" onkeypress="return tabular(event,this)"></td>
+                                    <td><select onblur="cargarCuotas(this)" class="custom-select" name="f_pago" id="f_pago" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="">Seleccione Forma de Pago</option>
+                                            <option value="1">CONTADO</option>
+                                            <option value="2">FRACCIONADO</option>
+                                            <option value="3">FINANCIADO</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+                    <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>N° Recibo *</th>
+                                    <th>Fecha Desde Recibo *</th>
+                                    <th>Fecha Hasta Recibo *</th>
+                                    <th>Zona de Produc</th>
+                                    <th>N° de Cuotas *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="n_recibo" name="n_recibo" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="desde_recibo" name="desde_recibo" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio">
+                                        </div>
+                                    </td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"> 
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?php echo utf8_encode($usuario[0]['z_produccion']);?>"></td>
+                                    <td><input type="number" class="form-control validanumericos3" id="n_cuotas" name="n_cuotas" min="1" max="12" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <h2 id="existeT" class="text-success"><strong></strong></h2>
+                    <h2 id="no_existeT" class="text-danger"><strong></strong></h2>
+                    <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display  nowrap" id="iddatatable">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>N° ID Titular *</th>
+                                    <th>Nombre(s) Titular</th>
+                                    <th>Apellido(s) Titular</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input onblur="validartitular(this)" type="text" class="form-control validanumericos5" id="titular" name="titular" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                    <td><input type="text" class="form-control" id="n_titular" name="n_titular" readonly="readonly" required="true"></td>
+                                    <td><input type="text" class="form-control" id="a_titular" name="a_titular" readonly="readonly" required="true"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <center><a href="" class="btn btn-danger btn-lg btn-round" id="btnAggT" hidden="true" data-toggle="modal" data-target="#agregarnuevotitular">Crear Nuevo Titular</a></center>
+    
+                    
+                    <h2 id="existeTom" class="text-success"><strong></strong></h2>
+                    <h2 id="no_existeTom" class="text-danger"><strong></strong></h2>
+                    <div class="form-row" id="tablatomador" hidden="true">      
+                        <table class="table table-hover table-striped table-bordered display  nowrap" id="iddatatable">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>N° ID Tomador *</th>
+                                    <th>Nombre(s) Tomador</th>
+                                    <th>Apellido(s) Tomador</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input onblur="validartomador(this)" type="text" class="form-control validanumericos6" id="tomador" name="tomador" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                    <td><input type="text" class="form-control" id="n_tomador" name="n_tomador" readonly="readonly"></td>
+                                    <td><input type="text" class="form-control" id="a_tomador" name="a_tomador" readonly="readonly"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <center><a href="" class="btn btn-danger btn-lg btn-round" id="btnAggTom" hidden="true" data-toggle="modal" data-target="#agregarnuevotomador">Crear Nuevo Tomador</a></center>
+
+                    
+                    <div class="form-row" id="tablaveh" hidden="true">      
+                    <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
+                        <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Placa *</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Tipo</th>
+                                    <th>Año</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="placa" name="placa"></td>
+                                    <td><input type="text" class="form-control" id="marca" name="marca"></td>
+                                    <td><input type="text" class="form-control" id="modelo" name="modelo"></td>
+                                    <td><input type="text" class="form-control" id="tipo" name="tipo"></td>
+                                    <td><input type="text" class="form-control" id="anio" name="anio" placeholder="2019"></td>
+                                </tr>
+                                <!--<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th>Año</th>
+                                    <th>Color</th>
+                                    <th>Serial</th>
+                                    <th>Categoría</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="anio" name="anio" placeholder="2019"></td>
+                                    <td><input type="text" class="form-control" id="color" name="color"></td>
+                                    <td><input type="text" class="form-control" id="serial" name="serial"></td>
+                                    <td><input type="text" class="form-control" id="categoria" name="categoria"></td>
+                                </tr>-->
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <center><div>      
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap"  id="tablaAsesor">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Asesor *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <tr style="background-color: white">
+                                    <td><select class="custom-select" id="asesor" name="asesor" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="">Seleccione el Asesor</option>
+                                              <?php
+                                                for($i=0;$i<sizeof($asesor);$i++)
+                                                  {  
+                                              ?>
+                                                  <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                              <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                                  { ?> 
+                                                  <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                              <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                                  {?>
+                                                  <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                              <?php } ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div></center>
+
+        
+
+                      <center>
+                        <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Agregar nuevo</button></center>
+
+                </form>
+                </center>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        <div class="section" style="background-color: #40A8CB;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <div class="card card-signup">
+                            <form class="form" method="" action="">
+                                <div class="card-header card-header-info text-center">
+                                    <h3>¿Necesitas cotizar tu póliza de seguros?</h3>
+                                </div>
+                                <div class="card-body">
+                                    <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        
+    </div>
+
+
+
+
+
+    <footer class="footer ">
+        <div class="container">
+            <nav class="pull-left">
+                <ul>
+                    <li>
+                        <a href="https://www.versatilseguros.com">
+                            Versatil Panamá
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright pull-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Versatil Seguros S.A.
+            </div>
+        </div>
+    </footer>
+    <!--   Core JS Files   -->
+
+    <script src="../../assets/js/core/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap-material-design.js"></script>
+    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <script src="../../assets/js/plugins/moment.min.js"></script>
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../../assets/js/plugins/nouislider.min.js"></script>
+    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+
+    <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+      
+
+    <!-- Modal -->
+    <div class="modal fade" id="agregarnuevotitular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Debe Agregar Nuevo Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoT" autocomplete="off">
+
+                        <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Razón Social *</th>
+                                    <th colspan="3">N° ID Titular</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><select class="custom-select" name="r_sNew" id="r_sNew" required>
+                                            <option value="">Seleccione</option>
+                                            <option value="PN-">PN-</option>
+                                            <option value="J-">J-</option>
+                                        </select>
+                                    </td>
+                                    <td colspan="3"><input type="text" class="form-control" id="id_new_titular" name="id_new_titular" readonly="readonly"></td>
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan="2">Nombre(s) Titular *</th>
+                                    <th colspan="2">Apellido(s) Titular</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan="2"><input type="text" class="form-control" id="nT_new" name="nT_new" required onkeyup="mayus(this);"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="aT_new" name="aT_new" required onkeyup="mayus(this);"></td>
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <!--<th>Sexo *</th>-->
+                                    <th colspan="2">Celular *</th>
+                                    <th colspan="2">Teléfono</th>
+                                    <!--<th>Teléfono Adicional</th>-->
+                                </tr>
+                                <tr style="background-color: white">
+                                    <!--<td><select class="custom-select" name="sT_new" required>
+                                            <option value="">Seleccione</option>
+                                            <option value="1">MASCULINO</option>
+                                            <option value="2">FEMENINO</option>
+                                            <option value="3">JURIDICO</option>
+                                        </select>
+                                    </td>-->
+                                    <td colspan="2"><input type="text" class="form-control" id="cT_new" name="cT_new" required></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="tT_new" name="tT_new" required></td>
+                                    <!--<td><input type="text" class="form-control" id="t1T_new" name="t1T_new" required></td>-->
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <!--<th>Estado Civil *</th>-->
+                                    <th>Fecha de Nacimiento</th>
+                                    <th colspan="2">Email *</th>
+                                    <!--<th>Email Adicional</th>-->
+                                </tr>
+                                <tr style="background-color: white">
+                                    <!--<td><select class="custom-select" name="ecT_new" required>
+                                            <option value="1">SOLTERO</option>
+                                            <option value="2">CASADO</option>
+                                            <option value="3">DIVORCIADO</option>
+                                        </select>
+                                    </td>-->
+                                    <td><input type="text" class="form-control" id="fnT_new" name="fnT_new" required></td>
+                                    <td colspan="2"><input type="email" class="form-control" id="eT_new" name="eT_new" required></td>
+                                    <!--<td><input type="email" class="form-control" id="e1T_new" name="e1T_new" required></td>-->
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=4>Dirección *</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=4><input type="text" class="form-control" id="dT_new" name="dT_new" required onkeyup="mayus(this);"></td>
+                                </tr>
+                                <!--<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=4>Dirección Oficina</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=4><input type="text" class="form-control" id="d1T_new" name="d1T_new" required onkeyup="mayus(this);"></td>
+                                </tr>-->
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=2>Ocupación</th>
+                                    <th colspan=2>Ingreso</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=2><input type="text" class="form-control" id="oT_new" name="oT_new" required onkeyup="mayus(this);"></td>
+                                    <td colspan=2><input type="text" class="form-control validanumericos4" id="iT_new" name="iT_new" value="0" required></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnAgregarnuevo" class="btn btn-success">Agregar nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal TOMADOR -->
+    <div class="modal fade" id="agregarnuevotomador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Debe Agregar Nuevo Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoTom" autocomplete="off">
+
+                        <div class="form-row">      
+                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable1">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Razón Social *</th>
+                                    <th colspan="3">N° ID Tomador</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><select class="custom-select" name="r_sNewT" id="r_sNewT" required>
+                                            <option value="">Seleccione</option>
+                                            <option value="PN-">PN-</option>
+                                            <option value="J-">J-</option>
+                                        </select>
+                                    </td>
+                                    <td colspan="3"><input type="text" class="form-control" id="id_new_titularT" name="id_new_titularT" readonly="readonly"></td>
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan="2">Nombre(s) Tomador *</th>
+                                    <th colspan="2">Apellido(s) Tomador</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan="2"><input type="text" class="form-control" id="nT_newT" name="nT_newT" required onkeyup="mayus(this);"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="aT_newT" name="aT_newT" required onkeyup="mayus(this);"></td>
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <!--<th>Sexo *</th>-->
+                                    <th colspan="2">Celular *</th>
+                                    <th colspan="2">Teléfono</th>
+                                    <!--<th>Teléfono Adicional</th>-->
+                                </tr>
+                                <tr style="background-color: white">
+                                    <!--<td><select class="custom-select" name="sT_newT" required>
+                                            <option value="">Seleccione</option>
+                                            <option value="1">MASCULINO</option>
+                                            <option value="2">FEMENINO</option>
+                                            <option value="3">JURIDICO</option>
+                                        </select>
+                                    </td>-->
+                                    <td colspan="2"><input type="text" class="form-control" id="cT_newT" name="cT_newT" required></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="tT_newT" name="tT_newT" required></td>
+                                    <!--<td><input type="text" class="form-control" id="t1T_newT" name="t1T_newT" required></td>-->
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <!--<th>Estado Civil *</th>-->
+                                    <th>Fecha de Nacimiento</th>
+                                    <th colspan="2">Email *</th>
+                                    <!--<th>Email Adicional</th>-->
+                                </tr>
+                                <tr style="background-color: white">
+                                    <!--<td><select class="custom-select" name="ecT_newT" required>
+                                            <option value="1">SOLTERO</option>
+                                            <option value="2">CASADO</option>
+                                            <option value="3">DIVORCIADO</option>
+                                        </select>
+                                    </td>-->
+                                    <td><input type="text" class="form-control" id="fnT_newT" name="fnT_newT" required></td>
+                                    <td colspan="2"><input type="email" class="form-control" id="eT_newT" name="eT_newT" required></td>
+                                    <!--<td><input type="email" class="form-control" id="e1T_newT" name="e1T_newT" required></td>-->
+                                </tr>
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=4>Dirección *</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=4><input type="text" class="form-control" id="dT_newT" name="dT_newT" required onkeyup="mayus(this);"></td>
+                                </tr>
+                                <!--<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=4>Dirección Oficina</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=4><input type="text" class="form-control" id="d1T_newT" name="d1T_newT" required onkeyup="mayus(this);"></td>
+                                </tr>-->
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th colspan=2>Ocupación</th>
+                                    <th colspan=2>Ingreso</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td colspan=2><input type="text" class="form-control" id="oT_newT" name="oT_newT" required onkeyup="mayus(this);"></td>
+                                    <td colspan=2><input type="text" class="form-control validanumericos4" id="iT_newT" name="iT_newT" value="0" required></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnAgregarnuevoT" class="btn btn-success">Agregar nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#tipo_poliza").val(1);
+            $("#f_pago").val(1);
+            $('#n_cuotas').val(1);
+            $("#n_cuotas").attr("readonly",true);
+
+            $('#btnAgregarnuevo').click(function(){
+                
+
+                if($("#r_sNew").val().length < 1) {  
+                    alertify.error("La Razón Social del Cliente es Obligatoria");
+                    return false;  
+                } 
+                if($("#id_new_titular").val().length < 1) {  
+                    alertify.error("El Nº de ID del Cliente es Obligatorio");
+                    return false;  
+                } 
+                if($("#nT_new").val().length < 1) {  
+                    alertify.error("El Nombre del Cliente es Obligatorio");
+                    return false;  
+                } 
+                if($("#dT_new").val().length < 1) {  
+                    alertify.error("La Dirección del Cliente es Obligatorio");
+                    return false;  
+                }
+
+                datos=$('#frmnuevoT').serialize();
+                var titular = $('#id_new_titular').val();
+                var n_titular = $('#nT_new').val();
+                var a_titular = $('#aT_new').val();
+
+                $.ajax({
+                    type:"POST",
+                    data:datos,
+                    url:"../../procesos/agregarCliente.php",
+                    success:function(r){
+                        if(r==1){
+                            $('#frmnuevoT')[0].reset();
+                            alertify.success("Agregado con Exito!!");
+
+                            $('#titular').val(titular);
+                            $('#titular').removeAttr('hidden');
+                            $('#n_titular').val(n_titular);
+                            $('#a_titular').val(a_titular);
+
+                            //$("#btnAggT").attr("hidden",true);
+                            $('#no_existeT').text("");
+                            $("#titular").attr("readonly",true);
+                            $('#titular').removeAttr('onblur');
+
+                            $('#tablatomador').removeAttr('hidden');
+                            $('#tomador').val(titular);
+                            $('#n_tomador').val(n_titular);
+                            $('#a_tomador').val(a_titular);
+
+                            $('#agregarnuevotitular').modal('hide');
+
+                        }else{
+                            alertify.error("Fallo al agregar!");
+                            
+                        }
+                    }
+                });
+            });
+
+
+            $('#btnAgregarnuevoT').click(function(){
+                
+
+                if($("#r_sNewT").val().length < 1) {  
+                    alertify.error("La Razón Social del Cliente es Obligatoria");
+                    return false;  
+                } 
+                if($("#id_new_titularT").val().length < 1) {  
+                    alertify.error("El Nº de ID del Cliente es Obligatorio");
+                    return false;  
+                } 
+                if($("#nT_newT").val().length < 1) {  
+                    alertify.error("El Nombre del Cliente es Obligatorio");
+                    return false;  
+                } 
+                if($("#dT_newT").val().length < 1) {  
+                    alertify.error("La Dirección del Cliente es Obligatorio");
+                    return false;  
+                }
+
+                datos=$('#frmnuevoTom').serialize();
+                var titular = $('#id_new_titularT').val();
+                var n_titular = $('#nT_newT').val();
+                var a_titular = $('#aT_newT').val();
+
+                $.ajax({
+                    type:"POST",
+                    data:datos,
+                    url:"../../procesos/agregarTomador.php",
+                    success:function(r){
+                        if(r==1){
+                            $('#frmnuevoTom')[0].reset();
+                            alertify.success("Agregado con Exito!!");
+
+                            
+
+                            //$("#btnAggTom").attr("hidden",true);
+                            $('#no_existeTom').text("");
+
+                            $('#tablatomador').removeAttr('hidden');
+                            $('#tomador').val(titular);
+                            $('#n_tomador').val(n_titular);
+                            $('#a_tomador').val(a_titular);
+
+                            $('#agregarnuevotomador').modal('hide');
+
+                        }else{
+                            alertify.error("Fallo al agregar!");
+                            
+                        }
+                    }
+                });
+            });
+
+        });
+
+
+
+
+
+        $('#emisionP').datepicker({  
+            format: "dd-mm-yyyy",
+            
+        });
+        $( "#emisionP" ).datepicker( "setDate", new Date() );
+
+        $('#desdeP').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+        $('#hastaP').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+        $('#desde_recibo').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+        $('#hasta_recibo').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+        $('#fnT_new').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+        $('#fnT_newT').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+
+        onload = function(){ 
+          var ele = document.querySelectorAll('.validanumericos')[0];
+          var ele1 = document.querySelectorAll('.validanumericos1')[0];
+          var ele2 = document.querySelectorAll('.validanumericos2')[0];
+          var ele3 = document.querySelectorAll('.validanumericos3')[0];
+          var ele4 = document.querySelectorAll('.validanumericos4')[0];
+          var ele5 = document.querySelectorAll('.validanumericos5')[0];
+          var ele6 = document.querySelectorAll('.validanumericos6')[0];
+
+          ele.onkeypress = function(e) {
+             if(isNaN(this.value+String.fromCharCode(e.charCode)))
+                return false;
+          }
+          ele1.onkeypress = function(e1) {
+             if(isNaN(this.value+String.fromCharCode(e1.charCode)))
+                return false;
+          }
+          ele1.onpaste = function(e1){
+             e1.preventDefault();
+          }
+          ele2.onkeypress = function(e2) {
+             if(isNaN(this.value+String.fromCharCode(e2.charCode)))
+                return false;
+          }
+          ele2.onpaste = function(e2){
+             e2.preventDefault();
+          }
+          ele3.onkeypress = function(e3) {
+             if(isNaN(this.value+String.fromCharCode(e3.charCode)))
+                return false;
+          }
+          ele3.onpaste = function(e3){
+             e3.preventDefault();
+          }
+          ele4.onkeypress = function(e4) {
+             if(isNaN(this.value+String.fromCharCode(e4.charCode)))
+                return false;
+          }
+          ele4.onpaste = function(e4){
+             e4.preventDefault();
+          }
+          ele5.onkeypress = function(e5) {
+             if(isNaN(this.value+String.fromCharCode(e5.charCode)))
+                return false;
+          }
+          ele6.onkeypress = function(e6) {
+             if(isNaN(this.value+String.fromCharCode(e6.charCode)))
+                return false;
+          }
+        }
+
+
+
+        function validarPoliza(num_poliza){
+            $.ajax({
+                type:"POST",
+                data:"num_poliza=" + num_poliza.value,
+                url:"validarpoliza.php?var=0",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+                    if (datos['id_cod_ramo']==null) {
+
+                        $('#id_new_titular').val("");
+                        $('#existeP').text("");
+                        $('#no_existeP').text("No Existe Póliza");
+                        $('#titular').val("");
+                        $('#n_titular').val("");
+                        $('#a_titular').val("");
+
+                        $('#titular').removeAttr("readonly",true);
+                        $('#titular').attr('onblur','validartitular(this)');
+             
+                        $('#tipo_poliza option:first').prop('selected',true);
+
+                        $('#ramo option:first').prop('selected',true);
+                        $('#ramo').css('pointer-events','auto');
+                        $("#ramo").css('background-color', 'white');
+                        $('#cia option:first').prop('selected',true);
+                        $('#cia').css('pointer-events','auto');
+                        $("#cia").css('background-color', 'white');
+                        $("#emisionP").val("");
+                        //$("#emisionP").css('background-color', 'transparent');
+                        //$("#emisionP").css('color', 'black');
+                        $('#desdeP').val("");
+                        $('#hastaP').val("");
+                        
+                        $('#btnForm').removeAttr('disabled');
+
+                        var emisionP = new Date();
+                        var desdeP = $('#desdeP').val();
+                        var hastaP = $('#hastaP').val();
+                        $( "#emisionP" ).datepicker( "setDate", emisionP );
+                        $( "#desdeP" ).datepicker( "setDate", desdeP );
+                        $( "#hastaP" ).datepicker( "setDate", hastaP );
+                        $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                        $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+
+                        $('#t_cobertura').val("");
+                        $('#t_cobertura').removeAttr('readonly');
+                        $('#currency option:first').prop('selected',true);
+                        $('#currency').css('pointer-events','auto');
+                        $("#currency").css('background-color', 'white');
+
+
+
+                        $('#tomador').val("");
+                        $('#n_tomador').val("");
+                        $('#a_tomador').val("");
+
+                       $('#asesor option:first').prop('selected',true);
+
+                        $('#existeT').text("");
+                        $('#no_existeT').text("");
+                        $('#titular').val("");
+
+                        $('#tablatomador').attr("hidden",true);
+
+                        $('#existeTom').text("");
+                        $('#no_existeTom').text("");
+                        $("#tomador").css('color', 'black');
+
+                        $('#tablaveh').attr('hidden',true);
+                        $('#placa').val('');
+                        $('#tipo').val('');
+                        $('#marca').val('');
+                        $('#modelo').val('');
+                        $('#anio').val('');
+                        $('#serial').val('');
+                        $('#color').val('');
+                        $('#categoria').val('');
+                    }
+                    else if(datos['id_cod_ramo']==2 || datos['id_cod_ramo']==25){
+                        alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
+                        function(){ 
+                            alertify.success('Proceda a Renovar la Póliza');
+                            $('#titular').val(datos['ci']);
+                            $('#titular').removeAttr('onblur');
+                            $('#titular').attr("readonly",true);
+                            $('#n_titular').val(datos['nombre_t']);
+                            $('#a_titular').val(datos['apellido_t']);
+                
+                            $("#tipo_poliza").val(2);
+                            $("#ramo").val(datos['id_cod_ramo']);
+                            $('#ramo').css('pointer-events','none');
+                            $("#ramo").css('background-color', '#e6e6e6');
+                            $("#cia").val(datos['id_cia']);
+                            $('#cia').css('pointer-events','none');
+                            $("#cia").css('background-color', '#e6e6e6');
+                            var emisionP = datos['f_emi'].split('-').reverse().join('-');
+                            $("#emisionP").val(emisionP);
+                            //$("#emisionP1").val(datos['f_emi']);
+                            //$('#emisionP').attr("disabled",true);
+                            $('#desdeP').val(datos['f_desdepoliza']);
+                            $('#hastaP').val(datos['f_hastapoliza']);
+                            
+
+                            var mydate = new Date($('#desdeP').val());
+                            $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+                            var mydate1 = new Date($('#hastaP').val());
+                            $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+
+                            
+                            var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                            $('#desdeP').val(desdeP);
+                            $('#hastaP').val(hastaP);
+                            $( "#emisionP" ).datepicker( "setDate", emisionP );
+                            $( "#desdeP" ).datepicker( "setDate", desdeP );
+                            $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+                            $('#placa').val(datos['placa']);
+                            $('#tipo').val(datos['tveh']);
+                            $('#marca').val(datos['marca']);
+                            $('#modelo').val(datos['mveh']);
+                            $('#anio').val(datos['f_veh']);
+                            $('#serial').val(datos['serial']);
+                            $('#color').val(datos['cveh']);
+                            $('#categoria').val(datos['catveh']);
+
+                            $('#t_cobertura').val(datos['tcobertura']);
+                            $('#t_cobertura').attr("readonly",true);
+                            $("#currency").val(datos['currency']);
+                            $('#currency').css('pointer-events','none');
+                            $("#currency").css('background-color', '#e6e6e6');
+
+
+                            $('#existeP').text("Existe Póliza");
+                            $('#no_existeP').text("");
+
+                            $('#id_new_titular').val("");
+
+                            $('#tomador').val(titular.value);
+                            $('#n_tomador').val(datos['nombre_t']);
+                            $('#a_tomador').val(datos['apellido_t']);
+
+                            $("#asesor").val(datos['codvend']+"="+datos['idnom']);
+                            console.log(datos['codvend']+"="+datos['idnom']);
+
+                            $('#existeT').text("");
+                            $('#no_existeT').text("");
+                            $('#existeTom').text("");
+                            $('#no_existeTom').text("");
+
+                            $('#tablatomador').removeAttr('hidden');
+                            $("#tomador").css('color', 'red');
+
+                            $('#tablaveh').removeAttr('hidden');
+                        }, 
+                        function(){ 
+                            window.location.replace("crear_poliza.php");
+                            alertify.error('Cancel')
+                        }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
+
+                        
+                    }
+                    else{
+                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe', function(){
+                        alertify.success('OK');
+                        
+                        $('#titular').val(datos['ci']);
+                        $('#titular').removeAttr('onblur');
+                        $('#titular').attr("readonly",true);
+                        $('#n_titular').val(datos['nombre_t']);
+                        $('#a_titular').val(datos['apellido_t']);
+             
+                        $("#tipo_poliza").val(2);
+                        $("#ramo").val(datos['id_cod_ramo']);
+                        $('#ramo').css('pointer-events','none');
+                        $("#ramo").css('background-color', '#e6e6e6');
+                        $("#cia").val(datos['id_cia']);
+                        $('#cia').css('pointer-events','none');
+                        $("#cia").css('background-color', '#e6e6e6');
+                        var emisionP = datos['f_emi'].split('-').reverse().join('-');
+                        $("#emisionP").val(emisionP);
+                        //$("#emisionP1").val(datos['f_emi']);
+                        //$('#emisionP').attr("disabled",true);
+                        $('#desdeP').val(datos['f_desdepoliza']);
+                        $('#hastaP').val(datos['f_hastapoliza']);
+                        
+
+                        var mydate = new Date($('#desdeP').val());
+                        $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+                        var mydate1 = new Date($('#hastaP').val());
+                        $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+
+                        
+                        var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                        var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                        $('#desdeP').val(desdeP);
+                        $('#hastaP').val(hastaP);
+                        $( "#emisionP" ).datepicker( "setDate", emisionP );
+                        $( "#desdeP" ).datepicker( "setDate", desdeP );
+                        $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+                        $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                        $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+
+                        $('#t_cobertura').val(datos['tcobertura']);
+                        $('#t_cobertura').attr("readonly",true);
+                        $("#currency").val(datos['currency']);
+                        $('#currency').css('pointer-events','none');
+                        $("#currency").css('background-color', '#e6e6e6');
+
+
+                        $('#existeP').text("Existe Póliza");
+                        $('#no_existeP').text("");
+
+                        $('#id_new_titular').val("");
+
+                        $('#tomador').val(titular.value);
+                        $('#n_tomador').val(datos['nombre_t']);
+                        $('#a_tomador').val(datos['apellido_t']);
+
+                        $("#asesor").val(datos['codvend']+"="+datos['idnom']);
+                        console.log(datos['codvend']+"="+datos['idnom']);
+
+                        $('#existeT').text("");
+                        $('#no_existeT').text("");
+                        $('#existeTom').text("");
+                        $('#no_existeTom').text("");
+
+                        $('#tablatomador').removeAttr('hidden');
+                        $("#tomador").css('color', 'red');
+                        
+                        $('#tablaveh').attr('hidden',true);
+                        $('#placa').val('');
+                        $('#tipo').val('');
+                        $('#marca').val('');
+                        $('#modelo').val('');
+                        $('#anio').val('');
+                        $('#serial').val('');
+                        $('#color').val('');
+                        $('#categoria').val('');
+                    });
+                    }
+                }
+            });
+        }
+
+
+
+        function validartitular(titular){
+            $.ajax({
+                type:"POST",
+                data:"titular=" + titular.value,
+                url:"validartitular.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+                    if (datos['nombre_t']==null) {
+                        //$('#btnAggT').removeAttr('hidden');
+
+                        $('#n_titular').val("");
+                        $('#a_titular').val("");
+
+                        $('#id_new_titular').val(titular.value);
+                        $('#existeT').text("");
+                        $('#no_existeT').text("No Existe Titular");
+                        $('#titular').val("");
+                        $('#agregarnuevotitular').modal('show');
+
+                        $('#tablatomador').attr("hidden",true);
+                    }
+                    else{
+                        $('#tablatomador').removeAttr('readonly');
+                        $('#n_titular').val(datos['nombre_t']);
+                        $('#a_titular').val(datos['apellido_t']);
+
+                        //$("#btnAggT").attr("hidden",true);
+
+                        $('#existeT').text("Existe Titular");
+                        $('#no_existeT').text("");
+
+                        $('#id_new_titular').val("");
+
+                        $('#tablatomador').removeAttr('hidden');
+                        $('#tomador').val(titular.value);
+                        $('#n_tomador').val(datos['nombre_t']);
+                        $('#a_tomador').val(datos['apellido_t']);
+                        
+                    }
+                }
+            });
+        }
+
+        function validartomador(titular){
+            $.ajax({
+                type:"POST",
+                data:"titular=" + titular.value,
+                url:"validartitular.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+                    if (datos['nombre_t']==null) {
+                        //$('#btnAggTom').removeAttr('hidden');
+
+                        $('#n_tomador').val("");
+                        $('#a_tomador').val("");
+
+                        $('#id_new_titularT').val(titular.value);
+                        $('#existeTom').text("");
+                        $('#no_existeTom').text("No Existe Tomador");
+                        $('#tomador').val("");
+                        $("#tomador").css('color', 'black');
+
+                        $('#agregarnuevotomador').modal('show');
+
+                    }
+                    else{
+                        $('#n_tomador').val(datos['nombre_t']);
+                        $('#a_tomador').val(datos['apellido_t']);
+
+                        $("#btnAggTom").attr("hidden",true);
+
+                        $('#existeTom').text("Existe Tomador");
+                        $('#no_existeTom').text("");
+
+                        $('#id_new_titularT').val("");
+                        $("#tomador").css('color', 'black');
+
+                        //$('#tomador').val(tomador.value);
+                    } 
+                }
+            });
+        }
+
+        function cargarFecha(emisionP){
+            $('#desdeP').val($(emisionP).val());
+
+            var emisionP = ($(emisionP).val()).split('-').reverse().join('-');
+
+            var mydate = new Date(emisionP);
+            $('#hastaP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+            var desdeP = $('#desdeP').val();
+            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+
+            $( "#desdeP" ).datepicker( "setDate", desdeP );
+            $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+            $("#emisionP").css('background-color', 'transparent');
+            $("#emisionP").css('color', 'black');
+            $('#btnForm').removeAttr('disabled');
+        }
+
+        function cargarFechaDesde(desdeP){
+            $('#desdeP').val($(desdeP).val());
+
+            var desdeP = ($(desdeP).val()).split('-').reverse().join('-');
+
+            var mydate = new Date(desdeP);
+            $('#hastaP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+            var desdeP = $('#desdeP').val();
+            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+
+            $( "#desdeP" ).datepicker( "setDate", desdeP );
+            $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+        }
+
+
+        function cargarRecibo(n_poliza){
+            $('#n_recibo').val($(n_poliza).val());
+        }
+
+        function cargarCuotas(f_pago){
+  
+            if (f_pago.value==1) {
+                $('#n_cuotas').val(1);
+                $("#n_cuotas").attr("readonly",true);
+            }else{$('#n_cuotas').removeAttr('readonly');}
+
+            
+        }
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
+
+        $( "#ramo" ).change(function() {
+            if ($('#ramo').val()==2 || $('#ramo').val()==25) {
+                $('#tablaveh').removeAttr('hidden');
+            }else{
+                $('#tablaveh').attr('hidden',true);
+            }
+        });
+
+       
+    </script>
+    <script language="javascript">
+
+    function Exportar(table, name){
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        if (!table.nodeType) table = document.getElementById(table)
+         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+         window.location.href = uri + base64(format(template, ctx))
+        }
+    </script>
+
+
+</body>
+
+</html>
