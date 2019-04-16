@@ -280,7 +280,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             ?>
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><input onblur="<?php echo 'validarPoliza'.$i.'(this)';?>" type="text" class="form-control <?php echo 'validarpoliza'.$i;?>" id="<?php echo 'n_poliza'.$i;?>" name="<?php echo 'n_poliza'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                    <td><input onblur="<?php echo 'validarPoliza'.$i.'(this)';?>" type="text" class="form-control <?php echo 'validarpoliza'.$i;?>" id="<?php echo 'n_poliza'.$i;?>" name="<?php echo 'n_poliza'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
 
                                     
 
@@ -311,7 +311,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     </div>
                     
 
-                    <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Agregar nuevo</button>
+                    <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
                 </form>
                 </center>
             </div>
@@ -617,72 +617,45 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
              if(isNaN(this.value+String.fromCharCode(e1.charCode)))
                 return false;
           }
-          elee1.onpaste = function(e1){
-             e1.preventDefault();
-          }
           
           elee2.onkeypress = function(e2) {
              if(isNaN(this.value+String.fromCharCode(e2.charCode)))
                 return false;
-          }
-          elee2.onpaste = function(e2){
-             e2.preventDefault();
           }
           
           elee3.onkeypress = function(e3) {
              if(isNaN(this.value+String.fromCharCode(e3.charCode)))
                 return false;
           }
-          elee3.onpaste = function(e3){
-             e3.preventDefault();
-          }
           
           elee4.onkeypress = function(e4) {
              if(isNaN(this.value+String.fromCharCode(e4.charCode)))
                 return false;
-          }
-          elee4.onpaste = function(e4){
-             e4.preventDefault();
           }
           
           elee5.onkeypress = function(e5) {
              if(isNaN(this.value+String.fromCharCode(e5.charCode)))
                 return false;
           }
-          elee5.onpaste = function(e5){
-             e5.preventDefault();
-          }
           
           elee6.onkeypress = function(e6) {
              if(isNaN(this.value+String.fromCharCode(e6.charCode)))
                 return false;
-          }
-          elee6.onpaste = function(e6){
-             e6.preventDefault();
           }
           
           elee7.onkeypress = function(e7) {
              if(isNaN(this.value+String.fromCharCode(e7.charCode)))
                 return false;
           }
-          elee7.onpaste = function(e7){
-             e7.preventDefault();
-          }
           
           elee8.onkeypress = function(e8) {
              if(isNaN(this.value+String.fromCharCode(e8.charCode)))
                 return false;
           }
-          elee8.onpaste = function(e8){
-             e8.preventDefault();
-          }
           
           elee9.onkeypress = function(e9) {
              if(isNaN(this.value+String.fromCharCode(e9.charCode)))
                 return false;
-          }
-          elee9.onpaste = function(e9){
-             e9.preventDefault();
           }
           
           
@@ -691,53 +664,33 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         
         $('#f_pago0').datepicker({
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago1').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago2').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago3').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago4').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago5').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago6').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago7').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago8').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
         $('#f_pago9').datepicker({  
             format: "dd-mm-yyyy",
-            startDate: '<?php echo $_GET['f_desde'];?>',
-            endDate: '<?php echo $_GET['f_hasta'];?>'
         });
 
         

@@ -16,7 +16,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_desde_rep','rep_com'); 
+  $fechaMin = $obj2->get_fecha_min('f_hasta_rep','rep_com'); 
 
   $obj3= new Trabajo();
   $fechaMax = $obj3->get_fecha_max('f_hasta_rep','rep_com');
@@ -25,14 +25,14 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $obj4->get_distinct_element('nomcia','dcia'); 
 
   
-  $originalDesde = $fechaMin[0]["MIN(f_desde_rep)"];
+  $originalDesde = $fechaMin[0]["MIN(f_hasta_rep)"];
   $newDesde = date("d-m-Y", strtotime($originalDesde));
 
   $originalHasta = $fechaMax[0]["MAX(f_hasta_rep)"];
   $newHasta = date("d-m-Y", strtotime($originalHasta));
 
   $obj33= new Trabajo();
-  $fechaMinRep = $obj33->get_fecha_min('f_desde_rep','rep_com'); 
+  $fechaMinRep = $obj33->get_fecha_min('f_hasta_rep','rep_com'); 
 
   $obj55= new Trabajo();
   $fechaMaxRep = $obj55->get_fecha_max('f_hasta_rep','rep_com'); 
@@ -228,8 +228,8 @@ if(isset($_SESSION['seudonimo'])) {
                         <select class="form-control" name="anio" id="anio">
                             <option value="">Seleccione Año</option>
                         <?php
-                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_desde_rep)"]));
-                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_desde_rep)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_hasta_rep)"])); $i++)
+                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_hasta_rep)"]));
+                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_hasta_rep)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_hasta_rep)"])); $i++)
                             {  
                         ?>
                             <option value="<?php echo $date;?>"><?php echo $date;?></option>

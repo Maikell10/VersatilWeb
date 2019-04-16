@@ -4,7 +4,7 @@ require_once "../class/clases.php";
 
 
 $obj1= new Trabajo();
-$reporte = $obj1->get_element('rep_com','id_rep_com'); 
+$reporte = $obj1->get_element('rep_com','f_hasta_rep'); 
 
 
 
@@ -56,7 +56,7 @@ $totalCom=0;
 				
 				?>
                 <tr style="cursor: pointer">
-                	<td hidden=""><?php echo $reporte[$i]['f_desde_rep']; ?></td>
+                	<td hidden=""><?php echo $reporte[$i]['f_hasta_rep']; ?></td>
                     <td hidden=""><?php echo $reporte[$i]['id_rep_com']; ?></td>
 					<td><?php echo $f_desde_rep; ?></td>
 	                <td><?php echo $f_hasta_rep; ?></td>

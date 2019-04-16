@@ -586,48 +586,75 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pagos de Comisiones</h5>
+                    
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    
+                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?php echo $poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']; ?></h5>
+
+                    <hr>
+                    <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h5>
+
+                    <hr>
+                    <h5 class="modal-title" id="exampleModalLabel">Asesor: 
+                    <?php 
+                        if (isset($poliza[0]['idnom'])==null) {
+                            $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
+                        }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];} echo $asesorr;
+                    ?></h5>
+                    <hr>
+
                     <form id="frmnuevoP">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                <th>F Pago Prima</th>
-                                <th>Prima Cobrada</th>
-                                <th>Comisión Cobrada</th>
+                                    <th>Prima Cobrada</th>
+                                    <th>F Pago Prima</th>
+                                    <th>Comisión Cobrada</th>
+                                    <th>F Hasta Reporte</th>
+                                    <th>GC Pagada</th>
+                                    <th>F Pago GC</th>
                                 </tr>
                             </thead>
                             <?php   
                                 $obj10= new Trabajo();
-                                $polizap = $obj10->get_element_by_id('comision','id_poliza',$id_poliza); 
+                                $polizap = $obj10->get_comision_rep_com_by_id($id_poliza); 
 
                                 $totalprimaC=0;
                                 $totalcomisionC=0;
+                                $totalGC=0;
 
                                 for ($i=0; $i < sizeof($polizap); $i++) { 
                                     $totalprimaC=$totalprimaC+$polizap[$i]['prima_com'];
                                     $totalcomisionC=$totalcomisionC+$polizap[$i]['comision'];
+                                    $totalGC=$totalGC+(($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100);
                                 
                             ?>
                                 <tr >
-                                    <td><?php echo $polizap[$i]['f_pago_prima'];?></td>
                                     <td align="right"><?php echo $polizap[$i]['prima_com'];?></td>
+                                    <td><?php echo $polizap[$i]['f_pago_prima'];?></td>
                                     <td align="right"><?php echo $polizap[$i]['comision'];?></td>
+                                    <td nowrap><?php echo $polizap[$i]['f_hasta_rep'];?></td>
+                                    <td align="right"><?php echo ($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100;?></td>
+                                    <td nowrap><?php echo $polizap[$i]['f_pago_gc'];?></td>
                                 </tr>
                             <?php
                                 }
                             ?> 
                                 <tr>
-                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold">Prima Cobrada: <?php echo $currency.number_format($totalprimaC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold">Comisión Cobrada: <?php echo $currency.number_format($totalcomisionC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold"></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">GC Pagada: <?php echo $currency.number_format($totalGC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold"></td>
                                 </tr>
                         </table>
                     </form>
+                    <h2>Prima Pendiente: <?php echo $currency.number_format($poliza[0]['prima']-$totalprimaC,2); ?></h2>
                 </div>
             </div>
         </div>

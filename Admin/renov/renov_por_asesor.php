@@ -10,6 +10,8 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -104,7 +106,7 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><b>[Producción]</b></li>
+                    <li><b>[Renovación]</b></li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos
@@ -213,12 +215,20 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
                     <h1 class="title">Resultado de Búsqueda de Póliza a Renovar por Asesor</h1>  
-                    <h2>Año: <?php echo $_GET['anio']; 
+                    <h2>Año: <font style="font-weight:bold"><?php echo $_GET['anio']; 
                         if ($_GET['mes']==null) {
                         }else{
+                    ?></font>
+                        Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
+                    <?php
+                        if ($cia=='Seleccione Cía') {
+                        } else {
                     ?>
-                        Mes: <?php echo $_GET['mes']; } ?></h2>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
+                    <h2>Cía: <font style="font-weight:bold"><?php echo $cia; ?></font></h2>
+                    <?php
+                        }
+                    ?>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
     
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
@@ -257,10 +267,24 @@ if(isset($_SESSION['seudonimo'])) {
                         $obj2= new Trabajo();
                         $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']); 
 
+                        $ob2= new Trabajo();
+                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                        $nombre=$ejecutivoPoliza[0]['idnom'];
+                        if (sizeof($ejecutivoPoliza)==null) {
+                            $ob2= new Trabajo();
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$distinct_a[$a]['codvend']); 
+                            $nombre=$ejecutivoPoliza[0]['nombre'];
+                        }
+                        if (sizeof($ejecutivoPoliza)==null) {
+                            $ob2= new Trabajo();
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$distinct_a[$a]['codvend']); 
+                            $nombre=$ejecutivoPoliza[0]['nombre'];
+                        }
+
                         ?>
                             <tr style="cursor: pointer;">
                                 <td hidden><?php echo $poliza[$a]['id_poliza']; ?></td>
-                                <td rowspan="<?php echo sizeof($poliza); ?>"><?php echo $distinct_a[$a]['codvend']; ?></td>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
 
                         <?php
 
@@ -300,7 +324,7 @@ if(isset($_SESSION['seudonimo'])) {
                             }
                             ?>
                             <tr>
-                                <td colspan="7" style="background-color: red;color: white">Total de Pólizas según su búsqueda: <?php echo sizeof($poliza); ?></td>
+                                <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -325,7 +349,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <table hidden class="table table-hover table-striped table-bordered display table-responsive" id="Exportar_a_Excel" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Asesor</th>
                             <th>N° Póliza</th>
@@ -351,9 +375,23 @@ if(isset($_SESSION['seudonimo'])) {
                         $obj2= new Trabajo();
                         $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']); 
 
+                        $ob2= new Trabajo();
+                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                        $nombre=$ejecutivoPoliza[0]['idnom'];
+                        if (sizeof($ejecutivoPoliza)==null) {
+                            $ob2= new Trabajo();
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$distinct_a[$a]['codvend']); 
+                            $nombre=$ejecutivoPoliza[0]['nombre'];
+                        }
+                        if (sizeof($ejecutivoPoliza)==null) {
+                            $ob2= new Trabajo();
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$distinct_a[$a]['codvend']); 
+                            $nombre=$ejecutivoPoliza[0]['nombre'];
+                        }
+
                         ?>
                             <tr style="cursor: pointer;">
-                                <td rowspan="<?php echo sizeof($poliza); ?>"><?php echo $distinct_a[$a]['codvend']; ?></td>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
 
                         <?php
 
@@ -393,7 +431,7 @@ if(isset($_SESSION['seudonimo'])) {
                             }
                             ?>
                             <tr>
-                                <td colspan="7" style="background-color: red;color: white">Total de Pólizas según su búsqueda: <?php echo sizeof($poliza); ?></td>
+                                <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);

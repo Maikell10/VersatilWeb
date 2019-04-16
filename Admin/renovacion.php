@@ -44,7 +44,7 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                <li><b>[Producción]</b></li>
+                <li><b>[Renovación]</b></li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos
@@ -153,101 +153,11 @@ if(isset($_SESSION['seudonimo'])) {
         
 
         <div class="section">
-            <div class="container">
-
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Producción (Listados)</a></h2> 
-                </div>
-                <br><br>
-
-                <div class="collapse" id="collapse1">
-                    <div class="card-deck">
-
-                        <div class="card text-white bg-info mb-3">
-                            <a href="b_poliza.php" >
-                                <div class="card-body">
-                                    <h5 class="card-title">Pólizas</h5>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="card text-white bg-info mb-3">
-                            <a href="b_cliente.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Clientes</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                
-
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="b_comp.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Compañias</h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="estructura_n.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Estructura de Negocios</h5>
-                                </div>
-                            </a>
-                        </div>
-                        
-                    </div>
-                </div>
-
-            </div>
- 
-            <div class="container">
-
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Producción (Carga)</a></h2>   
-                </div>
-                <br><br>
-
-                <div class="collapse" id="collapse2">
-
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_poliza.php" >
-                                <div class="card-body">
-                                    <h5 class="card-title">Póliza Nueva</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_asesor.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Asesor, Ejecutivo, Vendedor o Líder de Proyecto</h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_compania.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Compañía Nueva</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-            
-            </div>
-
 
             <div class="container"> 
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Producción (Pólizas a Renovar)</a></h2>   
+                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Pólizas a Renovar)</a></h2>   
                 </div>
                 <br><br>
 
@@ -267,8 +177,14 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="renov/b_renov_g.php">
+                                <div class="card-body">
+                                    <h5 class="card-title">General</h5>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-
                 </div>
 
             

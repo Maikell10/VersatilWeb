@@ -20,6 +20,9 @@ if(isset($_SESSION['seudonimo'])) {
   $obj3= new Trabajo();
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
 
+ $fechaMin=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
+ $fechaMax=date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
+
 
 ?>
 <!DOCTYPE html>
@@ -81,7 +84,7 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><b>[Producción]</b></li>
+                    <li><b>[Renovación]</b></li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos
@@ -213,14 +216,13 @@ if(isset($_SESSION['seudonimo'])) {
                         <select class="form-control" name="anio" id="anio">
                             
                         <?php
-                            $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                            for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
+                            for($i=$fechaMin; $i <= $fechaMax; $i++)
                             { 
-                            if ($date<date('Y')) {
+                            if ($i<date('Y')) {
                                  
                              }else{
                         ?>
-                            <option value="<?php echo $date;?>"><?php echo $date;?></option>
+                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
                         <?php
                                 }
                             $date=$date+1;

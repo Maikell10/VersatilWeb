@@ -153,7 +153,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-            <center><h1><i class="fa fa-user fa-lg"></i> <?php echo $_SESSION['seudonimo'];?></h1></center>
+            <center><h1>Bienvenido <?php echo $_SESSION['seudonimo'];?> <i class="fa fa-user fa-lg"></i></h1></center>
             <hr>
                 <div class="row">
                         <div class="col-md-auto ml-auto mr-auto">
@@ -164,6 +164,11 @@ if(isset($_SESSION['seudonimo'])) {
                                 <li class="nav-item">
                                     <a class="nav-link" href="produccion.php">
                                         <i class="material-icons">dashboard</i> Producción
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="renovacion.php">
+                                        <i class="material-icons">alarm_on</i> Renovación
                                     </a>
                                 </li>
                                 <li class="nav-item">

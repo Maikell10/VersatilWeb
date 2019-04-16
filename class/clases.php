@@ -705,6 +705,49 @@ class Trabajo extends Conectar{
 				}
 		}
 
+	public function get_poliza_total_by_filtro_renov_distinct_ac($f_desde,$f_hasta,$cia,$asesor)
+		{
+			if ($cia=='Seleccione Cía') {
+				$cia='';
+			}
+			if ($asesor=='Seleccione el Asesor') {
+				$asesor='';
+			}
+			$sql="SELECT DISTINCT nomcia FROM 
+				poliza
+				INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+				WHERE 
+				poliza.id_poliza = drecibo.idrecibo AND
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				drecibo.idtitu = titular.id_titular AND
+				poliza.id_cia = dcia.idcia AND
+				poliza.id_cod_ramo = dramo.cod_ramo AND
+				poliza.f_hastapoliza >= '$f_desde' AND
+				poliza.f_hastapoliza <= '$f_hasta' AND
+				nomcia LIKE '%$cia%' AND
+                codvend LIKE '%$asesor%'
+				ORDER BY nomcia ASC";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					echo "No hay registros";
+					  header("Location: b_renov_g.php?m=2");
+					  exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}
+
 	public function get_poliza_total_by_filtro_renov_a($f_desde,$f_hasta,$cia,$asesor)
 			{
 				if ($cia=='Seleccione Cía') {
@@ -779,6 +822,47 @@ class Trabajo extends Conectar{
 						}
 				}
 		}	
+
+
+	public function get_poliza_total_by_filtro_renov_ac($f_desde,$f_hasta,$cia,$asesor)
+		{
+			if ($asesor=='Seleccione el Asesor') {
+				$asesor='';
+			}
+			$sql="SELECT *  FROM 
+				poliza
+				INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+				WHERE 
+				poliza.id_poliza = drecibo.idrecibo AND
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				drecibo.idtitu = titular.id_titular AND
+				poliza.id_cia = dcia.idcia AND
+				poliza.id_cod_ramo = dramo.cod_ramo AND
+				poliza.f_hastapoliza >= '$f_desde' AND
+				poliza.f_hastapoliza <= '$f_hasta' AND
+				nomcia = '$cia' AND
+				codvend LIKE '%$asesor%'
+				ORDER BY poliza.f_hastapoliza ASC";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					echo "No hay registros";
+					  header("Location: renov_g.php?m=2");
+					  exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}	
 
 
 
@@ -1093,6 +1177,36 @@ class Trabajo extends Conectar{
 	              			return $this->t;
 						}
 				}
+		}
+
+
+
+
+	public function get_comision_rep_com_by_id($id_poliza)
+		{
+				$sql="SELECT * FROM comision 
+					INNER JOIN rep_com, poliza
+					WHERE 
+					comision.id_rep_com = rep_com.id_rep_com AND
+					poliza.id_poliza = comision.id_poliza AND
+					comision.id_poliza = '$id_poliza'";
+			  $res=mysqli_query(Conectar::con(),$sql);
+			  
+			  if (!$res) {
+				  //No hay registros
+			  }else{
+				  $filas=mysqli_num_rows($res); 
+				  if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else
+					  {
+							 while($reg=mysqli_fetch_assoc($res)) {
+								 $this->t[]=$reg;
+							}
+							return $this->t;
+					  }
+			  }
 		}
 
 
@@ -2792,18 +2906,20 @@ class Trabajo extends Conectar{
 
 	public function obtenReporte($f_hasta,$idcia){
 
-			$sql="SELECT * FROM rep_com WHERE f_hasta_rep = '$f_hasta' AND
+			$sql="SELECT * FROM rep_com 
+					INNER JOIN comision
+					WHERE 
+					rep_com.id_rep_com = comision.id_rep_com AND
+					f_hasta_rep = '$f_hasta' AND
 						id_cia= '$idcia'";
 			$result=mysqli_query(Conectar::con(),$sql);
-			$ver=mysqli_fetch_row($result);
 
-			$datos=array(
-				'id_rep_com' => $ver[0],
-				'f_desde_rep' => $ver[1],
-				'f_hasta_rep' => $ver[2],
-				'f_pago_gc' => $ver[3],
-				'id_cia' => $ver[4]);
-			return $datos;
+			while($reg=mysqli_fetch_assoc($result)) {
+				$this->t[]=$reg;
+			}
+			return $this->t;
+
+			
 		}
 
 

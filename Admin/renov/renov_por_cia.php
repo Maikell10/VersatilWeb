@@ -10,6 +10,8 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -101,7 +103,7 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><b>[Producción]</b></li>
+                    <li><b>[Renovación]</b></li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos
@@ -210,11 +212,11 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
                     <h1 class="title">Resultado de Búsqueda de Póliza a Renovar por Cía</h1>  
-                    <h2>Año: <?php echo $_GET['anio']; 
+                    <h2>Año: <font style="font-weight:bold"><?php echo $_GET['anio']; 
                         if ($_GET['mes']==null) {
                         }else{
-                    ?>
-                        Mes: <?php echo $_GET['mes']; } ?></h2>
+                    ?></font>
+                        Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
                     <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
                 </div>
                 
@@ -254,7 +256,7 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
                             <tr style="cursor: pointer;">
                                 <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td rowspan="<?php echo sizeof($poliza); ?>"><?php echo $distinct_c[$a]['nomcia']; ?></td>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $distinct_c[$a]['nomcia']; ?></td>
 
                         <?php
 
@@ -291,7 +293,7 @@ if(isset($_SESSION['seudonimo'])) {
                             }
                             ?>
                             <tr>
-                                <td colspan="5" style="background-color: red;color: white">Total de Pólizas según su búsqueda: <?php echo sizeof($poliza); ?></td>
+                                <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $distinct_c[$a]['nomcia']; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -314,7 +316,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <table hidden class="table table-hover table-striped display table-responsive" id="Exportar_a_Excel" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Cía</th>
                             <th>N° Póliza</th>
@@ -340,7 +342,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                             <tr style="cursor: pointer;">
-                                <td rowspan="<?php echo sizeof($poliza); ?>"><?php echo $distinct_c[$a]['nomcia']; ?></td>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $distinct_c[$a]['nomcia']; ?></td>
 
                         <?php
 
@@ -377,13 +379,15 @@ if(isset($_SESSION['seudonimo'])) {
                             }
                             ?>
                             <tr>
-                                <td colspan="5" style="background-color: red;color: white">Total de Pólizas según su búsqueda: <?php echo sizeof($poliza); ?></td>
+                                <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $distinct_c[$a]['nomcia']; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
                         }
                         ?>
                     </tbody>
+
+
                     <tfoot>
                         <tr>
                             <th>Cía</th>

@@ -244,35 +244,6 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
 
 
-            <div class="container"> 
-
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Producción (Pólizas a Renovar)</a></h2>   
-                </div>
-                <br><br>
-
-                <div class="collapse" id="collapse3">
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_por_cia.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Por Cía</h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_por_asesor.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Por Asesor</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-            
-            </div>
         </div>
 
 

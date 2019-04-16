@@ -62,13 +62,7 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#iddatatable').DataTable({
-                scrollX: 300,
-            });
-        } );
-    </script>
+    
 
 
 
@@ -200,6 +194,10 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
                 <br>
+
+                <div class="form-group">
+                    <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
+                </div>
 
                 <table class="table table-hover table-striped table-bordered table-responsive" id="" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -376,6 +374,22 @@ if(isset($_SESSION['seudonimo'])) {
          var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
          window.location.href = uri + base64(format(template, ctx))
         }
+    </script>
+
+    <script>
+     // Write on keyup event of keyword input element
+     $(document).ready(function(){
+     $("#search").keyup(function(){
+     _this = this;
+     // Show only matching TR, hide rest of them
+     $.each($("#iddatatable tbody tr"), function() {
+     if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+     $(this).hide();
+     else
+     $(this).show();
+     });
+     });
+    });
     </script>
     
 
