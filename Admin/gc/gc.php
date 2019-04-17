@@ -220,7 +220,7 @@ if(isset($_SESSION['seudonimo'])) {
                         }else{
                     ?></font>
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
     
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
@@ -314,6 +314,15 @@ if(isset($_SESSION['seudonimo'])) {
                                 $currency="$ ";
                             }else{$currency="Bs ";}
 
+                            if ($poliza[$i]['id_titular']==0) {
+                                $ob22= new Trabajo();
+                                $titular_pre = $ob22->get_element_by_id('titular_pre_poliza','id_poliza',$poliza[$i]['id_poliza']);
+                                $nombretitu=$titular_pre[0]['asegurado'];
+                            } else {
+                                $nombretitu=$poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t'];
+                            }
+                            
+
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
@@ -327,27 +336,32 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                <td><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                <td><?php echo utf8_encode($nombretitu); ?></td>
                                 <td nowrap><?php echo $poliza[$i]['nomcia']; ?></td>
-                                <td align="right"><?php echo number_format($poliza[$i]['prima_com'],2); ?></td>
-                                <td align="right"><?php echo number_format($poliza[$i]['comision'],2); ?></td>
-                                <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],2)." %"; ?></td>
-                                <td align="right"><?php echo number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
-                                <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],2)." %"; ?></td>
+                                <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
+                                <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
+                                <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
+                                <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
+                                <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],0)." %"; ?></td>
                             </tr>
                             <?php
+                            }
+                            $total_per_com=($totalcomision*100)/$totalprimacom;
+                            if (number_format($totalprimacom,2)==0.00 ) {
+                                $totalprimacom=0;
+                                $total_per_com=0;
                             }
                             ?>
                             <tr>
                                 <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo $totalprimacom; ?></font></td>
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo $totalcomision; ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".$totalprimacom; ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".$totalcomision; ?></font></td>
 
-                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomision*100)/$totalprimacom,2)." %"; ?></font></td>
+                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format($total_per_com,0)." %"; ?></font></td>
 
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format($totalgc,2); ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgc,2); ?></font></td>
 
-                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgc*100)/$totalcomision,2)." %"; ?></font></td>
+                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgc*100)/$totalcomision,0)." %"; ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -356,12 +370,12 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <td style="background-color:red;color:white;font-weight: bold" colspan="4">Total General</td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalprimacomT; ?></font></td>
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalcomisionT; ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
 
                             <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalgcT; ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
 
                             <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
                         </tr>
@@ -385,18 +399,23 @@ if(isset($_SESSION['seudonimo'])) {
                 </table>
 
 
-                <table class="table table-hover table-striped table-bordered display table-responsive" id="Exportar_a_Excel" style="cursor: pointer;">
+                <table class="table table-hover table-striped table-bordered display table-responsive" id="Exportar_a_Excel" style="cursor: pointer;" hidden>
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Asesor</th>
+                            <th>Ramo</th>
                             <th>N° Póliza</th>
+                            <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Cía</th>
                             <th>Prima Cobrada</th>
+                            <th>F Prima</th>
                             <th>Comisión Cobrada</th>
                             <th>% Com</th>
+                            <th>F Rep Com</th>
                             <th>GC Pagada</th>
                             <th>%GC Asesor</th>
+                            <th>Cant</th>
                         </tr>
                     </thead>
                     
@@ -466,56 +485,97 @@ if(isset($_SESSION['seudonimo'])) {
                                 $currency="$ ";
                             }else{$currency="Bs ";}
 
+                            if ($poliza[$i]['id_titular']==0) {
+                                $ob22= new Trabajo();
+                                $titular_pre = $ob22->get_element_by_id('titular_pre_poliza','id_poliza',$poliza[$i]['id_poliza']);
+                                $nombretitu=$titular_pre[0]['asegurado'];
+                            } else {
+                                $nombretitu=$poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t'];
+                            }
+                            
+
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
+                                <td><?php echo $poliza[$i]['nramo']; ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
+                                <td><?php echo $poliza[$i]['nramo']; ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
+                            $originalFHasta = $poliza[$i]['f_hastapoliza'];
+                            $newFHasta = date("d/m/Y", strtotime($originalFHasta));
+
+                            $originalFPagoP = $poliza[$i]['f_pago_prima'];
+                            $newFPagoP = date("d/m/Y", strtotime($originalFPagoP));
+
+                            $originalFRepC = $poliza[$i]['f_hasta_rep'];
+                            $newFRepC = date("d/m/Y", strtotime($originalFRepC));
+
                             ?>
-                            
-                                <td><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                
+                                <td nowrap><?php echo $newFHasta; ?></td>
+                                <td><?php echo utf8_encode($nombretitu); ?></td>
                                 <td nowrap><?php echo $poliza[$i]['nomcia']; ?></td>
-                                <td align="right"><?php echo number_format($poliza[$i]['prima_com'],2); ?></td>
-                                <td align="right"><?php echo number_format($poliza[$i]['comision'],2); ?></td>
-                                <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],2)." %"; ?></td>
-                                <td align="right"><?php echo number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
-                                <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],2)." %"; ?></td>
+                                <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
+                                <td nowrap><?php echo $newFPagoP; ?></td>
+                                <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
+                                <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
+                                <td nowrap><?php echo $newFRepC; ?></td>
+                                <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
+                                <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],0)." %"; ?></td>
+                                <td nowrap align="center">1</td>
                             </tr>
                             <?php
                             }
+                            $total_per_com=($totalcomision*100)/$totalprimacom;
+                            if (number_format($totalprimacom,2)==0.00 ) {
+                                $totalprimacom=0;
+                                $total_per_com=0;
+                            }
                             ?>
                             <tr>
-                                <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo $totalprimacom; ?></font></td>
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo $totalcomision; ?></font></td>
+                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacom,2); ?></font></td>
 
-                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomision*100)/$totalprimacom,2)." %"; ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"></td>
 
-                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format($totalgc,2); ?></font></td>
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomision,2); ?></font></td>
 
-                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgc*100)/$totalcomision,2)." %"; ?></font></td>
+                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format($total_per_com,0)." %"; ?></font></td>
+
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"></td>
+
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgc,2); ?></font></td>
+
+                                <td nowrap align="center" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgc*100)/$totalcomision,0)." %"; ?></font></td>
+
+                                <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><?php echo sizeof($poliza); ?></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
                         }
                         ?>
                         <tr>
-                            <td style="background-color:red;color:white;font-weight: bold" colspan="4">Total General</td>
+                            <td style="background-color:red;color:white;font-weight: bold" colspan="6">Total General</td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalprimacomT; ?></font></td>
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalcomisionT; ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"> </td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
 
                             <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo $totalgcT; ?></font></td>
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"> </td>
+
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
 
                             <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
+
+                            <td align="right" style="background-color: red;color: white;font-weight: bold"><?php echo $totalpoliza; ?></td>
                         </tr>
                     </tbody>
 
@@ -523,14 +583,19 @@ if(isset($_SESSION['seudonimo'])) {
                     <tfoot>
                         <tr>
                             <th>Asesor</th>
+                            <th>Ramo</th>
                             <th>N° Póliza</th>
+                            <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Cía</th>
                             <th>Prima Cobrada</th>
+                            <th>F Prima</th>
                             <th>Comisión Cobrada</th>
                             <th>% Com</th>
+                            <th>F Rep Com</th>
                             <th>GC Pagada</th>
                             <th>%GC Asesor</th>
+                            <th>Cant</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -628,7 +693,9 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 
+
    <script language="javascript">
+    
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

@@ -19,11 +19,13 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $obj1->get_element_by_id('dcia','idcia',$rep_com[0]['id_cia']); 
 
   $obj2= new Trabajo();
-  $comision = $obj2->get_element_by_id('comision','id_rep_com',$rep_com[0]['id_rep_com']);
+  $comision = $obj2->get_element_by_id('comision','id_rep_com',$_GET['id_rep_com']);
 
   $f_pago_gc = date("d-m-Y", strtotime($rep_com[0]['f_pago_gc']));
   $f_desde_rep = date("d-m-Y", strtotime($rep_com[0]['f_desde_rep']));
   $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
+
+
 
 
 ?>
@@ -191,6 +193,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title">Compañía: <?php echo $cia[0]['nomcia']; ?></h1>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
 
                 <br>
@@ -202,9 +205,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <table class="table table-hover table-striped table-bordered table-responsive" id="" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th colspan="2">Fecha Desde Reporte</th>
-                            <th colspan="3">Fecha Hasta Reporte</th>
-                            <th colspan="2">Fecha Pago GC</th>
+                            <th >Fecha Hasta Reporte</th>
+                            <th >Fecha Pago GC</th>
                             <th hidden>id reporte</th>
                             <th hidden>cia</th>
                             <th hidden>cant_poliza</th>
@@ -212,9 +214,8 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="2"><?php echo $f_desde_rep; ?></td>
-                            <td colspan="3"><?php echo $f_hasta_rep; ?></td>
-                            <td colspan="2"><?php echo $f_pago_gc; ?></td>
+                            <td ><?php echo $f_hasta_rep; ?></td>
+                            <td ><?php echo $f_pago_gc; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -241,18 +242,25 @@ if(isset($_SESSION['seudonimo'])) {
                             $totalCom=$totalCom+$comision[$i]['comision'];
 
                             $obj11= new Trabajo();
-                            $titu = $obj11->get_poliza_by_num($comision[$i]['num_poliza']);
+                            $titu = $obj11->get_poliza_by_id($comision[$i]['id_poliza']);
 
                             $f_pago_prima = date("d-m-Y", strtotime($comision[$i]['f_pago_prima']));
+
+                            $nombre=$titu[0]['nombre_t']." ".$titu[0]['apellido_t'];
+                            if ($titu[0]['id_titular']==0) {
+                                $ob11= new Trabajo();
+                                $tituprep = $ob11->get_element_by_id('titular_pre_poliza','id_poliza',$comision[$i]['id_poliza']);
+                                $nombre=$tituprep[0]['asegurado'];
+                            }
 
                         ?>
                         <tr>
                             <td><?php echo $comision[$i]['num_poliza']; ?></td>
-                            <td nowrap><?php echo $titu[0]['nombre_t']." ".$titu[0]['apellido_t']; ?></td>
+                            <td nowrap><?php echo $nombre; ?></td>
                             <td><?php echo $f_pago_prima; ?></td>
-                            <td align="right"><?php echo number_format($comision[$i]['prima_com'],2); ?></td>
-                            <td align="right"><?php echo number_format($comision[$i]['comision'],2); ?></td>
-                            <td><?php echo number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
+                            <td align="right"><?php echo "$ ".number_format($comision[$i]['prima_com'],2); ?></td>
+                            <td align="right"><?php echo "$ ".number_format($comision[$i]['comision'],2); ?></td>
+                            <td align="center"><?php echo number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
                             <td><?php echo $comision[$i]['cod_vend']; ?></td>
                         </tr>
                         <?php
@@ -266,8 +274,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td align="right"><?php echo number_format($totalPrimaCom,2); ?></td>
-                            <td align="right"><?php echo number_format($totalCom,2); ?></td>
+                            <td align="right"><font size=4><?php echo "$ ".number_format($totalPrimaCom,2); ?></font></td>
+                            <td align="right"><font size=4><?php echo "$ ".number_format($totalCom,2); ?></font></td>
                             <td></td>
                             <td></td>
                         </tr>

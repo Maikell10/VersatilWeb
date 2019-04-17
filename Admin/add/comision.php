@@ -11,8 +11,8 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../../class/clases.php");
 
 
-
-  $f_desde=$_GET['f_desde'];
+  $primat_com=$_GET['primat_com'];
+  $comt=$_GET['comt'];
   $f_hasta=$_GET['f_hasta'];
   $f_pagoGc=$_GET['f_pagoGc'];
   $id_rep=$_GET['id_rep'];
@@ -224,22 +224,29 @@ if(isset($_SESSION['seudonimo'])) {
                             <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
                             <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th colspan="2">Fecha Desde *</th>
-                                    <th colspan="3">Fecha Hasta *</th>
                                     <th colspan="2">Fecha Pago GC *</th>
+                                    <th colspan="2">Fecha Hasta *</th>
+                                    <th colspan="2">Total Prima Cobrada</th>
+                                    <th>Total Comision Cobrada</th>
                                     <th hidden>id reporte</th>
                                     <th hidden>cia</th>
                                     <th hidden>cant_poliza</th>
+                                    <th hidden>prima_comt</th>
+                                    <th hidden>comt</th>
                                 </tr>
                             </thead>
                                 <tr style="background-color: white">
-                                    <td colspan="2"><input type="text" class="form-control" id="f_desde" name="f_desde" value="<?php echo $f_desde;?>" readonly></td>
-                                    <td colspan="3"><input type="text" class="form-control" id="f_hasta" name="f_hasta" value="<?php echo $f_hasta;?>" readonly></td>
                                     <td colspan="2"><input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" value="<?php echo $f_pagoGc;?>" readonly></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="f_hasta" name="f_hasta" value="<?php echo $f_hasta;?>" readonly></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="primat_com" name="primat_com" value="<?php echo $primat_com;?>" readonly></td>
+                                    <td><input type="text" class="form-control" id="comt" name="comt" value="<?php echo $comt;?>" readonly></td>
                                    
                                     <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="<?php echo $id_rep;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="cant_poliza" name="cant_poliza" value="<?php echo $cant_poliza;?>"></td>
+
+                                    <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?php echo $_GET['primat_comt'];?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?php echo $_GET['comtt'];?>"></td>
                                 </tr>
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
                                     <th>N° de Póliza *</th>
@@ -259,18 +266,28 @@ if(isset($_SESSION['seudonimo'])) {
 
                                     for ($i=0; $i < sizeof($historialC); $i++) { 
                                         $obj3= new Trabajo();
-                                        $cliente = $obj3->get_poliza_by_num($historialC[$i]['num_poliza']);
+                                        $cliente = $obj3->get_poliza_by_id($historialC[$i]['id_poliza']);
                                         $totalPrima=$totalPrima+$historialC[$i]['prima_com'];
                                         $totalComision=$totalComision+$historialC[$i]['comision'];
 
                                         $obj4= new Trabajo();
                                         $asesor = $obj4->get_element_by_id('ena','cod',$historialC[$i]['cod_vend']);
                                         $nombrea=$asesor[0]['idnom'];
+
+                                        $nombre=$cliente[0]['nombre_t']." ".$cliente[0]['apellido_t'];
+                                        if ($cliente[0]['id_titular']==0) {
+                                            $ob11= new Trabajo();
+                                            $tituprep = $ob11->get_element_by_id('titular_pre_poliza','id_poliza',$historialC[$i]['id_poliza']);
+                                            $nombre=$tituprep[0]['asegurado'];
+                                        }
+
+                                        $originalFPP = $historialC[$i]['f_pago_prima'];
+				                        $newFPP = date("d/m/Y", strtotime($originalFPP));
                             ?>
                                 <tr>
                                     <td><?php echo $historialC[$i]['num_poliza'];?></td>
-                                    <td><?php echo $cliente[0]['nombre_t']." ".$cliente[0]['apellido_t'];?></td>
-                                    <td><?php echo $historialC[$i]['f_pago_prima'];?></td>
+                                    <td><?php echo $nombre;?></td>
+                                    <td><?php echo $newFPP;?></td>
                                     <td style="background-color: #E54848;color: white" align="right"><?php echo number_format($historialC[$i]['prima_com'],2);?></td>
                                     <td align="right"><?php echo number_format($historialC[$i]['comision'],2);?></td>
                                     <td style="text-align: center;"><?php echo number_format(($historialC[$i]['comision']*100)/$historialC[$i]['prima_com'],2)." %";?></td>
@@ -293,8 +310,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" id="<?php echo 'n_poliza'.$i;?>" name="<?php echo 'n_poliza'.$i;?>" value="<?php echo $_GET['n_poliza'.$i];?>" readonly></td>
                                     <td><input type="text" class="form-control" id="<?php echo 'nom_titu'.$i;?>" name="<?php echo 'nom_titu'.$i;?>" value="<?php echo $_GET['nom_titu'.$i];?>" readonly></td>
                                     <td><input type="text" class="form-control" id="<?php echo 'f_pago'.$i;?>" name="<?php echo 'f_pago'.$i;?>" value="<?php echo $_GET['f_pago'.$i];?>" readonly></td>
-                                    <td style="background-color: #E54848"><input style="background-color: #E54848;color: white;text-align: right" type="text" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" value="<?php echo number_format($_GET['prima'.$i],2);?>" readonly></td>
-                                    <td><input type="text" class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>" value="<?php echo number_format($_GET['comision'.$i],2);?>" readonly style="text-align: right"></td>
+                                    <td style="background-color: #E54848"><input style="background-color: #E54848;color: white;text-align: right" type="text" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" value="<?php echo $_GET['prima'.$i];?>" readonly></td>
+                                    <td><input type="text" class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>" value="<?php echo $_GET['comision'.$i];?>" readonly style="text-align: right"></td>
                                     <td><input style="text-align: center;" type="text" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" value="<?php echo $_GET['comisionPor'.$i];?>" readonly></td>
                                     <td><input type="text" class="form-control" id="<?php echo 'asesor'.$i;?>" name="<?php echo 'asesor'.$i;?>" value="<?php echo $_GET['asesor'.$i];?>" readonly></td>
                                     

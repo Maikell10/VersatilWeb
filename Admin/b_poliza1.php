@@ -237,7 +237,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
                     <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
                 
                 
@@ -264,6 +264,9 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalprima=0;
                         $currency="";
                         for ($i=0; $i < sizeof($poliza); $i++) { 
+                            if ($poliza[$i]['id_titular']==0) {
+					
+                            } else {
                             $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
                             $totalprima=$totalprima+$poliza[$i]['prima'];
 
@@ -307,6 +310,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo $poliza[$i]['apellido_t']; ?></td>
                             </tr>
                             <?php
+                            }
                         }
                         ?>
                     </tbody>

@@ -193,7 +193,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
                 <div class="col-md-auto col-md-offset-2">
                     <center><h1 class="title">Pólizas a Renovar por Asesor</h1></center>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
 
                 

@@ -1009,15 +1009,15 @@ class Trabajo extends Conectar{
 
 
 
-		public function get_poliza_by_num($num_poliza)
+		public function get_poliza_by_id($id_poliza)
 			{
-				$sql="SELECT nombre_t, apellido_t  FROM 
+				$sql="SELECT poliza.id_titular, nombre_t, apellido_t  FROM 
 						poliza
 						INNER JOIN titular, drecibo
 						WHERE 
 						poliza.id_poliza= drecibo.idrecibo AND
 						poliza.id_titular = titular.id_titular AND
-						poliza.cod_poliza = $num_poliza";
+						poliza.id_poliza = $id_poliza";
 			$res=mysqli_query(Conectar::con(),$sql);
 			
 			if (!$res) {
@@ -1043,12 +1043,12 @@ class Trabajo extends Conectar{
 		    {
 					if ($id_cia==0) {
 						$sql="SELECT * FROM rep_com WHERE 
-							f_desde_rep >= '$f_desde_rep' AND
-					        f_hasta_rep <= '$f_hasta_rep'";
+							f_pago_gc >= '$f_desde_rep' AND
+					        f_pago_gc <= '$f_hasta_rep'";
 					} else {
 						$sql="SELECT * FROM rep_com WHERE 
-							f_desde_rep >= '$f_desde_rep' AND
-					        f_hasta_rep <= '$f_hasta_rep' AND
+							f_pago_gc >= '$f_desde_rep' AND
+					        f_pago_gc <= '$f_hasta_rep' AND
 					        id_cia = $id_cia";
 					}
 					
@@ -2514,12 +2514,12 @@ class Trabajo extends Conectar{
 
 	public function agregarPoliza($cod_poliza,$f_poliza,$f_emi,$tcobertura,$f_desdepoliza,
 									$f_hastapoliza,$currency,$id_tpoliza,$sumaasegurada,$id_zproduccion,
-									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind){
+									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind,$t_cuenta){
 
 
 			$sql="INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta)
 									values ('$cod_poliza',
 											'$f_poliza',
 											'$f_emi',
@@ -2535,7 +2535,8 @@ class Trabajo extends Conectar{
 											'$id_cia',
 											'$id_titular',
 											'$id_tomador',
-											'$asesor_ind')";
+											'$asesor_ind',
+											'$t_cuenta')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -2614,14 +2615,15 @@ class Trabajo extends Conectar{
 
 
 
-	public function agregarRepCom($f_desde_rep,$f_hasta_rep,$f_pago_gc,$id_cia){
+	public function agregarRepCom($f_hasta_rep,$f_pago_gc,$id_cia,$prima_comt,$comt){
 
 
-			$sql="INSERT into rep_com (f_desde_rep,f_hasta_rep,f_pago_gc,id_cia)
-									values ('$f_desde_rep',
-											'$f_hasta_rep',
+			$sql="INSERT into rep_com (f_hasta_rep,f_pago_gc,id_cia,primat_com,comt)
+									values ('$f_hasta_rep',
 											'$f_pago_gc',
-											'$id_cia')";
+											'$id_cia',
+											'$prima_comt',
+											'$comt')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -2746,7 +2748,7 @@ class Trabajo extends Conectar{
 
 			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza  FROM 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -2768,7 +2770,7 @@ class Trabajo extends Conectar{
 						
 						$sql1="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza  FROM 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
 		                    poliza
 		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
 		                  	WHERE 
@@ -2791,7 +2793,7 @@ class Trabajo extends Conectar{
 								
 								$sql2="SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza  FROM 
+									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
 				                    poliza
 				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
 				                  	WHERE 
@@ -2832,7 +2834,8 @@ class Trabajo extends Conectar{
 									'serial' => $ver2[21],
 									'cveh' => $ver2[22],
 									'catveh' => $ver2[23],
-									'id_poliza' => $ver2[24]
+									'id_poliza' => $ver2[24],
+									't_cuenta' => $ver2[25]
 									);
 								return $datos2;
 					      	}else{
@@ -2862,7 +2865,8 @@ class Trabajo extends Conectar{
 										'serial' => $ver1[21],
 										'cveh' => $ver1[22],
 										'catveh' => $ver1[23],
-										'id_poliza' => $ver1[24]
+										'id_poliza' => $ver1[24],
+										't_cuenta' => $ver1[25]
 										);
 									return $datos1;
 								}	
@@ -2894,7 +2898,8 @@ class Trabajo extends Conectar{
 								'serial' => $ver[21],
 								'cveh' => $ver[22],
 								'catveh' => $ver[23],
-								'id_poliza' => $ver[24]
+								'id_poliza' => $ver[24],
+								't_cuenta' => $ver[25]
 								);
 							return $datos;
 						}
@@ -2907,17 +2912,24 @@ class Trabajo extends Conectar{
 	public function obtenReporte($f_hasta,$idcia){
 
 			$sql="SELECT * FROM rep_com 
-					INNER JOIN comision
 					WHERE 
-					rep_com.id_rep_com = comision.id_rep_com AND
 					f_hasta_rep = '$f_hasta' AND
 						id_cia= '$idcia'";
-			$result=mysqli_query(Conectar::con(),$sql);
 
-			while($reg=mysqli_fetch_assoc($result)) {
-				$this->t[]=$reg;
-			}
-			return $this->t;
+			$result=mysqli_query(Conectar::con(),$sql);
+			$ver=mysqli_fetch_row($result);
+
+			$datos=array(
+				'id_rep_com' => $ver[0],
+				'f_hasta_rep' => $ver[1],
+				'f_pago_gc' => $ver[2],
+				'id_cia' => $ver[3],
+				'primat_com' => $ver[4],
+				'comt' => $ver[5]
+				);
+			return $datos;
+
+
 
 			
 		}

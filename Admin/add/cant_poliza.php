@@ -197,10 +197,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <table class="table table-hover table-striped table-bordered display table-responsive " id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Total Prima Cobrada</th>
-                                    <th>Fecha Hasta *</th>
                                     <th>Fecha Pago GC *</th>
+                                    <th>Fecha Hasta *</th>
                                     <th>Seleccione Cantidad de Pólizas *</th>
+                                    <th>Total Prima Cobrada</th>
+                                    <th>Total Comisión Cobrada</th>
                                     <th hidden>id reporte</th>
                                     <th hidden>cia</th>
                                     <th hidden>cant_poliza</th>
@@ -209,15 +210,16 @@ if(isset($_SESSION['seudonimo'])) {
                             </thead>
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="prima_com" name="prima_com" required></td>
-                                    <td><div class="input-group date">
-                                            <input onblur="validarReporte(this)" type="text" class="form-control" id="f_hasta" name="f_hasta" required data-toggle="tooltip" data-placement="bottom" title="Fecha Hasta Reporte. Campo Obligatorio">
-                                        </div>
-                                    </td>
                                     <td><div class="input-group date">
                                             <input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" required data-toggle="tooltip" data-placement="bottom" title="Fecha Pago de la Gestión de Cobranza. Campo Obligatorio">
                                         </div>
                                     </td>
+                                    <td><div class="input-group date">
+                                            <input onblur="validarReporte(this)" type="text" class="form-control" id="f_hasta" name="f_hasta" required data-toggle="tooltip" data-placement="bottom" title="Fecha Hasta Reporte. Campo Obligatorio">
+                                        </div>
+                                    </td>
+
+                                    
                                     <td><select class="custom-select" id="cant_poliza" name="cant_poliza" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un Nº correspondiente a la Cantidad de Pólizas a Cargar">
                                         <option value="">Seleccione Cantidad de Pólizas</option>
                                         <option value="1">1</option>
@@ -231,6 +233,9 @@ if(isset($_SESSION['seudonimo'])) {
                                         <option value="9">9</option> 
                                         <option value="10">10</option> 
                                     </select></td>
+                                    <td><input type="number" step="0.01" class="form-control" id="primat_com" name="primat_com" required></td>
+                                    <td><input type="number" step="0.01" class="form-control" id="comt" name="comt" required></td>
+
                                     <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="0"></td>
                                     <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="exx" name="exx"></td>
@@ -355,7 +360,7 @@ if(isset($_SESSION['seudonimo'])) {
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos[0]['id_rep_com']==null) {
+                    if (datos['id_rep_com']==null) {
                         $("#existeRep").text('');
                         $("#no_existeRep").text('No se ha creado el Reporte de Comisión para la Cía y Fecha Seleccionada');
                         
@@ -363,15 +368,18 @@ if(isset($_SESSION['seudonimo'])) {
                         $("#f_pagoGc").val('');  
 
                         $("#exx").val(0);  
+
+                        $("#primat_com").val('');
+                        $("#comt").val('');
                         
                     }
                     else{
                         $("#existeRep").text('Reporte de Comisión ya Generado para la Cía y Fecha Seleccionada');
                         $("#no_existeRep").text('');   
 
-                        $("#id_rep").val(datos[0]['id_rep_com']);  
+                        $("#id_rep").val(datos['id_rep_com']);  
 
-                        var f_pagoGc = datos[0]['f_pago_gc'].split('-').reverse().join('-');
+                        var f_pagoGc = datos['f_pago_gc'].split('-').reverse().join('-');
                         //var f_desde = datos['f_desde_rep'].split('-').reverse().join('-');
                         $("#f_pagoGc").val(f_pagoGc); 
                         $( "#f_pagoGc" ).datepicker( "setDate", f_pagoGc );
@@ -380,14 +388,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                         $("#exx").val(1);
 
-                        var totalprima =0;
-                        for (let index = 0; index < datos.length; index++) {
-                            totalprima = parseFloat(totalprima) + parseFloat(datos[index]['prima_com']);
-                        }
-                        
-                        
-
-                        $("#prima_com").val(totalprima);
+                        $("#primat_com").val(datos['primat_com']);
+                        $("#comt").val(datos['comt']);
                     }
                 }
             });

@@ -196,8 +196,25 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div>
-                        
                     </div>
+
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="b_f_product.php">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pólizas Fecha Producción</h5>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="b_pendientes.php">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pólizas Pendientes</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

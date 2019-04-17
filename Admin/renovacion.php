@@ -186,9 +186,30 @@ if(isset($_SESSION['seudonimo'])) {
                         </div>
                     </div>
                 </div>
-
-            
             </div>
+
+            <div class="container">
+
+                <div class="col-md-auto col-md-offset-2 hover-collapse">
+                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a></h2>   
+                </div>
+                <br><br>
+
+                <div class="collapse" id="collapse2">
+
+                    <div class="card-deck">
+                        <div class="card text-white bg-info mb-3">
+                            <a href="add/crear_poliza.php" >
+                                <div class="card-body">
+                                    <h5 class="card-title">Renovar Póliza</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
         </div>
 
 

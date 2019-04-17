@@ -198,6 +198,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad" hidden="true">
+                <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                     <h1 class="title">Lista Pólizas
                         <a href="add/crear_poliza.php" class="btn btn-info pull-right menu"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Nueva Póliza</a>
                     </h1>  

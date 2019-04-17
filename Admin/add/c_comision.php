@@ -30,7 +30,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
   $cia = $obj1->get_element_by_id('dcia','idcia',$idcia); 
 
   
-
+ 
 
 
 
@@ -222,22 +222,29 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <table class="table table-hover table-striped table-bordered table-responsive " id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th colspan="2">Fecha Desde Reporte *</th>
-                                    <th colspan="3">Fecha Hasta Reporte *</th>
-                                    <th colspan="2">Fecha Pago GC *</th>
+                                    <th colspan="2">Fecha Pago GC</th>
+                                    <th colspan="2">Fecha Hasta Reporte</th>
+                                    <th colspan="2">Total Prima Cobrada</th>
+                                    <th>Total Comision Cobrada</th>
                                     <th hidden>id reporte</th>
                                     <th hidden>cia</th>
                                     <th hidden>cant_poliza</th>
+                                    <th hidden>prima_comt</th>
+                                    <th hidden>comt</th>
                                 </tr>
                             </thead>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" id="f_desde" name="f_desde" readonly value="<?php echo $_GET['f_desde'];?>"></td>
-                                    <td colspan="3"><input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?php echo $_GET['f_hasta'];?>"></td>
                                     <td colspan="2"><input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" readonly value="<?php echo $_GET['f_pagoGc'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?php echo $_GET['f_hasta'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="primat_com" name="primat_com" readonly value="<?php echo "$ ".number_format($_GET['primat_com'],2);?>"></td>
+                                    <td><input type="text" class="form-control" id="comt" name="comt" readonly value="<?php echo "$ ".number_format($_GET['comt'],2);?>"></td>
 
                                     <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="<?php echo $id_rep;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="cant_poliza" name="cant_poliza" value="<?php echo $cant_poliza;?>"></td>
+
+                                    <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?php echo $_GET['primat_com'];?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?php echo $_GET['comt'];?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -245,28 +252,44 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     <th>Asegurado</th>
                                     <th>Fecha de Pago de la Prima *</th>
                                     <th style="background-color: #E54848;">Prima Sujeta a Comisión *</th>
-                                    <th>Comisión *</th>
-                                    <th>% Comisión</th>
+                                    <th>% Comisión *</th>
+                                    <th>Comisión</th>
                                     <th>Asesor - Ejecutivo</th>
                                     <th hidden>Cod Asesor - Ejecutivo</th>
                                     <th hidden>idpoliza</th>
                                 </tr>
                             <?php
-                                if ($_GET['ex']==1) {
+                                if ($_GET['exx']==1) {
                                     $obj10= new Trabajo();
                                     $repEx = $obj10->get_comision($id_rep);
+                                    $totalprimaant=0;
+                                    $totalcomant=0;
 
                                     for ($i=0; $i < sizeof($repEx) ; $i++) {   
                                         $obj11= new Trabajo();
-                                        $titu = $obj11->get_poliza_by_num($repEx[$i]['num_poliza']);
+                                        $titu = $obj11->get_poliza_by_id($repEx[$i]['id_poliza']);
+
+                                        $totalprimaant=$totalprimaant+$repEx[$i]['prima_com'];
+                                        $totalcomant=$totalcomant+$repEx[$i]['comision'];
+
+                                        $nombre=$titu[0]['nombre_t']." ".$titu[0]['apellido_t'];
+                                        if ($titu[0]['id_titular']==0) {
+                                            $ob11= new Trabajo();
+                                            $tituprep = $ob11->get_element_by_id('titular_pre_poliza','id_poliza',$repEx[$i]['id_poliza']);
+                                            $nombre=$tituprep[0]['asegurado'];
+                                        }
+
+                                        $originalFPP = $repEx[$i]['f_pago_prima'];
+				                        $newFPP = date("d/m/Y", strtotime($originalFPP));
                             ?>
                                     <tr >
                                         <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['num_poliza'];?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo $titu[0]['nombre_t']." ".$titu[0]['apellido_t'];?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['f_pago_prima'];?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo number_format($repEx[$i]['prima_com'],2);?>" readonly style="text-align:right"></td>
-                                        <td><input type="text" class="form-control" value="<?php echo number_format($repEx[$i]['comision'],2);?>" readonly style="text-align:right"></td>
+                                        <td><input type="text" class="form-control" value="<?php echo $nombre;?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?php echo $newFPP;?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?php echo "$ ".number_format($repEx[$i]['prima_com'],2);?>" readonly style="text-align:right"></td>
                                         <td><input type="text" class="form-control" value="<?php echo number_format((($repEx[$i]['comision']*100)/$repEx[$i]['prima_com']),2)."%";?>" readonly style="text-align:center"></td>
+                                        <td><input type="text" class="form-control" value="<?php echo "$ ".number_format($repEx[$i]['comision'],2);?>" readonly style="text-align:right"></td>
+                                        
                                         <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['cod_vend'];?>" readonly></td>
                                         <td hidden><input type="text" class="form-control" ></td>
                                         <td hidden><input type="text" class="form-control" ></td>
@@ -290,9 +313,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         </div>
                                     </td>
                                     <td><input type="number" step="0.01" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
-                                    <td><input onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>   
 
-                                    <td><input style="text-align: center" type="text" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" readonly></td> 
+                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td> 
+
+                                    <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
+
+                                    
                                     <td><input type="text" class="form-control" readonly="true" id="<?php echo 'asesor'.$i;?>" name="<?php echo 'asesor'.$i;?>" ></td>
 
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'codasesor'.$i;?>" name="<?php echo 'codasesor'.$i;?>" ></td>
@@ -304,11 +330,23 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             </tbody>
                             <?php
                             }
-                                ?>
+                            ?>
                         </table>
-
+                        
                         
                     </div>
+
+                        <?php
+                            if ($totalprimaant>$_GET['primat_com']) {
+                        ?>  
+                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
+                        <?php      
+                            } elseif($totalprimaant<$_GET['primat_com']) {
+                        ?>
+                            <h2 style="color:gold;font-weight:bold">Falta cargar <?php echo "$ ".number_format($_GET['primat_com']-$totalprimaant,2);?> de prima sujeta a comisión</h2>
+                        <?php 
+                            }
+                        ?>
                     
 
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
@@ -665,33 +703,43 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         $('#f_pago0').datepicker({
             format: "dd-mm-yyyy",
         });
+        $("#f_pago0").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago1').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago1").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago2').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago2").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago3').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago3").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago4').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago4").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago5').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago5").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago6').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago6").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago7').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago7").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago8').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago8").datepicker("setDate", $("#f_hasta").val());
         $('#f_pago9').datepicker({  
             format: "dd-mm-yyyy",
         });
+        $("#f_pago9").datepicker("setDate", $("#f_hasta").val());
 
         
 
@@ -1101,62 +1149,72 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         function calcularP0(comision){
             var comision = $("#comision0").val();
             var prima = $("#prima0").val();
+            var porcent = $("#comisionPor0").val();
 
-            $("#comisionPor0").val(((comision*100)/prima)+"%");
+            $("#comision0").val(((prima*porcent)/100));
         }
         function calcularP1(comision){
             var comision = $("#comision1").val();
             var prima = $("#prima1").val();
+            var porcent = $("#comisionPor1").val();
 
-            $("#comisionPor1").val(((comision*100)/prima)+"%");
+            $("#comision1").val(((prima*porcent)/100));
         }
         function calcularP2(comision){
             var comision = $("#comision2").val();
             var prima = $("#prima2").val();
+            var porcent = $("#comisionPor2").val();
 
-            $("#comisionPor2").val(((comision*100)/prima)+"%");
+            $("#comision2").val(((prima*porcent)/100));
         }
         function calcularP3(comision){
             var comision = $("#comision3").val();
             var prima = $("#prima3").val();
+            var porcent = $("#comisionPor3").val();
 
-            $("#comisionPor3").val(((comision*100)/prima)+"%");
+            $("#comision3").val(((prima*porcent)/100));
         }
         function calcularP4(comision){
             var comision = $("#comision4").val();
             var prima = $("#prima4").val();
+            var porcent = $("#comisionPor4").val();
 
-            $("#comisionPor4").val(((comision*100)/prima)+"%");
+            $("#comision4").val(((prima*porcent)/100));
         }
         function calcularP5(comision){
             var comision = $("#comision5").val();
             var prima = $("#prima5").val();
+            var porcent = $("#comisionPor5").val();
 
-            $("#comisionPor5").val(((comision*100)/prima)+"%");
+            $("#comision5").val(((prima*porcent)/100));
         }
         function calcularP6(comision){
             var comision = $("#comision6").val();
             var prima = $("#prima6").val();
+            var porcent = $("#comisionPor6").val();
 
-            $("#comisionPor6").val(((comision*100)/prima)+"%");
+            $("#comision6").val(((prima*porcent)/100));
         }
         function calcularP7(comision){
             var comision = $("#comision7").val();
             var prima = $("#prima7").val();
+            var porcent = $("#comisionPor7").val();
 
-            $("#comisionPor7").val(((comision*100)/prima)+"%");
+            $("#comision7").val(((prima*porcent)/100));
         }
         function calcularP8(comision){
             var comision = $("#comision8").val();
             var prima = $("#prima8").val();
+            var porcent = $("#comisionPor8").val();
 
-            $("#comisionPor8").val(((comision*100)/prima)+"%");
+            $("#comision8").val(((prima*porcent)/100));
         }
         function calcularP9(comision){
             var comision = $("#comision9").val();
             var prima = $("#prima9").val();
+            var porcent = $("#comisionPor9").val();
 
-            $("#comisionPor9").val(((comision*100)/prima)+"%");
+            $("#comision9").val(((prima*porcent)/100));
         }
 
 

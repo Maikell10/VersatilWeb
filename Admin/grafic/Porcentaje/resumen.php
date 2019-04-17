@@ -197,7 +197,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-danger btn-lg btn-round">Gráficos de Porcentaje</a></center>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
                 <br>
 

@@ -15,12 +15,6 @@ if(isset($_SESSION['seudonimo'])) {
   $asesor = $obj1->get_element('ena','idena'); 
 
 
-  $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_hasta_rep','rep_com'); 
-
-  $obj3= new Trabajo();
-  $fechaMax = $obj3->get_fecha_max('f_hasta_rep','rep_com');
-
   $obj4= new Trabajo();
   $cia = $obj4->get_distinct_element('nomcia','dcia'); 
 
@@ -32,10 +26,10 @@ if(isset($_SESSION['seudonimo'])) {
   $newHasta = date("d-m-Y", strtotime($originalHasta));
 
   $obj33= new Trabajo();
-  $fechaMinRep = $obj33->get_fecha_min('f_hasta_rep','rep_com'); 
+  $fechaMinRep = $obj33->get_fecha_min('f_pago_gc','rep_com'); 
 
   $obj55= new Trabajo();
-  $fechaMaxRep = $obj55->get_fecha_max('f_hasta_rep','rep_com'); 
+  $fechaMaxRep = $obj55->get_fecha_max('f_pago_gc','rep_com'); 
 
 ?>
 <!DOCTYPE html>
@@ -213,6 +207,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
                     <h1 class="title">Lista de Reporte de Comisiones
                     </h1>  
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
                 
                 <div class="row" style="justify-content: center;">
@@ -224,12 +219,12 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="form-row" style="text-align: left;">
                       
                       <div class="form-group col-md-6">
-                        <label align="left">Año Reporte:</label>
+                        <label align="left">Año Reporte Pago GC:</label>
                         <select class="form-control" name="anio" id="anio">
                             <option value="">Seleccione Año</option>
                         <?php
-                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_hasta_rep)"]));
-                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_hasta_rep)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_hasta_rep)"])); $i++)
+                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_pago_gc)"]));
+                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_pago_gc)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_pago_gc)"])); $i++)
                             {  
                         ?>
                             <option value="<?php echo $date;?>"><?php echo $date;?></option>
@@ -240,7 +235,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </select>
                       </div>
                       <div class="form-group col-md-6">
-                        <label>Mes Reporte:</label>
+                        <label>Mes Reporte Pago GC:</label>
                         <select class="form-control" name="mes" id="mes">
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>
@@ -524,7 +519,7 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad1.removeAttribute("hidden");
-        }, 2500);
+        }, 1500);
 
     </script>
 

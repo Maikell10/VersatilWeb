@@ -20,12 +20,11 @@ $totalCom=0;
 			<tr>
 				<th hidden="">ID</th>
                 <th hidden="">ID</th>
-				<th style="width:10%">Fecha Desde Reporte</th>
                 <th style="width:10%">Fecha Hasta Reporte</th>
                 <th style="width:20%">Prima Cobrada</th>
                 <th style="width:20%">Comisión Cobrada</th>
 				<th style="width:50%" nowrap>Compañía</th>
-				<th style="width:20%">Fecha Pago de la GC</th>
+				<th nowrap>Fecha Pago de la GC</th>
 			</tr>
 		</thead>
 		
@@ -51,17 +50,15 @@ $totalCom=0;
 				}
 
   				$f_pago_gc = date("d-m-Y", strtotime($reporte[$i]['f_pago_gc']));
-  				$f_desde_rep = date("d-m-Y", strtotime($reporte[$i]['f_desde_rep']));
   				$f_hasta_rep = date("d-m-Y", strtotime($reporte[$i]['f_hasta_rep']));
 				
 				?>
                 <tr style="cursor: pointer">
                 	<td hidden=""><?php echo $reporte[$i]['f_hasta_rep']; ?></td>
                     <td hidden=""><?php echo $reporte[$i]['id_rep_com']; ?></td>
-					<td><?php echo $f_desde_rep; ?></td>
 	                <td><?php echo $f_hasta_rep; ?></td>
-                    <td><?php echo number_format($prima,2); ?></td>
-	                <td><?php echo "$ ".number_format($comi,2); ?></td>
+                    <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
+	                <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
 					<td nowrap><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
 					<td><?php echo $f_pago_gc; ?></td>
 				</tr>
@@ -74,7 +71,6 @@ $totalCom=0;
 			<tr>
 				<th hidden="">ID</th>
                 <th hidden="">ID</th>
-				<th>Fecha Desde Reporte</th>
                 <th>Fecha Hasta Reporte</th>
                 <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
                 <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
@@ -90,6 +86,7 @@ $totalCom=0;
 	$(document).ready(function() {
 		$('#iddatatable1').DataTable({
 			scrollX: 300,
+			"order": [[ 0, "desc" ]]
 			//"ordering": false
 		});
 	} );

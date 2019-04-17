@@ -26,12 +26,12 @@ if(isset($_SESSION['seudonimo'])) {
   $anio = $_GET['anio'];
   if ($anio==null) {
     $obj11= new Trabajo();
-    $fechaMin = $obj11->get_fecha_min('f_hasta_rep','rep_com'); 
-    $desde=$fechaMin[0]['MIN(f_hasta_rep)'];
+    $fechaMin = $obj11->get_fecha_min('f_pago_gc','rep_com'); 
+    $desde=$fechaMin[0]['MIN(f_pago_gc)'];
   
     $obj12= new Trabajo();
-    $fechaMax = $obj12->get_fecha_max('f_hasta_rep','rep_com'); 
-    $hasta=$fechaMax[0]['MAX(f_hasta_rep)'];
+    $fechaMax = $obj12->get_fecha_max('f_pago_gc','rep_com'); 
+    $hasta=$fechaMax[0]['MAX(f_pago_gc)'];
   }
   $cia = $_GET['cia'];
   if ($cia=='Seleccione Cía') {
@@ -47,8 +47,7 @@ if(isset($_SESSION['seudonimo'])) {
   $obj2= new Trabajo();
   $rep_com_busq = $obj2->get_rep_comision_por_busqueda($desde,$hasta,$cia[0]['idcia']); 
 
-  $totalPrimaCom=0;
-  $totalCom=0;
+  
 
 
 ?>
@@ -65,6 +64,8 @@ if(isset($_SESSION['seudonimo'])) {
     <title>
         Versatil Seguros
     </title>
+    <script src="../tableToExcel.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -227,7 +228,10 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
                     <h1 class="title">Resultado de Búsqueda de Reporte de Comisiones
                     </h1>  
+                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
+
+                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
                 
                 
                 <center>
@@ -236,17 +240,18 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <th hidden="">ID</th>
                             <th hidden="">ID</th>
-                            <th style="width:10%">Fecha Desde Reporte</th>
                             <th style="width:10%">Fecha Hasta Reporte</th>
                             <th style="width:20%">Prima Cobrada</th>
                             <th style="width:20%">Comisión Cobrada</th>
                             <th style="width:30%" nowrap>Compañía</th>
-                            <th style="width:20%">Fecha Pago de la GC</th>
+                            <th nowrap>Fecha Pago de la GC</th>
                         </tr>
                     </thead>
                     
                     <tbody >
                         <?php
+                        $totalPrimaCom=0;
+                        $totalCom=0;
                         for ($i=0; $i < sizeof($rep_com_busq); $i++) { 
                             $obj2= new Trabajo();
                             $cia = $obj2->get_element_by_id('dcia','idcia',$rep_com_busq[$i]['id_cia']); 
@@ -267,16 +272,14 @@ if(isset($_SESSION['seudonimo'])) {
                             }
 
                             $f_pago_gc = date("d-m-Y", strtotime($rep_com_busq[$i]['f_pago_gc']));
-                            $f_desde_rep = date("d-m-Y", strtotime($rep_com_busq[$i]['f_desde_rep']));
                             $f_hasta_rep = date("d-m-Y", strtotime($rep_com_busq[$i]['f_hasta_rep']));
                             
                             ?>
                             <tr style="cursor: pointer">
-                                <td hidden=""><?php echo $rep_com_busq[$i]['f_desde_rep']; ?></td>
+                                <td hidden=""><?php echo $rep_com_busq[$i]['f_hasta_rep']; ?></td>
                                 <td hidden=""><?php echo $rep_com_busq[$i]['id_rep_com']; ?></td>
-                                <td><?php echo $f_desde_rep; ?></td>
                                 <td><?php echo $f_hasta_rep; ?></td>
-                                <td align="right"><?php echo number_format($prima,2); ?></td>
+                                <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
                                 <td nowrap><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
                                 <td><?php echo $f_pago_gc; ?></td>
@@ -290,7 +293,6 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <th hidden="">ID</th>
                             <th hidden="">ID</th>
-                            <th>Fecha Desde Reporte</th>
                             <th>Fecha Hasta Reporte</th>
                             <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
                             <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
@@ -300,6 +302,67 @@ if(isset($_SESSION['seudonimo'])) {
                     </tfoot>
                 </table>
             </center>
+
+            <table class="table table-hover table-striped table-bordered table-responsive" id="Exportar_a_Excel" hidden>
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th style="width:10%">Fecha Hasta Reporte</th>
+                            <th style="width:20%">Prima Cobrada</th>
+                            <th style="width:20%">Comisión Cobrada</th>
+                            <th style="width:30%" nowrap>Compañía</th>
+                            <th nowrap>Fecha Pago de la GC</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        <?php
+                        $totalPrimaCom=0;
+                        $totalCom=0;
+                        for ($i=0; $i < sizeof($rep_com_busq); $i++) { 
+                            $obj2= new Trabajo();
+                            $cia = $obj2->get_element_by_id('dcia','idcia',$rep_com_busq[$i]['id_cia']); 
+
+                        
+                            $prima=0;
+                            $comi=0;
+                            $obj4= new Trabajo();
+                            $reporte_c = $obj4->get_element_by_id('comision','id_rep_com',$rep_com_busq[$i]['id_rep_com']);
+                            
+                            for ($a=0; $a < sizeof($reporte_c); $a++) { 
+
+                                $prima=$prima+$reporte_c[$a]['prima_com'];
+                                $comi=$comi+$reporte_c[$a]['comision'];
+                                $totalPrimaCom=$totalPrimaCom+$reporte_c[$a]['prima_com'];
+                                $totalCom=$totalCom+$reporte_c[$a]['comision'];
+                                
+                            }
+
+                            $f_pago_gc = date("d-m-Y", strtotime($rep_com_busq[$i]['f_pago_gc']));
+                            $f_hasta_rep = date("d-m-Y", strtotime($rep_com_busq[$i]['f_hasta_rep']));
+                            
+                            ?>
+                            <tr style="cursor: pointer">
+                                <td><?php echo $f_hasta_rep; ?></td>
+                                <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
+                                <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
+                                <td nowrap><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
+                                <td><?php echo $f_pago_gc; ?></td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Fecha Hasta Reporte</th>
+                            <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
+                            <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
+                            <th>Compañía</th>
+                            <th>Fecha Pago de la GC</th>
+                        </tr>
+                    </tfoot>
+                </table>
 
 
                 
@@ -398,12 +461,13 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad1.removeAttribute("hidden");
-        }, 2500);
+        }, 1000);
         
       
         $(document).ready(function() {
             $('#iddatatable1').DataTable({
                 scrollX: 300,
+                "order": [[ 0, "desc" ]]
                 //"ordering": false
             });
         } );

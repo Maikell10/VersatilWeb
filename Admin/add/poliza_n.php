@@ -35,7 +35,8 @@ if(isset($_SESSION['seudonimo'])) {
 	$ramo=$_GET['ramo'];
 	$cia=$_GET['cia'];
 	$titular=$_GET['titular'];
-	$tomador=$_GET['tomador'];
+    $tomador=$_GET['tomador'];
+    $t_cuenta=$_GET['t_cuenta'];
     $asesor_ind=$_GET['asesor_ind'];
     if ($asesor_ind==null) {
         $asesor_ind=0;
@@ -86,7 +87,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-  	$poliza = $obj1->agregarPoliza($n_poliza,$fhoy,$femisionP,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind); 
+  	$poliza = $obj1->agregarPoliza($n_poliza,$fhoy,$femisionP,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta); 
 
   	$obj= new Trabajo();
     $recibo = $obj->agregarRecibo($n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 

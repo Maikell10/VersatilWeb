@@ -15,11 +15,13 @@ if(isset($_SESSION['seudonimo'])) {
   $asesor = $obj1->get_element('ena','idena'); 
 
   $obj2= new Trabajo();
-  $fechaMinRep = $obj2->get_fecha_min('f_desde_rep','rep_com'); 
+  $fechaMinRep = $obj2->get_fecha_min('f_hasta_rep','rep_com'); 
 
   $obj3= new Trabajo();
   $fechaMaxRep = $obj3->get_fecha_max('f_hasta_rep','rep_com');
 
+   $fechaMinRep=date('Y', strtotime($fechaMinRep[0]["MIN(f_hasta_rep)"]));
+   $fechaMaxRep=date('Y', strtotime($fechaMaxRep[0]["MAX(f_hasta_rep)"]));
 
 ?>
 <!DOCTYPE html>
@@ -210,13 +212,12 @@ if(isset($_SESSION['seudonimo'])) {
                         <select class="form-control" name="anio" id="anio">
                             <option value="">Seleccione Año</option>
                         <?php
-                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_desde_rep)"]));
-                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_desde_rep)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_hasta_rep)"])); $i++)
+                            
+                            for($i=$fechaMinRep; $i <= $fechaMaxRep; $i++)
                             {  
                         ?>
-                            <option value="<?php echo $date;?>"><?php echo $date;?></option>
+                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
                         <?php
-                            $date=$date+1;
                             } 
                         ?> 
                         </select>

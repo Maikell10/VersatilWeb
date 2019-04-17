@@ -129,7 +129,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         @media only screen and (min-width : 768px) {
             #tablaRamo{
-                margin-left: 60px;
+                margin-left: 14px;
             }
         }
         @media only screen and (min-width : 991px) {
@@ -332,6 +332,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr>
                                     <th>Ramo *</th>
                                     <th>Compañía *</th>
+                                    <th>Tipo de Cuenta</th>
                                 </tr>
                             </thead>
 
@@ -355,6 +356,11 @@ if(isset($_SESSION['seudonimo'])) {
                                                 ?>
                                                     <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
                                                 <?php } ?> 
+                                        </select>
+                                    </td>
+                                    <td><select class="custom-select" id="t_cuenta" name="t_cuenta" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                            <option value="1">Individual</option>
+                                            <option value="2">Colectivo</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -1110,6 +1116,9 @@ if(isset($_SESSION['seudonimo'])) {
                         $('#cia option:first').prop('selected',true);
                         $('#cia').css('pointer-events','auto');
                         $("#cia").css('background-color', 'white');
+                        $('#t_cuenta option:first').prop('selected',true);
+                        $('#t_cuenta').css('pointer-events','auto');
+                        $("#t_cuenta").css('background-color', 'white');
                         $("#emisionP").val("");
                         //$("#emisionP").css('background-color', 'transparent');
                         //$("#emisionP").css('color', 'black');
@@ -1179,6 +1188,9 @@ if(isset($_SESSION['seudonimo'])) {
                             $("#cia").val(datos['id_cia']);
                             $('#cia').css('pointer-events','none');
                             $("#cia").css('background-color', '#e6e6e6');
+                            $("#t_cuenta").val(datos['t_cuenta']);
+                            $('#t_cuenta').css('pointer-events','none');
+                            $("#t_cuenta").css('background-color', '#e6e6e6');
                             var emisionP = datos['f_emi'].split('-').reverse().join('-');
                             $("#emisionP").val(emisionP);
                             //$("#emisionP1").val(datos['f_emi']);
@@ -1268,6 +1280,9 @@ if(isset($_SESSION['seudonimo'])) {
                         $("#cia").val(datos['id_cia']);
                         $('#cia').css('pointer-events','none');
                         $("#cia").css('background-color', '#e6e6e6');
+                        $("#t_cuenta").val(datos['t_cuenta']);
+                        $('#t_cuenta').css('pointer-events','none');
+                        $("#t_cuenta").css('background-color', '#e6e6e6');
                         var emisionP = datos['f_emi'].split('-').reverse().join('-');
                         $("#emisionP").val(emisionP);
                         //$("#emisionP1").val(datos['f_emi']);

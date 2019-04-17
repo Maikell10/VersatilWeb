@@ -13,21 +13,22 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $id_rep=$_GET['id_rep'];
-  $fdesdeP=$_GET['f_desde'];
   $fhastaP=$_GET['f_hasta'];
   $f_pagoGcP=$_GET['f_pagoGc']; 
-  $fdesde = date("Y-m-d", strtotime($fdesdeP));
   $fhasta = date("Y-m-d", strtotime($fhastaP)); 
   $f_pagoGc = date("Y-m-d", strtotime($f_pagoGcP)); 
   $idcia=$_GET['cia'];
   $cant_poliza=$_GET['cant_poliza'];
+
+  $prima_comt=$_GET['primat_comt'];
+  $comt=$_GET['comtt'];
 
 
 
   if ($id_rep==0) {
 
       $obj1= new Trabajo();
-      $rep_com = $obj1->agregarRepCom($fdesde,$fhasta,$f_pagoGc,$idcia); 
+      $rep_com = $obj1->agregarRepCom($fhasta,$f_pagoGc,$idcia,$prima_comt,$comt); 
 
       $obj2= new Trabajo();
       $rep_comU = $obj2->get_last_element('rep_com','id_rep_com'); 
