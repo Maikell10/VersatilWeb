@@ -30,9 +30,9 @@ $poliza = $obj1->get_poliza_total();
 			$totalprima=0;
 			$currency="";
 			for ($i=0; $i < sizeof($poliza); $i++) { 
-				if ($poliza[$i]['id_titular']==0) {
+				//if ($poliza[$i]['id_titular']==0) {
 					
-				} else {
+				//} else {
 					
 				
 				
@@ -80,7 +80,7 @@ $poliza = $obj1->get_poliza_total();
 	                <td nowrap hidden><?php echo $poliza[$i]['apellido_t']; ?></td>
 				</tr>
 				<?php
-				}
+				//}
 			}
 			?>
 		</tbody>

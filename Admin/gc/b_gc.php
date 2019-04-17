@@ -84,7 +84,7 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li><b>[Producción]</b></li>
+                    <li><b>[Administración]</b></li>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos

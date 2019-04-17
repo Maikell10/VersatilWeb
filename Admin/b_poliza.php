@@ -275,7 +275,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     
                 
-                <div id="tablaDatatable"></div>
+                <center><div id="tablaDatatable"></div></center>
             </div>
         </div>
 

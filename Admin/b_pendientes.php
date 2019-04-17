@@ -10,56 +10,8 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
-
-  $mes = $_GET['mes'];
-  $desde=$_GET['anio']."-".$_GET['mes']."-01";
-  $hasta=$_GET['anio']."-".$_GET['mes']."-31";
-
-  if ($mes==null) {
-      $mesD=01;
-      $mesH=12;
-      $desde=$_GET['anio']."-".$mesD."-01";
-      $hasta=$_GET['anio']."-".$mesH."-31";
-  }
-
-
-  $anio = $_GET['anio'];
-  if ($anio==null) {
-    $obj11= new Trabajo();
-    $fechaMin = $obj11->get_fecha_min('f_hastapoliza','poliza'); 
-    $desde=$fechaMin[0]['MIN(f_hastapoliza)'];
-  
-    $obj12= new Trabajo();
-    $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
-    $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
-  }
-  
-  
-
   $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_total_by_filtro($desde,$hasta); 
-
-
-  $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_hastapoliza','poliza'); 
-  $desde=$fechaMin[0]["MIN(f_hastapoliza)"];
-
-  $obj3= new Trabajo();
-  $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
-  $hasta=$fechaMax[0]["MAX(f_hastapoliza)"];
-
-  $status = $_GET['status'];
-  if ($status == 1) {
-    $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro(date("Y-m-d"),$hasta); 
-  }
-  if ($status == 2) {
-    $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro($desde,date("Y-m-d")); 
-  }
-
-
-  
+  $poliza = $obj1->get_poliza_pendiente('poliza','id_poliza'); 
 
 
 ?>
@@ -236,7 +188,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
-                    <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
+                    <h1 class="title">Póliza Pendientes a Cargar</h1>  
                     <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
                 

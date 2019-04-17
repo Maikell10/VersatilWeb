@@ -454,7 +454,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </table>
 
 
-                <h1 class="title">Total de Prima</h1>
+                <h1 class="title">Total de Prima Suscrita</h1>
                 <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
 
                 <h1 class="title">Total de Pólizas</h1>

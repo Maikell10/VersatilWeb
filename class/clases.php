@@ -894,6 +894,40 @@ class Trabajo extends Conectar{
 
 
 
+	public function get_poliza_pendiente()
+		  {
+				$sql="SELECT *  FROM 
+				  poliza
+					INNER JOIN drecibo, titular, tipo_poliza
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					drecibo.idtitu = titular.id_titular
+				  ORDER BY poliza.id_poliza ASC";
+			  $res=mysqli_query(Conectar::con(),$sql);
+			  
+			  if (!$res) {
+				  //No hay registros
+			  }else{
+				  $filas=mysqli_num_rows($res); 
+				  if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						exit();
+					}else
+						{
+							 while($reg=mysqli_fetch_assoc($res)) {
+								 $this->t[]=$reg;
+							}
+							return $this->t;
+					  }
+			  }
+
+			  
+		  }
+
+
+
+
 
 
 
