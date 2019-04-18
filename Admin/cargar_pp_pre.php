@@ -9,7 +9,7 @@ if(isset($_SESSION['seudonimo'])) {
         exit();
       }
       
-  require_once("../../class/clases.php");
+  require_once("../class/clases.php");
 
   //----Obtengo el permiso del usuario
   $permiso = $_SESSION['id_permiso'];
@@ -17,7 +17,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-
+    $id_poliza=$_POST['id_poliza'];
 	$n_poliza=$_POST['n_poliza'];
 	$fhoy=date("Y-m-d");
     //$femisionP=$_POST['emisionP'];
@@ -174,34 +174,34 @@ if(isset($_SESSION['seudonimo'])) {
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="../../assets/img/apple-icon.png">
-    <link rel="icon" href="../../assets/img/logo1.png">
+    <link rel="apple-touch-icon" href="../assets/img/apple-icon.png">
+    <link rel="icon" href="../assets/img/logo1.png">
     <title>
         Versatil Seguros
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../../assets/css/material-kit.css?v=2.0.1">
+    <link rel="stylesheet" href="../assets/css/material-kit.css?v=2.0.1">
     <!-- Documentation extras -->
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
-    <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+    <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
+    <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
-    <link href="../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 
     
     <!-- Alertify -->
-    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/alertify.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/themes/bootstrap.css">
-    <script src="../../assets/alertify/alertify.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/alertify/css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="../assets/alertify/css/themes/bootstrap.css">
+    <script src="../assets/alertify/alertify.js"></script>
 
 
     <!-- DataTables -->
-    <link href="../../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="../../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
-    <script src="../../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
 
 </head>
@@ -210,7 +210,7 @@ if(isset($_SESSION['seudonimo'])) {
     <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="../sesionadmin.php"> <img src="../../assets/img/logo1.png" width="45%" /></a>
+                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="45%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -225,16 +225,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">plus_one</i> Cargar Datos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="crear_poliza.php" class="dropdown-item">
+                            <a href="add/crear_poliza.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Póliza
                             </a>
-                            <a href="crear_comision.php" class="dropdown-item">
+                            <a href="add/crear_comision.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Comisión
                             </a>
-                            <a href="crear_asesor.php" class="dropdown-item">
+                            <a href="add/crear_asesor.php" class="dropdown-item">
                                 <i class="material-icons">person_add</i> Asesor
                             </a>
-                            <a href="crear_compania.php" class="dropdown-item">
+                            <a href="add/crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                         </div>
@@ -245,22 +245,22 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">search</i> Buscar
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../b_asesor.php" class="dropdown-item">
+                            <a href="b_asesor.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Asesor
                             </a>
-                            <a href="../b_cliente.php" class="dropdown-item">
+                            <a href="b_cliente.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Cliente
                             </a>
-                            <a href="../b_poliza.php" class="dropdown-item">
+                            <a href="b_poliza.php" class="dropdown-item">
                                 <i class="material-icons">content_paste</i> Póliza
                             </a>
-                            <a href="../b_vehiculo.php" class="dropdown-item">
+                            <a href="b_vehiculo.php" class="dropdown-item">
                                 <i class="material-icons">commute</i> Vehículo
                             </a>
-                            <a href="../b_comp.php" class="dropdown-item">
+                            <a href="b_comp.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
-                            <a href="../b_reportes.php" class="dropdown-item">
+                            <a href="b_reportes.php" class="dropdown-item">
                                 <i class="material-icons">library_books</i> Reportes de Cobranza
                             </a>
                         </div>
@@ -271,16 +271,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">trending_up</i> Gráficos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../grafic/porcentaje.php" class="dropdown-item">
+                            <a href="grafic/porcentaje.php" class="dropdown-item">
                                 <i class="material-icons">pie_chart</i> Porcentajes
                             </a>
-                            <a href="../grafic/primas_s.php" class="dropdown-item">
+                            <a href="grafic/primas_s.php" class="dropdown-item">
                                 <i class="material-icons">bar_chart</i> Primas Suscritas
                             </a>
-                            <a href="../grafic/primas_c.php" class="dropdown-item">
+                            <a href="grafic/primas_c.php" class="dropdown-item">
                                 <i class="material-icons">thumb_up</i> Primas Cobradas
                             </a>
-                            <a href="../grafic/comisiones_c.php" class="dropdown-item">
+                            <a href="grafic/comisiones_c.php" class="dropdown-item">
                                 <i class="material-icons">timeline</i> Comisiones Cobradas
                             </a>
                             <a href="#" class="dropdown-item">
@@ -290,7 +290,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../../sys/cerrar_sesion.php" onclick="scrollToDownload()">
+                        <a class="nav-link" href="../sys/cerrar_sesion.php" onclick="scrollToDownload()">
                             <i class="material-icons">eject</i> Cerrar Sesión
                         </a>
                     </li>
@@ -303,7 +303,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../assets/img/logo2.png');">
+    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../assets/img/logo2.png');">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
@@ -328,7 +328,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container" >
                 <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Nueva Póliza
+                    <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Carga de la Póliza Pendiente N° <?php echo $n_poliza;?>
                     </h1>  
                 </div>
 
@@ -406,7 +406,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr >
                                     <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='crear_pp_n.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
                                     <?php } else {?>
                                         <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
                                     <?php    } ?>
@@ -451,18 +451,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?php echo $anio;?>"></td>
                                 </tr>
 
-                                <!--<tr style="background-color: #92ACC4;color: white; font-weight: bold;">
-                                    <th>Año</th>
-                                    <th>Color</th>
-                                    <th>Serial</th>
-                                    <th colspan="2">Categoría</th>
-                                </tr>
-                                <tr >
-                                    <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?php echo $anio;?>"></td>
-                                    <td><input type="text" class="form-control" name="color" readonly="readonly" value="<?php echo $color;?>"></td>
-                                    <td><input type="text" class="form-control" name="serial" readonly="readonly" value="<?php echo $serial;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="categoria" readonly="readonly" value="<?php echo $categoria;?>"></td>
-                                </tr>-->
+                               
 
                                 <?php   
                                     }
@@ -481,7 +470,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="crear_pp_n.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>
@@ -548,21 +537,21 @@ if(isset($_SESSION['seudonimo'])) {
 
     <!--   Core JS Files   -->
 
-    <script src="../../assets/js/core/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap-material-design.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/bootstrap-material-design.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
-    <script src="../../assets/js/plugins/moment.min.js"></script>
+    <script src="../assets/js/plugins/moment.min.js"></script>
     <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
     <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../../assets/js/plugins/nouislider.min.js"></script>
+    <script src="../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
+    <script src="../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+    <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
-    <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+    <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
  
     <script>
         onload = function(){ 

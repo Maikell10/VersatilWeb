@@ -188,7 +188,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
-                <form class="form-horizontal" id="frmnuevo" action="poliza.php" method="post" >
+                <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
                 <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Agregar Preferencial</button></center>
                     <div class="form-row">   
                     <table class="table table-hover table-striped table-bordered display table-responsive nowrap">
@@ -197,6 +197,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>Fecha Desde Preferida *</th>
                                     <th>Fecha Hasta Preferida *</th>
                                     <th>%GC a Sumar *</th>
+                                    <th hidden>id cia</th>
                                 </tr>
                             </thead>
 
@@ -211,6 +212,7 @@ if(isset($_SESSION['seudonimo'])) {
                                         </div>
                                     </td>
                                     <td><input onblur="cargarGC(<?php echo $cant_a;?>);" type="text" class="form-control validanumericos" id="per_gc" name="per_gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -231,9 +233,9 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                                 <tr>
                                     <td><input class="form-control" type="checkbox" id="<?php echo 'chk'.$i;?>" value="<?php echo $asesor[$i]['cod']; ?>" onChange="validarchk(<?php echo $i;?>)"></td>
-                                    <td><?php echo $asesor[$i]['idnom']." [".$asesor[$i]['cod']."]"; ?></td>
+                                    <td style="background-color: white"><input class="form-control" type="text" name="<?php echo 'asesor'.$i;?>" value="<?php echo $asesor[$i]['idnom']." [".$asesor[$i]['cod']."]"; ?>" readonly></td>
                                     <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
-                                    <td style="background-color: white"><input style="text-align:center" type="number" class="form-control validanumericos3" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" min="1" max="90" data-toggle="tooltip" data-placement="bottom" title="Añadir sólo el numero a sumar al %GC" readonly></td>
+                                    <td style="background-color: white"><input style="text-align:center" type="number" class="form-control validanumericos3" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" min="-90" max="90" data-toggle="tooltip" data-placement="bottom" title="Añadir sólo el numero a sumar al %GC" readonly></td>
                                 </tr>
                             <?php   
                                 }

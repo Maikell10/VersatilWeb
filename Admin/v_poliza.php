@@ -211,9 +211,26 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
+                <?php 
+                    if ($poliza[0]['nombre_t']=='PENDIENTE') {
+                ?>  
+                        <center><a  href="cargar_pp.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Cargar Póliza Pendiente" class="btn btn-success btn-lg">Cargar Póliza Pendiente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
+                <?php } ?>
+                
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cliente: <?php echo $poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']; ?></h1>
+                    <h1 class="title">Cliente: <?php 
+                    if ($poliza[0]['nombre_t']=='PENDIENTE') {
+                        $ob1= new Trabajo();
+                        $asegurado = $ob1->get_element_by_id('titular_pre_poliza','id_poliza',$poliza[0]['id_poliza']); 
+                        
+                        $nombre=$asegurado[0]['asegurado'];
+                    } else {
+                        $nombre=$poliza[0]['nombre_t']." ".$poliza[0]['apellido_t'];
+                    }
+                    
+                    
+                    echo $nombre; ?></h1>
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {
@@ -485,7 +502,15 @@ if(isset($_SESSION['seudonimo'])) {
                 <center>
                 <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Pagos" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pagos">Pagos  &nbsp;<i class="fa fa-money" aria-hidden="true"></i></a>
 
-                <a  href="e_poliza.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Póliza  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <?php 
+                    if ($poliza[0]['nombre_t']=='PENDIENTE') {
+                    }else {
+                ?>  
+                    <a  href="e_poliza.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Póliza  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <?php
+                } ?>
+
+                
                 
                 
                 <?php 

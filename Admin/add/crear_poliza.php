@@ -315,7 +315,7 @@ if(isset($_SESSION['seudonimo'])) {
                                             <option value="2">Renovación</option>
                                             <option value="3">Traspaso de Cartera</option>
                                             <option value="4">Anexos</option>
-                                            <option value="5">N/A</option>
+                                            <option value="5">Revalorización</option>
                                         </select>
                                     </td>
                                 </tr>

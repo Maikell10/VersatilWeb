@@ -10,9 +10,22 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
-  $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_pendiente(); 
+  
+  echo $_POST['desdeP'];
 
+
+
+  $nomcia=$_GET['nomcia'];
+
+  $obj1= new Trabajo();
+  $cia = $obj1->get_element_by_id('dcia','nomcia',$nomcia); 
+
+  $obj2= new Trabajo();
+  $asesor = $obj2->get_element('ena','idnom'); 
+
+  $cant_a=sizeof($asesor);
+
+ $cia[0]['idcia'];
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +41,6 @@ if(isset($_SESSION['seudonimo'])) {
     <title>
         Versatil Seguros
     </title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -38,6 +50,8 @@ if(isset($_SESSION['seudonimo'])) {
     <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
+    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
     
     <!-- Alertify -->
     <link rel="stylesheet" type="text/css" href="../assets/alertify/css/alertify.css">
@@ -46,20 +60,10 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <!-- DataTables -->
-    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
-
-    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
-
-
-
-    <style type="text/css">
-        #carga{
-            height: 80vh
-        }
-    </style>
 
 </head>
 
@@ -67,7 +71,7 @@ if(isset($_SESSION['seudonimo'])) {
     <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="40%" /></a>
+                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="45%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -114,7 +118,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="b_vehiculo.php" class="dropdown-item">
                                 <i class="material-icons">commute</i> Vehículo
                             </a>
-                            <a href="b_comp.php" class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                             <a href="b_reportes.php" class="dropdown-item">
@@ -140,7 +144,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="grafic/comisiones_c.php" class="dropdown-item">
                                 <i class="material-icons">timeline</i> Comisiones Cobradas
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="" class="dropdown-item">
                                 <i class="material-icons">show_chart</i> Gestión de Cobranza
                             </a>
                         </div>
@@ -179,106 +183,77 @@ if(isset($_SESSION['seudonimo'])) {
     <div class="main main-raised">
         
 
-        <div id="carga" class="d-flex justify-content-center align-items-center">
-            <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
-        </div>
- 
+        
+
         <div class="section">
             <div class="container">
 
-
-                <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
-                    <h1 class="title">Pólizas Pendientes a Cargar</h1>  
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+                <div class="col-md-auto col-md-offset-2">
+                    <h1 class="title">Hacer Preferencial a la Cía <?php echo $cia[0]['nomcia']; ?></h1>  
                 </div>
-                
-                
-                <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
-                            <th>F Producción</th>
-                            <th>Asegurado</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody >
-                        <?php
-                        $totalsuma=0;
-                        $totalprima=0;
-                        $currency="";
-                        $cont=0;
-                        for ($i=0; $i < sizeof($poliza); $i++) { 
-                            
-                            $cont=$cont+1;
-                            $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
-                            $totalprima=$totalprima+$poliza[$i]['prima'];
 
 
-                            $originalFProd = $poliza[$i]['f_poliza'];
-                            $newFProd = date("d/m/Y", strtotime($originalFProd));
-                            
-                            $ob1= new Trabajo();
-                            $asegurado = $ob1->get_element_by_id('titular_pre_poliza','id_poliza',$poliza[$i]['id_poliza']); 
+                <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
+                <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Agregar Preferencial</button></center>
+                    <div class="form-row">   
+                    <table class="table table-hover table-striped table-bordered display table-responsive nowrap">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Fecha Desde Preferida *</th>
+                                    <th>Fecha Hasta Preferida *</th>
+                                    <th>%GC a Sumar *</th>
+                                </tr>
+                            </thead>
 
+                            <tbody >
+                                <tr style="background-color: white">
+                                    <td><div class="input-group date">
+                                            <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" > 
+                                        </div>
+                                    </td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="hastaP" name="hastaP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                        </div>
+                                    </td>
+                                    <td><input onblur="cargarGC(<?php echo $cant_a;?>);" type="text" class="form-control validanumericos" id="per_gc" name="per_gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php            
-                            } else{
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php   
-                            }
-
-                            ?>
-                            
-                                <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-                                <td><?php echo $newFProd; ?></td>
-                                <td><?php echo $asegurado[0]['asegurado']; ?></td>
-                            </tr>
+                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th></th>
+                                    <th>Nombre Asesor</th>
+                                    <th>%GC</th>
+                                    <th>%GC a Sumar</th>
+                                </tr>
+                            </thead>
+                            <tbody >
                             <?php
-                            
-                        }
-                        ?>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
-                            <th>F Producción</th>
-                            <th>Asegurado</th>
-                        </tr>
-                    </tfoot>
-                </table>
-
-
-                <h1 class="title">Total de Pólizas Pendientes</h1>
-                <h1 class="title text-danger"><?php  echo $cont;?></h1>
-            </center>
-
-
+                                for ($i=0; $i < sizeof($asesor); $i++) { 
+                                    
+                            ?>
+                                <tr>
+                                    <td><input class="form-control" type="checkbox" id="<?php echo 'chk'.$i;?>" value="<?php echo $asesor[$i]['cod']; ?>" onChange="validarchk(<?php echo $i;?>)"></td>
+                                    <td><?php echo $asesor[$i]['idnom']." [".$asesor[$i]['cod']."]"; ?></td>
+                                    <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
+                                    <td style="background-color: white"><input style="text-align:center" type="text" class="form-control validanumericos3" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" min="1" max="90" data-toggle="tooltip" data-placement="bottom" title="Añadir sólo el numero a sumar al %GC" readonly></td>
+                                </tr>
+                            <?php   
+                                }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+    
                 
-            </div>
 
+            </div>
         </div>
 
-        
+
 
 
 
@@ -335,61 +310,101 @@ if(isset($_SESSION['seudonimo'])) {
         </div>
     </footer>
     <!--   Core JS Files   -->
-    
-
 
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/bootstrap-material-design.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
     <script src="../assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <!--    Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
     <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <!--    Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-   
-
+    
 
 
 
     <script type="text/javascript">
-
-        const tablaLoad1 = document.getElementById("tablaLoad1");
-        const carga = document.getElementById("carga");
-
-        setTimeout(()=>{
-            carga.className = 'd-none';
-            tablaLoad1.removeAttribute("hidden");
-        }, 1000);
-        
-      
-
-        $(document).ready(function() {
-            $('#iddatatable').DataTable({
-                scrollX: 300,
-                "order": [[ 0, "desc" ]]
+        $(document).ready(function(){
+            $('#desdeP').datepicker({  
+                format: "dd-mm-yyyy"
             });
-        } );
+            $('#hastaP').datepicker({  
+                format: "dd-mm-yyyy"
+            });
+
+
+            
+        });
+
+        function cargarGC(cant_a){
+            for (let index = 0; index < cant_a; index++) {
+                $('#gc_asesor'+index).val($('#per_gc').val());
+            }
+        }
+
+        function validarchk(id){
+  
+            var chk = document.getElementById('chk'+id);
+            if(chk.checked){
+                $('#gc_asesor'+id).removeAttr('readonly');
+            }else{
+                $("#gc_asesor"+id).attr("readonly",true);
+            }
+        }
+        
+    </script>
+
+    <script type="text/javascript">
+        function agregaFrmActualizar(idena){
+            $.ajax({
+                type:"POST",
+                data:"idena=" + idena,
+                url:"../procesos/obtenDatos.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    $('#idena').val(datos['idena']);
+                    $('#nombreU').val(datos['idnom']);
+                    $('#codigoU').val(datos['cod']);
+                    $('#ciU').val(datos['id']);
+                    $('#refcuentaU').val(datos['refcuenta']);
+                }
+            });
+        }
+
+        function eliminarDatos(idena){
+            alertify.confirm('Eliminar una Compañía', '¿Seguro de eliminar esta Compañía?', function(){
+
+                $.ajax({
+                    type:"POST",
+                    data:"idena=" + idena,
+                    url:"../procesos/eliminarAsesor.php",
+                    success:function(r){
+                        if(r==1){
+                            $('#tablaDatatable').load('t_comp.php');
+                            alertify.success("Eliminado con exito !");
+                        }else{
+                            alertify.error("No se pudo eliminar...");
+                        }
+                    }
+                });
+
+            }
+            , function(){
+
+            });
+        }
 
         $(function () {
-        $('[data-tooltip="tooltip"]').tooltip()
-        });
-
-        $( "#iddatatable tbody tr" ).click(function() {
-            var customerId = $(this).find("td").eq(1).html();   
-
-            window.location.href = "v_poliza.php?id_poliza="+customerId;
-        });
-
+          $('[data-tooltip="tooltip"]').tooltip()
+        })
     </script>
     <script language="javascript">
 

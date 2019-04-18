@@ -902,7 +902,8 @@ class Trabajo extends Conectar{
 					WHERE 
 					poliza.id_poliza = drecibo.idrecibo AND
 					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-					drecibo.idtitu = titular.id_titular
+					drecibo.idtitu = titular.id_titular AND
+					poliza.id_titular = '0'
 				  ORDER BY poliza.id_poliza ASC";
 			  $res=mysqli_query(Conectar::con(),$sql);
 			  
@@ -2520,8 +2521,13 @@ class Trabajo extends Conectar{
 				exit;
 			}
 			
+			
 			$f_nac=$datos[9];
-    	$f_nac = date("Y-m-d", strtotime($f_nac));
+			if ($f_nac=="") {
+				$f_nac='1900-01-01';
+			}else {
+				$f_nac = date("Y-m-d", strtotime($f_nac));
+			}
 
 			$sql="INSERT into titular (r_social,ci,nombre_t, apellido_t, cell,
 										telf, telf1, id_sexo, id_ecivil, f_nac, direcc,
@@ -2533,8 +2539,8 @@ class Trabajo extends Conectar{
 											'$datos[4]',
 											'$datos[5]',
 											'$datos[6]',
-											'$datos[7]',
-											'$datos[8]',
+											'1',
+											'1',
 											'$f_nac',
 											'$datos[10]',
 											'$datos[11]',
@@ -2984,6 +2990,68 @@ class Trabajo extends Conectar{
 									refcuenta='$datos[4]'
 						where idena= $datos[0]";
 			return mysqli_query(Conectar::con(),$sql);
+	}
+
+	public function editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular,$idtomador,$asesor_ind,$t_cuenta){
+
+
+		$sql="UPDATE poliza set cod_poliza='$n_poliza',
+								f_poliza='$fhoy',
+								f_emi='$fhoy',
+								tcobertura='$t_cobertura',
+								f_desdepoliza='$fdesdeP',
+								f_hastapoliza='$fhastaP',
+								currency='$currency',
+								id_tpoliza='$tipo_poliza',
+								sumaasegurada='$sumaA',
+								id_zproduccion='$z_produc',
+								codvend='$codasesor',
+								id_cod_ramo='$ramo',
+								id_cia='$cia',
+								id_titular='$idtitular',
+								id_tomador='$idtomador',
+								per_gc='$asesor_ind',
+								t_cuenta='$t_cuenta'
+
+					where id_poliza= '$id_poliza'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+
+	public function editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador,$idtitular,$n_poliza){
+
+
+		$sql="UPDATE drecibo set cod_recibo='$n_recibo',
+								f_desderecibo='$fdesde_recibo',
+								f_hastarecibo='$fhasta_recibo',
+								prima='$prima',
+								fpago='$f_pago',
+								ncuotas='$n_cuotas',
+								montocuotas='$monto_cuotas',
+								idtom='$idtomador',
+								idtitu='$idtitular',
+								cod_poliza='$n_poliza'
+
+					where idrecibo= '$id_poliza'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+
+	public function editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo){
+
+
+		$sql="UPDATE dveh set placa='$placa',
+								tveh='$tipo',
+								marca='$marca',
+								mveh='$modelo',
+								f_veh='$anio',
+								serial='$serial',
+								cveh='$color',
+								catveh='$categoria',
+								cod_recibo='$n_recibo'
+
+					where idveh= '$id_poliza'";
+		return mysqli_query(Conectar::con(),$sql);
 	}
 
 
