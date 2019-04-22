@@ -207,6 +207,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container" >
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 <center>
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Vista Previa de la Carga para la Compañía: <?php echo $cia[0]['nomcia'];?>

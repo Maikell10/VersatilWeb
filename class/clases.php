@@ -628,6 +628,39 @@ class Trabajo extends Conectar{
 				}
 		}	
 
+	public function get_poliza_total_by_filtro_f_product($f_desde,$f_hasta)
+		{
+				$sql="SELECT *  FROM 
+								poliza
+								INNER JOIN drecibo, titular, tipo_poliza
+								WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+								drecibo.idtitu = titular.id_titular AND
+								poliza.f_poliza >= '$f_desde' AND
+								poliza.f_poliza <= '$f_hasta'
+								ORDER BY poliza.id_poliza ASC";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					echo "No hay registros";
+					  header("Location: b_poliza.php?m=2");
+					  exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}
+
 
 
 
@@ -1289,11 +1322,10 @@ class Trabajo extends Conectar{
 		    	if ($cia=='Seleccione Cía') {
 		    		$cia='';
 		    	}
-		      	$sql="SELECT DISTINCT dramo.nramo FROM comision 
-		      			INNER JOIN dramo, dcia, poliza WHERE 
+		      	$sql="SELECT DISTINCT dramo.nramo FROM poliza 
+		      			INNER JOIN dramo, dcia WHERE 
 		      			poliza.id_cod_ramo=dramo.cod_ramo AND
 		      			poliza.id_cia=dcia.idcia AND
-								poliza.id_poliza=comision.id_poliza AND
 		      			f_hastapoliza >= '$desde' AND
 		      			f_hastapoliza <= '$hasta' AND
 		      			nomcia LIKE '%$cia%'
@@ -1403,7 +1435,6 @@ class Trabajo extends Conectar{
 												while($reg=mysqli_fetch_assoc($res)) {
 													$this->t[]=$reg;
 											}
-											return $this->t;
 						}
 				}
 			}
@@ -1423,9 +1454,9 @@ class Trabajo extends Conectar{
 
 		      	$sql="SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
 		      			poliza.id_poliza = drecibo.idrecibo AND
-								poliza.id_cod_ramo=dramo.cod_ramo AND
-								poliza.id_cia=dcia.idcia AND
-								f_hastapoliza >= '$desde' AND
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_cia=dcia.idcia AND
+						f_hastapoliza >= '$desde' AND
 		      			f_hastapoliza <= '$hasta' AND
 		      			dcia.nomcia LIKE '%$cia%' AND
 		      			dramo.nramo = '$ramo' ";

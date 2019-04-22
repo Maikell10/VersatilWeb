@@ -92,6 +92,7 @@ foreach($sumatotalRamo as $key=>$value) {
     <title>
         Versatil Seguros
     </title>
+    <script src="../../../tableToExcel.js"></script>
 
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -229,6 +230,7 @@ foreach($sumatotalRamo as $key=>$value) {
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
@@ -236,11 +238,11 @@ foreach($sumatotalRamo as $key=>$value) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-danger btn-lg btn-round">Gráficos de Porcentaje</a></center>
-                    <a href="busqueda_ramo.php" class="btn btn-info btn-lg btn-round"><-</a>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
-    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" >
+    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
           <th scope="col">Ramo</th>

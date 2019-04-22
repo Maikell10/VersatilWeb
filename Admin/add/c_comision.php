@@ -204,6 +204,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
         <div class="section">
             <div class="container" >
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 <center>
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Compañía: <?php echo utf8_encode($cia[0]['nomcia']);?>

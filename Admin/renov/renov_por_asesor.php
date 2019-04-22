@@ -211,7 +211,7 @@ if(isset($_SESSION['seudonimo'])) {
  
         <div class="section">
             <div class="container">
-
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
                     <h1 class="title">Resultado de Búsqueda de Póliza a Renovar por Asesor</h1>  
@@ -228,7 +228,6 @@ if(isset($_SESSION['seudonimo'])) {
                     <?php
                         }
                     ?>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
     
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>

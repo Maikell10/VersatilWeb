@@ -233,11 +233,10 @@ if(isset($_SESSION['seudonimo'])) {
  
         <div class="section">
             <div class="container">
-
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
                     <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 </div>
                 
                 
@@ -254,7 +253,6 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>F Hasta Seguro</th>
                             <th style="background-color: #E54848;">Prima Suscrita</th>
                             <th>Nombre Titular</th>
-                            <th>Apellido Titular</th>
                         </tr>
                     </thead>
                     
@@ -306,8 +304,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td><?php echo $poliza[$i]['nombre_t']; ?></td>
-                                <td><?php echo $poliza[$i]['apellido_t']; ?></td>
+                                <td><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
                             </tr>
                             <?php
                             }
@@ -327,7 +324,6 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>F Hasta Seguro</th>
                             <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
                             <th>Nombre Titular</th>
-                            <th>Apellido Titular</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -434,7 +430,7 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad1.removeAttribute("hidden");
-        }, 2500);
+        }, 1500);
         
       
 

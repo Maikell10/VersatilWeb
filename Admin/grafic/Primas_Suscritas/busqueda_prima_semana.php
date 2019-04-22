@@ -17,7 +17,7 @@ if(isset($_SESSION['seudonimo'])) {
   $ramo = $obj2->get_distinct_element('nramo','dramo'); 
 
   $obj3= new Trabajo();
-  $fechaMin = $obj3->get_fecha_min('f_desdepoliza','poliza'); 
+  $fechaMin = $obj3->get_fecha_min('f_hastapoliza','poliza'); 
 
   $obj4= new Trabajo();
   $fechaMax = $obj4->get_fecha_max('f_hastapoliza','poliza'); 
@@ -178,6 +178,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
@@ -211,8 +212,8 @@ if(isset($_SESSION['seudonimo'])) {
             <label>Seleccione el Año:</label>
             <select class="form-control" name="desde">
               <?php
-                $date=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"]));
-                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
+                $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
+                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
                   {  
               ?>
                   <option value="<?php echo $date;?>"><?php echo $date;?></option>

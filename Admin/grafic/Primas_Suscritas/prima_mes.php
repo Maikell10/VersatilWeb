@@ -68,6 +68,7 @@ $hasta=($_GET['desde']).'-12-31';
     <title>
         Versatil Seguros
     </title>
+    <script src="../../../tableToExcel.js"></script>
 
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -207,6 +208,7 @@ $hasta=($_GET['desde']).'-12-31';
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
@@ -214,14 +216,14 @@ $hasta=($_GET['desde']).'-12-31';
                     <br/>
                     
                     <a href="../primas_s.php" class="btn btn-danger btn-lg btn-round">Gráficos de Primas Suscritas</a></center>
-                    <a href="busqueda_prima_mes.php" class="btn btn-info btn-lg btn-round"><-</a>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
 
 
 
-    <table class="table table-hover" id="myTable">
+    <table class="table table-hover" id="Exportar_a_Excel">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Mes Desde Recibo</th>

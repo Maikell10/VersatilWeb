@@ -202,12 +202,10 @@ if(isset($_SESSION['seudonimo'])) {
  
         <div class="section">
             <div class="container">
-
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
-                    <h1 class="title">Lista de Reporte de Comisiones
-                    </h1>  
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+                    <h1 class="title">Lista de Reporte de Comisiones</h1>  
                 </div>
                 
                 <div class="row" style="justify-content: center;">

@@ -178,6 +178,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>

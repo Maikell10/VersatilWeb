@@ -185,93 +185,92 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="main main-raised">
- 
- 
+    
+    
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+            
                 <div class="col-md-auto col-md-offset-2">
                     <center><h1 class="title">Pólizas a Renovar por Cía</h1></center>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-                </div>
-
-                
+                </div> 
                 <div class="row" style="justify-content: center;">
                     <h3>Seleccione su Búsqueda</h3>
-                  </div>
-                  <br/>
-
-                  <?php if (isset($_GET['m'])==2) {?>
-              
-                    <div class="alert alert-danger" role="alert">
-                        No existen datos para la búsqueda seleccionada!
-                    </div>
-                
-                  <?php } ?>
-
-                  
-                  <form class="form-horizontal" action="renov_por_cia.php" method="get">
+                </div>
+                <br />
+    
+                <?php if (isset($_GET['m'])==2) {?>
+    
+                <div class="alert alert-danger" role="alert">
+                    No existen datos para la búsqueda seleccionada!
+                </div>
+    
+                <?php } ?>
+    
+    
+                <form class="form-horizontal" action="renov_por_cia.php" method="get">
                     <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label>Año Vigencia Seguro:</label>
-                        <select class="form-control" name="anio" id="anio">
-                            
-                        <?php
-                            for($i=$fechaMin; $i <= $fechaMax; $i++)
-                            { 
-                            if ($i<date('Y')) {
-                                 
-                             }else{
-                        ?>
-                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                        <?php
-                                }
-                            $date=$date+1;
-                                 
-                            } 
-                        ?> 
-                        </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label>Mes Vigencia Seguro:</label>
-                        <select class="form-control" name="mes" id="mes">
-                            <option value="">Seleccione Mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                      </div>
+                        <div class="form-group col-md-6">
+                            <label>Año Vigencia Seguro:</label>
+                            <select class="form-control" name="anio" id="anio">
+    
+                                <?php
+                                for($i=$fechaMin; $i <= $fechaMax; $i++)
+                                { 
+                                if ($i<date('Y')) {
+                                     
+                                 }else{
+                            ?>
+                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                <?php
+                                    }
+                                $date=$date+1;
+                                     
+                                } 
+                            ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Mes Vigencia Seguro:</label>
+                            <select class="form-control" name="mes" id="mes">
+                                <option value="">Seleccione Mes</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
                     </div>
-                    
-                    
-
-                   
-
-
-                      <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>
-
-                  </form>
-
-
-                
+    
+    
+    
+    
+    
+    
+                    <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>
+    
+                </form>
+    
+    
+    
             </div>
-
+    
         </div>
-
-        
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
         <div class="section" style="background-color: #40A8CB;">
             <div class="container">
                 <div class="row">
@@ -284,19 +283,19 @@ if(isset($_SESSION['seudonimo'])) {
                                 <div class="card-body">
                                     <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
                                 </div>
-                                
+    
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-        
+    
+    
+    
+    
+    
+    
     </div>
 
 

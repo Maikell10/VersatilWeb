@@ -190,6 +190,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
@@ -197,7 +198,6 @@ if(isset($_SESSION['seudonimo'])) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-danger btn-lg btn-round">Gráficos de Porcentaje</a></center>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><-</a>
                 </div>
                 <br>
 
@@ -298,12 +298,12 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       ?>
                           <td><?php echo utf8_encode($ramo[$a]['nramo']); ?></td>
-                          <td align="right"><?php echo number_format($prima_suscrita,2); ?></td>
-                          <td align="right"><?php echo number_format($prima_cobrada,2); ?></td>
-                          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($prima_suscrita-$prima_cobrada,2); ?></td>
-                          <td align="right"><?php echo number_format($comision_cobrada,2); ?></td>
-                          <td align="right"><?php echo number_format($gc_pagada,2); ?></td>
-                          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($comision_cobrada-$gc_pagada,2); ?></td>
+                          <td align="right"><?php echo "$ ".number_format($prima_suscrita,2); ?></td>
+                          <td align="right"><?php echo "$ ".number_format($prima_cobrada,2); ?></td>
+                          <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
+                          <td align="right"><?php echo "$ ".number_format($comision_cobrada,2); ?></td>
+                          <td align="right"><?php echo "$ ".number_format($gc_pagada,2); ?></td>
+                          <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
                           <td align="center"><?php echo number_format($per_gc,2)."%"; ?></td>
                           <td align="center"><?php echo sizeof($resumen); ?></td>
                       </tr>
@@ -312,12 +312,12 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
                       <tr style="background-color: #FF7E7E;color: white;font-weight: bold;">
                         <td colspan="2">Total <?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
-                        <td align="right"><?php echo number_format($totalPrimaSuscrita,2); ?></td>
-                        <td align="right"><?php echo number_format($totalPrimaCobrada,2); ?></td>
-                        <td align="right"><?php echo number_format(($totalPrimaSuscrita-$totalPrimaCobrada),2); ?></td>
-                        <td align="right"><?php echo number_format($totalComisionCobrada,2); ?></td>
-                        <td align="right"><?php echo number_format($totalGCPagada,2); ?></td>
-                        <td align="right"><?php echo number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobrada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format(($totalPrimaSuscrita-$totalPrimaCobrada),2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalGCPagada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
                         <td align="center"><?php if ($totalPrimaCobrada==0) {
                                                       $por_gcTotal=0;
                                                     } else {
@@ -333,12 +333,12 @@ if(isset($_SESSION['seudonimo'])) {
                     ?>
                     <tr style="background-color: #E54848;color:white">
                         <td colspan="2">Total General</td>
-                        <td align="right"><?php echo number_format($totalPrimaSuscritaT,2); ?></td>
-                        <td align="right"><?php echo number_format($totalPrimaCobradaT,2); ?></td>
-                        <td align="right"><?php echo number_format(($totalPrimaSuscritaT-$totalPrimaCobradaT),2); ?></td>
-                        <td align="right"><?php echo number_format($totalComisionCobradaT,2); ?></td>
-                        <td align="right"><?php echo number_format($totalGCPagadaT,2); ?></td>
-                        <td align="right"><?php echo number_format($totalComisionCobradaT-$totalGCPagadaT,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscritaT,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobradaT,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format(($totalPrimaSuscritaT-$totalPrimaCobradaT),2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobradaT,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalGCPagadaT,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobradaT-$totalGCPagadaT,2); ?></td>
                         <td align="center"><?php echo number_format(($totalComisionCobradaT*100)/$totalPrimaCobradaT,2)."%"; ?></td>
                         <td align="right"><?php echo number_format($totalCantidadT,0); ?></td>
                     </tr>

@@ -230,7 +230,7 @@ if(isset($_SESSION['seudonimo'])) {
                     }
                     
                     
-                    echo $nombre; ?></h1>
+                    echo utf8_encode($nombre); ?></h1>
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {

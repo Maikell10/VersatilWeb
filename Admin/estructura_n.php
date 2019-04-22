@@ -154,6 +154,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 <center>
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Seleccione una Estructura de Negocios para ver su Listado</h1>  
