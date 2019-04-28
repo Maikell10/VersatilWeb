@@ -21,8 +21,10 @@ if(isset($_SESSION['seudonimo'])) {
 	$n_poliza=$_POST['n_poliza'];
 	$fhoy=date("Y-m-d");
     //$femisionP=$_POST['emisionP'];
-    $femisionP=date("Y-m-d");
-	$t_cobertura=$_POST['t_cobertura'];
+    //$femisionP=date("Y-m-d");
+    $femisionP=$fhoy;
+	//$t_cobertura=$_POST['t_cobertura'];
+    $t_cobertura=0;
 	$fdesdeP=$_POST['desdeP'];
 	$fhastaP=$_POST['hastaP'];
 	$currency=$_POST['currency'];
@@ -112,8 +114,8 @@ if(isset($_SESSION['seudonimo'])) {
     
 
 
-    $originalEmision = $_POST['emisionP'];
-    $newEmision = date("d/m/Y", strtotime($originalEmision));
+    //$originalEmision = $_POST['emisionP'];
+    //$newEmision = date("d/m/Y", strtotime($originalEmision));
     $originalDesdeP = $_POST['desdeP'];
     $newDesdeP = date("d/m/Y", strtotime($originalDesdeP));
     $originalHastaP = $_POST['hastaP'];
@@ -328,7 +330,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container" >
                 <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Carga de la Póliza Pendiente N° <?php echo $n_poliza;?>
+                    <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Edición de la Póliza N° <?php echo $n_poliza;?>
                     </h1>  
                 </div>
 
@@ -406,7 +408,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr >
                                     <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='crear_pp_n.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
                                     <?php } else {?>
                                         <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
                                     <?php    } ?>
@@ -470,7 +472,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="crear_pp_n.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_poliza_nn.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

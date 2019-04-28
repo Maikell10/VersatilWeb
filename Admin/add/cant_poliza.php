@@ -198,11 +198,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <table class="table table-hover table-striped table-bordered display table-responsive " id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Fecha Pago GC *</th>
                                     <th>Fecha Hasta *</th>
                                     <th>Seleccione Cantidad de Pólizas *</th>
                                     <th>Total Prima Cobrada</th>
                                     <th>Total Comisión Cobrada</th>
+                                    <th>Fecha Pago GC *</th>
                                     <th hidden>id reporte</th>
                                     <th hidden>cia</th>
                                     <th hidden>cant_poliza</th>
@@ -211,10 +211,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </thead>
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><div class="input-group date">
-                                            <input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" required data-toggle="tooltip" data-placement="bottom" title="Fecha Pago de la Gestión de Cobranza. Campo Obligatorio">
-                                        </div>
-                                    </td>
+                                    
                                     <td><div class="input-group date">
                                             <input onblur="validarReporte(this)" type="text" class="form-control" id="f_hasta" name="f_hasta" required data-toggle="tooltip" data-placement="bottom" title="Fecha Hasta Reporte. Campo Obligatorio">
                                         </div>
@@ -236,6 +233,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     </select></td>
                                     <td><input type="number" step="0.01" class="form-control" id="primat_com" name="primat_com" required></td>
                                     <td><input type="number" step="0.01" class="form-control" id="comt" name="comt" required></td>
+
+                                    <td><div class="input-group date">
+                                            <input onblur="cargar_f()" type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" required data-toggle="tooltip" data-placement="bottom" title="Fecha Pago de la Gestión de Cobranza. Campo Obligatorio">
+                                        </div>
+                                    </td>
 
                                     <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="0"></td>
                                     <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
@@ -351,6 +353,13 @@ if(isset($_SESSION['seudonimo'])) {
                 
             } else {
                 
+
+                var fecha = f_hasta.value.split('-').reverse().join('-');
+                let date = new Date(fecha)
+                let day = 1
+                let month = date.getMonth()
+                let year = date.getFullYear()
+
             
             $.ajax({
                 
@@ -366,7 +375,11 @@ if(isset($_SESSION['seudonimo'])) {
                         $("#no_existeRep").text('No se ha creado el Reporte de Comisión para la Cía y Fecha Seleccionada');
                         
                         $("#id_rep").val(0); 
-                        $("#f_pagoGc").val('');  
+                        $("#f_pagoGc").datepicker("setDate", `${day}-${month}-${year}`);  
+                        $("#f_pagoGc").css('background-color', 'gold');
+
+                        
+
 
                         $("#exx").val(0);  
 
@@ -384,8 +397,7 @@ if(isset($_SESSION['seudonimo'])) {
                         //var f_desde = datos['f_desde_rep'].split('-').reverse().join('-');
                         $("#f_pagoGc").val(f_pagoGc); 
                         $( "#f_pagoGc" ).datepicker( "setDate", f_pagoGc );
-                        //$("#f_desde").val(f_desde); 
-                        //$( "#f_desde" ).datepicker( "setDate", f_desde );
+                        $("#f_pagoGc").css('background-color', 'white');
 
                         $("#exx").val(1);
 
@@ -396,6 +408,10 @@ if(isset($_SESSION['seudonimo'])) {
             });
             }
 
+        }
+
+        function cargar_f(){
+            $("#f_pagoGc").css('background-color', 'white');
         }
         
     </script>

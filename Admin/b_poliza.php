@@ -262,6 +262,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <option value="">Seleccione Status</option>
                             <option value="1">Activa</option>
                             <option value="2">Inactiva</option>
+                            <option value="3">Anulada</option>
                         </select>
                       </div>
                     </div>

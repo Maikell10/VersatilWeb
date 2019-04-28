@@ -338,13 +338,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     </div>
 
                         <?php
-                            if ($totalprimaant>$_GET['primat_com']) {
+                            if (isset($totalprimaant)>$_GET['primat_com']) {
                         ?>  
                             <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
                         <?php      
-                            } elseif($totalprimaant<$_GET['primat_com']) {
+                            } elseif(isset($totalprimaant)<$_GET['primat_com']) {
                         ?>
-                            <h2 style="color:gold;font-weight:bold">Falta cargar <?php echo "$ ".number_format($_GET['primat_com']-$totalprimaant,2);?> de prima sujeta a comisión</h2>
+                            <h2 style="color:red;font-weight:bold">Falta cargar <?php echo "$ ".number_format($_GET['primat_com']-isset($totalprimaant),2);?> de prima sujeta a comisión</h2>
                         <?php 
                             }
                         ?>

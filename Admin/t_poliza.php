@@ -15,7 +15,7 @@ $poliza = $obj1->get_poliza_total();
 				<th hidden>id</th>
 				<th>N° Póliza</th>
 				<th hidden>Código Vendedor</th>
-				<th>F Producción</th>
+				<th>Cía</th>
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th style="background-color: #E54848;">Prima Suscrita</th>
@@ -72,7 +72,7 @@ $poliza = $obj1->get_poliza_total();
 				
 					
 					<td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-					<td><?php echo $newFProd; ?></td>
+					<td><?php echo $poliza[$i]['nomcia']; ?></td>
 	                <td><?php echo $newDesde; ?></td>
 	                <td><?php echo $newHasta; ?></td>
 	                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -92,7 +92,7 @@ $poliza = $obj1->get_poliza_total();
 				<th hidden>id</th>
 				<th>N° Póliza</th>
 				<th hidden>Código Vendedor</th>
-				<th>F Producción</th>
+				<th>Cía</th>
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
@@ -103,8 +103,11 @@ $poliza = $obj1->get_poliza_total();
 	</table>
 
 
-	<h1 class="title">Total de Prima</h1>
+	<h1 class="title">Total de Prima Suscrita</h1>
 	<h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
+
+	<h1 class="title">Total de Pólizas</h1>
+	<h1 class="title text-danger">$ <?php  echo sizeof($poliza);?></h1>
 
 
 <script type="text/javascript">

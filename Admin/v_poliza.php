@@ -42,6 +42,8 @@ if(isset($_SESSION['seudonimo'])) {
         $currency="$ ";
     }else{$currency="Bs ";}
 
+  $ob10= new Trabajo();
+  $vehiculo = $ob10->get_element_by_id('dveh','idveh',$poliza[0]['id_poliza']); 
 
 ?>
 <!DOCTYPE html>
@@ -341,7 +343,12 @@ if(isset($_SESSION['seudonimo'])) {
                     </tbody>
                 </table>
 
-</br>
+
+<!-- -----------------SI ES PÓLIZA PENDIENTE NO MOSTRAR------------------ -->
+                <?php 
+                    if ($poliza[0]['nombre_t']!='PENDIENTE') {
+                ?>  
+
 
                 <div class="col-md-auto col-md-offset-2">
                     <h2 class="title">Datos del Titular</h2>  
@@ -437,7 +444,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </table> -->
 
 
-</br>
+
 
                 <div class="col-md-auto col-md-offset-2">
                     <h2 class="title">Datos del Tomador</h2>  
@@ -455,19 +462,53 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $poliza[0]['ci']; ?></td>
+                                <td><?php echo $tomador[0]['ci']; ?></td>
                                 <td><?php echo $tomador[0]['nombre_t']; ?></td>
                                 <td><?php echo $tomador[0]['apellido_t']; ?></td>
                             </tr>
                     </tbody>
                 </table>
+
+                <?php
+                if ($poliza[0]['cod_ramo']==2 || $poliza[0]['cod_ramo']==25) {
+                ?>
+                
+                <div class="form-row" id="tablaveh" >      
+                    <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
+                        <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Placa *</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Tipo</th>
+                                    <th>Año</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr>
+                                    <td><?php echo $vehiculo[0]['placa']; ?></td>
+                                    <td><?php echo $vehiculo[0]['marca']; ?></td>
+                                    <td><?php echo $vehiculo[0]['mveh']; ?></td>
+                                    <td><?php echo $vehiculo[0]['tveh']; ?></td>
+                                    <td><?php echo $vehiculo[0]['f_veh']; ?></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <?php 
+                }
+                ?>
                 
 
                 
 
 
 
-</br>
 
                 <div class="col-md-auto col-md-offset-2">
                     <h2 class="title">Datos del Asesor</h2>  
@@ -524,7 +565,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <hr>
                 
 
-
+                <?php } ?>
 
 
     
@@ -656,15 +697,19 @@ if(isset($_SESSION['seudonimo'])) {
                                     $totalprimaC=$totalprimaC+$polizap[$i]['prima_com'];
                                     $totalcomisionC=$totalcomisionC+$polizap[$i]['comision'];
                                     $totalGC=$totalGC+(($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100);
+
+                                    $newFPago = date("d/m/Y", strtotime($polizap[$i]['f_pago_prima']));
+                                    $newFHastaR = date("d/m/Y", strtotime($polizap[$i]['f_hasta_rep']));
+                                    $newFPagoGC = date("d/m/Y", strtotime($polizap[$i]['f_pago_gc']));
                                 
                             ?>
                                 <tr >
                                     <td align="right"><?php echo $polizap[$i]['prima_com'];?></td>
-                                    <td><?php echo $polizap[$i]['f_pago_prima'];?></td>
+                                    <td><?php echo $newFPago;?></td>
                                     <td align="right"><?php echo $polizap[$i]['comision'];?></td>
-                                    <td nowrap><?php echo $polizap[$i]['f_hasta_rep'];?></td>
+                                    <td nowrap><?php echo $newFHastaR;?></td>
                                     <td align="right"><?php echo ($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100;?></td>
-                                    <td nowrap><?php echo $polizap[$i]['f_pago_gc'];?></td>
+                                    <td nowrap><?php echo $newFPagoGC;?></td>
                                 </tr>
                             <?php
                                 }

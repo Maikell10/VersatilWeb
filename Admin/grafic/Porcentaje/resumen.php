@@ -232,8 +232,7 @@ if(isset($_SESSION['seudonimo'])) {
                     $totalGCPagada=0;
                     $totalCant=0;
                     $totalPerGCA=0;
-                    $totalCantP=0;
-                    $cant=0;
+                    $totalCantPT=0;
                     for ($i=0; $i < sizeof($cia); $i++) { 
 
                       $obj6= new Trabajo();
@@ -246,10 +245,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                       $prima_suscrita=0;
                       $per_gc_a=0;
+                      $totalCantP=0;
                       for ($b=0; $b < sizeof($resumen_poliza); $b++) { 
                         $prima_suscrita=$prima_suscrita+$resumen_poliza[$b]['prima'];
                         $per_gc_a=$per_gc_a+$resumen_poliza[$b]['per_gc'];
                         $totalCantP=$totalCantP+1;
+                        $totalCantPT=$totalCantPT+1;
                       }
                       
                       $totalPrimaSuscrita=$totalPrimaSuscrita+$prima_suscrita;
@@ -288,7 +289,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                     }
                           ?></td>
                           <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
-                          <td align="center"><?php echo sizeof($resumen); ?></td>
+                          <td align="center"><?php echo $totalCantP; ?></td>
                       </tr>
                       <?php
                     }  
@@ -303,7 +304,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <td align="right"><?php echo "$ ".number_format($totalGCPagada,2); ?></td>
                         <td align="center"><?php echo number_format($totalPerGCA/$totalCant,2)."%"; ?></td>
                         <td align="right"><?php echo "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
-                        <td align="right"><?php echo number_format($totalCant,0); ?></td>
+                        <td align="right"><?php echo number_format($totalCantPT,0); ?></td>
                     </tr>
                   </tbody>
 

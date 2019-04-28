@@ -29,6 +29,8 @@ if(isset($_SESSION['seudonimo'])) {
   $referidor = $obj32->get_element('enr','id_enr'); 
 
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

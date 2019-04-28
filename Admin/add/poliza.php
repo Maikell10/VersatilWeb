@@ -112,8 +112,8 @@ if(isset($_SESSION['seudonimo'])) {
     
 
 
-    $originalEmision = $_POST['emisionP'];
-    $newEmision = date("d/m/Y", strtotime($originalEmision));
+    //$originalEmision = $_POST['emisionP'];
+    //$newEmision = date("d/m/Y", strtotime($originalEmision));
     $originalDesdeP = $_POST['desdeP'];
     $newDesdeP = date("d/m/Y", strtotime($originalDesdeP));
     $originalHastaP = $_POST['hastaP'];

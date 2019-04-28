@@ -137,11 +137,12 @@ class Trabajo extends Conectar{
 		    {
 		      	$sql="SELECT *  FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, tipo_poliza
+                  	INNER JOIN drecibo, titular, tipo_poliza, dcia
                   	WHERE 
                   	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-                  	drecibo.idtitu = titular.id_titular
+                  	drecibo.idtitu = titular.id_titular AND
+                  	poliza.id_cia = dcia.idcia
                     ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
 				
@@ -599,13 +600,14 @@ class Trabajo extends Conectar{
 			{
 					$sql="SELECT *  FROM 
 									poliza
-									INNER JOIN drecibo, titular, tipo_poliza
+									INNER JOIN drecibo, titular, tipo_poliza, dcia
 									WHERE 
 									poliza.id_poliza = drecibo.idrecibo AND
 									poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 									drecibo.idtitu = titular.id_titular AND
 									poliza.f_hastapoliza >= '$f_desde' AND
-									poliza.f_hastapoliza <= '$f_hasta'
+									poliza.f_hastapoliza <= '$f_hasta'AND
+                    				poliza.id_cia = dcia.idcia
 									ORDER BY poliza.id_poliza ASC";
 			$res=mysqli_query(Conectar::con(),$sql);
 			
@@ -632,14 +634,15 @@ class Trabajo extends Conectar{
 		{
 				$sql="SELECT *  FROM 
 								poliza
-								INNER JOIN drecibo, titular, tipo_poliza
+								INNER JOIN drecibo, titular, tipo_poliza, dcia
 								WHERE 
 								poliza.id_poliza = drecibo.idrecibo AND
 								poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 								drecibo.idtitu = titular.id_titular AND
 								poliza.f_poliza >= '$f_desde' AND
-								poliza.f_poliza <= '$f_hasta'
-								ORDER BY poliza.id_poliza ASC";
+								poliza.f_poliza <= '$f_hasta' AND
+                    			poliza.id_cia = dcia.idcia
+								ORDER BY poliza.id_poliza DESC";
 		$res=mysqli_query(Conectar::con(),$sql);
 		
 		$filas=mysqli_num_rows($res); 
@@ -649,7 +652,7 @@ class Trabajo extends Conectar{
 				$filas=mysqli_num_rows($res); 
 				if ($filas == 0) { 
 					echo "No hay registros";
-					  header("Location: b_poliza.php?m=2");
+					  header("Location: b_f_product.php?m=2");
 					  exit();
 				  }else
 					{
@@ -957,7 +960,87 @@ class Trabajo extends Conectar{
 			  }
 
 			  
-		  }
+			}
+			
+
+
+
+
+	public function get_poliza_total_by_filtro_status_a($fecha)
+			{
+					$sql="SELECT DISTINCT id_poliza 
+					FROM ( 
+							SELECT DISTINCT id_poliza 
+							FROM poliza 
+							WHERE
+							poliza.f_hastapoliza >= '$fecha'
+							UNION ALL 
+							SELECT DISTINCT poliza.id_poliza 
+							FROM poliza, comision 
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							poliza.f_hastapoliza >= '$fecha'
+					) t
+					GROUP BY id_poliza 
+					HAVING COUNT(*) > 1";
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			$filas=mysqli_num_rows($res); 
+			if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						echo "No hay registros";
+				      	header("Location: b_poliza.php?m=2");
+				      	exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+		}	
+
+
+	public function get_poliza_total_by_filtro_status_i($fecha)
+		{
+				$sql="SELECT DISTINCT id_poliza 
+				FROM ( 
+						SELECT DISTINCT id_poliza 
+						FROM poliza
+						WHERE
+						poliza.f_hastapoliza < '$fecha' 
+						UNION ALL 
+						SELECT DISTINCT poliza.id_poliza 
+						FROM poliza, comision 
+						WHERE poliza.id_poliza = comision.id_poliza AND
+						poliza.f_hastapoliza < '$fecha' 
+				) t
+				GROUP BY id_poliza 
+				HAVING COUNT(*) > 1";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+					//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					echo "No hay registros";
+							header("Location: b_poliza.php?m=2");
+							exit();
+						}else
+								{
+										 while($reg=mysqli_fetch_assoc($res)) {
+											 $this->t[]=$reg;
+										}
+										return $this->t;
+					}
+			}
+	}
 
 
 
@@ -2503,6 +2586,39 @@ class Trabajo extends Conectar{
 					}
 			}
 		}
+
+
+
+	public function get_poliza_comision_by_id($id_poliza)
+		{
+				$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, rep_com, comision, titular
+										WHERE 
+										rep_com.id_cia=dcia.idcia AND
+										poliza.id_poliza=drecibo.idrecibo AND 
+										poliza.id_poliza = comision.id_poliza AND
+										rep_com.id_rep_com = comision.id_rep_com AND
+										poliza.id_titular = titular.id_titular AND
+										comision.id_poliza = '$id_poliza' 
+										ORDER by f_pago_prima DESC";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		if (!$res) {
+				//No hay registros
+		}else{
+			$filas=mysqli_num_rows($res); 
+			if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else
+							{
+									 while($reg=mysqli_fetch_assoc($res)) {
+										 $this->t[]=$reg;
+									}
+									return $this->t;
+				}
+		}
+	}
 
 
 

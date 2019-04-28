@@ -48,18 +48,24 @@ if(isset($_SESSION['seudonimo'])) {
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
   $hasta=$fechaMax[0]["MAX(f_hastapoliza)"];
 
+
+ 
   $status = $_GET['status'];
   if ($status == 1) {
     $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro(date("Y-m-d"),$hasta); 
+    $poliza = $obj1->get_poliza_total_by_filtro_status_a(date("Y-m-d")); 
   }
   if ($status == 2) {
+    $obj1= new Trabajo();
+    $poliza = $obj1->get_poliza_total_by_filtro_status_i(date("Y-m-d")); 
+  }
+  if ($status == 3) {
     $obj1= new Trabajo();
     $poliza = $obj1->get_poliza_total_by_filtro($desde,date("Y-m-d")); 
   }
 
 
-  
+
 
 
 ?>
@@ -239,7 +245,145 @@ if(isset($_SESSION['seudonimo'])) {
                     <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
                 </div>
                 
+                <?php
+                if ($status == 1) {
+
+                ?>
+                <center>
+                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th hidden>f_poliza</th>
+                            <th hidden>id</th>
+                            <th>N° Póliza</th>
+                            <th>Status</th>
+                            <th hidden>Código Vendedor</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th style="background-color: #E54848;">Prima Suscrita</th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        <?php
+                        $f_hoy=date("Y-m-d");
+                        $totalsuma=0;
+                        $totalprima=0;
+                        $currency="";
+                        $cant=0;
+                        for ($a=0; $a < sizeof($poliza); $a++) { 
+                        
+                        $obj111= new Trabajo();   
+                        $polizat = $obj111->get_poliza_comision_by_id($poliza[$a]['id_poliza']); 
+                       
+                       
+
+                            if ($polizat[0]['id_titular']==0) {
+					
+                            } else {
+                            $cant=$cant+1;
+                            $totalsuma=$totalsuma+$polizat[0]['sumaasegurada'];
+                            $totalprima=$totalprima+$polizat[0]['prima'];
+
+                            $originalDesde = $polizat[0]['f_desdepoliza'];
+                            $newDesde = date("d/m/Y", strtotime($originalDesde));
+                            $originalHasta = $polizat[0]['f_hastapoliza'];
+                            $newHasta = date("d/m/Y", strtotime($originalHasta));
+                            $originalFProd = $polizat[0]['f_poliza'];
+				            $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                            if ($polizat[0]['currency']==1) {
+                                $currency="$ ";
+                            }else{$currency="Bs ";}
+
+                            
+                            if ( ( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 30 days")) ) || ( $polizat[0]['ncuotas']==1 ) ) {
+                                
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
+                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold">Activa</td>
+                            <?php            
+                            } if (( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 60 days")) ) && ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 31 days")) ) && ( $polizat[0]['ncuotas']!=1 ) ) {
+                                
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
+                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
+                                <td style="color: #D8DC03;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
+                                <td style="color: #D8DC03;font-weight: bold">Activa 30</td>
+                            <?php
+                            }
+                            if (( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 120 days")) ) && ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 61 days")) ) && ( $polizat[0]['ncuotas']!=1 ) ){
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
+                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
+                                <td style="color: #F27A02;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
+                                <td style="color: #F27A02;font-weight: bold">Activa 60</td>
+                            <?php   
+                            }if ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 121 days")) && ( $polizat[0]['ncuotas']!=1 ) ){
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
+                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
+                                <td style="color: red;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
+                                <td style="color: red;font-weight: bold">Inactiva</td>
+                            <?php
+                            }
+                            ?>
+                            
+                                
+                                <td hidden><?php echo $polizat[0]['codvend']; ?></td>
+                                <td><?php echo $polizat[0]['nomcia']; ?></td>
+                                <td><?php echo $newDesde; ?></td>
+                                <td><?php echo $newHasta; ?></td>
+                                <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
+                                <td><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                            </tr>
+                            <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+
+
+                    <tfoot>
+                        <tr>
+                            <th hidden>f_poliza</th>
+                            <th hidden>id</th>
+                            <th>N° Póliza</th>
+                            <th>Status</th>
+                            <th hidden>Código Vendedor</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                <h1 class="title">Total de Prima</h1>
+                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
+
+                <h1 class="title">Total de Pólizas</h1>
+                <h1 class="title text-danger"><?php  echo $cant;?></h1>
+                </center>
+
+
+                <?php
+                    }
                 
+
+                if ($status == 2) {
+
+                ?>
                 <center>
                 <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -248,7 +392,108 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden>id</th>
                             <th>N° Póliza</th>
                             <th hidden>Código Vendedor</th>
-                            <th>F Producción</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th style="background-color: #E54848;">Prima Suscrita</th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        <?php
+                        $f_hoy=date("Y-m-d");
+                        $totalsuma=0;
+                        $totalprima=0;
+                        $currency="";
+                        $cant=0;
+                        for ($a=0; $a < sizeof($poliza); $a++) { 
+                        
+                        $obj111= new Trabajo();   
+                        $polizat = $obj111->get_poliza_comision_by_id($poliza[$a]['id_poliza']); 
+                       
+                       
+
+                            if ($polizat[0]['id_titular']==0) {
+					
+                            } else {
+                            $cant=$cant+1;
+                            $totalsuma=$totalsuma+$polizat[0]['sumaasegurada'];
+                            $totalprima=$totalprima+$polizat[0]['prima'];
+
+                            $originalDesde = $polizat[0]['f_desdepoliza'];
+                            $newDesde = date("d/m/Y", strtotime($originalDesde));
+                            $originalHasta = $polizat[0]['f_hastapoliza'];
+                            $newHasta = date("d/m/Y", strtotime($originalHasta));
+                            $originalFProd = $polizat[0]['f_poliza'];
+				            $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                            if ($polizat[0]['currency']==1) {
+                                $currency="$ ";
+                            }else{$currency="Bs ";}
+
+    
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
+                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
+                            
+                                
+                                <td hidden><?php echo $polizat[0]['codvend']; ?></td>
+                                <td><?php echo $polizat[0]['nomcia']; ?></td>
+                                <td><?php echo $newDesde; ?></td>
+                                <td><?php echo $newHasta; ?></td>
+                                <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
+                                <td><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                            </tr>
+                            <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+
+
+                    <tfoot>
+                        <tr>
+                            <th hidden>f_poliza</th>
+                            <th hidden>id</th>
+                            <th>N° Póliza</th>
+                            <th hidden>Código Vendedor</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                <h1 class="title">Total de Prima</h1>
+                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
+
+                <h1 class="title">Total de Pólizas</h1>
+                <h1 class="title text-danger"><?php  echo $cant;?></h1>
+                </center>
+
+
+                <?php
+                    }if ($status ==  null){
+                ?>
+
+
+
+
+                <center>
+                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th hidden>f_poliza</th>
+                            <th hidden>id</th>
+                            <th>N° Póliza</th>
+                            <th hidden>Código Vendedor</th>
+                            <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
                             <th style="background-color: #E54848;">Prima Suscrita</th>
@@ -261,10 +506,12 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalsuma=0;
                         $totalprima=0;
                         $currency="";
+                        $cant=0;
                         for ($i=0; $i < sizeof($poliza); $i++) { 
                             if ($poliza[$i]['id_titular']==0) {
 					
                             } else {
+                            $cant=$cant+1;
                             $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
                             $totalprima=$totalprima+$poliza[$i]['prima'];
 
@@ -300,7 +547,7 @@ if(isset($_SESSION['seudonimo'])) {
                             
                                 
                                 <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-                                <td><?php echo $newFProd; ?></td>
+                                <td><?php echo $poliza[$i]['nomcia']; ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -319,7 +566,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden>id</th>
                             <th>N° Póliza</th>
                             <th hidden>Código Vendedor</th>
-                            <th>F Producción</th>
+                            <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
                             <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
@@ -331,7 +578,14 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <h1 class="title">Total de Prima</h1>
                 <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
+
+                <h1 class="title">Total de Pólizas</h1>
+                <h1 class="title text-danger"><?php  echo $cant;?></h1>
             </center>
+
+            <?php
+                }
+            ?>
 
 
                 

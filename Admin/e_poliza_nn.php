@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 session_start();
 if(isset($_SESSION['seudonimo'])) {
 
@@ -11,23 +12,93 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../class/clases.php");
 
 
-  $desdeP=$_GET['desdeP'];
-  $hastaP=$_GET['hastaP'];
 
-  $desde = date("Y-m-d", strtotime($desdeP));
-  $hasta = date("Y-m-d", strtotime($hastaP));   
+    $id_poliza=$_GET['id_poliza'];
+	$n_poliza=$_GET['n_poliza'];
+	$fhoy=$_GET['fhoy'];
+    //$femisionP=$_GET['emisionP'];
+    //$femisionP = date("Y-m-d", strtotime($femisionP));
+    $femisionP=$_GET['fhoy'];
+	$t_cobertura=$_GET['t_cobertura'];
+	$fdesdeP=$_GET['desdeP'];
+    $fhastaP=$_GET['hastaP'];
+    $fdesdeP = date("Y-m-d", strtotime($fdesdeP));
+    $fhastaP = date("Y-m-d", strtotime($fhastaP));    
+	$currency=$_GET['currency'];
+	$tipo_poliza=$_GET['tipo_poliza'];
+	$sumaA=$_GET['sumaA'];
+	$z_produc=$_GET['z_produc'];
+	if ($z_produc=="PANAMÁ") {
+		$z_produc=1;
+	}else{$z_produc=2;}
+	$codasesor=$_GET['asesor'];
+	$ramo=$_GET['ramo'];
+	$cia=$_GET['cia'];
+	$titular=$_GET['titular'];
+    $tomador=$_GET['tomador'];
+    $t_cuenta=$_GET['t_cuenta'];
+    $asesor_ind=$_GET['asesor_ind'];
+    if ($asesor_ind==null) {
+        $asesor_ind=0;
+    }
+	
+	
+	$n_recibo=$_GET['n_recibo'];
+	$fdesde_recibo=$_GET['desde_recibo'];
+    $fhasta_recibo=$_GET['hasta_recibo'];
+    $fdesde_recibo = date("Y-m-d", strtotime($fdesde_recibo));    
+    $fhasta_recibo = date("Y-m-d", strtotime($fhasta_recibo));    
+	$prima=$_GET['prima'];
+	$f_pago=$_GET['f_pago'];
 
-  
-  
+	$n_cuotas=$_GET['n_cuotas'];
+	$monto_cuotas=$_GET['monto_cuotas'];
 
-  $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_total_by_filtro_f_product($desde,$hasta); 
+	
+	$tomador=$_GET['tomador'];
+	$titular=$_GET['titular'];
 
+	$obj3= new Trabajo();
+  	$idtomador = $obj3->get_id_cliente($tomador); 
 
+  	$obj4= new Trabajo();
+    $idtitular = $obj4->get_id_cliente($titular); 
+      
 
+    $placa=$_GET['placa'];
+    $tipo=$_GET['tipo'];
+    $marca=$_GET['marca'];
+    $modelo=$_GET['modelo'];
+    $anio=$_GET['anio'];
+    $color=$_GET['color'];
+    $serial=$_GET['serial'];
+    $categoria=$_GET['categoria'];
 
+    if ($placa==null) {
+        $placa='-';
+        $tipo='-';
+        $marca='-';
+        $modelo='-';
+        $anio='-';
+        $color='-';
+        $serial='-';
+        $categoria='-';
+    }
 
-  
+	
+	$obj1= new Trabajo();
+  	$poliza = $obj1->editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta); 
+
+  	$obj= new Trabajo();
+    $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 
+      
+    $obj11= new Trabajo();
+  	$vehiculo = $obj11->editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 
+
+  	$tipo_poliza_print="";
+  	if ($tipo_poliza==1) {
+  		$tipo_poliza_print="Primer Año";
+  	}
 
 
 ?>
@@ -44,7 +115,6 @@ if(isset($_SESSION['seudonimo'])) {
     <title>
         Versatil Seguros
     </title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -54,6 +124,8 @@ if(isset($_SESSION['seudonimo'])) {
     <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
+    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
     
     <!-- Alertify -->
     <link rel="stylesheet" type="text/css" href="../assets/alertify/css/alertify.css">
@@ -62,20 +134,11 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <!-- DataTables -->
-    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
-    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
-
-
-
-    <style type="text/css">
-        #carga{
-            height: 80vh
-        }
-    </style>
 
 </head>
 
@@ -83,7 +146,7 @@ if(isset($_SESSION['seudonimo'])) {
     <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="40%" /></a>
+                <a class="navbar-brand" href="../sesionadmin.php"> <img src="../assets/img/logo1.png" width="45%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -195,126 +258,16 @@ if(isset($_SESSION['seudonimo'])) {
     <div class="main main-raised">
         
 
-        <div id="carga" class="d-flex justify-content-center align-items-center">
-            <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
-        </div>
- 
+        
+
         <div class="section">
-            <div class="container">
-
-
-                <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
-                    <h1 class="title">Resultado de Búsqueda de Póliza por Fecha de Producción</h1>  
-                    <h2 class="title">Desde: <font style="color:red"><?php echo $desdeP; ?></font> Hasta: <font style="color:red"><?php echo $hastaP; ?></font></h2>
-                    <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-                </div>
-                
-                
-                <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th style="background-color: #E54848;">Prima Suscrita</th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody >
-                        <?php
-                        $totalsuma=0;
-                        $totalprima=0;
-                        $currency="";
-                        $cant=0;
-                        for ($i=0; $i < sizeof($poliza); $i++) { 
-                            if ($poliza[$i]['id_titular']==0) {
-					
-                            } else {
-                            $cant=$cant+1;
-                            $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
-                            $totalprima=$totalprima+$poliza[$i]['prima'];
-
-                            $originalDesde = $poliza[$i]['f_desdepoliza'];
-                            $newDesde = date("d/m/Y", strtotime($originalDesde));
-                            $originalHasta = $poliza[$i]['f_hastapoliza'];
-                            $newHasta = date("d/m/Y", strtotime($originalHasta));
-                            $originalFProd = $poliza[$i]['f_poliza'];
-				            $newFProd = date("d/m/Y", strtotime($originalFProd));
-
-                            if ($poliza[$i]['currency']==1) {
-                                $currency="$ ";
-                            }else{$currency="Bs ";}
-
-
-                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php            
-                            } else{
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php   
-                            }
-
-                            ?>
-                            
-                                
-                                <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-                                <td><?php echo $poliza[$i]['nomcia']; ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
-                            </tr>
-                            <?php
-                            }
-                        }
-                        ?>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </tfoot>
-                </table>
-
-
-                <h1 class="title">Total de Prima Suscrita</h1>
-                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
-
-                <h1 class="title">Total de Pólizas</h1>
-                <h1 class="title text-danger"><?php  echo $cant;?></h1>
-            </center>
-
-
+            <div class="container" >
                 
             </div>
 
         </div>
 
-        
+
 
 
 
@@ -370,9 +323,8 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
         </div>
     </footer>
-    <!--   Core JS Files   -->
-    
 
+    <!--   Core JS Files   -->
 
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/bootstrap-material-design.js"></script>
@@ -387,59 +339,26 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-   
+    <script>
 
 
+	  alertify.confirm('Póliza Cargada con Exito!', '¿Desea revisar otra Póliza?', 
+	  	function(){ 
+	  		window.location.replace("b_poliza.php?cond=1");
+	  		alertify.success('Ok') 
+	  	}, 
+	  	function(){ 
+	  		window.location.replace("sesionadmin.php");
+	  		alertify.error('Cancel')
+	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); ;
 
+	
 
-    <script type="text/javascript">
-
-        const tablaLoad1 = document.getElementById("tablaLoad1");
-        const carga = document.getElementById("carga");
-
-        setTimeout(()=>{
-            carga.className = 'd-none';
-            tablaLoad1.removeAttribute("hidden");
-        }, 1000);
-        
-      
-
-        $(document).ready(function() {
-            $('#iddatatable').DataTable({
-                scrollX: 300,
-                "order": [[ 0, "desc" ]]
-            });
-        } );
-
-        $(function () {
-        $('[data-tooltip="tooltip"]').tooltip()
-        });
-
-        $( "#iddatatable tbody tr" ).click(function() {
-            var customerId = $(this).find("td").eq(1).html();   
-
-            window.location.href = "v_poliza.php?id_poliza="+customerId;
-        });
-
-    </script>
-    <script language="javascript">
-
-    function Exportar(table, name){
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        if (!table.nodeType) table = document.getElementById(table)
-         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-         window.location.href = uri + base64(format(template, ctx))
-        }
-    </script>
-
+	</script>
+ 
 
 
 </body>

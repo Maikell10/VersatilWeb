@@ -27,10 +27,10 @@ if(isset($_SESSION['seudonimo'])) {
     $obj7= new Trabajo();
     $usuario = $obj7->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
     $z_produc='';
-    if ($usuario[0]['z_produccion']=='PANAMÁ') {
+    if (utf8_encode($usuario[0]['z_produccion'])=='PANAMÁ') {
         $z_produc=1;
     }
-    if ($usuario[0]['z_produccion']=='CARACAS') {
+    if (utf8_encode($usuario[0]['z_produccion'])=='CARACAS') {
         $z_produc=2;
     }
     

@@ -50,6 +50,8 @@ if(isset($_SESSION['seudonimo'])) {
     <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
+    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
     
     <!-- Alertify -->
     <link rel="stylesheet" type="text/css" href="../assets/alertify/css/alertify.css">
@@ -217,36 +219,16 @@ if(isset($_SESSION['seudonimo'])) {
                 <form class="form-horizontal" action="f_product.php" method="get">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label>Año de Producción:</label>
-                            <select class="form-control" name="anio" id="anio">
-    
-                                <?php
-                                for($i=$fechaMin; $i <= $fechaMax; $i++)
-                                { 
-                            ?>
-                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                <?php
-                                } 
-                            ?>
-                            </select>
+                            <label>Fecha Desde Producción:</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" > 
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label>Mes de Producción:</label>
-                            <select class="form-control" name="mes" id="mes">
-                                <option value="">Seleccione Mes</option>
-                                <option value="1">Enero</option>
-                                <option value="2">Febrero</option>
-                                <option value="3">Marzo</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Mayo</option>
-                                <option value="6">Junio</option>
-                                <option value="7">Julio</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Septiembre</option>
-                                <option value="10">Octubre</option>
-                                <option value="11">Noviembre</option>
-                                <option value="12">Diciembre</option>
-                            </select>
+                            <label>Fecha Hasta Producción:</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control" id="hastaP" name="hastaP" required autocomplete="off" > 
+                            </div>
                         </div>
                     </div>
     
@@ -334,6 +316,9 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
 
+    <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
     
 
 
@@ -380,6 +365,14 @@ if(isset($_SESSION['seudonimo'])) {
     </script>
 
     <script type="text/javascript">
+        $('#desdeP').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
+        $('#hastaP').datepicker({  
+            format: "dd-mm-yyyy"
+        });
+
         function agregaFrmActualizar(idena){
             $.ajax({
                 type:"POST",
