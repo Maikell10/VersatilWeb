@@ -86,49 +86,7 @@ if(isset($_SESSION['seudonimo'])) {
     <style>
         
         
-        @media only screen and (min-width : 570px) {
-            #tablaAsesor{
-                width: 100%;
-                margin-left: 14px;
-            }
-        }
-        @media only screen and (min-width : 600px) {
-            #tablaAsesor{
-                width: 100%;
-                margin-left: 18px;
-            }
-        }
-        @media only screen and (min-width : 670px) {
-            #tablaAsesor{
-                width: 100%;
-                margin-left: 20px;
-            }
-        }
-        @media only screen and (min-width : 768px) {
-            #tablaAsesor{
-                width: 90%;
-                margin-left: 110px;
-            }
-        }
-        @media only screen and (min-width : 900px) {
-            #tablaAsesor{
-                width: 75%;
-                margin-left: 35px;
-            }
-        }
-        @media only screen and (min-width : 991px) {
-            #tablaAsesor{
-                width: 50%;
-                margin-left: 10px;
-            }
-        }
-        @media only screen and (min-width : 1200px) {
-            #tablaAsesor{
-                width: 10%;
-                margin-left: 10px;
-            }
-        }
-
+       
         @media only screen and (min-width : 768px) {
             #tablaRamo{
                 margin-left: 14px;
@@ -539,7 +497,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                     <center><div>      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap"  id="tablaAsesor">
+                        <table class="table table-hover table-striped table-bordered display "  id="tablaAsesor">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Asesor *</th>
@@ -548,7 +506,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><select class="custom-select" id="asesor" name="asesor" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                    <td align="center"><select class="custom-select" id="asesor" name="asesor" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
                                             <option value="">Seleccione el Asesor</option>
                                               <?php
                                                 for($i=0;$i<sizeof($asesor);$i++)
@@ -1266,91 +1224,98 @@ if(isset($_SESSION['seudonimo'])) {
                         
                     }
                     else{
-                    alertify.alert('Existe!', 'La Póliza que introdujo ya Existe', function(){
-                        alertify.success('OK');
+                        alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
+                        function(){ 
                         
-                        $('#titular').val(datos['ci']);
-                        $('#titular').removeAttr('onblur');
-                        $('#titular').attr("readonly",true);
-                        $('#n_titular').val(datos['nombre_t']);
-                        $('#a_titular').val(datos['apellido_t']);
-             
-                        $("#tipo_poliza").val(2);
-                        $("#ramo").val(datos['id_cod_ramo']);
-                        $('#ramo').css('pointer-events','none');
-                        $("#ramo").css('background-color', '#e6e6e6');
-                        $("#cia").val(datos['id_cia']);
-                        $('#cia').css('pointer-events','none');
-                        $("#cia").css('background-color', '#e6e6e6');
-                        $("#t_cuenta").val(datos['t_cuenta']);
-                        $('#t_cuenta').css('pointer-events','none');
-                        $("#t_cuenta").css('background-color', '#e6e6e6');
-                        var emisionP = datos['f_emi'].split('-').reverse().join('-');
-                        $("#emisionP").val(emisionP);
-                        //$("#emisionP1").val(datos['f_emi']);
-                        //$('#emisionP').attr("disabled",true);
-                        $('#desdeP').val(datos['f_desdepoliza']);
-                        $('#hastaP').val(datos['f_hastapoliza']);
-                        
+                            $('#titular').val(datos['ci']);
+                            $('#titular').removeAttr('onblur');
+                            $('#titular').attr("readonly",true);
+                            $('#n_titular').val(datos['nombre_t']);
+                            $('#a_titular').val(datos['apellido_t']);
+                
+                            $("#tipo_poliza").val(2);
+                            $("#ramo").val(datos['id_cod_ramo']);
+                            $('#ramo').css('pointer-events','none');
+                            $("#ramo").css('background-color', '#e6e6e6');
+                            $("#cia").val(datos['id_cia']);
+                            $('#cia').css('pointer-events','none');
+                            $("#cia").css('background-color', '#e6e6e6');
+                            $("#t_cuenta").val(datos['t_cuenta']);
+                            $('#t_cuenta').css('pointer-events','none');
+                            $("#t_cuenta").css('background-color', '#e6e6e6');
+                            var emisionP = datos['f_emi'].split('-').reverse().join('-');
+                            $("#emisionP").val(emisionP);
+                            //$("#emisionP1").val(datos['f_emi']);
+                            //$('#emisionP').attr("disabled",true);
+                            $('#desdeP').val(datos['f_desdepoliza']);
+                            $('#hastaP').val(datos['f_hastapoliza']);
+                            
 
-                        var mydate = new Date($('#desdeP').val());
-                        $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                            var mydate = new Date($('#desdeP').val());
+                            $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
 
-                        var mydate1 = new Date($('#hastaP').val());
-                        $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+                            var mydate1 = new Date($('#hastaP').val());
+                            $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
 
-                        
-                        var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                        var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                        $('#desdeP').val(desdeP);
-                        $('#hastaP').val(hastaP);
-                        $( "#emisionP" ).datepicker( "setDate", emisionP );
-                        $( "#desdeP" ).datepicker( "setDate", desdeP );
-                        $( "#hastaP" ).datepicker( "setDate", hastaP );
-
-
-                        $( "#desde_recibo" ).datepicker( "setDate", desdeP );
-                        $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+                            
+                            var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                            $('#desdeP').val(desdeP);
+                            $('#hastaP').val(hastaP);
+                            $( "#emisionP" ).datepicker( "setDate", emisionP );
+                            $( "#desdeP" ).datepicker( "setDate", desdeP );
+                            $( "#hastaP" ).datepicker( "setDate", hastaP );
 
 
-                        $('#t_cobertura').val(datos['tcobertura']);
-                        $('#t_cobertura').attr("readonly",true);
-                        $("#currency").val(datos['currency']);
-                        $('#currency').css('pointer-events','none');
-                        $("#currency").css('background-color', '#e6e6e6');
+                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
 
-                        $('#existeP').text("Existe Póliza");
-                        $('#no_existeP').text("");
+                            $('#t_cobertura').val(datos['tcobertura']);
+                            $('#t_cobertura').attr("readonly",true);
+                            $("#currency").val(datos['currency']);
+                            $('#currency').css('pointer-events','none');
+                            $("#currency").css('background-color', '#e6e6e6');
 
-                        $('#id_new_titular').val("");
 
-                        $('#tomador').val(titular.value);
-                        $('#n_tomador').val(datos['nombre_t']);
-                        $('#a_tomador').val(datos['apellido_t']);
+                            $('#existeP').text("Existe Póliza");
+                            $('#no_existeP').text("");
 
-                        $("#asesor").val(datos['codvend']+"="+datos['idnom']);
-                        console.log(datos['codvend']+"="+datos['idnom']);
+                            $('#id_new_titular').val("");
 
-                        $('#existeT').text("");
-                        $('#no_existeT').text("");
-                        $('#existeTom').text("");
-                        $('#no_existeTom').text("");
+                            $('#tomador').val(titular.value);
+                            $('#n_tomador').val(datos['nombre_t']);
+                            $('#a_tomador').val(datos['apellido_t']);
 
-                        $('#tablatomador').removeAttr('hidden');
-                        $("#tomador").css('color', 'red');
-                        
-                        $('#tablaveh').attr('hidden',true);
-                        $('#placa').val('');
-                        $('#tipo').val('');
-                        $('#marca').val('');
-                        $('#modelo').val('');
-                        $('#anio').val('');
-                        $('#serial').val('');
-                        $('#color').val('');
-                        $('#categoria').val('');
-                    });
-                    }
+                            $("#asesor").val(datos['codvend']+"="+datos['idnom']);
+                            console.log(datos['codvend']+"="+datos['idnom']);
+
+                            $('#existeT').text("");
+                            $('#no_existeT').text("");
+                            $('#existeTom').text("");
+                            $('#no_existeTom').text("");
+
+                            $('#tablatomador').removeAttr('hidden');
+                            $("#tomador").css('color', 'red');
+                            
+                            $('#tablaveh').attr('hidden',true);
+                            $('#placa').val('');
+                            $('#tipo').val('');
+                            $('#marca').val('');
+                            $('#modelo').val('');
+                            $('#anio').val('');
+                            $('#serial').val('');
+                            $('#color').val('');
+                            $('#categoria').val('');
+                        }, 
+                        function(){ 
+                            window.location.replace("crear_poliza.php");
+                            alertify.error('Cancel')
+                        }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
+                    
+                    
+                }
+
                 }
             });
         }

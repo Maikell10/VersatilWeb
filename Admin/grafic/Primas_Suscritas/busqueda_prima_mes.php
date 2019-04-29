@@ -185,7 +185,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <h1 class="title">Prima Suscrita por Mes</h1> 
                     <br/>
                     
-                    <a href="../primas_s.php" class="btn btn-danger btn-lg btn-round">Gráficos de Prima Suscrita</a></center>
+                    <a href="../primas_s.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
  

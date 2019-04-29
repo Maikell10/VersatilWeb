@@ -197,7 +197,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <h1 class="title">Gráfico Resúmen por Ramo</h1> 
                     <br/>
                     
-                    <a href="../porcentaje.php" class="btn btn-danger btn-lg btn-round">Gráficos de Porcentaje</a></center>
+                    <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
 

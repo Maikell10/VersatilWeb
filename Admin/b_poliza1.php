@@ -64,7 +64,19 @@ if(isset($_SESSION['seudonimo'])) {
     $poliza = $obj1->get_poliza_total_by_filtro($desde,date("Y-m-d")); 
   }
 
+if ($_GET["asesor"]!=null) {
+    $asesor=$_GET["asesor"]; 
+    $obj123= new Trabajo();
+    $poliza = $obj123->get_poliza_total_by_filtro_asesor($desde,$hasta,$asesor); 
+    
 
+    //recorremos el array de asesor seleccionado
+    for ($i=0;$i<count($asesor);$i++)    
+    {     
+    echo "<br>"  . $asesor[$i];    
+    }
+}
+  
 
 
 

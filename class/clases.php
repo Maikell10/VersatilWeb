@@ -1378,8 +1378,79 @@ class Trabajo extends Conectar{
 
 
 
+		public function get_poliza_total_by_filtro_asesor($f_desde,$f_hasta,$asesor)
+			{
+				
+
+		// create sql part for IN condition by imploding comma after each id
+		$asesorIn = "('" . implode("','", $asesor) ."')";
+		
+		
+					$sql="SELECT *  FROM 
+									poliza
+									INNER JOIN drecibo, titular, tipo_poliza, dcia
+									WHERE 
+									poliza.id_poliza = drecibo.idrecibo AND
+									poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+									drecibo.idtitu = titular.id_titular AND
+									poliza.f_hastapoliza >= '$f_desde' AND
+									poliza.f_hastapoliza <= '$f_hasta'AND
+                  poliza.id_cia = dcia.idcia AND
+									codvend IN " . $asesorIn ."
+									ORDER BY poliza.id_poliza ASC";
+				
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			$filas=mysqli_num_rows($res); 
+			if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						echo "No hay registros";
+				      	//header("Location: b_poliza.php?m=2");
+				      	//exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+		}	
 
 
+		public function get_per_gc_cia_pref($f_desde,$id_cia,$cod)
+			{
+					$sql="SELECT *  FROM 
+									cia_pref
+									WHERE 
+									f_hasta_pref >= '$f_desde' AND
+									f_desde_pref <= '$f_desde'AND
+                  id_cia = $id_cia AND
+									cod_vend = '$cod'
+									ORDER BY id_cia_pref DESC";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				$filas=mysqli_num_rows($res); 
+				if (!$res) {
+							//No hay registros
+					}else{
+						$filas=mysqli_num_rows($res); 
+						if ($filas == 0) { 
+							echo "No hay registros";
+									//header("Location: b_poliza.php?m=2");
+									//exit();
+								}else
+										{
+												while($reg=mysqli_fetch_assoc($res)) {
+													$this->t[]=$reg;
+												}
+												return $this->t;
+							}
+					}
+			}	
 
 
 
@@ -2884,6 +2955,21 @@ class Trabajo extends Conectar{
 				values ('$asegurado',
 						'$id_poliza')";
 			return mysqli_query(Conectar::con(),$sql);
+
+	}
+
+	public function agregarCiaPref($id_cia,$fdesdeP,$fhastaP,$codvend,
+											$per_gc){
+
+
+								$sql="INSERT into cia_pref (id_cia,f_desde_pref,f_hasta_pref,cod_vend,
+									per_gc_sum)
+									values ('$id_cia',
+											'$fdesdeP',
+											'$fhastaP',
+											'$codvend',
+											'$per_gc')";
+								return mysqli_query(Conectar::con(),$sql);
 
 	}
 

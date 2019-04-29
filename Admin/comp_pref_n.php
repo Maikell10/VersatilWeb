@@ -10,12 +10,9 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
-  
-  echo $_POST['desdeP'];
 
 
-
-  $nomcia=$_GET['nomcia'];
+  $nomcia=$_POST['nomcia'];
 
   $obj1= new Trabajo();
   $cia = $obj1->get_element_by_id('dcia','nomcia',$nomcia); 
@@ -25,7 +22,6 @@ if(isset($_SESSION['seudonimo'])) {
 
   $cant_a=sizeof($asesor);
 
- $cia[0]['idcia'];
 
 ?>
 <!DOCTYPE html>
@@ -190,33 +186,30 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Hacer Preferencial a la Cía <?php echo $cia[0]['nomcia']; ?></h1>  
+                    <h1 class="title">Previsualizar Preferencial de la Cía <?php echo $cia[0]['nomcia']; ?></h1>  
                 </div>
 
 
-                <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
+                <form class="form-horizontal" id="frmnuevo" action="comp_pref_nn.php" method="post" >
                 <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Agregar Preferencial</button></center>
                     <div class="form-row">   
                     <table class="table table-hover table-striped table-bordered display table-responsive nowrap">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Fecha Desde Preferida *</th>
-                                    <th>Fecha Hasta Preferida *</th>
-                                    <th>%GC a Sumar *</th>
+                                    <th>Fecha Desde Preferida</th>
+                                    <th>Fecha Hasta Preferida</th>
+                                    <th>%GC a Sumar</th>
+                                    <th hidden>nomcia</th>
                                 </tr>
                             </thead>
 
                             <tbody >
-                                <tr style="background-color: white">
-                                    <td><div class="input-group date">
-                                            <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" > 
-                                        </div>
-                                    </td>
-                                    <td><div class="input-group date">
-                                            <input type="text" class="form-control" id="hastaP" name="hastaP" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
-                                        </div>
-                                    </td>
-                                    <td><input onblur="cargarGC(<?php echo $cant_a;?>);" type="text" class="form-control validanumericos" id="per_gc" name="per_gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="desdeP" name="desdeP" readonly value="<?php echo $_POST['desdeP'];?>"></td>
+                                    <td><input type="text" class="form-control" id="hastaP" name="hastaP" readonly value="<?php echo $_POST['hastaP'];?>"></td>
+                                    <td><input type="text" class="form-control" id="per_gc" name="per_gc" readonly value="<?php echo $_POST['per_gc'];?>"></td>
+
+                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,7 +217,6 @@ if(isset($_SESSION['seudonimo'])) {
                         <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th></th>
                                     <th>Nombre Asesor</th>
                                     <th>%GC</th>
                                     <th>%GC a Sumar</th>
@@ -236,10 +228,9 @@ if(isset($_SESSION['seudonimo'])) {
                                     
                             ?>
                                 <tr>
-                                    <td><input class="form-control" type="checkbox" id="<?php echo 'chk'.$i;?>" value="<?php echo $asesor[$i]['cod']; ?>" onChange="validarchk(<?php echo $i;?>)"></td>
                                     <td><?php echo $asesor[$i]['idnom']." [".$asesor[$i]['cod']."]"; ?></td>
                                     <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
-                                    <td style="background-color: white"><input style="text-align:center" type="text" class="form-control validanumericos3" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" min="1" max="90" data-toggle="tooltip" data-placement="bottom" title="Añadir sólo el numero a sumar al %GC" readonly></td>
+                                    <td><input style="text-align:center" type="text" class="form-control" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" readonly value="<?php echo $_POST['gc_asesor'.$i];?>"></td>
                                 </tr>
                             <?php   
                                 }
@@ -329,84 +320,6 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
     
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#desdeP').datepicker({  
-                format: "dd-mm-yyyy"
-            });
-            $('#hastaP').datepicker({  
-                format: "dd-mm-yyyy"
-            });
-
-
-            
-        });
-
-        function cargarGC(cant_a){
-            for (let index = 0; index < cant_a; index++) {
-                $('#gc_asesor'+index).val($('#per_gc').val());
-            }
-        }
-
-        function validarchk(id){
-  
-            var chk = document.getElementById('chk'+id);
-            if(chk.checked){
-                $('#gc_asesor'+id).removeAttr('readonly');
-            }else{
-                $("#gc_asesor"+id).attr("readonly",true);
-            }
-        }
-        
-    </script>
-
-    <script type="text/javascript">
-        function agregaFrmActualizar(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena').val(datos['idena']);
-                    $('#nombreU').val(datos['idnom']);
-                    $('#codigoU').val(datos['cod']);
-                    $('#ciU').val(datos['id']);
-                    $('#refcuentaU').val(datos['refcuenta']);
-                }
-            });
-        }
-
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar una Compañía', '¿Seguro de eliminar esta Compañía?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_comp.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
-
-        $(function () {
-          $('[data-tooltip="tooltip"]').tooltip()
-        })
-    </script>
     <script language="javascript">
 
     function Exportar(table, name){

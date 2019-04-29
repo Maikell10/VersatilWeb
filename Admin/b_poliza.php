@@ -21,6 +21,16 @@ if(isset($_SESSION['seudonimo'])) {
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
 
 
+  $obj3= new Trabajo();
+  $asesor = $obj3->get_element('ena','idena'); 
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','id_enp'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','id_enr'); 
+
+
 
 
 ?>
@@ -41,11 +51,14 @@ if(isset($_SESSION['seudonimo'])) {
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../assets/css/material-kit.css?v=2.0.1">
+    <link rel="stylesheet" href="../assets/css/material-kit.css">
     <!-- Documentation extras -->
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+
+    <!-- BOOTSTRAP SELECT CSS -->
+    <link rel="stylesheet" href="../css/bootstrap-select.css">
 
     
     <!-- Alertify -->
@@ -218,7 +231,7 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       <div class="form-group col-md-6">
                         <label align="left">Año Vigencia Seguro:</label>
-                        <select class="form-control" name="anio" id="anio">
+                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
                             <option value="">Seleccione Año</option>
                         <?php
                             $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
@@ -235,7 +248,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                       <div class="form-group col-md-6">
                         <label>Mes Vigencia Seguro:</label>
-                        <select class="form-control" name="mes" id="mes">
+                        <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -256,13 +269,33 @@ if(isset($_SESSION['seudonimo'])) {
                     
 
                     <div class="form-row" style="text-align: left;">
-                      <div class="form-group col-md-12">
-                        <label align="left">Status Final:</label>
-                        <select class="form-control" name="status">
-                            <option value="">Seleccione Status</option>
-                            <option value="1">Activa</option>
-                            <option value="2">Inactiva</option>
-                            <option value="3">Anulada</option>
+                      <div class="form-group col-md-6">
+                        <label align="left">Status:</label>
+                        <select class="form-control selectpicker" name="status" multiple data-style="btn-white">
+                            <optgroup label="Seleccione Status">
+                                <option value="1">Activa</option>
+                                <option value="2">Inactiva</option>
+                                <option value="3">Anulada</option>
+                            </optgroup>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label>Asesor:</label>
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor">
+                            <option value="">Seleccione el Asesor</option>
+                            <?php
+                            for($i=0;$i<sizeof($asesor);$i++)
+                                {  
+                            ?>
+                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                            <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                { ?> 
+                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                            <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                {?>
+                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                            <?php } ?>
                         </select>
                       </div>
                     </div>
@@ -350,6 +383,9 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
 
     
 

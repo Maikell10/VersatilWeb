@@ -165,6 +165,13 @@ if(isset($_SESSION['seudonimo'])) {
     $categoria='-';
 
 
+    $fdesdeCP = date("Y-m-d", strtotime($fdesdeP));
+    $obj77= new Trabajo();
+    $cia_pref = $obj77->get_per_gc_cia_pref($fdesdeCP,$cia,$u[0]); 
+    if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) {
+        $per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

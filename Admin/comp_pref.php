@@ -190,7 +190,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
-                <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Agregar Preferencial</button></center>
+                <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Previsualizar</button></center>
                     <div class="form-row">   
                     <table class="table table-hover table-striped table-bordered display table-responsive nowrap">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -198,7 +198,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>Fecha Desde Preferida *</th>
                                     <th>Fecha Hasta Preferida *</th>
                                     <th>%GC a Sumar *</th>
-                                    <th hidden>id cia</th>
+                                    <th hidden>nomcia</th>
                                 </tr>
                             </thead>
 
@@ -213,7 +213,7 @@ if(isset($_SESSION['seudonimo'])) {
                                         </div>
                                     </td>
                                     <td><input onblur="cargarGC(<?php echo $cant_a;?>);" type="text" class="form-control validanumericos" id="per_gc" name="per_gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="nomcia" name="nomcia" value="<?php echo $cia[0]['nomcia']; ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
