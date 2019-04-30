@@ -2108,8 +2108,8 @@ class Trabajo extends Conectar{
 		      			poliza.id_poliza = drecibo.idrecibo AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND 
 						poliza.id_cia=dcia.idcia AND 
-		      			f_desderecibo >= '$desde' AND
-		      			f_desderecibo <= '$hasta' AND
+		      			f_hastarecibo >= '$desde' AND
+		      			f_hastarecibo <= '$hasta' AND
 		      			nomcia LIKE '%$cia%' AND
 		      			nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -2430,16 +2430,16 @@ class Trabajo extends Conectar{
     	}
 
 		    	
-      $sql="SELECT DISTINCT Month(f_desderecibo) FROM poliza,drecibo,dcia,dramo
+      $sql="SELECT DISTINCT Month(f_hastarecibo) FROM poliza,drecibo,dcia,dramo
 		      WHERE 
 		      poliza.id_poliza = drecibo.idrecibo AND
 		      poliza.id_cod_ramo=dramo.cod_ramo AND
 		      poliza.id_cia=dcia.idcia AND
-		      f_desderecibo >= '$cond1' AND
-		      f_desderecibo <= '$cond2' AND
+		      f_hastarecibo >= '$cond1' AND
+		      f_hastarecibo <= '$cond2' AND
 			  nomcia LIKE '%$cia%' AND
 			  nramo LIKE '%$ramo%'
-		      ORDER BY Month(f_desderecibo) ASC ";
+		      ORDER BY Month(f_hastarecibo) ASC ";
 		$res=mysqli_query(Conectar::con(),$sql);
 		
 		$filas=mysqli_num_rows($res); 

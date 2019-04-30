@@ -34,8 +34,8 @@ $hasta=($_GET['desde']).'-12-31';
 
   for($i=0;$i<sizeof($mes);$i++)
     {  
-      $desde=$_GET['desde']."-".$mes[$i]["Month(f_desderecibo)"]."-01";
-      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_desderecibo)"]."-31";
+      $desde=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-01";
+      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-31";
 
       $obj2= new Trabajo();
       $primaMes = $obj2->get_poliza_grafp_2($_GET['ramo'],$desde,$hasta,$_GET['cia']); 
@@ -240,7 +240,7 @@ $hasta=($_GET['desde']).'-12-31';
 
         ?>
         <tr>
-          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_desderecibo)"]-1]; ?></th>
+          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastarecibo)"]-1]; ?></th>
           <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
           <td><?php echo $cantArray[$i]; ?></td>
         </tr>
@@ -394,7 +394,7 @@ $hasta=($_GET['desde']).'-12-31';
             borderColor: presets.red,
             data: [<?php $a=0; for($i=0;$i<=11;$i++)
             {   
-                if (($mes[$a]["Month(f_desderecibo)"]-1) == $i) {
+                if (($mes[$a]["Month(f_hastarecibo)"]-1) == $i) {
                   $dataPrima=$primaPorMes[$a]; 
                   if ($a<(sizeof($mes)-1)) {
                     $a++;

@@ -8,6 +8,51 @@ if(isset($_SESSION['seudonimo'])) {
         exit();
       }
 
+  require_once("../../../class/clases.php");
+
+ $desde=$_GET['desde'].'-01-01';
+ $hasta=($_GET['desde']).'-12-31';
+
+  $obj1= new Trabajo();
+  $mes = $obj1->get_mes_prima($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+
+
+
+  $totals=0;
+  $totalCant=0;
+
+  $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+
+
+
+
+  $ramoArray[sizeof($mes)]=null;
+  $cantArray[sizeof($mes)]=null;
+  $primaPorMes[sizeof($mes)]=null;
+  
+
+  for($i=0;$i<sizeof($mes);$i++)
+    {  
+      $desde=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-01";
+      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-31";
+
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_grafp_2($_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+    
+      $cantArray[$i]=sizeof($primaMes);
+      $sumasegurada=0;
+      for($a=0;$a<sizeof($primaMes);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
+
+        } 
+        $totals=$totals+$sumasegurada;
+        $totalCant=$totalCant+$cantArray[$i];
+        $ramoArray[$i]=$primaMes[0]['cod_ramo'];
+        $primaPorMes[$i]=$sumasegurada;
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,33 +61,30 @@ if(isset($_SESSION['seudonimo'])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="../../assets/img/apple-icon.png">
-    <link rel="icon" href="../../assets/img/logo1.png">
+    <link rel="icon" href="../../../assets/img/logo1.png">
     <title>
         Versatil Seguros
     </title>
+    <script src="../../../tableToExcel.js"></script>
+
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../../assets/css/material-kit.css?v=2.0.1">
-    <!-- Documentation extras -->
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
-    <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
     
-    <!-- Alertify -->
-    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/alertify.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/themes/bootstrap.css">
-    <script src="../../assets/alertify/alertify.js"></script>
+    <link rel="stylesheet" href="../../../assets/css/material-kit.css?v=2.0.1">
+    <!-- Documentation extras -->
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../../../assets/assets-for-demo/demo.css" rel="stylesheet" />
+    <link href="../../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+    
+    <link href="../../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 
+    <link href="../../../Chart/samples/style.css" rel="stylesheet">
 
-    <!-- DataTables -->
-    <link href="../../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="../../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
-    <script src="../../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
 </head>
 
@@ -50,7 +92,7 @@ if(isset($_SESSION['seudonimo'])) {
     <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="../sesionadmin.php"> <img src="../../assets/img/logo1.png" width="45%" /></a>
+                <a class="navbar-brand" href="../../sesionadmin.php"> <img src="../../../assets/img/logo1.png" width="45%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -64,16 +106,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">plus_one</i> Cargar Datos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../add/crear_poliza.php" class="dropdown-item">
+                            <a href="../../add/crear_poliza.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Póliza
                             </a>
-                            <a href="../add/crear_comision.php" class="dropdown-item">
+                            <a href="../../add/crear_comision.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Comisión
                             </a>
-                            <a href="../add/crear_asesor.php" class="dropdown-item">
+                            <a href="../../add/crear_asesor.php" class="dropdown-item">
                                 <i class="material-icons">person_add</i> Asesor
                             </a>
-                            <a href="../add/crear_compania.php" class="dropdown-item">
+                            <a href="../../add/crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                         </div>
@@ -84,22 +126,22 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">search</i> Buscar
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../b_asesor.php" class="dropdown-item">
+                            <a href="../../b_asesor.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Asesor
                             </a>
-                            <a href="../b_cliente.php" class="dropdown-item">
+                            <a href="../../b_cliente.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Cliente
                             </a>
-                            <a href="../b_poliza.php" class="dropdown-item">
+                            <a href="../../b_poliza.php" class="dropdown-item">
                                 <i class="material-icons">content_paste</i> Póliza
                             </a>
-                            <a href="../b_vehiculo.php" class="dropdown-item">
+                            <a href="../../b_vehiculo.php" class="dropdown-item">
                                 <i class="material-icons">commute</i> Vehículo
                             </a>
-                            <a href="../b_comp.php" class="dropdown-item">
+                            <a href="../../b_comp.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
-                            <a href="../b_reportes.php" class="dropdown-item">
+                            <a href="../../b_reportes.php" class="dropdown-item">
                                 <i class="material-icons">library_books</i> Reportes de Cobranza
                             </a>
                         </div>
@@ -110,26 +152,26 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">trending_up</i> Gráficos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="porcentaje.php" class="dropdown-item">
+                            <a href="../porcentaje.php" class="dropdown-item">
                                 <i class="material-icons">pie_chart</i> Porcentajes
                             </a>
-                            <a href="primas_s.php" class="dropdown-item">
+                            <a href="../primas_s.php" class="dropdown-item">
                                 <i class="material-icons">bar_chart</i> Primas Suscritas
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="../primas_c.php" class="dropdown-item">
                                 <i class="material-icons">thumb_up</i> Primas Cobradas
                             </a>
-                            <a href="comisiones_c.php" class="dropdown-item">
+                            <a href="../comisiones_c.php" class="dropdown-item">
                                 <i class="material-icons">timeline</i> Comisiones Cobradas
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="" class="dropdown-item">
                                 <i class="material-icons">show_chart</i> Gestión de Cobranza
                             </a>
                         </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../../sys/cerrar_sesion.php" onclick="scrollToDownload()">
+                        <a class="nav-link" href="../../../sys/cerrar_sesion.php" >
                             <i class="material-icons">eject</i> Cerrar Sesión
                         </a>
                     </li>
@@ -142,7 +184,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../assets/img/logo2.png');">
+    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../../assets/img/logo2.png');">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
@@ -166,92 +208,68 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="section">
             <div class="container">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-            
+
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Gráficos de Primas Cobradas</h1>  
+                  <center>
+                    <h1 class="title">Primas Suscritas por Mes del Año <?php echo $_GET['desde'];?></h1></h1> 
+                    <br/>
+                    
+                    <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
-                
-
-            <div class="card-deck">
-                
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_ramo.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Cobrada por Ramo</h5>
-                  </div>
-                </a>
-                </div>
-                
-                
-                
-                <div class="card text-white bg-info mb-3">
-                <a href="Primas_Cobradas/busqueda_prima_mes.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Primas Cobradas por Mes <strong style="color:red">(Bola de Nieve)</strong></h5>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_prima_semana.php?m=1">
-                  <div class="card-body">
-                    <h5 class="card-title">Primas Cobradas por Semana</h5>
-                  </div>
-                </a>
-                </div>
-                
-                
-
-            </div>
-
-            <div class="card-deck">
-
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_cia.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Cobrada por Cía</h5>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_tipo_poliza.php" >
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Cobrada por Tipo de Póliza</h5>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_ejecutivo.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Cobrada por Ejecutivo</h5>
-                  </div>
-                </a>
-                </div>
-
-            </div>
-
-            <div class="card-deck">
-
-                <div class="card text-white bg-dark mb-3">
-                <a href="Primas_Cobradas/busqueda_fpago.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Cobrada por Forma de Pago</h5>
-                  </div>
-                </a>
-                </div>
-
-
-            </div>
-
-        </div>
 
 
 
-        <br><br><br><br>
+    <table class="table table-hover" id="Exportar_a_Excel">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Mes Desde Recibo</th>
+          <th scope="col">Prima Suscrita</th>
+          <th scope="col">Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          
+
+          for ($i=0; $i < sizeof($mes); $i++) { 
+              //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
+
+        ?>
+        <tr>
+          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastarecibo)"]-1]; ?></th>
+          <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
+          <td><?php echo $cantArray[$i]; ?></td>
+        </tr>
+        <?php
+            }
+        ?>
+      </tbody>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">TOTAL</th>
+          <th align="right"><?php echo "$".number_format($totals,2); ?></th>
+          <th scope="col"><?php echo $totalCant; ?></th>
+        </tr>
+      </thead>
+    </table>
+    
+        
+
+
+    
+    
+    </div>
+
+
+
+    <div class="container">
+      <div class="wrapper col-12"><canvas id="chart-0"></canvas></div>
+    </div>
+
+    <br><br><br><br>
 
 
 
@@ -274,16 +292,10 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
             </div>
         </div>
-
-
-
-
-
-        
+    
+    
+      </div>
     </div>
-
-
-
 
 
     <footer class="footer ">
@@ -305,22 +317,112 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
         </div>
     </footer>
+
+
+
+
     <!--   Core JS Files   -->
-
-    <script src="../../assets/js/core/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap-material-design.js"></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
-    <script src="../../assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../../assets/js/plugins/nouislider.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../../../assets/js/core/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap-material-design.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
+    <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+    <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script language="javascript">
+    <script src="../../../Chart/Chart.bundle.js"></script>  
+    <script src="../../../Chart/samples/utils.js"></script>
+    <script src="../../../Chart/samples/charts/area/analyser.js"></script>
+
+    
+    <script>
+    var presets = window.chartColors;
+    var utils = Samples.utils;
+    var inputs = {
+      min: 0,
+      count: 12,
+      decimals: 2,
+      continuity: 1
+    };
+
+    function generateData(config) {
+      return utils.numbers(Chart.helpers.merge(inputs, config || {}));
+    }
+
+    function generateLabels(config) {
+      return utils.months(Chart.helpers.merge({
+        count: inputs.count,
+        section: 3
+      }, config || {}));
+    }
+
+    var options = {
+      maintainAspectRatio: false,
+      spanGaps: false,
+      elements: {
+        line: {
+          tension: 0.000001
+        }
+      },
+      plugins: {
+        filler: {
+          propagate: false
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0
+          }
+        }]
+      }
+    };
+
+    [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
+
+      // reset the random seed to generate the same data for all charts
+      utils.srand(12);
+
+      new Chart('chart-' + index, {
+        type: 'line',
+        data: {
+          labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+          datasets: [{
+            backgroundColor: utils.transparentize(presets.red),
+            borderColor: presets.red,
+            data: [<?php $a=0; for($i=0;$i<=11;$i++)
+            {   
+                if (($mes[$a]["Month(f_hastarecibo)"]-1) == $i) {
+                  $dataPrima=$primaPorMes[$a]; 
+                  if ($a<(sizeof($mes)-1)) {
+                    $a++;
+                  }
+                }else{$dataPrima=0;}
+                ?>
+                '<?php echo $dataPrima; ?>',
+            <?php }?>
+          ],
+            label: 'Prima Suscrita',
+            fill: boundary,
+            pointHoverRadius: 30,
+            pointHitRadius: 20,
+            pointRadius: 5,
+          }]
+        },
+        options: Chart.helpers.merge(options, {
+          title: {
+            text: 'Gráfico Prima Suscrita por Mes',
+            fontSize:25,
+            display: true
+          }
+        })
+      });
+    });
+
+    
+  </script>
+  <script language="javascript">
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'
@@ -333,6 +435,8 @@ if(isset($_SESSION['seudonimo'])) {
         }
     </script>
 
-</body>
 
+  
+
+  </body>
 </html>

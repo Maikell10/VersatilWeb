@@ -284,7 +284,6 @@ if(isset($_SESSION['seudonimo'])) {
                             
                             
 
-
                         ?>
                             <tr>
                                 <td hidden><?php echo $poliza[$a]['id_poliza']; ?></td>

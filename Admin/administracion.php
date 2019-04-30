@@ -177,6 +177,13 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div> 
+                        <div class="card text-white bg-info mb-3">
+                            <a href="b_reportes_gc.php">
+                                <div class="card-body">
+                                    <h5 class="card-title">Reportes de GC</h5>
+                                </div>
+                            </a>
+                        </div> 
                     </div>
                 </div>
             </div>
