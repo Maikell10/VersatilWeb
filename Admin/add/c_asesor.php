@@ -206,8 +206,8 @@ if(isset($_SESSION['seudonimo'])) {
             
                 
                 <form class="form-horizontal" id="frmnuevo" autocomplete="off" action="../../procesos/agregarAsesor.php" method="post">
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Cod Asesor *</th>

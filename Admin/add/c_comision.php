@@ -219,8 +219,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 <h2 id="no_existeRep" class="text-danger"><strong></strong></h2>
 
                 <form class="form-horizontal" id="frmnuevo" method="get" action="comision.php" >
-                    <div class="form-row">
-                        <table class="table table-hover table-striped table-bordered table-responsive " id="iddatatable" >
+                    <div class="form-row table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th colspan="2">Fecha Pago GC</th>
@@ -325,6 +325,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'codasesor'.$i;?>" name="<?php echo 'codasesor'.$i;?>" ></td>
 
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'id_poliza'.$i;?>" name="<?php echo 'id_poliza'.$i;?>" ></td>
+
+                                    <td style="padding:0"><input type="button" onclick="deleterow()" class="btn btn-danger borrar" value="-" id="borrar"/></td>
                                 </tr>
                                 <tr><td colspan="7" style="padding:0px;background-color: white"><a style="width: 100%" href="" class="btn btn-round btn btn-danger" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
                                 
@@ -353,6 +355,40 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
                 </form>
                 </center>
+
+
+
+
+
+                <form name='frmTabla' method="get" action="comision.php">
+                <table class="table table-hover table-striped table-bordered" id="miTabla">
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th colspan="2">Fecha Pago GC</th>
+                            <th colspan="2">Fecha Hasta Reporte</th>
+                            <th colspan="2">Total Prima Cobrada</th>
+                            <th>Total Comision Cobrada</th>
+                            <th hidden>id reporte</th>
+                            <th hidden>cia</th>
+                            <th hidden>cant_poliza</th>
+                            <th hidden>prima_comt</th>
+                            <th hidden>comt</th>
+                        </tr>
+                    </thead>
+                    <tbody id='tabla'>
+                        <tr>
+                            <td name="campo[]">Prueba</td>
+                            <td><input onblur="<?php echo 'validarPoliza0(this)';?>" type="text" class="form-control <?php echo 'validarpoliza0';?>" id="n_poliza0" name="n_poliza0" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
+                            
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td width="100%" colspan="7" style="padding: 0"><input style="width: 100%" class="btn btn-success" type='button' name='btnMas' value='+' onclick='unaMas("tabla")' /></td>
+                    </tr>
+                </table>
+                
+                <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
+                </form>
             </div>
 
         </div>
@@ -469,6 +505,58 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
     <script>
+
+        function deleterow() {
+            var table = document.getElementById("iddatatable");
+            var rowCount = table.rows.length;
+
+            table.deleteRow(rowCount -1);
+        }
+
+        $(document).on('click', '.borrar', function (event) {
+            event.preventDefault();
+            $(this).closest('tr').remove();
+            alertify.confirm('Eliminar Fila!', '¿Desea Eliminar la Fila?', 
+            function(){ 
+                
+                
+                alertify.success('Fila Eliminada');
+            }, 
+            function(){ 
+                alertify.error('No se ha Eliminado')
+            }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
+
+            
+        });
+       
+        function unaMas(arg){
+
+            //cuento las filas de la tabla
+            var num_fila = ($('#miTabla >tbody >tr').length)-1;
+
+          
+            var num_poliza = {};
+            var prefijo = 'texto';
+            for (var i = 0; i < num_fila; i++) {
+              num_poliza[prefijo + i] = $('#n_poliza'+i).val();
+              alert(num_poliza[prefijo + i]);
+            }
+
+
+
+
+            if(document.getElementById(arg)){
+                document.getElementById(arg).innerHTML += 
+                '<tr style="background-color:white;color:black"><td name="campo[]">nueva fila<\/td><td><input onblur="validarPoliza'+num_fila+'(this)" type="text" class="form-control validarPoliza'+num_fila+'" id="n_poliza'+num_fila+'" name="n_poliza'+num_fila+'" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td><\/tr>';
+
+            }
+
+            //$('#n_poliza00').val(num_poliza1);
+            for (var i = 0; i < num_fila; i++) {
+              $('#n_poliza'+i).val(num_poliza[prefijo + i]);
+            }
+        }
+
         $(document).ready(function(){
 
             $('#btnAgregarnuevo').click(function(){

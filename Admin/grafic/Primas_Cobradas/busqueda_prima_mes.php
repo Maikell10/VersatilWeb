@@ -23,6 +23,17 @@ if(isset($_SESSION['seudonimo'])) {
   $fechaMax = $obj4->get_fecha_max('f_hastapoliza','poliza'); 
 
 
+//FECHA MAYORES A 2024
+$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+$format = 'Y';
+
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+
+// Print it
+$fechaMax= $date->format($format);
 
 ?>
 <!DOCTYPE html>
@@ -203,7 +214,7 @@ if(isset($_SESSION['seudonimo'])) {
             <select class="form-control" name="desde">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
+                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
                   {  
               ?>
                   <option value="<?php echo $date;?>"><?php echo $date;?></option>

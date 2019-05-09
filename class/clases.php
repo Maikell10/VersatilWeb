@@ -1252,22 +1252,44 @@ class Trabajo extends Conectar{
 
 
 
-	public function get_gc_by_filtro_distinct_a($f_desde,$f_hasta,$cia)
+	public function get_gc_by_filtro_distinct_a($f_desde,$f_hasta,$cia,$asesor)
 			{
-				if ($cia=='Seleccione Cía') {
-					$cia='';
+				
+				// create sql part for IN condition by imploding comma after each id
+				$asesorIn = "('" . implode("','", $asesor) ."')";
+
+				if ($cia!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					$sql="SELECT DISTINCT codvend FROM 
+								comision
+								INNER JOIN poliza, rep_com, dcia
+								WHERE 
+								poliza.id_poliza = comision.id_poliza AND
+								comision.id_rep_com = rep_com.id_rep_com AND
+								poliza.id_cia=dcia.idcia AND
+								rep_com.f_pago_gc >= '$f_desde' AND
+								rep_com.f_pago_gc <= '$f_hasta' AND
+								nomcia IN ".$ciaIn." AND
+								codvend  IN ".$asesorIn."
+								ORDER BY comision.cod_vend ASC";
 				}
-				$sql="SELECT DISTINCT codvend FROM 
+				if ($cia=='') {
+					$sql="SELECT DISTINCT codvend FROM 
 							comision
 							INNER JOIN poliza, rep_com, dcia
 							WHERE 
 							poliza.id_poliza = comision.id_poliza AND
 							comision.id_rep_com = rep_com.id_rep_com AND
-												poliza.id_cia=dcia.idcia AND
+							poliza.id_cia=dcia.idcia AND
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
-							nomcia LIKE '%$cia%'
+							nomcia LIKE '%$cia%' AND
+							codvend  IN ".$asesorIn."
 							ORDER BY comision.cod_vend ASC";
+				}
+				
 			$res=mysqli_query(Conectar::con(),$sql);
 			
 			$filas=mysqli_num_rows($res); 
@@ -1292,10 +1314,28 @@ class Trabajo extends Conectar{
 
 		public function get_gc_by_filtro_by_a($f_desde,$f_hasta,$cia,$asesor)
 			{
-				if ($cia=='Seleccione Cía') {
-					$cia='';
+				if ($cia!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					$sql="SELECT * FROM comision 
+							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
+							WHERE poliza.id_poliza = drecibo.idrecibo AND 
+							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
+							drecibo.idtitu = titular.id_titular AND
+							poliza.id_cia = dcia.idcia AND
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND 
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							poliza.codvend = '$asesor' AND 
+							nomcia IN ".$ciaIn." 
+							ORDER BY rep_com.f_pago_gc ASC";
 				}
-				$sql="SELECT * FROM comision 
+
+				if ($cia=='') {
+					$sql="SELECT * FROM comision 
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
@@ -1309,6 +1349,8 @@ class Trabajo extends Conectar{
 							poliza.codvend = '$asesor' AND 
 							nomcia LIKE '%$cia%' 
 							ORDER BY rep_com.f_pago_gc ASC";
+				}
+				
 			$res=mysqli_query(Conectar::con(),$sql);
 			
 			$filas=mysqli_num_rows($res); 
@@ -1395,7 +1437,7 @@ class Trabajo extends Conectar{
 									drecibo.idtitu = titular.id_titular AND
 									poliza.f_hastapoliza >= '$f_desde' AND
 									poliza.f_hastapoliza <= '$f_hasta'AND
-                  poliza.id_cia = dcia.idcia AND
+                  					poliza.id_cia = dcia.idcia AND
 									codvend IN " . $asesorIn ."
 									ORDER BY poliza.id_poliza ASC";
 				
@@ -1439,7 +1481,7 @@ class Trabajo extends Conectar{
 					}else{
 						$filas=mysqli_num_rows($res); 
 						if ($filas == 0) { 
-							echo "No hay registros";
+							//echo "No hay registros";
 									//header("Location: b_poliza.php?m=2");
 									//exit();
 								}else
@@ -2108,8 +2150,8 @@ class Trabajo extends Conectar{
 		      			poliza.id_poliza = drecibo.idrecibo AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND 
 						poliza.id_cia=dcia.idcia AND 
-		      			f_hastarecibo >= '$desde' AND
-		      			f_hastarecibo <= '$hasta' AND
+		      			f_desdepoliza >= '$desde' AND
+		      			f_desdepoliza <= '$hasta' AND
 		      			nomcia LIKE '%$cia%' AND
 		      			nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -2430,16 +2472,16 @@ class Trabajo extends Conectar{
     	}
 
 		    	
-      $sql="SELECT DISTINCT Month(f_hastarecibo) FROM poliza,drecibo,dcia,dramo
+      $sql="SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
 		      WHERE 
 		      poliza.id_poliza = drecibo.idrecibo AND
 		      poliza.id_cod_ramo=dramo.cod_ramo AND
 		      poliza.id_cia=dcia.idcia AND
-		      f_hastarecibo >= '$cond1' AND
-		      f_hastarecibo <= '$cond2' AND
+		      f_desdepoliza >= '$cond1' AND
+		      f_desdepoliza <= '$cond2' AND
 			  nomcia LIKE '%$cia%' AND
 			  nramo LIKE '%$ramo%'
-		      ORDER BY Month(f_hastarecibo) ASC ";
+		      ORDER BY Month(f_desdepoliza) ASC ";
 		$res=mysqli_query(Conectar::con(),$sql);
 		
 		$filas=mysqli_num_rows($res); 
@@ -2470,16 +2512,16 @@ class Trabajo extends Conectar{
     	}
 
 		    	
-      $sql="SELECT DISTINCT f_desderecibo FROM poliza,drecibo, dcia, dramo
+      $sql="SELECT DISTINCT f_desdepoliza FROM poliza,drecibo, dcia, dramo
 		      WHERE 
 		      poliza.id_poliza = drecibo.idrecibo AND
               poliza.id_cod_ramo=dramo.cod_ramo AND
               poliza.id_cia=dcia.idcia AND
-		      f_desderecibo >= '$cond1' AND
-		      f_desderecibo <= '$cond2' AND
+		      f_desdepoliza >= '$cond1' AND
+		      f_desdepoliza <= '$cond2' AND
 			  nomcia LIKE '%$cia%' AND
 			  nramo LIKE '%$ramo%'
-		      ORDER BY f_desderecibo ASC";
+		      ORDER BY f_desdepoliza ASC";
 		$res=mysqli_query(Conectar::con(),$sql);
 		
 		$filas=mysqli_num_rows($res); 
@@ -2517,7 +2559,7 @@ class Trabajo extends Conectar{
 		      			poliza.id_poliza = drecibo.idrecibo AND
               			poliza.id_cod_ramo=dramo.cod_ramo AND
               			poliza.id_cia=dcia.idcia AND
-		      			f_desderecibo = '$dia' AND
+										f_desdepoliza = '$dia' AND
 		      			nomcia LIKE '%$cia%' AND
 		      			nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -2691,6 +2733,46 @@ class Trabajo extends Conectar{
 		}
 	}
 
+
+	public function get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia)
+		    {
+		    	
+		    	if ($cia=='Seleccione Cía') {
+		    		$cia='';
+		    	}
+		    	if ($ramo=='Seleccione Ramo') {
+		    		$ramo='';
+		    	}
+
+		      	$sql="SELECT * FROM poliza 
+							INNER JOIN dcia, drecibo, dramo, comision WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.id_poliza=drecibo.idrecibo AND 
+							poliza.id_cod_ramo=dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND 
+							f_desdepoliza >= '$desde' AND
+							f_desdepoliza <= '$hasta' AND
+							id_cia LIKE '%$cia%' AND
+							nramo LIKE '%$ramo%' ";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+
+		       }
 
 
 

@@ -34,8 +34,8 @@ $hasta=($_GET['desde']).'-12-31';
 
   for($i=0;$i<sizeof($mes);$i++)
     {  
-      $desde=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-01";
-      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_hastarecibo)"]."-31";
+      $desde=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-01";
+      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-31";
 
       $obj2= new Trabajo();
       $primaMes = $obj2->get_poliza_grafp_2($_GET['ramo'],$desde,$hasta,$_GET['cia']); 
@@ -222,27 +222,26 @@ $hasta=($_GET['desde']).'-12-31';
 
 
 
-
-    <table class="table table-hover" id="Exportar_a_Excel">
-      <thead class="thead-dark">
+    <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel">
+      <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Mes Desde Recibo</th>
-          <th scope="col">Prima Suscrita</th>
-          <th scope="col">Cantidad</th>
+          <th>Mes Desde Recibo</th>
+          <th>Prima Suscrita</th>
+          <th>Cantidad</th>
         </tr>
       </thead>
       <tbody>
         <?php
           
-
           for ($i=0; $i < sizeof($mes); $i++) { 
               //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
 
         ?>
         <tr>
-          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastarecibo)"]-1]; ?></th>
+          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_desdepoliza)"]-1]; ?></th>
           <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
-          <td><?php echo $cantArray[$i]; ?></td>
+          <td align="right"><?php echo $cantArray[$i]; ?></td>
         </tr>
         <?php
             }
@@ -252,10 +251,11 @@ $hasta=($_GET['desde']).'-12-31';
         <tr>
           <th scope="col">TOTAL</th>
           <th align="right"><?php echo "$".number_format($totals,2); ?></th>
-          <th scope="col"><?php echo $totalCant; ?></th>
+          <th align="right"><?php echo $totalCant; ?></th>
         </tr>
       </thead>
     </table>
+    </div>
     
         
 
@@ -394,7 +394,7 @@ $hasta=($_GET['desde']).'-12-31';
             borderColor: presets.red,
             data: [<?php $a=0; for($i=0;$i<=11;$i++)
             {   
-                if (($mes[$a]["Month(f_hastarecibo)"]-1) == $i) {
+                if (($mes[$a]["Month(f_desdepoliza)"]-1) == $i) {
                   $dataPrima=$primaPorMes[$a]; 
                   if ($a<(sizeof($mes)-1)) {
                     $a++;

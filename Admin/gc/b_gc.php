@@ -48,6 +48,9 @@ if(isset($_SESSION['seudonimo'])) {
     <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
+    <!-- BOOTSTRAP SELECT CSS -->
+    <link rel="stylesheet" href="../../css/bootstrap-select.css">
+
     
     <!-- Alertify -->
     <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/alertify.css">
@@ -231,7 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                       </div>
                       <div class="form-group col-md-6">
                         <label>Mes Pago GC:</label>
-                        <select class="form-control" name="mes" id="mes" required>
+                        <select class="form-control" name="mes" id="mes" >
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -252,10 +255,9 @@ if(isset($_SESSION['seudonimo'])) {
                     
 
                     <div class="form-row">
-                      <div class="form-group col-md-12">
+                      <div class="form-group col-md-6">
                         <label>Cía:</label>
-                        <select class="form-control" name="cia">
-                          <option>Seleccione Cía</option>
+                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione la Cía">
                           <?php
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
@@ -265,10 +267,34 @@ if(isset($_SESSION['seudonimo'])) {
                             } 
                           ?> 
                         </select>
+
+                      
                       </div>
+
+
+                      <div class="form-group col-md-6">
+                        <label>Asesor:</label>
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor">
+                           
+                            <?php
+                            for($i=0;$i<sizeof($asesor);$i++)
+                                {  
+                            ?>
+                                <option selected="true" value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                            <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                { ?> 
+                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                            <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                {?>
+                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                            <?php } ?>
+                        </select>
+                      </div>
+
+
                     </div>
 
-
+                      <br>
                       <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>
 
                   </form>
@@ -352,7 +378,9 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../js/bootstrap-select.js"></script>
 
     <script language="javascript">
 
