@@ -10,6 +10,10 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
   $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
   $mes = $_GET['mes'];
@@ -35,13 +39,62 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_pago_gc)'];
   }
 
-  $cia = $_GET['cia'];
+  //$cia = $_GET['cia'];
 
 
   $obj1= new Trabajo();
-  $distinct_a = $obj1->get_gc_by_filtro_distinct_a($desde,$hasta,$cia); 
+  $distinct_a = $obj1->get_gc_by_filtro_distinct_a($desde,$hasta,$cia,$_GET["asesor"]); 
 
-  
+
+  //Ordeno los ejecutivos de menor a mayor alfabéticamente
+  $Ejecutivo[sizeof($distinct_a)]=null;
+  $codEj[sizeof($distinct_a)]=null;
+
+  for ($i=0; $i < sizeof($distinct_a); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$distinct_a[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;
+        $codEj[$i]=$distinct_a[$i]['codvend'];                   
+  }
+
+    asort($Ejecutivo);
+    $x = array();
+    foreach($Ejecutivo as $key=>$value) {
+        $x[count($x)] = $key;
+    }
+   
+    for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+        utf8_encode($Ejecutivo[$x[$a]]);
+        $codEj[$x[$a]]."  --  ";
+    }
+
+
+
+
+    $asesorB=$_GET["asesor"]; 
+    
+    
+
+    //recorremos el array de asesor seleccionado
+    for ($i=0;$i<count($asesorB);$i++)    
+    {     
+    //echo "<br>"  . $asesorB[$i];    
+    }
+
 
 
 ?>
@@ -210,7 +263,7 @@ if(isset($_SESSION['seudonimo'])) {
  
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
@@ -221,8 +274,10 @@ if(isset($_SESSION['seudonimo'])) {
                     ?></font>
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
                 </div>
+
+                <center><a onclick="generarR()" class="btn btn-info btn-lg" data-toggle="tooltip" data-placement="right" title="Generar Reporte para la Búsqueda Actual" >Generar</a></center>
     
-                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'GC a Pagar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
                 
                 
                 <div class="form-group">
@@ -257,30 +312,32 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalcomisionT=0;
                         $totalgcT=0;
 
-                        for ($a=0; $a < sizeof($distinct_a); $a++) { 
-
+                        for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+                            
+                            
+                           
                             $totalprimacom=0;
                             $totalcomision=0;
                             $totalgc=0;
                             
                             $ob3= new Trabajo();
-                            $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                            $asesor = $ob3->get_element_by_id('ena','cod',$codEj[$x[$a]]); 
                             $nombre=$asesor[0]['idnom'];
 
                             if (sizeof($asesor)==null) {
                                 $ob3= new Trabajo();
-                                $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                                $asesor = $ob3->get_element_by_id('enr','cod',$codEj[$x[$a]]); 
                                 $nombre=$asesor[0]['nombre'];
                             }
                         
                             if (sizeof($asesor)==null) {
                                 $ob3= new Trabajo();
-                                $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                                $asesor = $ob3->get_element_by_id('enp','cod',$codEj[$x[$a]]); 
                                 $nombre=$asesor[0]['nombre'];
                             }
-
+                            
                             $obj2= new Trabajo();
-                            $poliza = $obj2->get_gc_by_filtro_by_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']);
+                            $poliza = $obj2->get_gc_by_filtro_by_a($desde,$hasta,$cia,$codEj[$x[$a]]);
                             
                             
 
@@ -292,6 +349,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <?php
 
                         for ($i=0; $i < sizeof($poliza); $i++) { 
+
                             $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
                             $totalprima=$totalprima+$poliza[$i]['prima'];
 
@@ -339,15 +397,19 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
                                 <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
-                                <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
+                                <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
                                 <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],0)." %"; ?></td>
                             </tr>
                             <?php
+
                             }
                             $total_per_com=($totalcomision*100)/$totalprimacom;
                             if (number_format($totalprimacom,2)==0.00 ) {
                                 $totalprimacom=0;
                                 $total_per_com=0;
+                            }
+                            if ($totalcomision==0) {
+                                $totalcomision=1;
                             }
                             ?>
                             <tr>
@@ -428,30 +490,30 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalcomisionT=0;
                         $totalgcT=0;
 
-                        for ($a=0; $a < sizeof($distinct_a); $a++) { 
-
+                        for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+                           
                             $totalprimacom=0;
                             $totalcomision=0;
                             $totalgc=0;
                             
                             $ob3= new Trabajo();
-                            $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                            $asesor = $ob3->get_element_by_id('ena','cod',$codEj[$x[$a]]); 
                             $nombre=$asesor[0]['idnom'];
 
                             if (sizeof($asesor)==null) {
                                 $ob3= new Trabajo();
-                                $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                                $asesor = $ob3->get_element_by_id('enr','cod',$codEj[$x[$a]]); 
                                 $nombre=$asesor[0]['nombre'];
                             }
                         
                             if (sizeof($asesor)==null) {
                                 $ob3= new Trabajo();
-                                $asesor = $ob3->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                                $asesor = $ob3->get_element_by_id('enp','cod',$codEj[$x[$a]]); 
                                 $nombre=$asesor[0]['nombre'];
                             }
-
+                            
                             $obj2= new Trabajo();
-                            $poliza = $obj2->get_gc_by_filtro_by_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']);
+                            $poliza = $obj2->get_gc_by_filtro_by_a($desde,$hasta,$cia,$codEj[$x[$a]]);
                             
                             
 
@@ -534,6 +596,9 @@ if(isset($_SESSION['seudonimo'])) {
                             if (number_format($totalprimacom,2)==0.00 ) {
                                 $totalprimacom=0;
                                 $total_per_com=0;
+                            }
+                            if ($totalcomision==0) {
+                                $totalcomision=1;
                             }
                             ?>
                             <tr>
@@ -691,9 +756,26 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 
+    <script>
+        function generarR(){
+
+            alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?', 
+                function(){ 
+                    window.location.replace("../../procesos/agregarGC.php?desde=<?php echo $desde;?>");
+                    
+                    
+
+
+
+
+                }, 
+                function(){ 
+                    alertify.error('Cancelada')
+                }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
+        }
+    </script>
 
    <script language="javascript">
-    
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

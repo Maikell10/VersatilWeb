@@ -63,7 +63,7 @@ $semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));
 
   for($i=0;$i<sizeof($dia_mes);$i++)
     {  
-      $dia=$dia_mes[$i]['f_desderecibo'];
+      $dia=$dia_mes[$i]['f_desdepoliza'];
 
       $dia1   = substr($dia,8,2);
       $mes1 = substr($dia,5,2);
@@ -284,8 +284,9 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
 
 
 
-    <table class="table table-hover" id="Exportar_a_Excel">
-      <thead class="thead-dark">
+    <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel">
+      <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
           <th scope="col">Semana del Año Desde Recibo</th>
           <th scope="col">Prima Suscrita</th>
@@ -316,6 +317,7 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
         </tr>
       </thead>
     </table>
+    </div>
     
         
 

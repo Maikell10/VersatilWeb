@@ -213,6 +213,40 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
+
+
+                <?php 
+                    $id_poliza=$poliza[0]['id_poliza'].".pdf";
+                    $archivo='C:\Users\HP-USER\Desktop\archivo/'.$id_poliza;
+                    if (file_exists ($archivo)) {
+                ?>
+      
+                    <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                <?php
+                    }else {
+                ?>
+                    <form class="form-horizontal" action="save.php" method="post" enctype="multipart/form-data" >
+                    <center>
+                        <label for="archivo">Seleccione la Póliza pdf a cargar</label>
+                        <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf">
+                        <button class="btn btn-success btn-round">Subir Archivo</button>
+                        <input type="text" class="form-control" name="id_poliza" value="<?php echo $poliza[0]['id_poliza'];?>" hidden>
+                        </center>
+                    </form>
+                <?php
+                    }
+                    
+                ?>
+
+                
+
+                
+                
+    
+   
+
+                
+                
                 <?php 
                     if ($poliza[0]['nombre_t']=='PENDIENTE') {
                 ?>  
@@ -243,8 +277,8 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
-
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
 					<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 						<tr>
 							<th>N° de Póliza</th>
@@ -281,9 +315,11 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo utf8_encode($poliza[0]['tipo_poliza']); ?></td>
 							</tr>
 					</tbody>
-				</table>
-
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                </table>
+                </div>
+                
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Ramo</th>
@@ -291,6 +327,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Suma Asegurada</th>
                             <th style="background-color: #E54848;">Prima Suscrita</th>
                             <th>Forma de Pago</th>
+                            <th>Tipo de Cuenta</th>
                         </tr>
                     </thead>
 
@@ -301,11 +338,21 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo $currency.number_format($poliza[0]['sumaasegurada'],2); ?></td>
                                 <td><?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
                                 <td><?php echo $poliza[0]['fpago']; ?></td>
+                                <td><?php 
+                                if ($poliza[0]['t_cuenta']==1) {
+                                    echo "Individual";
+                                } else {
+                                    echo "Colectiva";
+                                }
+                                
+                                ?></td>
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>N° Recibo</th>
@@ -342,6 +389,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
 
 <!-- -----------------SI ES PÓLIZA PENDIENTE NO MOSTRAR------------------ -->
@@ -354,8 +402,8 @@ if(isset($_SESSION['seudonimo'])) {
                     <h2 class="title">Datos del Titular</h2>  
                 </div>
 
-
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Cédula</th>
@@ -396,8 +444,10 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" style="display: table">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Celular</th>
@@ -417,8 +467,10 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" style="display: table">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Dirección</th>
@@ -430,6 +482,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
                 <!-- <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -451,8 +504,8 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
-                
-                <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable" style="display: table">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Cédula</th>
@@ -468,6 +521,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
                 <?php
                 if ($poliza[0]['cod_ramo']==2 || $poliza[0]['cod_ramo']==25) {
@@ -475,30 +529,32 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <div class="form-row" id="tablaveh" >      
                     <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
-                        <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                    <th>Placa *</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Tipo</th>
-                                    <th>Año</th>
-                                </tr>
-                            </thead>
+                    <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered" id="idtablaveh" >
+                        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <tr>
+                                <th>Placa *</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Tipo</th>
+                                <th>Año</th>
+                            </tr>
+                        </thead>
 
-                            <tbody >
-                                <div class="form-group col-md-12">
-                                <tr>
-                                    <td><?php echo $vehiculo[0]['placa']; ?></td>
-                                    <td><?php echo $vehiculo[0]['marca']; ?></td>
-                                    <td><?php echo $vehiculo[0]['mveh']; ?></td>
-                                    <td><?php echo $vehiculo[0]['tveh']; ?></td>
-                                    <td><?php echo $vehiculo[0]['f_veh']; ?></td>
-                                </tr>
-                                </div>
-                            </tbody>
-                        </table>
+                        <tbody >
+                            <div class="form-group col-md-12">
+                            <tr>
+                                <td><?php echo $vehiculo[0]['placa']; ?></td>
+                                <td><?php echo $vehiculo[0]['marca']; ?></td>
+                                <td><?php echo $vehiculo[0]['mveh']; ?></td>
+                                <td><?php echo $vehiculo[0]['tveh']; ?></td>
+                                <td><?php echo $vehiculo[0]['f_veh']; ?></td>
+                            </tr>
+                            </div>
+                        </tbody>
+                    </table>
                     </div>
+                </div>
 
                 <?php 
                 }
@@ -515,8 +571,8 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
-
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" style="display: table">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Código Asesor</th>
@@ -538,6 +594,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
                 <hr>
                 <center>

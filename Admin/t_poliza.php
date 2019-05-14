@@ -7,8 +7,8 @@ $poliza = $obj1->get_poliza_total();
 
 ?>
 
-
-	<table class="table table-hover table-striped table-bordered display responsive" id="iddatatable" >
+	<div class="table-responsive">
+	<table class="table table-hover table-striped table-bordered" id="iddatatable" >
 		<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 			<tr>
 				<th hidden>f_poliza</th>
@@ -101,13 +101,14 @@ $poliza = $obj1->get_poliza_total();
 			</tr>
 		</tfoot>
 	</table>
+	</div>
 
 
 	<h1 class="title">Total de Prima Suscrita</h1>
 	<h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
 
 	<h1 class="title">Total de Pólizas</h1>
-	<h1 class="title text-danger">$ <?php  echo sizeof($poliza);?></h1>
+	<h1 class="title text-danger"><?php  echo sizeof($poliza);?></h1>
 
 
 <script type="text/javascript">

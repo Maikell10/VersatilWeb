@@ -11,6 +11,7 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../../class/clases.php");
 
 
+
   $primat_com=$_GET['primat_com'];
   $comt=$_GET['comt'];
   $f_hasta=$_GET['f_hasta'];
@@ -221,8 +222,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <h2 id="no_existeRep" class="text-danger"><strong></strong></h2>
 
                 <form class="form-horizontal" id="frmnuevo" method="get" action="comision_n.php" autocomplete="off">
-                    <div class="form-row">
-                            <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">
+                            <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
                                 <tr>
                                     <th colspan="2">Fecha Pago GC *</th>

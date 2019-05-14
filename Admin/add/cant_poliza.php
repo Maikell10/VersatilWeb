@@ -194,8 +194,8 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 <form class="form-horizontal" id="frmnuevo" method="get" action="c_comision.php" autocomplete="off">
                 
-                    <div class="form-row">
-                            <table class="table table-hover table-striped table-bordered display table-responsive " id="iddatatable" >
+                    <div class="form-row table-responsive">
+                            <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Fecha Hasta *</th>
@@ -356,8 +356,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                 var fecha = f_hasta.value.split('-').reverse().join('-');
                 let date = new Date(fecha)
-                let day = 1
-                let month = date.getMonth()
+                let day = 10
+                let month = date.getMonth()+2
                 let year = date.getFullYear()
 
             

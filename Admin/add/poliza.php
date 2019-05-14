@@ -138,7 +138,7 @@ if(isset($_SESSION['seudonimo'])) {
     $asesor_ind = $obj7->get_element_by_id('ena','cod',$u[0]); 
 
     if ($asesor_ind[0]['nopre1']==null) {
-        echo "es nulo, buscar en referidor";
+        //echo "es nulo, buscar en referidor";
         $obj7= new Trabajo();
         $asesor_ind = $obj7->get_element_by_id('enr','cod',$u[0]); 
 
@@ -343,8 +343,8 @@ if(isset($_SESSION['seudonimo'])) {
             
                 
                 <form class="form-horizontal" id="frmnuevo" >
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
                                 <tr>
                                     <th nowrap colspan="2">N° de Póliza</th>

@@ -83,22 +83,6 @@ if(isset($_SESSION['seudonimo'])) {
             return false;
         }
     </script>
-    <style>
-        
-        
-       
-        @media only screen and (min-width : 768px) {
-            #tablaRamo{
-                margin-left: 14px;
-            }
-        }
-        @media only screen and (min-width : 991px) {
-            #tablaRamo{
-                margin-left: 0px;
-            }
-        }
-            
-    </style>
 </head>
 
 <body class="profile-page ">
@@ -238,8 +222,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <h2 id="existeP" class="bg-success text-white"><strong></strong></h2>
                 <h2 id="no_existeP" class="bg-danger text-white"><strong></strong></h2>
                 <form class="form-horizontal" id="frmnuevo" action="poliza.php" method="post" >
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>N° de Póliza *</th>
@@ -286,8 +270,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-                    <div class="form-row">  
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="tablaRamo">
+                    <div class="form-row table-responsive">  
+                        <table class="table table-hover table-striped table-bordered">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Ramo *</th>
@@ -329,8 +313,8 @@ if(isset($_SESSION['seudonimo'])) {
                     </div>
 
 
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th hidden>Tipo de Cobertura</th>
@@ -368,8 +352,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>N° Recibo *</th>
@@ -403,8 +387,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <h2 id="existeT" class="text-success"><strong></strong></h2>
                     <h2 id="no_existeT" class="text-danger"><strong></strong></h2>
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display  nowrap" id="iddatatable">
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>N° ID Titular *</th>
@@ -431,8 +415,8 @@ if(isset($_SESSION['seudonimo'])) {
                     
                     <h2 id="existeTom" class="text-success"><strong></strong></h2>
                     <h2 id="no_existeTom" class="text-danger"><strong></strong></h2>
-                    <div class="form-row" id="tablatomador" hidden="true">      
-                        <table class="table table-hover table-striped table-bordered display  nowrap" id="iddatatable">
+                    <div class="form-row table-responsive" id="tablatomador" hidden="true">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>N° ID Tomador *</th>
@@ -456,9 +440,9 @@ if(isset($_SESSION['seudonimo'])) {
                     <center><a href="" class="btn btn-danger btn-lg btn-round" id="btnAggTom" hidden="true" data-toggle="modal" data-target="#agregarnuevotomador">Crear Nuevo Tomador</a></center>
 
                     
-                    <div class="form-row" id="tablaveh" hidden="true">      
+                    <div class="form-row table-responsive" id="tablaveh" hidden="true">      
                     <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
-                        <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
+                        <table class="table table-hover table-striped table-bordered" id="idtablaveh" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Placa *</th>
@@ -497,7 +481,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                     <center><div>      
-                        <table class="table table-hover table-striped table-bordered display "  id="tablaAsesor">
+                        <table class="table table-hover table-striped table-bordered"  id="tablaAsesor">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Asesor *</th>
@@ -530,7 +514,7 @@ if(isset($_SESSION['seudonimo'])) {
         
 
                       <center>
-                        <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Agregar nuevo</button></center>
+                        <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button></center>
 
                 </form>
                 </center>

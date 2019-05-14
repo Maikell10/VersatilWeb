@@ -10,6 +10,8 @@ if(isset($_SESSION['seudonimo'])) {
 
     require_once "../class/clases.php";
 
+    echo $_GET['desde'];
+
     $obj3= new Trabajo();
     $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
     $u_id_p=($ultimo_id_p[0]['id_poliza']+1);

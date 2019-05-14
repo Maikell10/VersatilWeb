@@ -210,45 +210,45 @@ if(isset($_SESSION['seudonimo'])) {
 
                 
                 <form class="form-horizontal" id="frmnuevo" autocomplete="off">
-                        
-                        <table class="table table-hover table-striped table-bordered display nowrap table-responsive" id="iddatatable" style="width: 60%;text-align: center">
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                    <th nowrap>Cod Proyecto *</th>
-                                    <th nowrap>Nº ID *</th>
-                                    <th nowrap>Nombre Líder *</th>
-                                    <th nowrap>Nombre del Proyecto</th>
-                                </tr>
-                            </thead>
+                    <div class="table-responsive">  
+                    <table class="table table-hover table-striped table-bordered" id="iddatatable" style="width: 60%;text-align: center">
+                        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <tr>
+                                <th nowrap>Cod Proyecto *</th>
+                                <th nowrap>Nº ID *</th>
+                                <th nowrap>Nombre Líder *</th>
+                                <th nowrap>Nombre del Proyecto</th>
+                            </tr>
+                        </thead>
 
-                            <tbody >
-                                <div class="form-group col-md-12">
-                                <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $u[0]."-".($u[1]+1);?> "></td>
-                                    <td><input type="text" class="form-control validanumericos" id="id_lider" name="id_lider" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td><input onblur="cargarCuenta(this)" type="text" class="form-control" id="nombre_l" name="nombre_l" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
-                                    <td><input type="text" class="form-control" id="cuenta" name="cuenta" required readonly="true"></td>
-                                </tr>
+                        <tbody >
+                            <div class="form-group col-md-12">
+                            <tr style="background-color: white">
+                                <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $u[0]."-".($u[1]+1);?> "></td>
+                                <td><input type="text" class="form-control validanumericos" id="id_lider" name="id_lider" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                <td><input onblur="cargarCuenta(this)" type="text" class="form-control" id="nombre_l" name="nombre_l" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                <td><input type="text" class="form-control" id="cuenta" name="cuenta" required readonly="true"></td>
+                            </tr>
 
-                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                    <th nowrap colspan="2">Forma de Pago *</th>
-                                    <th nowrap colspan="2">Observaciones</th>
-                                </tr>
-                                <tr style="background-color: white">
-                                    <td colspan="2"><select class="custom-select" id="pago" name="pago" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
-                                        <option value="ÚNICO MENSUAL">ÚNICO MENSUAL</option>
-                                        <option value="ÚNICO SEMANAL">ÚNICO SEMANAL</option>
-                                    </select></td>
-                                    <td colspan="2"><input type="text" class="form-control" id="obs" name="obs"></td>
-                                </tr>
-                                </div>
-                            </tbody>
-                        </table>
-                   
+                            <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <th nowrap colspan="2">Forma de Pago *</th>
+                                <th nowrap colspan="2">Observaciones</th>
+                            </tr>
+                            <tr style="background-color: white">
+                                <td colspan="2"><select class="custom-select" id="pago" name="pago" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                    <option value="ÚNICO MENSUAL">ÚNICO MENSUAL</option>
+                                    <option value="ÚNICO SEMANAL">ÚNICO SEMANAL</option>
+                                </select></td>
+                                <td colspan="2"><input type="text" class="form-control" id="obs" name="obs"></td>
+                            </tr>
+                            </div>
+                        </tbody>
+                    </table>
+                    </div>
 
-                    
-                        <button type="button" id="btnAgregarProyecto" class="btn btn-info btn-lg btn-round">Agregar nuevo</button>
-                    </center>
+                
+                    <button type="button" id="btnAgregarProyecto" class="btn btn-info btn-lg btn-round">Agregar nuevo</button>
+                </center>
                 </form>
             </div>
 
@@ -286,62 +286,63 @@ if(isset($_SESSION['seudonimo'])) {
 
                 
                 <form class="form-horizontal" id="frmnuevo1" autocomplete="off">
-                        
-                        <table class="table table-hover table-striped table-bordered display nowrap table-responsive" id="iddatatable" style="width: 80%;text-align: center">
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                    <th hidden>ID Proyecto</th>
-                                    <th>Cod Proyecto *</th>
-                                    <th>Nº ID *</th>
-                                    <th>Nombre Asesor *</th>
-                                    <th></th>
-                                    <th>Monto / % *</th>
-                                    <th>E-Mail *</th>
-                                </tr>
-                            </thead>
+                    <div class="table-responsive">  
+                    <table class="table table-hover table-striped table-bordered" id="iddatatable" style="width: 80%;text-align: center">
+                        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <tr>
+                                <th hidden>ID Proyecto</th>
+                                <th>Cod Proyecto *</th>
+                                <th>Nº ID *</th>
+                                <th>Nombre Asesor *</th>
+                                <th></th>
+                                <th>Monto / % *</th>
+                                <th>E-Mail *</th>
+                            </tr>
+                        </thead>
 
-                            <tbody >
-                                <tr style="background-color: white">
-                                    <td hidden><input type="text" class="form-control" name="id_proyecto" value="<?php echo $lider_p[0]['id_proyecto'];?> "></td>
-                                    <td><input type="text" class="form-control" name="cod_proyecto" readonly="true" value="<?php echo $cod_enp;?> "></td>
-                                    <td><input type="text" class="form-control validanumericos" id="id" name="id" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td><input type="text" class="form-control" id="nombre_a" name="nombre_a" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
-                                    <td><select class="custom-select" name="currency" required>
-                                            <option value="$">$</option>
-                                            <option value="BsS">BsS</option>
-                                            <option value="%">%</option>
-                                        </select>
-                                    </td>
-                                    <td><input type="text" class="form-control validanumericos1" id="monto_a" name="monto_a" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
-                                    <td><input type="email" class="form-control" id="email" name="email" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com"></td>
-                                </tr>
+                        <tbody >
+                            <tr style="background-color: white">
+                                <td hidden><input type="text" class="form-control" name="id_proyecto" value="<?php echo $lider_p[0]['id_proyecto'];?> "></td>
+                                <td><input type="text" class="form-control" name="cod_proyecto" readonly="true" value="<?php echo $cod_enp;?> "></td>
+                                <td><input type="text" class="form-control validanumericos" id="id" name="id" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                <td><input type="text" class="form-control" id="nombre_a" name="nombre_a" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                <td><select class="custom-select" name="currency" required>
+                                        <option value="$">$</option>
+                                        <option value="BsS">BsS</option>
+                                        <option value="%">%</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control validanumericos1" id="monto_a" name="monto_a" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                <td><input type="email" class="form-control" id="email" name="email" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com"></td>
+                            </tr>
 
-                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                    <th>Banco *</th>
-                                    <th>Tipo Cuenta *</th>
-                                    <th colspan="2">N° Cuenta *</th>
-                                    <th>Cel *</th>
-                                    <th>Observaciones</th>
-                                </tr>
-                                <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="banco" name="banco" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
-                                    <td><select class="custom-select" name="tipo_cuenta" required>
-                                            <option value="CORRIENTE">CORRIENTE</option>
-                                            <option value="AHORRO">AHORRO</option>
-                                            <option value="JURÍDICO">JURÍDICO</option>
-                                        </select>
-                                    </td>
-                                    <td colspan="2"><input type="text" class="form-control validanumericos2" id="num_cuenta" name="num_cuenta" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td><input type="text" class="form-control validanumericos3" id="cel" name="cel" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td><input type="text" class="form-control" id="obs" name="obs" onkeyup="mayus(this);"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                   
+                            <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <th>Banco *</th>
+                                <th>Tipo Cuenta *</th>
+                                <th colspan="2">N° Cuenta *</th>
+                                <th>Cel *</th>
+                                <th>Observaciones</th>
+                            </tr>
+                            <tr style="background-color: white">
+                                <td><input type="text" class="form-control" id="banco" name="banco" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                <td><select class="custom-select" name="tipo_cuenta" required>
+                                        <option value="CORRIENTE">CORRIENTE</option>
+                                        <option value="AHORRO">AHORRO</option>
+                                        <option value="JURÍDICO">JURÍDICO</option>
+                                    </select>
+                                </td>
+                                <td colspan="2"><input type="text" class="form-control validanumericos2" id="num_cuenta" name="num_cuenta" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                <td><input type="text" class="form-control validanumericos3" id="cel" name="cel" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
+                                <td><input type="text" class="form-control" id="obs" name="obs" onkeyup="mayus(this);"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                
 
-                    
-                        <button type="button" id="btnAgregarAsesorProyecto" class="btn btn-info btn-lg btn-round">Agregar nuevo</button>
-                    </center>
+                
+                    <button type="button" id="btnAgregarAsesorProyecto" class="btn btn-info btn-lg btn-round">Agregar nuevo</button>
+                </center>
                 </form>
             </div>
 

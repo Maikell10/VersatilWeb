@@ -191,8 +191,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
                 <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Previsualizar</button></center>
-                    <div class="form-row">   
-                    <table class="table table-hover table-striped table-bordered display table-responsive nowrap">
+                    <div class="table-responsive">   
+                    <table class="table table-hover table-striped table-bordered">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Fecha Desde Preferida *</th>
@@ -218,7 +218,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tbody>
                         </table>
 
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th></th>
