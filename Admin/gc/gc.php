@@ -14,6 +14,10 @@ if(isset($_SESSION['seudonimo'])) {
     $cia=$_GET["cia"]; 
   }else{$cia='';}
 
+  if (isset($_GET["asesor"])!=null) {
+    $asesor=$_GET["asesor"]; 
+  }else{$asesor='';}
+
   $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
   $mes = $_GET['mes'];
@@ -43,7 +47,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $distinct_a = $obj1->get_gc_by_filtro_distinct_a($desde,$hasta,$cia,$_GET["asesor"]); 
+  $distinct_a = $obj1->get_gc_by_filtro_distinct_a($desde,$hasta,$cia,$asesor); 
 
 
   //Ordeno los ejecutivos de menor a mayor alfabéticamente
@@ -85,7 +89,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-    $asesorB=$_GET["asesor"]; 
+    $asesorB=$asesor; 
     
     
 

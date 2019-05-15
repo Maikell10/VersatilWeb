@@ -274,13 +274,13 @@ if(isset($_SESSION['seudonimo'])) {
 
                       <div class="form-group col-md-6">
                         <label>Asesor:</label>
-                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor">
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true">
                            
                             <?php
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option selected="true" value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
                                 <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>

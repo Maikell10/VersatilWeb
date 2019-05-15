@@ -1258,12 +1258,14 @@ class Trabajo extends Conectar{
 	public function get_gc_by_filtro_distinct_a($f_desde,$f_hasta,$cia,$asesor)
 			{
 				
-				// create sql part for IN condition by imploding comma after each id
-				$asesorIn = "('" . implode("','", $asesor) ."')";
+				
 
-				if ($cia!='') {
+				if ($cia!='' && $asesor!='') {
 					// create sql part for IN condition by imploding comma after each id
 					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
 
 					$sql="SELECT DISTINCT codvend FROM 
 								comision
@@ -1278,7 +1280,25 @@ class Trabajo extends Conectar{
 								codvend  IN ".$asesorIn."
 								ORDER BY comision.cod_vend ASC";
 				}
-				if ($cia=='') {
+				if ($cia=='' && $asesor=='') {
+					$sql="SELECT DISTINCT codvend FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							codvend  LIKE '%$asesor%'
+							ORDER BY comision.cod_vend ASC";
+				}
+				if ($cia=='' && $asesor!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
+
 					$sql="SELECT DISTINCT codvend FROM 
 							comision
 							INNER JOIN poliza, rep_com, dcia
@@ -1292,6 +1312,25 @@ class Trabajo extends Conectar{
 							codvend  IN ".$asesorIn."
 							ORDER BY comision.cod_vend ASC";
 				}
+				if ($asesor=='' && $cia!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					$sql="SELECT DISTINCT codvend FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							codvend LIKE '%$asesor%' AND
+							nomcia  IN ".$ciaIn."
+							ORDER BY comision.cod_vend ASC";
+				}
+				
 				
 			$res=mysqli_query(Conectar::con(),$sql);
 			
@@ -1333,7 +1372,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
-							nomcia IN ".$ciaIn." 
+							nomcia IN ".$ciaIn." AND
+              not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 							ORDER BY rep_com.f_pago_gc ASC";
 				}
 
@@ -1350,7 +1390,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
-							nomcia LIKE '%$cia%' 
+							nomcia LIKE '%$cia%' AND
+              not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 							ORDER BY rep_com.f_pago_gc ASC";
 				}
 				

@@ -204,8 +204,19 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="main main-raised">
-        
-
+    
+    <?php    
+    if(isset($_GET['m'])==2){
+    ?>
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+  <strong>Póliza Subida correctamente en .pdf!</strong>
+  <button style="cursor: pointer" type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    <?php    
+    }
+    ?>
         
 
         <div class="section">
@@ -216,9 +227,43 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <?php 
+                
+                
                     $id_poliza=$poliza[0]['id_poliza'].".pdf";
-                    $archivo='C:\Users\HP-USER\Desktop\archivo/'.$id_poliza;
-                    if (file_exists ($archivo)) {
+                    $archivo='./'.$id_poliza;
+                    
+                    
+                    
+$ftp_server="190.140.224.69";
+$port=21;
+$ftp_usuario="usuario";
+$ftp_pass="20127247";
+$con_id=@ftp_connect($ftp_server,$port) or die("Unable to connect to server.");
+$lr=ftp_login($con_id, $ftp_usuario, $ftp_pass);
+
+//ftp_pasv($con_id, true);
+
+if ( (!$con_id) || (!$lr) ) {
+    echo "no se pudo conectar";
+} else {
+    
+    
+    
+    
+    # Cambiamos al directorio especificado
+    if(ftp_chdir($con_id,''))
+    {
+        
+        // Obtener los archivos contenidos en el directorio actual
+        $contents = ftp_nlist($con_id, ".");
+        
+        if (in_array($archivo, $contents)) {
+            //echo "<br>";
+            //echo "I found ".$archivo." in directory";
+        
+                    
+                    
+                    
                 ?>
       
                     <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
@@ -228,13 +273,17 @@ if(isset($_SESSION['seudonimo'])) {
                     <form class="form-horizontal" action="save.php" method="post" enctype="multipart/form-data" >
                     <center>
                         <label for="archivo">Seleccione la Póliza pdf a cargar</label>
-                        <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf">
+                        <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf" required>
                         <button class="btn btn-success btn-round">Subir Archivo</button>
                         <input type="text" class="form-control" name="id_poliza" value="<?php echo $poliza[0]['id_poliza'];?>" hidden>
                         </center>
                     </form>
                 <?php
                     }
+            ftp_close($con_id);
+    }
+
+}
                     
                 ?>
 
@@ -279,27 +328,27 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
-					<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-						<tr>
-							<th>N° de Póliza</th>
-							<th>Status</th>
-			                <th>Fecha Desde Seguro</th>
-			                <th>Fecha Hasta Seguro</th>
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>N° de Póliza</th>
+                            <th>Status</th>
+                            <th>Fecha Desde Seguro</th>
+                            <th>Fecha Hasta Seguro</th>
                             <th>Tipo de Póliza</th>
-						</tr>
-					</thead>
+                        </tr>
+                    </thead>
 
-					<tbody >
-						<?php
+                    <tbody >
+                        <?php
 
                             $originalDesdeP = $poliza[0]['f_desdepoliza'];
                             $newDesdeP = date("d/m/Y", strtotime($originalDesdeP));
                             $originalHastaP = $poliza[0]['f_hastapoliza'];
                             $newHastaP = date("d/m/Y", strtotime($originalHastaP));
 
-							?>
-							<tr >
-				                <td><?php echo $poliza[0]['cod_poliza']; ?></td>
+                            ?>
+                            <tr >
+                                <td><?php echo $poliza[0]['cod_poliza']; ?></td>
                                 <?php   if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) {
                                 ?>
                                 <td class="btn-success"><?php echo "Activa"; ?></td>
@@ -310,11 +359,11 @@ if(isset($_SESSION['seudonimo'])) {
                                 <?php
                                         }
                                 ?>
-				                <td><?php echo $newDesdeP; ?></td>
-				                <td><?php echo $newHastaP; ?></td>
+                                <td><?php echo $newDesdeP; ?></td>
+                                <td><?php echo $newHastaP; ?></td>
                                 <td><?php echo utf8_encode($poliza[0]['tipo_poliza']); ?></td>
-							</tr>
-					</tbody>
+                            </tr>
+                    </tbody>
                 </table>
                 </div>
                 
