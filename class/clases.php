@@ -140,10 +140,9 @@ class Trabajo extends Conectar{
 		    {
 		      	$sql="SELECT *  FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, tipo_poliza, dcia
+                  	INNER JOIN drecibo, titular, dcia
                   	WHERE 
                   	poliza.id_poliza = drecibo.idrecibo AND
-                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                   	drecibo.idtitu = titular.id_titular AND
                   	poliza.id_cia = dcia.idcia
                     ORDER BY poliza.id_poliza ASC";
@@ -155,7 +154,7 @@ class Trabajo extends Conectar{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
 				      	//header("Location: incorrecto.php?m=2");
-				      	exit();
+				      	//exit();
 			      	}else
 			      		{
 		               		while($reg=mysqli_fetch_assoc($res)) {
@@ -1044,6 +1043,37 @@ class Trabajo extends Conectar{
 					}
 			}
 	}
+
+
+
+
+	public function get_poliza_rep_com($id_poliza)
+	    {
+	      	$sql="SELECT f_hasta_rep FROM comision 
+					INNER JOIN rep_com
+					WHERE 
+					comision.id_rep_com = rep_com.id_rep_com AND
+					id_poliza = '$id_poliza'";
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			if (!$res) {
+			    //No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+			      	//header("Location: incorrecto.php?m=2");
+			      	//exit();
+		      	}else
+		      		{
+	               		while($reg=mysqli_fetch_assoc($res)) {
+	               			$this->t[]=$reg;
+	              		}
+              			return $this->t;
+					}
+			}
+
+			
+		}
 
 
 
@@ -2008,6 +2038,9 @@ class Trabajo extends Conectar{
 
 		    	if ($cia=='Seleccione Cía') {
 		    		$cia='';
+					}
+					if ($ramo=='') {
+		    		$ramo='';
 		    	}
 
 		      	$sql="SELECT * FROM poliza 
@@ -2019,8 +2052,8 @@ class Trabajo extends Conectar{
 								rep_com.id_rep_com=comision.id_rep_com AND
 		      			f_hastapoliza >= '$desde' AND
 		      			f_hastapoliza <= '$hasta' AND
-		      			nomcia = '$cia' AND
-		      			nramo = '$ramo' ";
+		      			nomcia LIKE '%$cia%' AND
+		      			nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
 				
 				if (!$res) {
@@ -2898,12 +2931,12 @@ class Trabajo extends Conectar{
 
 	public function agregarPoliza($cod_poliza,$f_poliza,$f_emi,$tcobertura,$f_desdepoliza,
 									$f_hastapoliza,$currency,$id_tpoliza,$sumaasegurada,$id_zproduccion,
-									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind,$t_cuenta){
+									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind,$t_cuenta,$id_usuario){
 
 
 			$sql="INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
 									values ('$cod_poliza',
 											'$f_poliza',
 											'$f_emi',
@@ -2920,7 +2953,8 @@ class Trabajo extends Conectar{
 											'$id_titular',
 											'$id_tomador',
 											'$asesor_ind',
-											'$t_cuenta')";
+											'$t_cuenta',
+											'$id_usuario')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -3053,7 +3087,7 @@ class Trabajo extends Conectar{
 
 		$sql="INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
 									values ('$datos[0]',
 											'$datos[2]',
 											'2017-01-01',
@@ -3070,7 +3104,8 @@ class Trabajo extends Conectar{
 											'0',
 											'0',
 											'50',
-											'1')";
+											'1',
+											'$datos[4]')";
 		return mysqli_query(Conectar::con(),$sql);
 		
 	}
@@ -3442,6 +3477,62 @@ class Trabajo extends Conectar{
 
 		mysql_close($this->con);
 	}	
+
+
+	public function p1()
+        {
+                $sql="SELECT DISTINCT comision.id_poliza FROM comision, poliza, drecibo WHERE 
+                        poliza.id_poliza = drecibo.idrecibo AND
+                        poliza.id_poliza=comision.id_poliza
+                        ORDER BY id_poliza ASC";
+              $res=mysqli_query(Conectar::con(),$sql);
+              
+              if (!$res) {
+                  //No hay registros
+              }else{
+                  $filas=mysqli_num_rows($res); 
+                  if ($filas == 0) { 
+                        //header("Location: incorrecto.php?m=2");
+                        //exit();
+                    }else
+                      {
+                             while($reg=mysqli_fetch_assoc($res)) {
+                                 $this->t[]=$reg;
+                            }
+                            return $this->t;
+                      }
+              }
+        }
+
+    public function p2($id_poliza)
+        {
+                $sql="SELECT * FROM comision 
+                    INNER JOIN drecibo, poliza, ena, titular, dramo
+                    WHERE 
+                    poliza.id_poliza=drecibo.idrecibo AND
+                    poliza.id_poliza = comision.id_poliza AND
+                    poliza.codvend = ena.cod AND
+                    poliza.id_titular = titular.id_titular AND
+                    poliza.id_cod_ramo = dramo.cod_ramo AND
+                    comision.id_poliza = '$id_poliza'";
+              $res=mysqli_query(Conectar::con(),$sql);
+              
+              if (!$res) {
+                  //No hay registros
+              }else{
+                  $filas=mysqli_num_rows($res); 
+                  if ($filas == 0) { 
+                        //header("Location: incorrecto.php?m=2");
+                        //exit();
+                    }else
+                      {
+                             while($reg=mysqli_fetch_assoc($res)) {
+                                 $this->t[]=$reg;
+                            }
+                            return $this->t;
+                      }
+              }
+        }
 	
 }
 ?>

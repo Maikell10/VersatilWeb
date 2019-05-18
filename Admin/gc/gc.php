@@ -7,7 +7,7 @@ if(isset($_SESSION['seudonimo'])) {
         header("Location: login.php");
         exit();
       }
-      
+  
   require_once("../../class/clases.php");
 
   if (isset($_GET["cia"])!=null) {
@@ -765,7 +765,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?', 
                 function(){ 
-                    window.location.replace("../../procesos/agregarGC.php?desde=<?php echo $desde;?>");
+                    window.location.replace("../../procesos/agregarGC.php?desde=<?php echo $desde;?>&hasta=<?php echo $hasta;?>");
                     
                     
 

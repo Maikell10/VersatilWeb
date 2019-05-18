@@ -157,7 +157,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container"> 
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Pólizas a Renovar)</a></h2>   
+                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Listados Pólizas a Renovar)</a></h2>   
                 </div>
                 <br><br>
 

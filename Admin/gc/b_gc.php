@@ -216,7 +216,7 @@ if(isset($_SESSION['seudonimo'])) {
                   <form class="form-horizontal" action="gc.php" method="get">
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label>Año Pago GC:</label>
+                        <label>Año Creación GC:</label>
                         <select class="form-control" name="anio" id="anio">
                             
                         <?php
@@ -233,7 +233,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </select>
                       </div>
                       <div class="form-group col-md-6">
-                        <label>Mes Pago GC:</label>
+                        <label>Mes Creación GC:</label>
                         <select class="form-control" name="mes" id="mes" >
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>

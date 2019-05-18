@@ -5,6 +5,29 @@ require_once "../class/clases.php";
 $obj1= new Trabajo();
 $poliza = $obj1->get_poliza_total(); 
 
+
+  $Ejecutivo[sizeof($poliza)]=null;
+
+  for ($i=0; $i < sizeof($poliza); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;                 
+  }
+
 ?>
 
 	<div class="table-responsive">
@@ -14,13 +37,12 @@ $poliza = $obj1->get_poliza_total();
 				<th hidden>f_poliza</th>
 				<th hidden>id</th>
 				<th>N° Póliza</th>
-				<th hidden>Código Vendedor</th>
+				<th>Nombre Asesor</th>
 				<th>Cía</th>
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th style="background-color: #E54848;">Prima Suscrita</th>
                 <th nowrap>Nombre Titular</th>
-                <th nowrap hidden>Apellido Titular</th>
 			</tr>
 		</thead>
 		
@@ -33,6 +55,8 @@ $poliza = $obj1->get_poliza_total();
 				//if ($poliza[$i]['id_titular']==0) {
 					
 				//} else {
+
+					
 					
 				
 				
@@ -71,13 +95,12 @@ $poliza = $obj1->get_poliza_total();
 				?>
 				
 					
-					<td hidden><?php echo $poliza[$i]['codvend']; ?></td>
+					<td><?php echo $Ejecutivo[$i]; ?></td>
 					<td><?php echo $poliza[$i]['nomcia']; ?></td>
 	                <td><?php echo $newDesde; ?></td>
 	                <td><?php echo $newHasta; ?></td>
 	                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
 	                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-	                <td nowrap hidden><?php echo $poliza[$i]['apellido_t']; ?></td>
 				</tr>
 				<?php
 				//}
@@ -91,13 +114,12 @@ $poliza = $obj1->get_poliza_total();
 				<th hidden>f_poliza</th>
 				<th hidden>id</th>
 				<th>N° Póliza</th>
-				<th hidden>Código Vendedor</th>
+				<th>Nombre Asesor</th>
 				<th>Cía</th>
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
                 <th>Nombre Titular</th>
-                <th hidden>Apellido Titular</th>
 			</tr>
 		</tfoot>
 	</table>
@@ -126,7 +148,7 @@ $poliza = $obj1->get_poliza_total();
     $( "#iddatatable tbody tr" ).click(function() {
     	var customerId = $(this).find("td").eq(1).html();   
 
-	  	window.location.href = "v_poliza.php?id_poliza="+customerId;
+		window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
 	});
 
 	

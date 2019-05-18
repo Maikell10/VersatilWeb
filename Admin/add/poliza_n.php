@@ -11,7 +11,8 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
-
+  $ob100= new Trabajo();
+  $usuario = $ob100->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']);
 
 
 	$n_poliza=$_GET['n_poliza'];
@@ -87,7 +88,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-  	$poliza = $obj1->agregarPoliza($n_poliza,$fhoy,$femisionP,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta); 
+  	$poliza = $obj1->agregarPoliza($n_poliza,$fhoy,$femisionP,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta,$usuario[0]['id_usuario']); 
 
   	$obj= new Trabajo();
     $recibo = $obj->agregarRecibo($n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 

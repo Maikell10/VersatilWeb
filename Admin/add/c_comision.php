@@ -21,7 +21,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
   $id_rep=$_GET['id_rep'];
 
   
-  $f_desde = date("Y-m-d", strtotime($_GET['f_desde']));
+  //$f_desde = date("Y-m-d", strtotime($_GET['f_desde']));
   $f_hasta = date("Y-m-d", strtotime($_GET['f_hasta']));
   $f_pagoGc = date("Y-m-d", strtotime($_GET['f_pagoGc']));
 
@@ -223,7 +223,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th colspan="2">Fecha Pago GC</th>
+                                    <th colspan="2">Fecha Creación GC</th>
                                     <th colspan="2">Fecha Hasta Reporte</th>
                                     <th colspan="2">Total Prima Cobrada</th>
                                     <th>Total Comision Cobrada</th>
@@ -313,7 +313,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                             <input type="text" class="form-control" id="<?php echo 'f_pago'.$i;?>" name="<?php echo 'f_pago'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off"> 
                                         </div>
                                     </td>
-                                    <td><input type="number" step="0.01" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
                                     <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td> 
 
@@ -326,7 +326,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'id_poliza'.$i;?>" name="<?php echo 'id_poliza'.$i;?>" ></td>
 
-                                    <td style="padding:0"><input type="button" onclick="deleterow()" class="btn btn-danger borrar" value="-" id="borrar"/></td>
+                                    
                                 </tr>
                                 <tr><td colspan="7" style="padding:0px;background-color: white"><a style="width: 100%" href="" class="btn btn-round btn btn-danger" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
                                 
@@ -336,17 +336,25 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             ?>
                         </table>
                         
+                        <input style="width:100%" type="button" onclick="deleterow()" class="btn btn-danger borrar" value="Eliminar Última Fila" id="borrar"/>
+                        
                         
                     </div>
 
                         <?php
+                        $primaRestante=$_GET['primat_com']-isset($totalprimaant);
                             if (isset($totalprimaant)>$_GET['primat_com']) {
                         ?>  
                             <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
                         <?php      
                             } elseif(isset($totalprimaant)<$_GET['primat_com']) {
                         ?>
-                            <h2 style="color:red;font-weight:bold">Falta cargar <?php echo "$ ".number_format($_GET['primat_com']-isset($totalprimaant),2);?> de prima sujeta a comisión</h2>
+                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
+                        <?php 
+                            }elseif(isset($totalprimaant)==$_GET['primat_com']) {
+                                $primaRestante=0;
+                        ?>
+                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
                         <?php 
                             }
                         ?>
@@ -360,35 +368,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
 
-                <form name='frmTabla' method="get" action="comision.php">
-                <table class="table table-hover table-striped table-bordered" id="miTabla">
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th colspan="2">Fecha Pago GC</th>
-                            <th colspan="2">Fecha Hasta Reporte</th>
-                            <th colspan="2">Total Prima Cobrada</th>
-                            <th>Total Comision Cobrada</th>
-                            <th hidden>id reporte</th>
-                            <th hidden>cia</th>
-                            <th hidden>cant_poliza</th>
-                            <th hidden>prima_comt</th>
-                            <th hidden>comt</th>
-                        </tr>
-                    </thead>
-                    <tbody id='tabla'>
-                        <tr>
-                            <td name="campo[]">Prueba</td>
-                            <td><input onblur="<?php echo 'validarPoliza0(this)';?>" type="text" class="form-control <?php echo 'validarpoliza0';?>" id="n_poliza0" name="n_poliza0" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
-                            
-                        </tr>
-                    </tbody>
-                    <tr>
-                        <td width="100%" colspan="7" style="padding: 0"><input style="width: 100%" class="btn btn-success" type='button' name='btnMas' value='+' onclick='unaMas("tabla")' /></td>
-                    </tr>
-                </table>
                 
-                <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
-                </form>
             </div>
 
         </div>
@@ -505,29 +485,42 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
     <script>
+        $(document).ready(function(){
 
+            var variable='<?php echo $cant_poliza;?>';
+            $('#cant_poliza').val('<?php echo $cant_poliza;?>');
+            
+            console.log(variable);
+        });
         function deleterow() {
-            var table = document.getElementById("iddatatable");
-            var rowCount = table.rows.length;
-
-            table.deleteRow(rowCount -1);
-        }
-
-        $(document).on('click', '.borrar', function (event) {
-            event.preventDefault();
-            $(this).closest('tr').remove();
-            alertify.confirm('Eliminar Fila!', '¿Desea Eliminar la Fila?', 
+            
+            if ($('#cant_poliza').val()==1 ) {
+                alertify.error('No se ha Eliminado por que es la fila restante')
+            } else {
+                alertify.confirm('Eliminar Fila!', '¿Desea Eliminar la Fila?', 
             function(){ 
-                
-                
+                var table = document.getElementById("iddatatable");
+                table.deleteRow(-1);
+                table.deleteRow(-1);
                 alertify.success('Fila Eliminada');
+
+                
+                var cant_poliza = $('#cant_poliza').val();
+                var cant_poliza = cant_poliza-1;
+                $('#cant_poliza').val(cant_poliza);
+                console.log(cant_poliza);
             }, 
             function(){ 
                 alertify.error('No se ha Eliminado')
             }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
-
+            }
             
-        });
+               
+            
+        }
+
+
+        
        
         function unaMas(arg){
 
@@ -1234,6 +1227,59 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
+
+        function calcularRest(comision){
+            
+            var prima0 = $("#prima0").val();
+            var prima1 = $("#prima1").val();
+            var prima2 = $("#prima2").val();
+            var prima3 = $("#prima3").val();
+            var prima4 = $("#prima4").val();
+            var prima5 = $("#prima5").val();
+            var prima6 = $("#prima6").val();
+            var prima7 = $("#prima7").val();
+            var prima8 = $("#prima8").val();
+            var prima9 = $("#prima9").val();
+
+            if (($("#prima0").val() == '')){
+               var prima0 = 0;
+            }
+            if (($("#prima1").val() == '') || ($("#prima1").val() == null)){
+               var prima1 = 0;
+            }
+            if (($("#prima2").val() == '') || ($("#prima2").val() == null)){
+               var prima2 = 0;
+            }
+            if (($("#prima3").val() == '') || ($("#prima3").val() == null)){
+               var prima3 = 0;
+            }
+            if (($("#prima4").val() == '') || ($("#prima4").val() == null)){
+               var prima4 = 0;
+            }
+            if (($("#prima5").val() == '') || ($("#prima5").val() == null)){
+               var prima5 = 0;
+            }
+            if (($("#prima6").val() == '') || ($("#prima6").val() == null)){
+               var prima6 = 0;
+            }
+            if (($("#prima7").val() == '') || ($("#prima7").val() == null)){
+               var prima7 = 0;
+            }
+            if (($("#prima8").val() == '') || ($("#prima8").val() == null)){
+               var prima8 = 0;
+            }
+            if (($("#prima9").val() == '') || ($("#prima9").val() == null)){
+               var prima9 = 0;
+            }
+
+console.log(prima9);
+
+            var primaRestante = '<?php echo $primaRestante;?>';
+
+            var Rest=primaRestante-prima0-prima1-prima2-prima3-prima4-prima5-prima6-prima7-prima8-prima9;
+
+            $("#Rest").text('Falta cargar $'+Rest);
+        }
 
         function calcularP0(comision){
             var comision = $("#comision0").val();

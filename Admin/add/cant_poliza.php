@@ -202,7 +202,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>Seleccione Cantidad de Pólizas *</th>
                                     <th>Total Prima Cobrada</th>
                                     <th>Total Comisión Cobrada</th>
-                                    <th>Fecha Pago GC *</th>
+                                    <th>Fecha Creación GC *</th>
                                     <th hidden>id reporte</th>
                                     <th hidden>cia</th>
                                     <th hidden>cant_poliza</th>
@@ -213,7 +213,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr style="background-color: white">
                                     
                                     <td><div class="input-group date">
-                                            <input onblur="validarReporte(this)" type="text" class="form-control" id="f_hasta" name="f_hasta" required data-toggle="tooltip" data-placement="bottom" title="Fecha Hasta Reporte. Campo Obligatorio">
+                                            <input onblur="validarReporte(this)" type="text" class="form-control" id="f_hasta" name="f_hasta" required >
                                         </div>
                                     </td>
 
@@ -235,7 +235,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="number" step="0.01" class="form-control" id="comt" name="comt" required></td>
 
                                     <td><div class="input-group date">
-                                            <input onblur="cargar_f()" type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" required data-toggle="tooltip" data-placement="bottom" title="Fecha Pago de la Gestión de Cobranza. Campo Obligatorio">
+                                            <input onblur="cargar_f()" type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" required >
                                         </div>
                                     </td>
 

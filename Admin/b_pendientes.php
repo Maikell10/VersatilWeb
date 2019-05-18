@@ -202,6 +202,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>N° Póliza</th>
                             <th hidden>Código Vendedor</th>
                             <th>F Producción</th>
+                            <th>F Hasta Reporte</th>
                             <th>Asegurado</th>
                         </tr>
                     </thead>
@@ -213,6 +214,9 @@ if(isset($_SESSION['seudonimo'])) {
                         $currency="";
                         $cont=0;
                         for ($i=0; $i < sizeof($poliza); $i++) { 
+
+                            $obj11= new Trabajo();
+                            $rep_com = $obj11->get_poliza_rep_com($poliza[$i]['id_poliza']);
                             
                             $cont=$cont+1;
                             $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
@@ -221,6 +225,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             $originalFProd = $poliza[$i]['f_poliza'];
                             $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                            $originalFRep = $rep_com[0]['f_hasta_rep'];
+                            $newFRep = date("d/m/Y", strtotime($originalFRep));
                             
                             $ob1= new Trabajo();
                             $asegurado = $ob1->get_element_by_id('titular_pre_poliza','id_poliza',$poliza[$i]['id_poliza']); 
@@ -246,6 +253,7 @@ if(isset($_SESSION['seudonimo'])) {
                             
                                 <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
                                 <td><?php echo $newFProd; ?></td>
+                                <td><?php echo $newFRep; ?></td>
                                 <td><?php echo $asegurado[0]['asegurado']; ?></td>
                             </tr>
                             <?php
@@ -262,6 +270,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>N° Póliza</th>
                             <th hidden>Código Vendedor</th>
                             <th>F Producción</th>
+                            <th>F Hasta Reporte</th>
                             <th>Asegurado</th>
                         </tr>
                     </tfoot>

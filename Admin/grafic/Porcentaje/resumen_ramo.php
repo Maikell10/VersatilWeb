@@ -37,6 +37,7 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $obj->get_distinct_cia_comision($desde,$hasta); 
 
 
+  
 
 ?>
 <!DOCTYPE html>
@@ -206,7 +207,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 
                 <center>
-                  <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
+                  <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Gráfico Resúmen por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
 
                 <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable1">
                   <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -237,18 +238,26 @@ if(isset($_SESSION['seudonimo'])) {
                       $obj11= new Trabajo();
                       $ramo = $obj11->get_distinct_element_ramo($desde,$hasta,$cia[$i]['nomcia']); 
 
+                        if (sizeof($ramo)==0) {
+                            $cont=1;
+                        } else {
+                            $cont=sizeof($ramo);
+                        }
+
                       ?>
                       <tr>
-                        <td rowspan="<?php echo sizeof($ramo); ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+                        <td rowspan="<?php echo $cont; ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
                       
                       <?php
 
+                        
+                        
                       $totalPrimaSuscrita=0;
                       $totalPrimaCobrada=0;
                       $totalComisionCobrada=0;
                       $totalGCPagada=0;
                       $totalCantidad=0;
-                      for ($a=0; $a < sizeof($ramo); $a++) { 
+                      for ($a=0; $a < $cont; $a++) { 
                         
                         $obj11= new Trabajo();
                         $resumen = $obj11->get_resumen_por_ramo($desde,$hasta,$cia[$i]['nomcia'],$ramo[$a]['nramo']); 

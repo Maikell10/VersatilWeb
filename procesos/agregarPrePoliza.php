@@ -10,6 +10,11 @@ if(isset($_SESSION['seudonimo'])) {
 
     require_once "../class/clases.php";
 
+    $ob100= new Trabajo();
+    $usuario = $ob100->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']);
+
+
+
     $obj3= new Trabajo();
     $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
     $u_id_p=($ultimo_id_p[0]['id_poliza']+1);
@@ -41,8 +46,8 @@ if(isset($_SESSION['seudonimo'])) {
         $_POST['num_poliza'],
         $_POST['idcia'],
         $fhoy,
-        $z_produc
-                );
+        $z_produc,
+        $usuario[0]['id_usuario']);
 
     echo $obj->agregarPrePoliza($datos);
     

@@ -76,9 +76,28 @@ if ($_GET["asesor"]!=null) {
     echo "<br>"  . $asesor[$i];    
     }
 }
-  
 
+$Ejecutivo[sizeof($poliza)]=null;
 
+  for ($i=0; $i < sizeof($poliza); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;                 
+  }
 
 ?>
 <!DOCTYPE html>
@@ -262,14 +281,14 @@ if ($_GET["asesor"]!=null) {
 
                 ?>
                 <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
                             <th>Status</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -350,12 +369,12 @@ if ($_GET["asesor"]!=null) {
                             ?>
                             
                                 
-                                <td hidden><?php echo $polizat[0]['codvend']; ?></td>
+                                <td><?php echo $Ejecutivo[$i]; ?></td>
                                 <td><?php echo $polizat[0]['nomcia']; ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                                <td nowrap><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
                             </tr>
                             <?php
                             }
@@ -370,7 +389,7 @@ if ($_GET["asesor"]!=null) {
                             <th hidden>id</th>
                             <th>N° Póliza</th>
                             <th>Status</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -397,13 +416,13 @@ if ($_GET["asesor"]!=null) {
 
                 ?>
                 <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -452,12 +471,12 @@ if ($_GET["asesor"]!=null) {
                                 <td style="color: #E54848;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
                             
                                 
-                                <td hidden><?php echo $polizat[0]['codvend']; ?></td>
+                                <td><?php echo $Ejecutivo[$i]; ?></td>
                                 <td><?php echo $polizat[0]['nomcia']; ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                                <td nowrap><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
                             </tr>
                             <?php
                             }
@@ -471,7 +490,7 @@ if ($_GET["asesor"]!=null) {
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -498,13 +517,13 @@ if ($_GET["asesor"]!=null) {
 
 
                 <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -521,7 +540,7 @@ if ($_GET["asesor"]!=null) {
                         $cant=0;
                         for ($i=0; $i < sizeof($poliza); $i++) { 
                             if ($poliza[$i]['id_titular']==0) {
-					
+
                             } else {
                             $cant=$cant+1;
                             $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
@@ -558,12 +577,12 @@ if ($_GET["asesor"]!=null) {
                             ?>
                             
                                 
-                                <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
+                                <td><?php echo $Ejecutivo[$i]; ?></td>
                                 <td><?php echo $poliza[$i]['nomcia']; ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
                             </tr>
                             <?php
                             }
@@ -577,7 +596,7 @@ if ($_GET["asesor"]!=null) {
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
-                            <th hidden>Código Vendedor</th>
+                            <th>Nombre Asesor</th>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>

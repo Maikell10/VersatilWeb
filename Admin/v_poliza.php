@@ -45,6 +45,12 @@ if(isset($_SESSION['seudonimo'])) {
   $ob10= new Trabajo();
   $vehiculo = $ob10->get_element_by_id('dveh','idveh',$poliza[0]['id_poliza']); 
 
+  $ob100= new Trabajo();
+  $usuario = $ob100->get_element_by_id('usuarios','id_usuario',$poliza[0]['id_usuario']); 
+
+  $originalCreacion = $poliza[0]['f_poliza'];
+  $newCreacion = date("d/m/Y", strtotime($originalCreacion));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -232,7 +238,7 @@ if(isset($_SESSION['seudonimo'])) {
                     $id_poliza=$poliza[0]['id_poliza'].".pdf";
                     $archivo='./'.$id_poliza;
                     
-                    
+   /*                 
                     
 $ftp_server="190.140.224.69";
 $port=21;
@@ -283,7 +289,7 @@ if ( (!$con_id) || (!$lr) ) {
             ftp_close($con_id);
     }
 
-}
+}*/
                     
                 ?>
 
@@ -644,6 +650,31 @@ if ( (!$con_id) || (!$lr) ) {
                     </tbody>
                 </table>
                 </div>
+
+
+                <div class="col-md-auto col-md-offset-2">
+                    <h2 class="title">Usuario que Generó la Póliza</h2>  
+                </div>
+
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Nombre Usuario</th>
+                            <th>Fecha Creación</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                            <tr >
+                                <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
+                                <td><?php echo $newCreacion; ?></td>
+                            </tr>
+                    </tbody>
+                </table>
+                </div>
+
+
 
                 <hr>
                 <center>
