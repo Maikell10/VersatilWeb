@@ -116,10 +116,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="primas_s.php" class="dropdown-item">
                                 <i class="material-icons">bar_chart</i> Primas Suscritas
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="primas_c.php" class="dropdown-item">
                                 <i class="material-icons">thumb_up</i> Primas Cobradas
                             </a>
-                            <a href="comisiones_c.php" class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                                 <i class="material-icons">timeline</i> Comisiones Cobradas
                             </a>
                             <a href="#" class="dropdown-item">

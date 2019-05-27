@@ -14,11 +14,15 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     $id_poliza=$_GET['id_poliza'];
+    $ob= new Trabajo();
+    $poliza_f = $ob->get_element_by_id('poliza','id_poliza',$id_poliza);
+
+
 	$n_poliza=$_GET['n_poliza'];
-	$fhoy=$_GET['fhoy'];
+	$fhoy=$poliza_f[0]['f_poliza'];
     //$femisionP=$_GET['emisionP'];
     //$femisionP = date("Y-m-d", strtotime($femisionP));
-    $femisionP=$_GET['fhoy'];
+    $femisionP=$poliza_f[0]['f_emi'];
 	$t_cobertura=$_GET['t_cobertura'];
 	$fdesdeP=$_GET['desdeP'];
     $fhastaP=$_GET['hastaP'];

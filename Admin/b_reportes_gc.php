@@ -31,6 +31,8 @@ if(isset($_SESSION['seudonimo'])) {
   $totalPrimaCom=0;
   $totalCom=0;
 
+  
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -208,77 +210,69 @@ if(isset($_SESSION['seudonimo'])) {
                     <h1 class="title">Lista de Reportes de GC</h1>  
                 </div>
                 
-                <div class="row" style="justify-content: center;">
-                    <h3>Seleccione su Búsqueda</h3>
-                </div>
-                <br/>
 
-                <center><form class="form-horizontal" action="b_reportes1.php" method="get" style="width: 80%">
-                    <div class="form-row" style="text-align: left;">
-                      
-                      <div class="form-group col-md-6">
-                        <label align="left">Año Reporte Pago GC:</label>
-                        <select class="form-control" name="anio" id="anio">
-                            <option value="">Seleccione Año</option>
+
+
+                
+                <center>
+                <table class="table table-hover table-striped table-bordered" id="iddatatable1">
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th hidden="">ID</th>
+                            <th>Fecha Pago GC</th>
+                            <th>Fecha Desde Reporte GC</th>
+                            <th>Fecha Hasta Reporte GC</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
                         <?php
-                            $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_pago_gc)"]));
-                            for($i=date('Y', strtotime($fechaMinRep[0]["MIN(f_pago_gc)"])); $i <= date('Y', strtotime($fechaMaxRep[0]["MAX(f_pago_gc)"])); $i++)
-                            {  
+                        $obj1= new Trabajo();
+                        $gc_h = $obj1->get_element('gc_h','f_hoy_h'); 
+
+                        for ($i=0; $i < sizeof($gc_h); $i++) { 
+                            $obj2= new Trabajo();
+                            $cia = $obj2->get_element_by_id('dcia','idcia',$reporte[$i]['id_cia']); 
+
+                        
+                            
+
+                            $f_pago_gc = date("d-m-Y", strtotime($gc_h[$i]['f_hoy_h']));
+                            $f_desde_rep = date("d-m-Y", strtotime($gc_h[$i]['f_desde_h']));
+                            $f_hasta_rep = date("d-m-Y", strtotime($gc_h[$i]['f_hasta_h']));
+                            
+                            ?>
+                            <tr style="cursor: pointer">
+                                <td hidden><?php echo $gc_h[$i]['id_gc_h']; ?></td>
+                                <td><?php echo $f_pago_gc; ?></td>
+                                <td><?php echo $f_desde_rep; ?></td>
+                                <td><?php echo $f_hasta_rep; ?></td>
+                            </tr>
+                            <?php
+                        }
                         ?>
-                            <option value="<?php echo $date;?>"><?php echo $date;?></option>
-                        <?php
-                            $date=$date+1;
-                            } 
-                        ?> 
-                        </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label>Mes Reporte Pago GC:</label>
-                        <select class="form-control" name="mes" id="mes">
-                            <option value="">Seleccione Mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                      </div>
-                    </div>
-                    
-                    
+                    </tbody>
 
-                    <div class="form-row" style="text-align: left;">
-                      <div class="form-group col-md-12">
-                        <label align="left">Cía:</label>
-                        <select class="form-control" name="cia">
-                          <option>Seleccione Cía</option>
-                          <?php
-                            for($i=0;$i<sizeof($cia);$i++)
-                              {  
-                          ?>
-                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
-                          <?php
-                            } 
-                          ?> 
-                        </select>
-                      </div>
-                    </div>
-
-
-                      <button type="submit" class="btn btn-success btn-round btn-lg" >Buscar</button>
-
-                </form></center>
+                    <tfoot>
+                        <tr>
+                            <th hidden="">ID</th>
+                            <th>Fecha Pago GC</th>
+                            <th>Fecha Desde Reporte GC</th>
+                            <th>Fecha Hasta Reporte GC</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </center>
 
 
 
-                <div id="tablaDatatable1"></div>
+
+
+
+
+
+
+
             </div>
 
         </div>
@@ -465,46 +459,7 @@ if(isset($_SESSION['seudonimo'])) {
     </div>
 
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#btnAgregarnuevo').click(function(){
-                datos=$('#frmnuevo').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/agregarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#frmnuevo')[0].reset();
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("agregado con exito :D");
-                        }else{
-                            alertify.error("Fallo al agregar :(");
-                        }
-                    }
-                });
-            });
-
-            $('#btnActualizar').click(function(){
-                datos=$('#frmnuevoU').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/actualizarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("Actualizado con exito :D");
-                        }else{
-                            alertify.error("Fallo al actualizar :(");
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+   
     <script type="text/javascript">
         
         $(document).ready(function(){
@@ -519,82 +474,17 @@ if(isset($_SESSION['seudonimo'])) {
             tablaLoad1.removeAttribute("hidden");
         }, 1500);
 
+
+        $( "#iddatatable1 tbody tr" ).click(function() {
+            var customerId = $(this).find("td").eq(0).html();   
+
+            window.location.href = "v_reporte_gc.php?id_rep_gc="+customerId;
+        });
+
     </script>
 
-    <script type="text/javascript">
-        function agregaFrmActualizar(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena').val(datos['idena']);
-                    $('#nombreU').val(datos['idnom']);
-                    $('#codigoU').val(datos['cod']);
-                    $('#ciU').val(datos['id']);
-                    $('#refcuentaU').val(datos['refcuenta']);
-                }
-            });
-        }
+    
 
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar un Asesor', '¿Seguro de eliminar este Asesor?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
-
-        $(function () {
-          $('[data-tooltip="tooltip"]').tooltip()
-        })
-
-
-
-        function agregaFrmMonto(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena1').val(datos['idena']);
-                    $('#nombreU1').val(datos['idnom']);
-                    $('#codigoU1').val(datos['cod']);
-                    $('#ciU1').val(datos['id']);
-                    $('#refcuentaU1').val(datos['refcuenta']);
-                }
-            });
-        }
-    </script>
-
-    <script type="text/javascript">
-      $('#desde').datepicker({  
-        format: "dd-mm-yyyy", 
-        startDate: '<?php echo $newDesde;?>',
-      });
-
-      $('#hasta').datepicker({  
-        format: "dd-mm-yyyy", 
-        endDate: '<?php echo $newHasta;?>',
-      });
-    </script>
     <script language="javascript">
 
     function Exportar(table, name){

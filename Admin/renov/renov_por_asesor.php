@@ -41,7 +41,41 @@ if(isset($_SESSION['seudonimo'])) {
   $obj1= new Trabajo();
   $distinct_a = $obj1->get_poliza_total_by_filtro_renov_distinct_a($desde,$hasta,$cia); 
 
-  
+  //Ordeno los ejecutivos de menor a mayor alfabéticamente
+  $Ejecutivo[sizeof($distinct_a)]=null;
+  $codEj[sizeof($distinct_a)]=null;
+
+  for ($i=0; $i < sizeof($distinct_a); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$distinct_a[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;
+        $codEj[$i]=$distinct_a[$i]['codvend'];                   
+  }
+
+    asort($Ejecutivo);
+    $x = array();
+    foreach($Ejecutivo as $key=>$value) {
+        $x[count($x)] = $key;
+    }
+
+    for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+        utf8_encode($Ejecutivo[$x[$a]]);
+        $codEj[$x[$a]]."  --  ";
+    }
 
 
 ?>
@@ -259,24 +293,24 @@ if(isset($_SESSION['seudonimo'])) {
                         $currency="";
                         $totalpoliza=0;
 
-                        for ($a=0; $a < sizeof($distinct_a); $a++) { 
+                        for ($a=1; $a <= sizeof($distinct_a); $a++) { 
                             
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$codEj[$x[$a]]); 
 
                         $ob2= new Trabajo();
-                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$codEj[$x[$a]]); 
                         $nombre=$ejecutivoPoliza[0]['idnom'];
                         if (sizeof($ejecutivoPoliza)==null) {
                             $ob2= new Trabajo();
-                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$distinct_a[$a]['codvend']); 
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$codEj[$x[$a]]); 
                             $nombre=$ejecutivoPoliza[0]['nombre'];
                         }
                         if (sizeof($ejecutivoPoliza)==null) {
                             $ob2= new Trabajo();
-                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$distinct_a[$a]['codvend']); 
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$codEj[$x[$a]]); 
                             $nombre=$ejecutivoPoliza[0]['nombre'];
                         }
 
@@ -367,24 +401,24 @@ if(isset($_SESSION['seudonimo'])) {
                         $currency="";
                         $totalpoliza=0;
 
-                        for ($a=0; $a < sizeof($distinct_a); $a++) { 
+                        for ($a=1; $a <= sizeof($distinct_a); $a++) { 
                             
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$distinct_a[$a]['codvend']); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_a($desde,$hasta,$cia,$codEj[$x[$a]]); 
 
                         $ob2= new Trabajo();
-                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$distinct_a[$a]['codvend']); 
+                        $ejecutivoPoliza = $ob2->get_element_by_id('ena','cod',$codEj[$x[$a]]); 
                         $nombre=$ejecutivoPoliza[0]['idnom'];
                         if (sizeof($ejecutivoPoliza)==null) {
                             $ob2= new Trabajo();
-                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$distinct_a[$a]['codvend']); 
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enp','cod',$codEj[$x[$a]]); 
                             $nombre=$ejecutivoPoliza[0]['nombre'];
                         }
                         if (sizeof($ejecutivoPoliza)==null) {
                             $ob2= new Trabajo();
-                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$distinct_a[$a]['codvend']); 
+                            $ejecutivoPoliza = $ob2->get_element_by_id('enr','cod',$codEj[$x[$a]]); 
                             $nombre=$ejecutivoPoliza[0]['nombre'];
                         }
 

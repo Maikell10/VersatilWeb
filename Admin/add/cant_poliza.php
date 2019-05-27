@@ -249,6 +249,12 @@ if(isset($_SESSION['seudonimo'])) {
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Confirmar</button>
                 </form>
                 </center>
+
+ 
+                
+                <h2 style="color:green" id="sumaP"></h2>
+                        
+                            
             </div>
 
         </div>
@@ -403,6 +409,34 @@ if(isset($_SESSION['seudonimo'])) {
 
                         $("#primat_com").val(datos['primat_com']);
                         $("#comt").val(datos['comt']);
+
+
+                    
+                        $.ajax({
+                            type:"POST",
+                            data:"id_rep_com=" + (datos['id_rep_com']),        
+                            url:"sumar_rep.php?id_rep_com="+datos['id_rep_com'],
+                            success:function(r){
+                                datos1=jQuery.parseJSON(r);
+
+                                if (datos1['SUM(prima_com)']==null) {
+                                    $("#sumaP").text('No se han cargado comisiones al reporte todavía');
+                                }   
+                                else{
+                                    
+                                    
+                                    var restante = new Intl.NumberFormat().format(datos['primat_com'] - datos1['SUM(prima_com)']);
+                                    console.log(restante);
+                                    $("#sumaP").text('La Prima Cobrada Pendiente a Cargar es: $'+restante);
+                                }
+                                
+                            }
+                        });
+                        
+
+
+
+
                     }
                 }
             });

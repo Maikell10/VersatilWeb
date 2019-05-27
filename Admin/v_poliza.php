@@ -582,8 +582,13 @@ if ( (!$con_id) || (!$lr) ) {
                 if ($poliza[0]['cod_ramo']==2 || $poliza[0]['cod_ramo']==25) {
                 ?>
                 
-                <div class="form-row" id="tablaveh" >      
-                    <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
+                <div id="tablaveh" >      
+
+                    <div class="col-md-auto col-md-offset-2">
+                        <h2 class="title">Datos del Vehículo</h2>  
+                    </div>
+
+                    
                     <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="idtablaveh" >
                         <thead style="background-color: #00bcd4;color: white; font-weight: bold;">

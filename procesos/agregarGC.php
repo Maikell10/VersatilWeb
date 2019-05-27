@@ -10,43 +10,105 @@ if(isset($_SESSION['seudonimo'])) {
 
     require_once "../class/clases.php";
 
-    echo $_GET['desde'];
-exit();
-    $obj3= new Trabajo();
-    $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
-    $u_id_p=($ultimo_id_p[0]['id_poliza']+1);
+    $desde=$_GET['desde'];
+    $hasta=$_GET['hasta'];
+    $cia=$_GET['cia'];
+    $asesor=$_GET['asesor'];
+    $fhoy=date("Y-m-d");
+
+    
+
+    $asesor_para_recibir_via_url = stripslashes($asesor);
+    $asesor_para_recibir_via_url = urldecode($asesor_para_recibir_via_url );
+    $asesor = unserialize($asesor_para_recibir_via_url);
+
+
+    $cia_para_recibir_via_url = stripslashes($cia);
+    $cia_para_recibir_via_url = urldecode($cia_para_recibir_via_url );
+    $cia = unserialize($cia_para_recibir_via_url);
+
+
+    $anioH=date("Y", strtotime($hasta)); 
+    $mesH=date("m", strtotime($hasta))-1;
+    $diaH=date("d", strtotime($hasta));
+
+    if ($mesH==1 || $mes==3 || $mes==5 || $mes==7 || $mes==8 || $mes==10 || $mes==10) {
+      $hasta=$anioH."-".$mesH."-31";
+    }if ($mesH==4 || $mes==6 || $mes==9 || $mes==11) {
+      $hasta=$anioH."-".$mesH."-30";
+    }if ($mesH==2) {
+      $hasta=$anioH."-".$mesH."-28";
+    }
+       
+
+  $obj1= new Trabajo();
+  $distinct_a = $obj1->get_gc_by_filtro_distinct_a($desde,$hasta,$cia,$asesor); 
+
+
+  //Ordeno los ejecutivos de menor a mayor alfabéticamente
+  $Ejecutivo[sizeof($distinct_a)]=null;
+  $codEj[sizeof($distinct_a)]=null;
+
+  for ($i=0; $i < sizeof($distinct_a); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$distinct_a[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$distinct_a[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;
+        $codEj[$i]=$distinct_a[$i]['codvend'];                   
+  }
+
+    asort($Ejecutivo);
+    $x = array();
+    foreach($Ejecutivo as $key=>$value) {
+        $x[count($x)] = $key;
+    }
+   
+    for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+        utf8_encode($Ejecutivo[$x[$a]]);
+        $codEj[$x[$a]]."  --  ";
+    }
+
+
 
     $obj4= new Trabajo();
-    $asegurado = $obj4->agregarAsegurado($_POST['asegurado'],$u_id_p);
+    $gc_h = $obj4->agregarGCh($fhoy,$desde,$hasta);
 
-    $obj5= new Trabajo();
-    $veh = $obj5->agregarVehiculo('-','-','-','-','-','-','-','-',$_POST['num_poliza']);
+    $obj3= new Trabajo();
+    $ultimo_id_gc = $obj3->get_last_element('gc_h','id_gc_h');
+    $u_id_gc=($ultimo_id_gc[0]['id_gc_h']);
 
-    $obj6= new Trabajo();
-    $recibo = $obj6->agregarRecibo($_POST['num_poliza'],'2017-01-01','2017-01-01',0,
-    'CONTADO',1,0,0,0,$_POST['num_poliza']);
 
-    $obj7= new Trabajo();
-    $usuario = $obj7->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
-    $z_produc='';
-    if (utf8_encode($usuario[0]['z_produccion'])=='PANAMÁ') {
-        $z_produc=1;
+
+    for ($a=1; $a <= sizeof($distinct_a); $a++) { 
+                                                    
+      
+      $obj2= new Trabajo();
+      $poliza = $obj2->get_gc_by_filtro_by_a($desde,$hasta,$cia,$codEj[$x[$a]]);
+
+
+      for ($i=0; $i < sizeof($poliza); $i++) {
+
+        $obj5= new Trabajo();
+        $gc_h_comision = $obj5->agregarGChComision($u_id_gc,$poliza[$i]['id_comision']);
+
+      }
     }
-    if (utf8_encode($usuario[0]['z_produccion'])=='CARACAS') {
-        $z_produc=2;
-    }
-    
-    
-    $obj= new Trabajo();
-    $fhoy=date("Y-m-d");
-    $datos=array(
-        $_POST['num_poliza'],
-        $_POST['idcia'],
-        $fhoy,
-        $z_produc
-                );
 
-    echo $obj->agregarPrePoliza($datos);
-    
+
+
+    header('Location: ../Admin/gc/b_gc.php');
 
  ?>

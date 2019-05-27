@@ -12,7 +12,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $asesor = $obj1->get_element('ena','idena'); 
+  $asesor = $obj1->get_element('ena','idnom'); 
 
   $obj2= new Trabajo();
   $fechaMin = $obj2->get_fecha_min('f_pago_gc','rep_com'); 
@@ -22,6 +22,15 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj4= new Trabajo();
   $cia = $obj4->get_distinct_element('nomcia','dcia'); 
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','nombre'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','nombre');
+
+
+
 
 
 ?>
@@ -257,7 +266,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label>Cía:</label>
-                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione la Cía">
+                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione la Cía" data-live-search="true">
                           <?php
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
@@ -274,19 +283,19 @@ if(isset($_SESSION['seudonimo'])) {
 
                       <div class="form-group col-md-6">
                         <label>Asesor:</label>
-                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true">
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true" data-live-search="true">
                            
                             <?php
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
                             <?php } for($i=0;$i<sizeof($referidor);$i++)
                                 {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
                             <?php } ?>
                         </select>
                       </div>

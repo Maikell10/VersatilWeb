@@ -10,11 +10,11 @@ if(isset($_SESSION['seudonimo'])) {
 
   require_once("../../../class/clases.php");
 
- $desde=$_GET['desde'].'-01-01';
- $hasta=($_GET['desde']).'-12-31';
+ $desdeI=$_GET['desde'].'-01-01';
+ $hastaI=($_GET['desde']).'-12-31';
 
   $obj1= new Trabajo();
-  $mes = $obj1->get_mes_prima($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $mes = $obj1->get_mes_prima_BN(); 
 
 
 
@@ -200,18 +200,19 @@ if(isset($_SESSION['seudonimo'])) {
           <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
               <div class="col-md-auto col-md-offset-2" style="text-align:center">
-                  <h1 class="title">Primas Suscritas por Mes del Año <?php echo $_GET['desde'];?></h1>
+                  <h1 class="title">Primas Cobradas por Mes <strong style="color:red">(Bola de Nieve)</strong></h1> 
                   <br>
                   
                   <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
                   <br>
-                  <a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a>
+                  <a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Cobradas por Mes (Bola de Nieve)')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a>
               </div>
               <br>
 
 
-
-              <table class="table table-hover table-striped table-bordered table-responsive" id="Exportar_a_Excel">
+              <center>
+              <div class="table-responsive">
+              <table class="table table-hover table-striped table-bordered table-responsive" id="Exportar_a_Excel" style="font-size:14px; margin:0 auto;width: auto;">
                 <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                   <tr>
                     <th>Mes Desde Recibo</th>
@@ -234,7 +235,7 @@ if(isset($_SESSION['seudonimo'])) {
                   <?php
                     
 
-                    for ($i=0; $i < sizeof($mes); $i++) { 
+                    for ($i=0; $i < 12; $i++) { 
                       if ($mes[$i]["Month(f_desdepoliza)"]<10) {
                         $desde=$_GET['desde']."-0".$mes[$i]["Month(f_desdepoliza)"]."-01";
                         $hasta=$_GET['desde']."-0".$mes[$i]["Month(f_desdepoliza)"]."-31";
@@ -243,12 +244,16 @@ if(isset($_SESSION['seudonimo'])) {
                         $hasta=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-31";
                       }
                       
+                      $mesB=$i+1;
                       
 
                       $obj2= new Trabajo();
-                      $primaMes = $obj2->get_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+                      $primaMes = $obj2->get_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia'],$mesB); 
+
+                      $obj4= new Trabajo();
+                      $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia']);
                     
-                      $cantArray[$i]=sizeof($primaMes);
+                      $cantArray[$i]=sizeof($cant_p);
                       $sumasegurada=0;
                       $prima_pagada1=0;
                       $prima_pagada2=0;
@@ -262,52 +267,66 @@ if(isset($_SESSION['seudonimo'])) {
                       $prima_pagada10=0;
                       $prima_pagada11=0;
                       $prima_pagada12=0;
+
+                      $cantP=0;
                       for($a=0;$a<sizeof($primaMes);$a++)
                         { 
                           $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
 
-
-                          if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-01-31'))  {
+                        
+                          if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-01-31') )  {
                             $prima_pagada1=$prima_pagada1+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
-                          if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-02-29'))  {
+                          if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-02-29') )  {
                             $prima_pagada2=$prima_pagada2+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-03-31'))  {
                             $prima_pagada3=$prima_pagada3+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-04-31'))  {
                             $prima_pagada4=$prima_pagada4+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-05-31'))  {
                             $prima_pagada5=$prima_pagada5+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-06-31'))  {
                             $prima_pagada6=$prima_pagada6+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-07-31'))  {
                             $prima_pagada7=$prima_pagada7+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-08-31'))  {
                             $prima_pagada8=$prima_pagada8+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-09-31'))  {
                             $prima_pagada9=$prima_pagada9+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-10-31'))  {
                             $prima_pagada10=$prima_pagada10+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-11-31'))  {
                             $prima_pagada11=$prima_pagada11+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
                           if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['desde'].'-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['desde'].'-12-31'))  {
                             $prima_pagada12=$prima_pagada12+$primaMes[$a]['prima_com'];
+                            $cantP=$cantP+1;
                           }
 
                         } 
                       
                         $totals=$totals+$sumasegurada;
-                        $totalCant=$totalCant+$cantArray[$i];
+                        $totalCant=$totalCant+$cantP;
                         $ramoArray[$i]=$primaMes[0]['cod_ramo'];
                         $primaPorMes[$i]=$sumasegurada;
                         $primaCobradaPorMes1=$primaCobradaPorMes1+$prima_pagada1;
@@ -338,7 +357,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <td align="right"><?php echo "$".number_format($prima_pagada10,2); ?></td>
                     <td align="right"><?php echo "$".number_format($prima_pagada11,2); ?></td>
                     <td align="right"><?php echo "$".number_format($prima_pagada12,2); ?></td>
-                    <td align="right"><?php echo sizeof($primaMes); ?></td>
+                    <td align="right"><?php echo $cantP; ?></td>
                   </tr>
                   <?php
                       }
@@ -347,22 +366,22 @@ if(isset($_SESSION['seudonimo'])) {
                 <tfoot>
                   <tr>
                     <th>TOTAL</th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes1,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes2,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes3,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes4,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes5,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes6,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes7,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes8,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes9,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes10,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes11,2); ?></th>
-                    <th align="right"><?php echo "$".number_format($primaCobradaPorMes12,2); ?></th>
-                    <th ><?php echo $totalCant; ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes1,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes2,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes3,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes4,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes5,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes6,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes7,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes8,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes9,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes10,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes11,2); ?></th>
+                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes12,2); ?></th>
+                    <th style="text-align: right;"><?php echo $totalCant; ?></th>
                   </tr>
                 </tfoot>
-              </table>
+              </table></div></center>
 
 
     

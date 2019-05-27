@@ -1307,7 +1307,8 @@ class Trabajo extends Conectar{
 								rep_com.f_pago_gc >= '$f_desde' AND
 								rep_com.f_pago_gc <= '$f_hasta' AND
 								nomcia IN ".$ciaIn." AND
-								codvend  IN ".$asesorIn."
+								codvend  IN ".$asesorIn." AND
+                            	not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 								ORDER BY comision.cod_vend ASC";
 				}
 				if ($cia=='' && $asesor=='') {
@@ -1321,7 +1322,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							nomcia LIKE '%$cia%' AND
-							codvend  LIKE '%$asesor%'
+							codvend  LIKE '%$asesor%' AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 							ORDER BY comision.cod_vend ASC";
 				}
 				if ($cia=='' && $asesor!='') {
@@ -1339,7 +1341,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							nomcia LIKE '%$cia%' AND
-							codvend  IN ".$asesorIn."
+							codvend  IN ".$asesorIn." AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 							ORDER BY comision.cod_vend ASC";
 				}
 				if ($asesor=='' && $cia!='') {
@@ -1357,7 +1360,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							codvend LIKE '%$asesor%' AND
-							nomcia  IN ".$ciaIn."
+							nomcia  IN ".$ciaIn." AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
 							ORDER BY comision.cod_vend ASC";
 				}
 				
@@ -1433,9 +1437,9 @@ class Trabajo extends Conectar{
 				}else{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
-						echo "No hay registros";
-				      	header("Location: b_gc.php?m=2");
-				      	exit();
+						//echo "No hay registros";
+				      	//header("Location: b_gc.php?m=2");
+				      	//exit();
 			      	}else
 		            	{
 		               		while($reg=mysqli_fetch_assoc($res)) {
@@ -2811,7 +2815,33 @@ class Trabajo extends Conectar{
 	}
 
 
-	public function get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia)
+	public function get_mes_prima_BN()
+    {
+		    	
+      $sql="SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+		      WHERE 
+		      poliza.id_poliza = drecibo.idrecibo AND
+		      poliza.id_cod_ramo=dramo.cod_ramo AND
+		      poliza.id_cia=dcia.idcia 
+		      ORDER BY Month(f_desdepoliza) ASC ";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if ($filas == 0) { 
+      	//header("Location: incorrecto.php?m=2");
+      	//exit();
+       } 
+         else
+             {
+               while($reg=mysqli_fetch_assoc($res)) {
+               	$this->t[]=$reg;
+              		}
+          		return $this->t;
+				}
+       }
+
+
+	public function get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$mes)
 		    {
 		    	
 		    	if ($cia=='Seleccione Cía') {
@@ -2827,8 +2857,7 @@ class Trabajo extends Conectar{
 							poliza.id_poliza=drecibo.idrecibo AND 
 							poliza.id_cod_ramo=dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND 
-							f_desdepoliza >= '$desde' AND
-							f_desdepoliza <= '$hasta' AND
+							MONTH(f_desdepoliza)=$mes AND
 							id_cia LIKE '%$cia%' AND
 							nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -2849,8 +2878,122 @@ class Trabajo extends Conectar{
 						}
 				}
 
+			   }
+			   
+			   public function get_distinct_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia)
+			   {
+				   
+				   if ($cia=='Seleccione Cía') {
+					   $cia='';
+				   }
+				   if ($ramo=='Seleccione Ramo') {
+					   $ramo='';
+				   }
+   
+					 $sql="SELECT DISTINCT comision.id_poliza FROM poliza 
+							   INNER JOIN dcia, drecibo, dramo, comision WHERE 
+							   poliza.id_cia=dcia.idcia AND
+							   poliza.id_poliza=drecibo.idrecibo AND 
+							   poliza.id_cod_ramo=dramo.cod_ramo AND
+							   poliza.id_poliza = comision.id_poliza AND 
+							   f_pago_prima >= '$desde' AND
+							   f_pago_prima <= '$hasta' AND
+							   id_cia LIKE '%$cia%' AND
+							   nramo LIKE '%$ramo%' ";
+				   $res=mysqli_query(Conectar::con(),$sql);
+				   
+				   if (!$res) {
+					   //No hay registros
+				   }else{
+					   $filas=mysqli_num_rows($res); 
+					   if ($filas == 0) { 
+							 //header("Location: incorrecto.php?m=2");
+							 //exit();
+						 }else
+						   {
+								  while($reg=mysqli_fetch_assoc($res)) {
+									  $this->t[]=$reg;
+								 }
+								 return $this->t;
+						   }
+				   }
+   
+				  }
+
+
+
+
+
+
+	public function get_reporte_gc_h($id_gc_h,$cod_vend)
+		    {
+		    	
+
+		      	$sql="SELECT * FROM poliza 
+							INNER JOIN dcia, drecibo, dramo, comision, gc_h_comision, gc_h, titular, rep_com WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.id_poliza=drecibo.idrecibo AND 
+							poliza.id_cod_ramo=dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND 
+                            gc_h_comision.id_comision=comision.id_comision AND
+                            gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+                            poliza.id_titular=titular.id_titular AND
+                            rep_com.id_rep_com=comision.id_rep_com AND
+							gc_h.id_gc_h = '$id_gc_h' AND
+                            cod_vend = '$cod_vend' ";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+
 		       }
 
+
+	public function get_a_reporte_gc_h($id_gc_h)
+		    {
+		    	
+
+		      	$sql="SELECT DISTINCT comision.cod_vend FROM poliza 
+							INNER JOIN dcia, drecibo, dramo, comision, gc_h_comision, gc_h WHERE 
+							poliza.id_cia=dcia.idcia AND
+							poliza.id_poliza=drecibo.idrecibo AND 
+							poliza.id_cod_ramo=dramo.cod_ramo AND
+							poliza.id_poliza = comision.id_poliza AND 
+                            gc_h_comision.id_comision=comision.id_comision AND
+                            gc_h_comision.id_gc_h=gc_h.id_gc_h AND
+							gc_h.id_gc_h = '$id_gc_h' ";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+
+		       }
 
 
 
@@ -3135,6 +3278,29 @@ class Trabajo extends Conectar{
 	}
 
 
+
+	public function agregarGCh($fhoy,$desde,$hasta){
+
+
+								$sql="INSERT into gc_h (f_hoy_h,f_desde_h,f_hasta_h)
+									values ('$fhoy',
+											'$desde',
+											'$hasta')";
+								return mysqli_query(Conectar::con(),$sql);
+
+	}
+
+	public function agregarGChComision($id_gc_h,$id_comision){
+
+
+		$sql="INSERT into gc_h_comision (id_gc_h,id_comision)
+			values ('$id_gc_h',
+					'$id_comision')";
+		return mysqli_query(Conectar::con(),$sql);
+
+}
+
+
 //-------------------------------------------------------------------
 
 
@@ -3362,6 +3528,27 @@ class Trabajo extends Conectar{
 				'comt' => $ver[5]
 				);
 			return $datos;
+
+
+
+			
+		}
+
+	
+	public function obtenSumaReporte($id_rep_com){
+
+			$sql="SELECT SUM(prima_com) FROM rep_com, comision
+					WHERE 
+					rep_com.id_rep_com=comision.id_rep_com AND
+					comision.id_rep_com= '$id_rep_com'";
+
+			$result=mysqli_query(Conectar::con(),$sql);
+			$ver=mysqli_fetch_row($result);
+			
+			$datos1=array(
+				'SUM(prima_com)' => $ver[0]
+				);
+			return $datos1;
 
 
 

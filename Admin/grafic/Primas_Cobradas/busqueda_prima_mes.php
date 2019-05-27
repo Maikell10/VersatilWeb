@@ -210,7 +210,7 @@ $fechaMax= $date->format($format);
       <form class="form-horizontal" action="prima_mes.php" method="get">
         <div class="form-row">
           <div class="form-group col-md-12">
-            <label>Seleccione el Año:</label>
+            <label>Seleccione el Año de Pago:</label>
             <select class="form-control" name="desde">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));

@@ -21,7 +21,20 @@ if(isset($_SESSION['seudonimo'])) {
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
 
  $fechaMin=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
- $fechaMax=date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
+ //$fechaMax=date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
+
+
+ //FECHA MAYORES A 2024
+$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+$format = 'Y';
+
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+
+// Print it
+$fechaMax= $date->format($format);
 
 
 ?>

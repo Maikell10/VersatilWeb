@@ -50,7 +50,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
  
-  $status = $_GET['status'];
+  $status = isset($_GET['status']);
   if ($status == 1) {
     $obj1= new Trabajo();
     $poliza = $obj1->get_poliza_total_by_filtro_status_a(date("Y-m-d")); 
@@ -64,7 +64,7 @@ if(isset($_SESSION['seudonimo'])) {
     $poliza = $obj1->get_poliza_total_by_filtro($desde,date("Y-m-d")); 
   }
 
-if ($_GET["asesor"]!=null) {
+if (isset($_GET["asesor"])!=null) {
     $asesor=$_GET["asesor"]; 
     $obj123= new Trabajo();
     $poliza = $obj123->get_poliza_total_by_filtro_asesor($desde,$hasta,$asesor); 
@@ -269,7 +269,7 @@ $Ejecutivo[sizeof($poliza)]=null;
         </div>
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
@@ -280,7 +280,9 @@ $Ejecutivo[sizeof($poliza)]=null;
                 if ($status == 1) {
 
                 ?>
+
                 <center>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -397,7 +399,7 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table>
+                </table></div>
 
 
                 <h1 class="title">Total de Prima</h1>
@@ -416,6 +418,7 @@ $Ejecutivo[sizeof($poliza)]=null;
 
                 ?>
                 <center>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -498,7 +501,7 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table>
+                </table></div>
 
 
                 <h1 class="title">Total de Prima</h1>
@@ -517,6 +520,7 @@ $Ejecutivo[sizeof($poliza)]=null;
 
 
                 <center>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -604,7 +608,7 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table>
+                </table></div>
 
 
                 <h1 class="title">Total de Prima</h1>
@@ -733,7 +737,7 @@ $Ejecutivo[sizeof($poliza)]=null;
         $( "#iddatatable tbody tr" ).click(function() {
             var customerId = $(this).find("td").eq(1).html();   
 
-            window.location.href = "v_poliza.php?id_poliza="+customerId;
+            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
         });
 
     </script>

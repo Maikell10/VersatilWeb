@@ -200,7 +200,7 @@ if(isset($_SESSION['seudonimo'])) {
         </div>
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
 
 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
@@ -211,7 +211,8 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 
                 <center>
-                <table class="table table-hover table-striped table-bordered display responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>f_poliza</th>
@@ -298,7 +299,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table>
+                </table></div>
 
 
                 <h1 class="title">Total de Prima Suscrita</h1>
@@ -423,7 +424,7 @@ if(isset($_SESSION['seudonimo'])) {
         $( "#iddatatable tbody tr" ).click(function() {
             var customerId = $(this).find("td").eq(1).html();   
 
-            window.location.href = "v_poliza.php?id_poliza="+customerId;
+            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
         });
 
     </script>

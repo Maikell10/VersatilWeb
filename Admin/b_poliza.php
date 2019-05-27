@@ -10,8 +10,6 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
-  $obj1= new Trabajo();
-  $poliza = $obj1->get_element('poliza','id_poliza'); 
 
   $obj2= new Trabajo();
   $fechaMin = $obj2->get_fecha_min('f_hastapoliza','poliza'); 
@@ -19,6 +17,19 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj3= new Trabajo();
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
+
+  //FECHA MAYORES A 2024
+$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+$format = 'Y';
+
+// Parse a textual date/datetime into a Unix timestamp
+$date = new DateTime($dateString);
+
+// Print it
+$fechaMax= $date->format($format);
+
 
 
   $obj3= new Trabajo();
@@ -29,6 +40,33 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj32= new Trabajo();
   $referidor = $obj32->get_element('enr','id_enr'); 
+
+
+  $obj1= new Trabajo();
+  $poliza = $obj1->get_poliza_total(); 
+
+
+  $Ejecutivo[sizeof($poliza)]=null;
+
+  for ($i=0; $i < sizeof($poliza); $i++) { 
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
+        $nombre=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
+            $nombre=$asesor1[0]['nombre'];
+        }
+
+        $Ejecutivo[$i]=$nombre;                 
+  }
 
 
 
@@ -231,11 +269,11 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       <div class="form-group col-md-6">
                         <label align="left">Año Vigencia Seguro:</label>
-                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
+                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13">
                             <option value="">Seleccione Año</option>
                         <?php
                             $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                            for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
+                            for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
                             {  
                         ?>
                             <option value="<?php echo $date;?>"><?php echo $date;?></option>
@@ -282,19 +320,19 @@ if(isset($_SESSION['seudonimo'])) {
 
                       <div class="form-group col-md-6">
                         <label>Asesor:</label>
-                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor">
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-size="12" data-live-search="true">
                             <option value="">Seleccione el Asesor</option>
                             <?php
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
                             <?php } for($i=0;$i<sizeof($referidor);$i++)
                                 {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
                             <?php } ?>
                         </select>
                       </div>
@@ -306,10 +344,123 @@ if(isset($_SESSION['seudonimo'])) {
                 </form></center>
 
 
+                
+
+
+
+
+
+                <center>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <tr>
+                                <th hidden>f_poliza</th>
+                                <th hidden>id</th>
+                                <th>N° Póliza</th>
+                                <th>Nombre Asesor</th>
+                                <th>Cía</th>
+                                <th>F Desde Seguro</th>
+                                <th>F Hasta Seguro</th>
+                                <th style="background-color: #E54848;">Prima Suscrita</th>
+                                <th nowrap>Nombre Titular</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody >
+                            <?php
+                            $totalsuma=0;
+                            $totalprima=0;
+                            $currency="";
+                            for ($i=0; $i < sizeof($poliza); $i++) { 
+                                //if ($poliza[$i]['id_titular']==0) {
+                                    
+                                //} else {
+
+                                    
+                                    
+                                
+                                
+                                $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
+                                $totalprima=$totalprima+$poliza[$i]['prima'];
+
+                                $originalDesde = $poliza[$i]['f_desdepoliza'];
+                                $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                $originalHasta = $poliza[$i]['f_hastapoliza'];
+                                $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                $originalFProd = $poliza[$i]['f_poliza'];
+                                $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                                if ($poliza[$i]['currency']==1) {
+                                    $currency="$ ";
+                                }else{$currency="Bs ";}
+
+
+                                if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                                    <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <?php            
+                                } else{
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                                    <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <?php   
+                                }
+
+                                ?>
+                                
+                                    
+                                    <td><?php echo $Ejecutivo[$i]; ?></td>
+                                    <td><?php echo $poliza[$i]['nomcia']; ?></td>
+                                    <td><?php echo $newDesde; ?></td>
+                                    <td><?php echo $newHasta; ?></td>
+                                    <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                    <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                </tr>
+                                <?php
+                                //}
+                            }
+                            ?>
+                        </tbody>
+
+
+                        <tfoot>
+                            <tr>
+                                <th hidden>f_poliza</th>
+                                <th hidden>id</th>
+                                <th>N° Póliza</th>
+                                <th>Nombre Asesor</th>
+                                <th>Cía</th>
+                                <th>F Desde Seguro</th>
+                                <th>F Hasta Seguro</th>
+                                <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                                <th>Nombre Titular</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </div>
+
+
+                    <h1 class="title">Total de Prima Suscrita</h1>
+                    <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
+
+                    <h1 class="title">Total de Pólizas</h1>
+                    <h1 class="title text-danger"><?php  echo sizeof($poliza);?></h1>
+
+                </center>
+
+
 
     
-                
+                <!--
                 <center><div id="tablaDatatable"></div></center>
+                -->
             </div>
         </div>
 
@@ -451,46 +602,7 @@ if(isset($_SESSION['seudonimo'])) {
     </div>
 
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#btnAgregarnuevo').click(function(){
-                datos=$('#frmnuevo').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/agregarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#frmnuevo')[0].reset();
-                            $('#tablaDatatable').load('t_poliza.php');
-                            alertify.success("agregado con exito :D");
-                        }else{
-                            alertify.error("Fallo al agregar :(");
-                        }
-                    }
-                });
-            });
-
-            $('#btnActualizar').click(function(){
-                datos=$('#frmnuevoU').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/actualizarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_poliza.php');
-                            alertify.success("Actualizado con exito :D");
-                        }else{
-                            alertify.error("Fallo al actualizar :(");
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+   
     <script type="text/javascript">
         $(document).ready(function(){
             $('#tablaDatatable').load('t_poliza.php');
@@ -506,44 +618,22 @@ if(isset($_SESSION['seudonimo'])) {
     </script>
 
     <script type="text/javascript">
-        function agregaFrmActualizar(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena').val(datos['idena']);
-                    $('#nombreU').val(datos['idnom']);
-                    $('#codigoU').val(datos['cod']);
-                    $('#ciU').val(datos['id']);
-                    $('#refcuentaU').val(datos['refcuenta']);
-                }
+        $(document).ready(function() {
+            $('#iddatatable').DataTable({
+                scrollX: 300,
+                "order": [[ 0, "desc" ]]
             });
-        }
+        } );
 
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar una Póliza', '¿Seguro de eliminar esta Póliza?', function(){
+        $(function () {
+          $('[data-tooltip="tooltip"]').tooltip()
+        });
 
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_poliza.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
+        $( "#iddatatable tbody tr" ).click(function() {
+            var customerId = $(this).find("td").eq(1).html();   
 
-            }
-            , function(){
-
-            });
-        }
+            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
+        });
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()
