@@ -34,7 +34,7 @@ $cia = $obj1->get_element('dcia','idcia');
 				
 				?>
 				<tr >
-	                <td><?php echo $cia[$i]['nomcia']; ?></td>
+	                <td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
 	                <td><?php if ($cia[$i]['preferencial']==0) {
 						echo "No";
 					} else {

@@ -22,7 +22,7 @@ if(isset($_SESSION['seudonimo'])) {
   $comision = $obj2->get_element_by_id('comision','id_rep_com',$_GET['id_rep_com']);
 
   $f_pago_gc = date("d-m-Y", strtotime($rep_com[0]['f_pago_gc']));
-  $f_desde_rep = date("d-m-Y", strtotime($rep_com[0]['f_desde_rep']));
+  //$f_desde_rep = date("d-m-Y", strtotime($rep_com[0]['f_desde_rep']));
   $f_hasta_rep = date("d-m-Y", strtotime($rep_com[0]['f_hasta_rep']));
 
 
@@ -202,7 +202,8 @@ if(isset($_SESSION['seudonimo'])) {
                     <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
                 </div>
 
-                <table class="table table-hover table-striped table-bordered table-responsive" id="" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th >Fecha Hasta Reporte</th>
@@ -219,9 +220,11 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tbody>
                 </table>
+                </div>
 
                 <center>
-                <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>N° de Póliza</th>
@@ -256,7 +259,7 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
                         <tr>
                             <td><?php echo $comision[$i]['num_poliza']; ?></td>
-                            <td nowrap><?php echo $nombre; ?></td>
+                            <td nowrap><?php echo utf8_encode($nombre); ?></td>
                             <td><?php echo $f_pago_prima; ?></td>
                             <td align="right"><?php echo "$ ".number_format($comision[$i]['prima_com'],2); ?></td>
                             <td align="right"><?php echo "$ ".number_format($comision[$i]['comision'],2); ?></td>
@@ -290,6 +293,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
             </center>
                         
 

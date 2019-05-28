@@ -372,11 +372,11 @@ $Ejecutivo[sizeof($poliza)]=null;
                             
                                 
                                 <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo $polizat[0]['nomcia']; ?></td>
+                                <td><?php echo utf8_encode($polizat[0]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td nowrap><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                                <td nowrap><?php echo utf8_encode($polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']); ?></td>
                             </tr>
                             <?php
                             }
@@ -475,11 +475,11 @@ $Ejecutivo[sizeof($poliza)]=null;
                             
                                 
                                 <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo $polizat[0]['nomcia']; ?></td>
+                                <td><?php echo utf8_encode($polizat[0]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td nowrap><?php echo $polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']; ?></td>
+                                <td nowrap><?php echo utf8_encode($polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']); ?></td>
                             </tr>
                             <?php
                             }
@@ -582,11 +582,11 @@ $Ejecutivo[sizeof($poliza)]=null;
                             
                                 
                                 <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo $poliza[$i]['nomcia']; ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                             </tr>
                             <?php
                             }

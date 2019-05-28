@@ -367,8 +367,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th hidden nowrap>Tipo de Cobertura</th>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?php echo $nombre_ramo[0]['nramo'];?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?php echo $nombre_cia[0]['nomcia'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?php echo utf8_encode($nombre_ramo[0]['nramo']);?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?php echo utf8_encode($nombre_cia[0]['nomcia']);?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <td><input type="text" class="form-control" name="t_cuenta" readonly="readonly" value="<?php echo $t_cuenta;?>"></td>
                                     <td hidden><input type="text" class="form-control" name="t_cobertura" readonly="readonly" value="<?php echo $t_cobertura;?>"></td>
                                 </tr>
@@ -423,7 +423,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 <tr >
                                     <td colspan="2"><input type="text" class="form-control" name="titular" readonly="readonly" value="<?php echo $titular;?>"></td>
-                                    <td colspan="3"><input type="text" class="form-control" name="n_titular" readonly="readonly" value="<?php echo $idtitular[0]['nombre_t']." ".$idtitular[0]['apellido_t'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="n_titular" readonly="readonly" value="<?php echo utf8_encode($idtitular[0]['nombre_t']." ".$idtitular[0]['apellido_t']);?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -432,7 +432,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 <tr >
                                     <td colspan="2"><input type="text" class="form-control" name="tomador" readonly="readonly" value="<?php echo $idtomador[0]['ci'];?>"></td>
-                                    <td colspan="3"><input type="text" class="form-control" name="n_tomador" readonly="readonly" value="<?php echo $idtomador[0]['nombre_t']." ".$idtomador[0]['apellido_t'];?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="n_tomador" readonly="readonly" value="<?php echo utf8_encode($idtomador[0]['nombre_t']." ".$idtomador[0]['apellido_t']);?>"></td>
                                 </tr>
 
                                 <?php 

@@ -413,15 +413,16 @@ $fechaMax= $date->format($format);
                                 <?php   
                                 }
 
+                                $nombre=$poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t'];
                                 ?>
                                 
                                     
                                     <td><?php echo $Ejecutivo[$i]; ?></td>
-                                    <td><?php echo $poliza[$i]['nomcia']; ?></td>
+                                    <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                    <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+                                    <td nowrap><?php echo utf8_encode($nombre); ?></td>
                                 </tr>
                                 <?php
                                 //}

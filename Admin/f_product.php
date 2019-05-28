@@ -273,7 +273,7 @@ if(isset($_SESSION['seudonimo'])) {
                             
                                 
                                 <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-                                <td><?php echo $poliza[$i]['nomcia']; ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>

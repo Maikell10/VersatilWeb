@@ -240,7 +240,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cliente: <?php echo $poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']; ?></h1>
+                    <h1 class="title">Cliente: <?php echo utf8_encode($poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']); ?></h1>
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {

@@ -484,6 +484,46 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
 
+
+    <!-- Modal Polizas Existentes-->
+    <div class="modal fade" id="polizaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoP">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable1">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                <th>id Poliza</th>
+                                <th>Nº de Póliza</th>
+                                <th>Nombre Asegurado</th>
+                                <th>Cía</th>
+                                </tr>
+                            </thead>
+                                <tr style="background-color:white">
+                                    <td><input type="text" class="form-control" id="id_polizaE" name="num_poliza" readonly></td>
+                                    <td><input type="text" class="form-control" id="num_polizaE" name="num_poliza" readonly></td>
+                                    <td><input type="text" class="form-control" id="asegurado" name="asegurado" required onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="idcia" name="idcia" readonly value="<?php echo $idcia;?>"></td>
+                                </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script>
         $(document).ready(function(){
 
@@ -834,8 +874,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 url:"validarpoliza.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-
-                    if (datos['id_cod_ramo']==null) {
+                    
+                    if (datos['id_poliza']==null) {
                         $("#n_poliza0").css('background-color', 'red');
                         $("#n_poliza0").css('color', 'white');
              
@@ -861,7 +901,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                         $('#codasesor0').val(datos['codvend']);  
 
-                        $('#id_poliza0').val(datos['id_poliza']);            
+                        $('#id_poliza0').val(datos['id_poliza']);      
+                        
+
+                        $('#id_polizaE').val(datos['id_poliza']);   
+                        $('#num_polizaE').val(datos['cod_poliza']);      
+                        $('#polizaexistente').modal('show'); 
+
                     }
                 }
             });

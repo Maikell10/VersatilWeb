@@ -19,11 +19,7 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $obj4->get_distinct_element('nomcia','dcia'); 
 
   
-  $originalDesde = $fechaMin[0]["MIN(f_hasta_rep)"];
-  $newDesde = date("d-m-Y", strtotime($originalDesde));
 
-  $originalHasta = $fechaMax[0]["MAX(f_hasta_rep)"];
-  $newHasta = date("d-m-Y", strtotime($originalHasta));
 
   $obj33= new Trabajo();
   $fechaMinRep = $obj33->get_fecha_min('f_pago_gc','rep_com'); 

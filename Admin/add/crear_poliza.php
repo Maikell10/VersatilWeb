@@ -1032,12 +1032,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-        function validarPoliza(num_poliza){
+        function validarPoliza(num_poliza){ 
             $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php?var=0",
+                url:"validarpoliza.php?num_poliza=" + num_poliza.value,
                 success:function(r){
+                    console.log(r);
                     datos=jQuery.parseJSON(r);
 
                     if (datos['id_cod_ramo']==null) {

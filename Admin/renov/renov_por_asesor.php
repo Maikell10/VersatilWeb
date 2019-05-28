@@ -244,7 +244,7 @@ if(isset($_SESSION['seudonimo'])) {
  
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
@@ -271,8 +271,9 @@ if(isset($_SESSION['seudonimo'])) {
                     <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
                 </div>
                 <center>
-
-                <table class="table table-hover table-striped display table-responsive" id="mytable" >
+                
+                <div class="table-responsive">
+                <table class="table table-hover table-striped display" id="mytable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>id</th>
@@ -347,9 +348,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nomcia']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                             </tr>
@@ -379,6 +380,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
 
 
                 <table hidden class="table table-hover table-striped table-bordered display table-responsive" id="Exportar_a_Excel" >
@@ -454,9 +456,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nomcia']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                             </tr>

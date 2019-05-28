@@ -166,14 +166,14 @@ if(isset($_SESSION['seudonimo'])) {
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_por_cia.php">
                                 <div class="card-body">
-                                    <h5 class="card-title">Por Cía</h5>
+                                    <h5 class="card-title">Organizadas Por Cía</h5>
                                 </div>
                             </a>
                         </div>
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_por_asesor.php">
                                 <div class="card-body">
-                                    <h5 class="card-title">Por Asesor</h5>
+                                    <h5 class="card-title">Organizadas Por Asesor</h5>
                                 </div>
                             </a>
                         </div>

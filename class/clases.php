@@ -3348,7 +3348,7 @@ class Trabajo extends Conectar{
 
 			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -3370,7 +3370,7 @@ class Trabajo extends Conectar{
 						
 						$sql1="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
 		                    poliza
 		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
 		                  	WHERE 
@@ -3393,7 +3393,7 @@ class Trabajo extends Conectar{
 								
 								$sql2="SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta  FROM 
+									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
 				                    poliza
 				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
 				                  	WHERE 
@@ -3435,7 +3435,8 @@ class Trabajo extends Conectar{
 									'cveh' => $ver2[22],
 									'catveh' => $ver2[23],
 									'id_poliza' => $ver2[24],
-									't_cuenta' => $ver2[25]
+									't_cuenta' => $ver2[25],
+									'cod_poliza' => $ver2[26]
 									);
 								return $datos2;
 					      	}else{
@@ -3466,7 +3467,8 @@ class Trabajo extends Conectar{
 										'cveh' => $ver1[22],
 										'catveh' => $ver1[23],
 										'id_poliza' => $ver1[24],
-										't_cuenta' => $ver1[25]
+										't_cuenta' => $ver1[25],
+										'cod_poliza' => $ver1[26]
 										);
 									return $datos1;
 								}	
@@ -3499,7 +3501,8 @@ class Trabajo extends Conectar{
 								'cveh' => $ver[22],
 								'catveh' => $ver[23],
 								'id_poliza' => $ver[24],
-								't_cuenta' => $ver[25]
+								't_cuenta' => $ver[25],
+								'cod_poliza' => $ver[26]
 								);
 							return $datos;
 						}

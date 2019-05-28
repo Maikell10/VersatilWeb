@@ -228,7 +228,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="section">
             <div class="container">
                 
-                <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+                
                 
 
 
@@ -491,8 +491,8 @@ if ( (!$con_id) || (!$lr) ) {
                             ?>
                             <tr >
                                 <td><?php echo $poliza[0]['ci']; ?></td>
-                                <td><?php echo $poliza[0]['nombre_t']; ?></td>
-                                <td><?php echo $poliza[0]['apellido_t']; ?></td>
+                                <td><?php echo utf8_encode($poliza[0]['nombre_t']); ?></td>
+                                <td><?php echo utf8_encode($poliza[0]['apellido_t']); ?></td>
                                 <!-- <td><?php echo $sexo; ?></td>
                                 <td><?php echo $ecivil; ?></td> -->
                                 <td><?php echo $newFnac; ?></td>
@@ -533,7 +533,7 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $poliza[0]['direcc']; ?></td>
+                                <td><?php echo utf8_encode($poliza[0]['direcc']); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -571,8 +571,8 @@ if ( (!$con_id) || (!$lr) ) {
                     <tbody >
                             <tr >
                                 <td><?php echo $tomador[0]['ci']; ?></td>
-                                <td><?php echo $tomador[0]['nombre_t']; ?></td>
-                                <td><?php echo $tomador[0]['apellido_t']; ?></td>
+                                <td><?php echo utf8_encode($tomador[0]['nombre_t']); ?></td>
+                                <td><?php echo utf8_encode($tomador[0]['apellido_t']); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -647,8 +647,8 @@ if ( (!$con_id) || (!$lr) ) {
                                 <td><?php echo $poliza[0]['id']; ?></td>
                                 <td><?php 
                                     if (isset($poliza[0]['idnom'])==null) {
-                                        echo $poliza[0]['nombre'];
-                                    }else{echo $poliza[0]['idnom'];}
+                                        echo utf8_encode($poliza[0]['nombre']);
+                                    }else{echo utf8_encode($poliza[0]['idnom']);}
                                 ?></td>
                                 <td><?php echo $poliza[0]['per_gc']." %"; ?></td>
                             </tr>
@@ -801,7 +801,7 @@ if ( (!$con_id) || (!$lr) ) {
                 </div>
                 <div class="modal-body">
                     
-                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?php echo $poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?php echo utf8_encode($poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']); ?></h5>
 
                     <hr>
                     <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h5>

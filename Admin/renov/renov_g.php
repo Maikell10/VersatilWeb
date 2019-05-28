@@ -211,7 +211,7 @@ if(isset($_SESSION['seudonimo'])) {
  
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
@@ -237,14 +237,15 @@ if(isset($_SESSION['seudonimo'])) {
                     ?>
                 </div>
                 
-                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="form-group">
                     <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
                 </div>
                 <center>
-
-                <table class="table table-hover table-striped display table-responsive" id="mytable" >
+                
+                <div class="table-responsive">
+                <table class="table table-hover table-striped display" id="mytable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden>id</th>
@@ -273,9 +274,8 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $distinct_c[$a]['nomcia']; ?></td>
+                            
+                                
 
                         <?php
 
@@ -293,11 +293,17 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                            ?>
+                            ?>  
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
+                            <tr style="cursor: pointer;">
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -319,15 +325,15 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td><?php echo $newHasta; ?></td>
-                                <td ><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
-                                <td nowrap><?php echo $nombre; ?></td>
+                                <td ><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
+                                <td nowrap><?php echo utf8_encode($nombre); ?></td>
                             </tr>
                             <?php
                             }
                             ?>
                             <tr>
-                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $distinct_c[$a]['nomcia']; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
+                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo utf8_encode($distinct_c[$a]['nomcia']); ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -347,10 +353,11 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
 
 
                 <table hidden class="table table-hover table-striped display table-responsive" id="Exportar_a_Excel" >
-                <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Cía</th>
                             <th>N° Póliza</th>
@@ -377,8 +384,8 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         ?>
-                            <tr style="cursor: pointer;">
-                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $distinct_c[$a]['nomcia']; ?></td>
+                            
+                                
 
                         <?php
 
@@ -396,11 +403,15 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                            ?>
+                            ?>  
+                            <tr style="cursor: pointer;">
+                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
+                            <tr style="cursor: pointer;">
+                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -422,15 +433,15 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td><?php echo $newHasta; ?></td>
-                                <td ><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
-                                <td nowrap><?php echo $nombre; ?></td>
+                                <td ><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
+                                <td nowrap><?php echo utf8_encode($nombre); ?></td>
                             </tr>
                             <?php
                             }
                             ?>
                             <tr>
-                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $distinct_c[$a]['nomcia']; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
+                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo utf8_encode($distinct_c[$a]['nomcia']); ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -441,6 +452,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
+                            <th hidden>id</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>

@@ -349,17 +349,13 @@ if(isset($_SESSION['seudonimo'])) {
     <script>
 
 
-	  alertify.confirm('Póliza Cargada con Exito!', '¿Desea revisar otra Póliza?', 
-	  	function(){ 
-	  		window.location.replace("b_poliza.php?cond=1");
-	  		alertify.success('Ok') 
-	  	}, 
-	  	function(){ 
-	  		window.location.replace("sesionadmin.php");
-	  		alertify.error('Cancel')
-	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); ;
+	 
 
-	
+	   alertify.alert('Póliza Cargada con Exito!', 'Póliza Cargada Satisfactoriamente', 
+        function(){ 
+            alertify.success('Ok'); 
+            window.close();
+        });
 
 	</script>
  

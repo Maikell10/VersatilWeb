@@ -234,7 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                                 <tr>
                                     <td><input class="form-control" type="checkbox" id="<?php echo 'chk'.$i;?>" value="<?php echo $asesor[$i]['cod']; ?>" onChange="validarchk(<?php echo $i;?>)"></td>
-                                    <td style="background-color: white"><input class="form-control" type="text" name="<?php echo 'asesor'.$i;?>" value="<?php echo $asesor[$i]['idnom']." [".$asesor[$i]['cod']."]"; ?>" readonly></td>
+                                    <td style="background-color: white"><input class="form-control" type="text" name="<?php echo 'asesor'.$i;?>" value="<?php echo utf8_encode($asesor[$i]['idnom'])." [".$asesor[$i]['cod']."]"; ?>" readonly></td>
                                     <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
                                     <td style="background-color: white"><input style="text-align:center" type="number" class="form-control validanumericos3" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" min="-90" max="90" data-toggle="tooltip" data-placement="bottom" title="Añadir sólo el numero a sumar al %GC" readonly></td>
                                 </tr>
