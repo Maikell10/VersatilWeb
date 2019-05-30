@@ -315,7 +315,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     </td>
                                     <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
-                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td> 
+                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
 
                                     <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
 
@@ -846,6 +846,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     console.log(datos);
                     if (datos['id_poliza']==null) {
                         console.log('vacio');
+                        alert('seleccione una póliza');
                     }
                     else{
                         console.log(datos['idnom']);
@@ -864,9 +865,9 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                         $('#id_poliza0').val(datos['id_poliza']);
 
-                        $('#n_poliza0').val(datos['id_poliza']);      
+                        $('#n_poliza0').val(datos['cod_poliza']);      
                         
- 
+                        $('#polizaexistente').modal('hide'); 
                     }
                 }   
             });
@@ -940,7 +941,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
-                                        '<td><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
                                     '</tr>';
 
                                 } else {
@@ -950,10 +951,10 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     var htmlTags = '<tr>'+
                                         '<td>' + datos[index]['id_poliza'] + '</td>'+
                                         '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
-                                        '<td>' + f_desde + '</td>'+
-                                        '<td>' + f_hasta + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
-                                        '<td><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
                                     '</tr>';
                                 }
 
@@ -1565,7 +1566,7 @@ console.log(prima9);
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h5>
+                    <h4 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1590,9 +1591,11 @@ console.log(prima9);
                         </div>
                     </form>
                 </div>
+                <!--
                 <div class="modal-footer">
                     <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
                 </div>
+                -->
             </div>
         </div>
     </div>
