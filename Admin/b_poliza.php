@@ -417,7 +417,7 @@ $fechaMax= $date->format($format);
                                 ?>
                                 
                                     
-                                    <td><?php echo $Ejecutivo[$i]; ?></td>
+                                    <td><?php echo utf8_encode($Ejecutivo[$i]); ?></td>
                                     <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
@@ -622,7 +622,8 @@ $fechaMax= $date->format($format);
         $(document).ready(function() {
             $('#iddatatable').DataTable({
                 scrollX: 300,
-                "order": [[ 0, "desc" ]]
+                "order": [[ 0, "desc" ]],
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             });
         } );
 

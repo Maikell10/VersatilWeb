@@ -302,7 +302,6 @@ if(isset($_SESSION['seudonimo'])) {
                 <table class="table table-hover table-striped table-bordered display table-responsive" id="mytable" style="cursor: pointer;">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th hidden>id</th>
                             <th>Asesor</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>
@@ -312,6 +311,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>% Com</th>
                             <th>GC Pagada</th>
                             <th>%GC Asesor</th>
+                            <th hidden>id</th>
                         </tr>
                     </thead>
                     
@@ -357,7 +357,6 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                             <tr>
-                                <td hidden><?php echo $poliza[$a]['id_poliza']; ?></td>
                                 <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
 
                         <?php
@@ -413,6 +412,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
                                 <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
                                 <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],0)." %"; ?></td>
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
                             </tr>
                             <?php
 
@@ -426,7 +426,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 $totalcomision=1;
                             }
                             ?>
-                            <tr>
+                            <tr class="no-tocar">
                                 <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                                 <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".$totalprimacom; ?></font></td>
                                 <td align="right" style="background-color: #F53333;color: white;font-weight: bold"><font size=4><?php echo "$ ".$totalcomision; ?></font></td>
@@ -441,7 +441,7 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalpoliza=$totalpoliza+sizeof($poliza);
                         }
                         ?>
-                        <tr>
+                        <tr class="no-tocar">
                             <td style="background-color:red;color:white;font-weight: bold" colspan="4">Total General</td>
 
                             <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
@@ -458,7 +458,6 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
-                            <th hidden>id</th>
                             <th>Asesor</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>
@@ -468,6 +467,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>% Com</th>
                             <th>GC Pagada</th>
                             <th>%GC Asesor</th>
+                            <th hidden>id</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -534,7 +534,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                             <tr>
-                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($nombre); ?></td>
 
                         <?php
 
@@ -571,12 +571,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
-                                <td><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                                <td><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -594,7 +594,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 
                                 <td nowrap><?php echo $newFHasta; ?></td>
                                 <td><?php echo utf8_encode($nombretitu); ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nomcia']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
                                 <td nowrap><?php echo $newFPagoP; ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
@@ -787,6 +787,20 @@ if(isset($_SESSION['seudonimo'])) {
                     alertify.error('Cancelada')
                 }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
         }
+
+        $( "#mytable tbody tr" ).click(function() {
+
+            if ($(this).attr('class') != 'no-tocar') {
+                var customerId = $(this).find("td").eq(9).html();  
+
+                if (customerId == null) {
+                    var customerId = $(this).find("td").eq(8).html();  
+                } 
+
+                window.open ("../v_poliza.php?id_poliza="+customerId ,'_blank');
+            }
+        });
+
     </script>
 
    <script language="javascript">

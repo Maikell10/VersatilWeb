@@ -496,7 +496,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($asesor);$i++)
                                                   {  
                                               ?>
-                                                  <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                                  <option value="<?php echo utf8_encode($asesor[$i]["cod"]."=".$asesor[$i]["idnom"]);?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
                                               <?php }for($i=0;$i<sizeof($liderp);$i++)
                                                   { ?> 
                                                   <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
@@ -612,7 +612,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <form id="frmnuevoT" autocomplete="off">
 
                         <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Razón Social *</th>
@@ -723,7 +723,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <form id="frmnuevoTom" autocomplete="off">
 
                         <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable1">
+                        <table class="table table-hover table-striped table-bordered nowrap" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Razón Social *</th>
@@ -859,6 +859,7 @@ if(isset($_SESSION['seudonimo'])) {
                     data:datos,
                     url:"../../procesos/agregarCliente.php",
                     success:function(r){
+                        console.log(r);
                         if(r==1){
                             $('#frmnuevoT')[0].reset();
                             alertify.success("Agregado con Exito!!");
@@ -1038,10 +1039,89 @@ if(isset($_SESSION['seudonimo'])) {
                 data:"num_poliza=" + num_poliza.value,
                 url:"validarpoliza.php?num_poliza=" + num_poliza.value,
                 success:function(r){
-                    console.log(r);
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
+
+                    if (datos.length == 0) {
+
+                        if (datos['id_poliza']==null) {
+                            $('#id_new_titular').val("");
+                            $('#existeP').text("");
+                            $('#no_existeP').text("No Existe Póliza");
+                            $('#titular').val("");
+                            $('#n_titular').val("");
+                            $('#a_titular').val("");
+
+                            $('#titular').removeAttr("readonly",true);
+                            $('#titular').attr('onblur','validartitular(this)');
+                 
+                            $('#tipo_poliza option:first').prop('selected',true);
+
+                            $('#ramo option:first').prop('selected',true);
+                            $('#ramo').css('pointer-events','auto');
+                            $("#ramo").css('background-color', 'white');
+                            $('#cia option:first').prop('selected',true);
+                            $('#cia').css('pointer-events','auto');
+                            $("#cia").css('background-color', 'white');
+                            $('#t_cuenta option:first').prop('selected',true);
+                            $('#t_cuenta').css('pointer-events','auto');
+                            $("#t_cuenta").css('background-color', 'white');
+                            $("#emisionP").val("");
+                            //$("#emisionP").css('background-color', 'transparent');
+                            //$("#emisionP").css('color', 'black');
+                            $('#desdeP').val("");
+                            $('#hastaP').val("");
+                            
+                            $('#btnForm').removeAttr('disabled');
+
+                            var emisionP = new Date();
+                            var desdeP = $('#desdeP').val();
+                            var hastaP = $('#hastaP').val();
+                            $( "#emisionP" ).datepicker( "setDate", emisionP );
+                            $( "#desdeP" ).datepicker( "setDate", desdeP );
+                            $( "#hastaP" ).datepicker( "setDate", hastaP );
+                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+
+                            $('#t_cobertura').val("");
+                            $('#t_cobertura').removeAttr('readonly');
+                            $('#currency option:first').prop('selected',true);
+                            $('#currency').css('pointer-events','auto');
+                            $("#currency").css('background-color', 'white');
+
+
+
+                            $('#tomador').val("");
+                            $('#n_tomador').val("");
+                            $('#a_tomador').val("");
+
+                           $('#asesor option:first').prop('selected',true);
+
+                            $('#existeT').text("");
+                            $('#no_existeT').text("");
+                            $('#titular').val("");
+
+                            $('#tablatomador').attr("hidden",true);
+
+                            $('#existeTom').text("");
+                            $('#no_existeTom').text("");
+                            $("#tomador").css('color', 'black');
+
+                            $('#tablaveh').attr('hidden',true);
+                            $('#placa').val('');
+                            $('#tipo').val('');
+                            $('#marca').val('');
+                            $('#modelo').val('');
+                            $('#anio').val('');
+                            $('#serial').val('');
+                            $('#color').val('');
+                            $('#categoria').val('');
+                        }
+
+                    }else{
+                        
+                    if (datos[0]['id_cod_ramo']==null) {
 
                         $('#id_new_titular').val("");
                         $('#existeP').text("");
@@ -1116,32 +1196,32 @@ if(isset($_SESSION['seudonimo'])) {
                         $('#color').val('');
                         $('#categoria').val('');
                     }
-                    else if(datos['id_cod_ramo']==2 || datos['id_cod_ramo']==25){
+                    else if(datos[0]['id_cod_ramo']==2 || datos[0]['id_cod_ramo']==25){
                         alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
                         function(){ 
                             alertify.success('Proceda a Renovar la Póliza');
-                            $('#titular').val(datos['ci']);
+                            $('#titular').val(datos[0]['ci']);
                             $('#titular').removeAttr('onblur');
                             $('#titular').attr("readonly",true);
-                            $('#n_titular').val(datos['nombre_t']);
-                            $('#a_titular').val(datos['apellido_t']);
+                            $('#n_titular').val(datos[0]['nombre_t']);
+                            $('#a_titular').val(datos[0]['apellido_t']);
                 
                             $("#tipo_poliza").val(2);
-                            $("#ramo").val(datos['id_cod_ramo']);
+                            $("#ramo").val(datos[0]['id_cod_ramo']);
                             $('#ramo').css('pointer-events','none');
                             $("#ramo").css('background-color', '#e6e6e6');
-                            $("#cia").val(datos['id_cia']);
+                            $("#cia").val(datos[0]['id_cia']);
                             $('#cia').css('pointer-events','none');
                             $("#cia").css('background-color', '#e6e6e6');
-                            $("#t_cuenta").val(datos['t_cuenta']);
+                            $("#t_cuenta").val(datos[0]['t_cuenta']);
                             $('#t_cuenta').css('pointer-events','none');
                             $("#t_cuenta").css('background-color', '#e6e6e6');
-                            var emisionP = datos['f_emi'].split('-').reverse().join('-');
+                            var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
                             $("#emisionP").val(emisionP);
-                            //$("#emisionP1").val(datos['f_emi']);
+                            //$("#emisionP1").val(datos[0]['f_emi']);
                             //$('#emisionP').attr("disabled",true);
-                            $('#desdeP').val(datos['f_desdepoliza']);
-                            $('#hastaP').val(datos['f_hastapoliza']);
+                            $('#desdeP').val(datos[0]['f_desdepoliza']);
+                            $('#hastaP').val(datos[0]['f_hastapoliza']);
                             
 
                             var mydate = new Date($('#desdeP').val());
@@ -1163,18 +1243,18 @@ if(isset($_SESSION['seudonimo'])) {
                             $( "#desde_recibo" ).datepicker( "setDate", desdeP );
                             $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
-                            $('#placa').val(datos['placa']);
-                            $('#tipo').val(datos['tveh']);
-                            $('#marca').val(datos['marca']);
-                            $('#modelo').val(datos['mveh']);
-                            $('#anio').val(datos['f_veh']);
-                            $('#serial').val(datos['serial']);
-                            $('#color').val(datos['cveh']);
-                            $('#categoria').val(datos['catveh']);
+                            $('#placa').val(datos[0]['placa']);
+                            $('#tipo').val(datos[0]['tveh']);
+                            $('#marca').val(datos[0]['marca']);
+                            $('#modelo').val(datos[0]['mveh']);
+                            $('#anio').val(datos[0]['f_veh']);
+                            $('#serial').val(datos[0]['serial']);
+                            $('#color').val(datos[0]['cveh']);
+                            $('#categoria').val(datos[0]['catveh']);
 
-                            $('#t_cobertura').val(datos['tcobertura']);
+                            $('#t_cobertura').val(datos[0]['tcobertura']);
                             $('#t_cobertura').attr("readonly",true);
-                            $("#currency").val(datos['currency']);
+                            $("#currency").val(datos[0]['currency']);
                             $('#currency').css('pointer-events','none');
                             $("#currency").css('background-color', '#e6e6e6');
 
@@ -1185,11 +1265,11 @@ if(isset($_SESSION['seudonimo'])) {
                             $('#id_new_titular').val("");
 
                             $('#tomador').val(titular.value);
-                            $('#n_tomador').val(datos['nombre_t']);
-                            $('#a_tomador').val(datos['apellido_t']);
+                            $('#n_tomador').val(datos[0]['nombre_t']);
+                            $('#a_tomador').val(datos[0]['apellido_t']);
 
-                            $("#asesor").val(datos['codvend']+"="+datos['idnom']);
-                            console.log(datos['codvend']+"="+datos['idnom']);
+                            $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                            console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
                             $('#existeT').text("");
                             $('#no_existeT').text("");
@@ -1212,28 +1292,28 @@ if(isset($_SESSION['seudonimo'])) {
                         alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
                         function(){ 
                         
-                            $('#titular').val(datos['ci']);
+                            $('#titular').val(datos[0]['ci']);
                             $('#titular').removeAttr('onblur');
                             $('#titular').attr("readonly",true);
-                            $('#n_titular').val(datos['nombre_t']);
-                            $('#a_titular').val(datos['apellido_t']);
+                            $('#n_titular').val(datos[0]['nombre_t']);
+                            $('#a_titular').val(datos[0]['apellido_t']);
                 
                             $("#tipo_poliza").val(2);
-                            $("#ramo").val(datos['id_cod_ramo']);
+                            $("#ramo").val(datos[0]['id_cod_ramo']);
                             $('#ramo').css('pointer-events','none');
                             $("#ramo").css('background-color', '#e6e6e6');
-                            $("#cia").val(datos['id_cia']);
+                            $("#cia").val(datos[0]['id_cia']);
                             $('#cia').css('pointer-events','none');
                             $("#cia").css('background-color', '#e6e6e6');
-                            $("#t_cuenta").val(datos['t_cuenta']);
+                            $("#t_cuenta").val(datos[0]['t_cuenta']);
                             $('#t_cuenta').css('pointer-events','none');
                             $("#t_cuenta").css('background-color', '#e6e6e6');
-                            var emisionP = datos['f_emi'].split('-').reverse().join('-');
+                            var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
                             $("#emisionP").val(emisionP);
-                            //$("#emisionP1").val(datos['f_emi']);
+                            //$("#emisionP1").val(datos[0]['f_emi']);
                             //$('#emisionP').attr("disabled",true);
-                            $('#desdeP').val(datos['f_desdepoliza']);
-                            $('#hastaP').val(datos['f_hastapoliza']);
+                            $('#desdeP').val(datos[0]['f_desdepoliza']);
+                            $('#hastaP').val(datos[0]['f_hastapoliza']);
                             
 
                             var mydate = new Date($('#desdeP').val());
@@ -1256,9 +1336,9 @@ if(isset($_SESSION['seudonimo'])) {
                             $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
 
-                            $('#t_cobertura').val(datos['tcobertura']);
+                            $('#t_cobertura').val(datos[0]['tcobertura']);
                             $('#t_cobertura').attr("readonly",true);
-                            $("#currency").val(datos['currency']);
+                            $("#currency").val(datos[0]['currency']);
                             $('#currency').css('pointer-events','none');
                             $("#currency").css('background-color', '#e6e6e6');
 
@@ -1269,11 +1349,11 @@ if(isset($_SESSION['seudonimo'])) {
                             $('#id_new_titular').val("");
 
                             $('#tomador').val(titular.value);
-                            $('#n_tomador').val(datos['nombre_t']);
-                            $('#a_tomador').val(datos['apellido_t']);
+                            $('#n_tomador').val(datos[0]['nombre_t']);
+                            $('#a_tomador').val(datos[0]['apellido_t']);
 
-                            $("#asesor").val(datos['codvend']+"="+datos['idnom']);
-                            console.log(datos['codvend']+"="+datos['idnom']);
+                            $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                            console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
                             $('#existeT').text("");
                             $('#no_existeT').text("");
@@ -1300,8 +1380,9 @@ if(isset($_SESSION['seudonimo'])) {
                     
                     
                 }
+               }
 
-                }
+              }
             });
         }
 

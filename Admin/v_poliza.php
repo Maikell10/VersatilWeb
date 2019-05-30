@@ -328,7 +328,7 @@ if ( (!$con_id) || (!$lr) ) {
                             $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
                         }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];}
                     ?>
-                    <h3 class="title">Asesor: <?php echo $asesorr; ?></h3> 
+                    <h3 class="title">Asesor: <?php echo utf8_encode($asesorr); ?></h3> 
                 </div>
 
 

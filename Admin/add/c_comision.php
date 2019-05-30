@@ -315,7 +315,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     </td>
                                     <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
-                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td> 
+                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
 
                                     <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
 
@@ -485,42 +485,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
 
-    <!-- Modal Polizas Existentes-->
-    <div class="modal fade" id="polizaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoP">
-                        <table class="table table-hover table-striped table-bordered" id="iddatatable1">
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                <th>id Poliza</th>
-                                <th>Nº de Póliza</th>
-                                <th>Nombre Asegurado</th>
-                                <th>Cía</th>
-                                </tr>
-                            </thead>
-                                <tr style="background-color:white">
-                                    <td><input type="text" class="form-control" id="id_polizaE" name="num_poliza" readonly></td>
-                                    <td><input type="text" class="form-control" id="num_polizaE" name="num_poliza" readonly></td>
-                                    <td><input type="text" class="form-control" id="asegurado" name="asegurado" required onkeyup="mayus(this);"></td>
-                                    <td><input type="text" class="form-control" id="idcia" name="idcia" readonly value="<?php echo $idcia;?>"></td>
-                                </tr>
-                        </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
 
@@ -531,6 +496,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             $('#cant_poliza').val('<?php echo $cant_poliza;?>');
             
             console.log(variable);
+
         });
         function deleterow() {
             
@@ -754,6 +720,10 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         });
 
+
+       
+        
+
         onload = function(){ 
           var elee = document.querySelectorAll('.validarpoliza0')[0];
           var elee1 = document.querySelectorAll('.validarpoliza1')[0];
@@ -865,29 +835,21 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
         
 
+        function btnPoliza0(id_poliza) {
 
-
-        function validarPoliza0(num_poliza){
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,        
-                url:"validarpoliza.php",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    
+                    console.log(datos);
                     if (datos['id_poliza']==null) {
-                        $("#n_poliza0").css('background-color', 'red');
-                        $("#n_poliza0").css('color', 'white');
-             
-                        $('#n_poliza0').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
-
-                        $('#btnPre0').removeAttr('hidden');
-
-                        $('#nom_titu0').val('');
-                        $('#asesor0').val('');
+                        console.log('vacio');
+                        alert('seleccione una póliza');
                     }
                     else{
+                        console.log(datos['idnom']);
                         $("#n_poliza0").css('background-color', 'green');
                         $("#n_poliza0").css('color', 'white');
 
@@ -901,14 +863,123 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                         $('#codasesor0').val(datos['codvend']);  
 
-                        $('#id_poliza0').val(datos['id_poliza']);      
-                        
+                        $('#id_poliza0').val(datos['id_poliza']);
 
-                        $('#id_polizaE').val(datos['id_poliza']);   
-                        $('#num_polizaE').val(datos['cod_poliza']);      
-                        $('#polizaexistente').modal('show'); 
+                        $('#n_poliza0').val(datos['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+
+
+        function validarPoliza0(num_poliza){
+            $.ajax({
+                type:"POST",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+
+                    if (datos.length == null) {
+
+                        if (datos['id_poliza']==null) {
+                            $("#n_poliza0").css('background-color', 'red');
+                            $("#n_poliza0").css('color', 'white');
+                 
+                            $('#n_poliza0').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
+
+                            $('#btnPre0').removeAttr('hidden');
+
+                            $('#nom_titu0').val('');
+                            $('#asesor0').val('');
+                        }
 
                     }
+                    else{
+
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza0").css('background-color', 'red');
+                            $("#n_poliza0").css('color', 'white');
+                 
+                            $('#n_poliza0').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
+
+                            $('#btnPre0').removeAttr('hidden');
+
+                            $('#nom_titu0').val('');
+                            $('#asesor0').val('');
+                        }
+                        else{
+                            
+
+                            $("#tablaPE  tbody").empty();
+
+                            for (let index = 0; index < datos.length; index++) {
+
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr>'+
+                                        '<td>' + datos[index]['id_poliza'] + '</td>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr>'+
+                                        '<td>' + datos[index]['id_poliza'] + '</td>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                    '</tr>';
+                                }
+
+                                
+                                
+
+                                
+
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            
+
+                        $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+
+                        }
+
+                    }
+                    
+
+                    
+
+                    
                 }
             });
         }
@@ -1488,6 +1559,48 @@ console.log(prima9);
     </script>
 
 
+    
+
+    <!-- Modal Polizas Existentes-->
+    <div class="modal fade" id="polizaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoP">
+                        <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="tablaPE">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>id Poliza</th>
+                                    <th>Nº de Póliza</th>
+                                    <th>F Desde Seg</th>
+                                    <th>F Hasta Seg</th>
+                                    <th>Nombre Asegurado</th>
+                                    <th>Cía</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        </div>
+                    </form>
+                </div>
+                <!--
+                <div class="modal-footer">
+                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+
+    
 
 </body>
 
