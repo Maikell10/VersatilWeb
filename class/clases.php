@@ -3571,42 +3571,18 @@ class Trabajo extends Conectar{
 								}	
 						}
 			      	}else{
-						  
-							$ver=mysqli_fetch_row($result);
-							$datos=array(
-								'f_emi' => $ver[0],
-								'f_desdepoliza' => $ver[1],
-								'f_hastapoliza' => $ver[2],
-								'id_cod_ramo' => $ver[3],
-								'id_cia' => $ver[4],
-								'tcobertura' => $ver[5],
-								'id_titular' => $ver[6],
-								'id_tomador' => $ver[7],
-								'f_desderecibo' => $ver[8],
-								'f_hastarecibo' => $ver[9],
-								'codvend' => $ver[10],
-								'ci' => $ver[11],
-								'currency' => $ver[12],
-								'idnom' => $ver[13],
-								'nombre_t' => $ver[14],
-								'apellido_t' => $ver[15],
-								'placa' => $ver[16],
-								'tveh' => $ver[17],
-								'marca' => $ver[18],
-								'mveh' => $ver[19],
-								'f_veh' => $ver[20],
-								'serial' => $ver[21],
-								'cveh' => $ver[22],
-								'catveh' => $ver[23],
-								'id_poliza' => $ver[24],
-								't_cuenta' => $ver[25],
-								'cod_poliza' => $ver[26]
-								);
+						  $datos = array();
+						  while ($row = mysqli_fetch_assoc($result)) {
+							$datos[] = $row;
+						  }
+		               		
 							return $datos;
 						}
 			}		
 		}
 
+	
+		
 
 
 
