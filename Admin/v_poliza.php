@@ -273,6 +273,7 @@ if ( (!$con_id) || (!$lr) ) {
                 ?>
       
                     <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                    <br>
                 <?php
                     }else {
                 ?>
@@ -811,7 +812,7 @@ if ( (!$con_id) || (!$lr) ) {
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {
                             $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
-                        }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];} echo $asesorr;
+                        }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];} echo utf8_encode($asesorr);
                     ?></h5>
                     <hr>
 
@@ -907,6 +908,12 @@ if ( (!$con_id) || (!$lr) ) {
 
     <script type="text/javascript">
         $(document).ready(function(){
+            if (<?php echo isset($_GET['pagos']); ?> == 1) {
+                $('#pagos').modal('show'); 
+            }
+
+
+
             $('#btnAgregarnuevo').click(function(){
                 datos=$('#frmnuevo').serialize();
 

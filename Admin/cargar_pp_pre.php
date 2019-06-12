@@ -365,8 +365,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th hidden nowrap>Tipo de Cobertura</th>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?php echo $nombre_ramo[0]['nramo'];?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?php echo $nombre_cia[0]['nomcia'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?php echo utf8_encode($nombre_ramo[0]['nramo']);?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?php echo utf8_encode($nombre_cia[0]['nomcia']);?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <td><input type="text" class="form-control" name="t_cuenta" readonly="readonly" value="<?php echo $t_cuenta;?>"></td>
                                     <td hidden><input type="text" class="form-control" name="t_cobertura" readonly="readonly" value="<?php echo $t_cobertura;?>"></td>
                                 </tr>

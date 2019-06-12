@@ -168,6 +168,38 @@ class Trabajo extends Conectar{
 			}	
 
 
+			public function get_poliza_pre_carga($id_poliza)
+		    {
+		      	$sql="SELECT *  FROM 
+				  	poliza
+					INNER JOIN drecibo, titular, dveh
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_titular = titular.id_titular AND
+					poliza.id_poliza = dveh.idveh AND
+				  	poliza.id_poliza = $id_poliza";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+			      		{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+
+				
+			}
+
+
 		public function get_poliza_total_by_id($id_poliza)
 		    {
 		      	$sql="SELECT *  FROM 
@@ -3253,6 +3285,33 @@ class Trabajo extends Conectar{
 		
 	}
 
+	public function agregarPrePolizaE($datos){
+
+		$sql="INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
+										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
+									values ('$datos[0]',
+											'$datos[2]',
+											'$datos[2]',
+											'$datos[6]',
+											'$datos[2]',
+											'$datos[5]',
+											'$datos[7]',
+											'$datos[8]',
+											'$datos[9]',
+											'$datos[3]',
+											'$datos[10]',
+											'$datos[11]',
+											'$datos[1]',
+											'0',
+											'0',
+											'$datos[12]',
+											'$datos[13]',
+											'$datos[4]')";
+		return mysqli_query(Conectar::con(),$sql);
+		
+	}
+
 	public function agregarAsegurado($asegurado,$id_poliza){
 
 			$sql="INSERT into titular_pre_poliza (asegurado,id_poliza)
@@ -3348,7 +3407,7 @@ class Trabajo extends Conectar{
 
 			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -3370,7 +3429,7 @@ class Trabajo extends Conectar{
 						
 						$sql1="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
 		                    poliza
 		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
 		                  	WHERE 
@@ -3393,7 +3452,7 @@ class Trabajo extends Conectar{
 								
 								$sql2="SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza  FROM 
+									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
 				                    poliza
 				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
 				                  	WHERE 
@@ -3408,32 +3467,143 @@ class Trabajo extends Conectar{
 				                    ORDER BY poliza.f_poliza DESC";
 								$result2=mysqli_query(Conectar::con(),$sql2);
 
+								if (!$result2) {
+								    //nada
+								}else{
+									$filas2=mysqli_num_rows($result2); 
+									if ($filas2 == 0) { 
+										//exit();
+									}else{
+										while($row2 = mysqli_fetch_assoc($result2)){
+											$datos2[] = array_map('utf8_encode', $row2);
+										}
+										return $datos2;
+									}
 
-								$datos2 = array();
-							  	while ($row2 = mysqli_fetch_assoc($result2)) {
-									$datos2[] = $row2;
-							  	}
-								return $datos2;
+
+									
+
+								}
 
 								
 					      	}else{
 
-					      			$datos1 = array();
-								  	while ($row1 = mysqli_fetch_assoc($result1)) {
-										$datos1[] = $row1;
-								  	}
-									return $datos1;
+								while($row1 = mysqli_fetch_assoc($result1)){
+									$datos1[] = array_map('utf8_encode', $row1);
+								}
+								return $datos1;
 
 								}	
 						}
 			      	}else{
-						  
-		               		
-							
 
-							while($row = mysqli_fetch_assoc($result)){
-							    $datos[] = array_map('utf8_encode', $row);
-							}
+						while($row = mysqli_fetch_assoc($result)){
+						    $datos[] = array_map('utf8_encode', $row);
+						}
+						return $datos;
+
+						}
+			}		
+		}
+
+
+		public function obtenPolizaE($id){
+
+			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
+							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+                    poliza
+                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
+                  	WHERE 
+                  	poliza.id_poliza = drecibo.idrecibo AND
+                  	poliza.id_titular = titular.id_titular AND 
+                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+                  	poliza.id_cod_ramo = dramo.cod_ramo AND
+                    poliza.id_cia = dcia.idcia AND
+                    poliza.codvend = ena.cod AND
+					poliza.id_poliza = dveh.idveh AND
+                  	poliza.cod_poliza LIKE '%$id%'
+                    ORDER BY poliza.f_poliza DESC";
+			$result=mysqli_query(Conectar::con(),$sql);
+			if (!$result) {
+				    //echo "nada";
+				}else{
+					$filas=mysqli_num_rows($result); 
+					if ($filas == 0) { 
+						
+						$sql1="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
+							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+		                    poliza
+		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
+		                  	WHERE 
+		                  	poliza.id_poliza = drecibo.idrecibo AND
+		                  	poliza.id_titular = titular.id_titular AND 
+		                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+		                  	poliza.id_cod_ramo = dramo.cod_ramo AND
+		                    poliza.id_cia = dcia.idcia AND
+		                    poliza.codvend = enp.cod AND
+							poliza.id_poliza = dveh.idveh AND
+		                  	poliza.cod_poliza LIKE '%$id%'
+		                    ORDER BY poliza.f_poliza DESC";
+						$result1=mysqli_query(Conectar::con(),$sql1);
+
+						if (!$result1) {
+						    //echo "nada";
+						}else{
+							$filas1=mysqli_num_rows($result1); 
+							if ($filas1 == 0) { 
+								
+								$sql2="SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
+									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+				                    poliza
+				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
+				                  	WHERE 
+				                  	poliza.id_poliza = drecibo.idrecibo AND
+				                  	poliza.id_titular = titular.id_titular AND 
+				                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				                  	poliza.id_cod_ramo = dramo.cod_ramo AND
+				                    poliza.id_cia = dcia.idcia AND
+				                    poliza.codvend = enr.cod AND
+									poliza.id_poliza = dveh.idveh AND
+				                  	poliza.cod_poliza LIKE '%$id%'
+				                    ORDER BY poliza.f_poliza DESC";
+								$result2=mysqli_query(Conectar::con(),$sql2);
+
+								if (!$result2) {
+								    //nada
+								}else{
+									$filas2=mysqli_num_rows($result2); 
+									if ($filas2 == 0) { 
+										//exit();
+									}else{
+										while($row2 = mysqli_fetch_assoc($result2)){
+											$datos2[] = array_map('utf8_encode', $row2);
+										}
+										return $datos2;
+									}
+
+
+									
+
+								}
+
+								
+					      	}else{
+
+								while($row1 = mysqli_fetch_assoc($result1)){
+									$datos1[] = array_map('utf8_encode', $row1);
+								}
+								return $datos1;
+
+								}	
+						}
+			      	}else{
+
+						while($row = mysqli_fetch_assoc($result)){
+						    $datos[] = array_map('utf8_encode', $row);
+						}
 						return $datos;
 
 						}
@@ -3505,104 +3675,27 @@ class Trabajo extends Conectar{
 				                    ORDER BY poliza.f_poliza DESC";
 								$result2=mysqli_query(Conectar::con(),$sql2);
 
-								$ver2=mysqli_fetch_row($result2);
-								$datos2=array(
-									'f_emi' => $ver2[0],
-									'f_desdepoliza' => $ver2[1],
-									'f_hastapoliza' => $ver2[2],
-									'id_cod_ramo' => $ver2[3],
-									'id_cia' => $ver2[4],
-									'tcobertura' => $ver2[5],
-									'id_titular' => $ver2[6],
-									'id_tomador' => $ver2[7],
-									'f_desderecibo' => $ver2[8],
-									'f_hastarecibo' => $ver2[9],
-									'codvend' => $ver2[10],
-									'ci' => $ver2[11],
-									'currency' => $ver2[12],
-									'idnom' => $ver2[13],
-									'nombre_t' => $ver2[14],
-									'apellido_t' => $ver2[15],
-									'placa' => $ver2[16],
-									'tveh' => $ver2[17],
-									'marca' => $ver2[18],
-									'mveh' => $ver2[19],
-									'f_veh' => $ver2[20],
-									'serial' => $ver2[21],
-									'cveh' => $ver2[22],
-									'catveh' => $ver2[23],
-									'id_poliza' => $ver2[24],
-									't_cuenta' => $ver2[25],
-									'cod_poliza' => $ver2[26]
-									);
+								while($row2 = mysqli_fetch_assoc($result2)){
+									$datos2[] = array_map('utf8_encode', $row2);
+								}
 								return $datos2;
+
+								
 					      	}else{
-				               		$ver1=mysqli_fetch_row($result1);
-									$datos1=array(
-										'f_emi' => $ver1[0],
-										'f_desdepoliza' => $ver1[1],
-										'f_hastapoliza' => $ver1[2],
-										'id_cod_ramo' => $ver1[3],
-										'id_cia' => $ver1[4],
-										'tcobertura' => $ver1[5],
-										'id_titular' => $ver1[6],
-										'id_tomador' => $ver1[7],
-										'f_desderecibo' => $ver1[8],
-										'f_hastarecibo' => $ver1[9],
-										'codvend' => $ver1[10],
-										'ci' => $ver1[11],
-										'currency' => $ver1[12],
-										'idnom' => $ver1[13],
-										'nombre_t' => $ver1[14],
-										'apellido_t' => $ver1[15],
-										'placa' => $ver1[16],
-										'tveh' => $ver1[17],
-										'marca' => $ver1[18],
-										'mveh' => $ver1[19],
-										'f_veh' => $ver1[20],
-										'serial' => $ver1[21],
-										'cveh' => $ver1[22],
-										'catveh' => $ver1[23],
-										'id_poliza' => $ver1[24],
-										't_cuenta' => $ver1[25],
-										'cod_poliza' => $ver1[26]
-										);
-									return $datos1;
+								while($row1 = mysqli_fetch_assoc($result1)){
+									$datos1[] = array_map('utf8_encode', $row1);
+								}
+								return $datos1;
+				               		
 								}	
 						}
 			      	}else{
-						  
-							$ver=mysqli_fetch_row($result);
-							$datos=array(
-								'f_emi' => $ver[0],
-								'f_desdepoliza' => $ver[1],
-								'f_hastapoliza' => $ver[2],
-								'id_cod_ramo' => $ver[3],
-								'id_cia' => $ver[4],
-								'tcobertura' => $ver[5],
-								'id_titular' => $ver[6],
-								'id_tomador' => $ver[7],
-								'f_desderecibo' => $ver[8],
-								'f_hastarecibo' => $ver[9],
-								'codvend' => $ver[10],
-								'ci' => $ver[11],
-								'currency' => $ver[12],
-								'idnom' => $ver[13],
-								'nombre_t' => $ver[14],
-								'apellido_t' => $ver[15],
-								'placa' => $ver[16],
-								'tveh' => $ver[17],
-								'marca' => $ver[18],
-								'mveh' => $ver[19],
-								'f_veh' => $ver[20],
-								'serial' => $ver[21],
-								'cveh' => $ver[22],
-								'catveh' => $ver[23],
-								'id_poliza' => $ver[24],
-								't_cuenta' => $ver[25],
-								'cod_poliza' => $ver[26]
-								);
-							return $datos;
+						while($row = mysqli_fetch_assoc($result)){
+						    $datos[] = array_map('utf8_encode', $row);
+						}
+						return $datos;
+						
+							
 						}
 			}		
 		}

@@ -1025,9 +1025,15 @@ if(isset($_SESSION['seudonimo'])) {
              if(isNaN(this.value+String.fromCharCode(e5.charCode)))
                 return false;
           }
+          ele5.onpaste = function(e5){
+             e5.preventDefault();
+          }
           ele6.onkeypress = function(e6) {
              if(isNaN(this.value+String.fromCharCode(e6.charCode)))
                 return false;
+          }
+          ele6.onpaste = function(e6){
+             e6.preventDefault();
           }
         }
 
@@ -1042,82 +1048,80 @@ if(isset($_SESSION['seudonimo'])) {
                     datos=jQuery.parseJSON(r);
 
 
-                    if (datos.length == 0) {
+                    if (datos== null) {
+                        $('#id_new_titular').val("");
+                        $('#existeP').text("");
+                        $('#no_existeP').text("No Existe Póliza");
+                        $('#titular').val("");
+                        $('#n_titular').val("");
+                        $('#a_titular').val("");
 
-                        if (datos['id_poliza']==null) {
-                            $('#id_new_titular').val("");
-                            $('#existeP').text("");
-                            $('#no_existeP').text("No Existe Póliza");
-                            $('#titular').val("");
-                            $('#n_titular').val("");
-                            $('#a_titular').val("");
+                        $('#titular').removeAttr("readonly",true);
+                        $('#titular').attr('onblur','validartitular(this)');
+                
+                        $('#tipo_poliza option:first').prop('selected',true);
 
-                            $('#titular').removeAttr("readonly",true);
-                            $('#titular').attr('onblur','validartitular(this)');
-                 
-                            $('#tipo_poliza option:first').prop('selected',true);
+                        $('#ramo option:first').prop('selected',true);
+                        $('#ramo').css('pointer-events','auto');
+                        $("#ramo").css('background-color', 'white');
+                        $('#cia option:first').prop('selected',true);
+                        $('#cia').css('pointer-events','auto');
+                        $("#cia").css('background-color', 'white');
+                        $('#t_cuenta option:first').prop('selected',true);
+                        $('#t_cuenta').css('pointer-events','auto');
+                        $("#t_cuenta").css('background-color', 'white');
+                        $("#emisionP").val("");
+                        //$("#emisionP").css('background-color', 'transparent');
+                        //$("#emisionP").css('color', 'black');
+                        $('#desdeP').val("");
+                        $('#hastaP').val("");
+                        
+                        $('#btnForm').removeAttr('disabled');
 
-                            $('#ramo option:first').prop('selected',true);
-                            $('#ramo').css('pointer-events','auto');
-                            $("#ramo").css('background-color', 'white');
-                            $('#cia option:first').prop('selected',true);
-                            $('#cia').css('pointer-events','auto');
-                            $("#cia").css('background-color', 'white');
-                            $('#t_cuenta option:first').prop('selected',true);
-                            $('#t_cuenta').css('pointer-events','auto');
-                            $("#t_cuenta").css('background-color', 'white');
-                            $("#emisionP").val("");
-                            //$("#emisionP").css('background-color', 'transparent');
-                            //$("#emisionP").css('color', 'black');
-                            $('#desdeP').val("");
-                            $('#hastaP').val("");
-                            
-                            $('#btnForm').removeAttr('disabled');
-
-                            var emisionP = new Date();
-                            var desdeP = $('#desdeP').val();
-                            var hastaP = $('#hastaP').val();
-                            $( "#emisionP" ).datepicker( "setDate", emisionP );
-                            $( "#desdeP" ).datepicker( "setDate", desdeP );
-                            $( "#hastaP" ).datepicker( "setDate", hastaP );
-                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
-                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+                        var emisionP = new Date();
+                        var desdeP = $('#desdeP').val();
+                        var hastaP = $('#hastaP').val();
+                        $( "#emisionP" ).datepicker( "setDate", emisionP );
+                        $( "#desdeP" ).datepicker( "setDate", desdeP );
+                        $( "#hastaP" ).datepicker( "setDate", hastaP );
+                        $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                        $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
 
-                            $('#t_cobertura').val("");
-                            $('#t_cobertura').removeAttr('readonly');
-                            $('#currency option:first').prop('selected',true);
-                            $('#currency').css('pointer-events','auto');
-                            $("#currency").css('background-color', 'white');
+                        $('#t_cobertura').val("");
+                        $('#t_cobertura').removeAttr('readonly');
+                        $('#currency option:first').prop('selected',true);
+                        $('#currency').css('pointer-events','auto');
+                        $("#currency").css('background-color', 'white');
 
 
 
-                            $('#tomador').val("");
-                            $('#n_tomador').val("");
-                            $('#a_tomador').val("");
+                        $('#tomador').val("");
+                        $('#n_tomador').val("");
+                        $('#a_tomador').val("");
 
-                           $('#asesor option:first').prop('selected',true);
+                        $('#asesor option:first').prop('selected',true);
 
-                            $('#existeT').text("");
-                            $('#no_existeT').text("");
-                            $('#titular').val("");
+                        $('#existeT').text("");
+                        $('#no_existeT').text("");
+                        $('#titular').val("");
 
-                            $('#tablatomador').attr("hidden",true);
+                        $('#tablatomador').attr("hidden",true);
 
-                            $('#existeTom').text("");
-                            $('#no_existeTom').text("");
-                            $("#tomador").css('color', 'black');
+                        $('#existeTom').text("");
+                        $('#no_existeTom').text("");
+                        $("#tomador").css('color', 'black');
 
-                            $('#tablaveh').attr('hidden',true);
-                            $('#placa').val('');
-                            $('#tipo').val('');
-                            $('#marca').val('');
-                            $('#modelo').val('');
-                            $('#anio').val('');
-                            $('#serial').val('');
-                            $('#color').val('');
-                            $('#categoria').val('');
-                        }
+                        $('#tablaveh').attr('hidden',true);
+                        $('#placa').val('');
+                        $('#tipo').val('');
+                        $('#marca').val('');
+                        $('#modelo').val('');
+                        $('#anio').val('');
+                        $('#serial').val('');
+                        $('#color').val('');
+                        $('#categoria').val('');
+                        
 
                     }else{
                         

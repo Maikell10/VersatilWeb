@@ -10,7 +10,7 @@ if(isset($_SESSION['seudonimo'])) {
   
   require_once("../../class/clases.php");
 
-
+  
 
 
 if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
@@ -328,7 +328,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                                     
                                 </tr>
-                                <tr><td colspan="7" style="padding:0px;background-color: white"><a style="width: 100%" href="" class="btn btn-round btn btn-danger" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
+                                <tr><td colspan="7" style="padding:0px;background-color: white;text-align: center"><a style="width: 40%" href="" class="btn btn-round btn btn-primary" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
                                 
                             </tbody>
                             <?php
@@ -336,10 +336,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             ?>
                         </table>
                         
-                        <input style="width:100%" type="button" onclick="deleterow()" class="btn btn-danger borrar" value="Eliminar Última Fila" id="borrar"/>
+                        
                         
                         
                     </div>
+                    <input style="width:40%" type="button" onclick="deleterow()" class="btn btn-danger borrar" value="Eliminar Última Fila" id="borrar"/>
 
                         <?php
                         $primaRestante=$_GET['primat_com']-isset($totalprimaant);
@@ -402,7 +403,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
 
-
         
     </div>
 
@@ -460,7 +460,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 <div class="modal-body">
                     <form id="frmnuevoP">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <thead style="background-color: purple;color: white; font-weight: bold;">
                                 <tr>
                                 <th>Nº de Póliza</th>
                                 <th>Nombre Asegurado</th>
@@ -476,7 +476,58 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
+                    <button type="button" id="btnAgregarnuevo" class="btn btn-primary">Agregar nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Pre-CArga Poliza Existente-->
+    <div class="modal fade" id="precargapolizaE" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agrega nueva Pre-Póliza</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmnuevoPE">
+                        <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable1">
+                            <thead style="background-color: #2737B0;color: white; font-weight: bold;">
+                                <tr>
+                                <th>Nº de Póliza</th>
+                                <th>Asegurado</th>
+                                <th>F Desde Seg</th>
+                                <th>F Hasta Seg</th>
+                                <th hidden>Cía</th>
+                                <th hidden>id poliza</th>
+                                </tr>
+                            </thead>
+                                <tr style="background-color:white">
+                                    <td><input type="text" class="form-control" id="num_polizaE" name="num_polizaE" readonly></td>
+                                    <td><input type="text" class="form-control" id="aseguradoE" name="aseguradoE" readonly></td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="f_desde_se" name="f_desde_se" required readonly> 
+                                        </div>
+                                    </td>
+                                    <td><div class="input-group date">
+                                            <input type="text" class="form-control" id="f_hasta_se" name="f_hasta_se" required readonly> 
+                                        </div>
+                                    </td>
+                                    <td hidden><input type="text" class="form-control" id="idciaE" name="idciaE" readonly value="<?php echo $idcia;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="idpolizaE" name="idpolizaE"></td>
+                                </tr>
+                        </table>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnAgregarnuevoE" class="btn btn-primary">Pre-Cargar Póliza</button>
                 </div>
             </div>
         </div>
@@ -490,14 +541,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
     <script>
-        $(document).ready(function(){
-
-            var variable='<?php echo $cant_poliza;?>';
-            $('#cant_poliza').val('<?php echo $cant_poliza;?>');
-            
-            console.log(variable);
-
-        });
         function deleterow() {
             
             if ($('#cant_poliza').val()==1 ) {
@@ -558,6 +601,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
         $(document).ready(function(){
 
+            
             $('#btnAgregarnuevo').click(function(){
                 
 
@@ -718,6 +762,35 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     }
                 });
             });
+
+            $('#btnAgregarnuevoE').click(function(){
+                
+
+                
+                datos=$('#frmnuevoPE').serialize();
+                var num_poliza = $('#num_polizaE').val();
+
+                $.ajax({
+                    type:"POST",
+                    data:datos,
+                    url:"../../procesos/agregarPrePolizaE.php",
+                    success:function(r){
+                        if(r==1){
+                            $('#frmnuevoP')[0].reset();
+                            
+                            alertify.set('notifier','position', 'top-center');
+                            var msg = alertify.success('Agregada con Exito!! Vuelva a hacer click en Nº de Póliza y luego seleccione la Póliza', 'custom', 2, function(){console.log('dismissed');});
+                            msg.delay(8);
+
+                            $('#precargapolizaE').modal('hide');
+
+                        }else{
+                            alertify.error("Fallo al agregar!");
+                            
+                        }
+                    }
+                });
+            });
         });
 
 
@@ -833,9 +906,17 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         });
         $("#f_pago9").datepicker("setDate", $("#f_hasta").val());
 
+
         
 
-        function btnPoliza0(id_poliza) {
+        
+        function btnPrePolizaE(id_poliza, cod_poliza) {
+            $('#idpolizaE').val(id_poliza);   
+            $('#num_polizaE').val(cod_poliza);    
+            
+            $('#polizaexistente').modal('hide'); 
+            $('#precargapolizaE').modal({backdrop: 'static', keyboard: false});
+            $('#precargapolizaE').modal('show'); 
 
             $.ajax({
                 type:"POST",
@@ -844,12 +925,42 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 success:function(r){
                     datos=jQuery.parseJSON(r);
                     console.log(datos);
-                    if (datos['id_poliza']==null) {
+                    if (datos[0]['id_poliza']==null) {
                         console.log('vacio');
                         alert('seleccione una póliza');
                     }
                     else{
-                        console.log(datos['idnom']);
+                        console.log(datos[0]['nombre_t']);
+                        $('#aseguradoE').val(datos[0]['nombre_t'] + ' ' + datos[0]['apellido_t']);  
+
+                        var f = new Date(datos[0]['f_desdepoliza']);
+                        var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + (f.getFullYear()+1);
+                        var f = new Date(datos[0]['f_hastapoliza']);
+                        var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + (f.getFullYear()+1);
+
+                        $('#f_desde_se').val(f_desde); 
+
+                        $('#f_hasta_se').val(f_hasta);  
+                        
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza0(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    console.log(datos);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        console.log(datos[0]['idnom']);
                         $("#n_poliza0").css('background-color', 'green');
                         $("#n_poliza0").css('color', 'white');
 
@@ -858,14 +969,330 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         
                         $('#btnPre0').attr('hidden',true);
                               
-                        $('#nom_titu0').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor0').val(datos['idnom']);    
+                        $('#nom_titu0').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor0').val(datos[0]['idnom']);    
 
-                        $('#codasesor0').val(datos['codvend']);  
+                        $('#codasesor0').val(datos[0]['codvend']);  
 
-                        $('#id_poliza0').val(datos['id_poliza']);
+                        $('#id_poliza0').val(datos[0]['id_poliza']);
 
-                        $('#n_poliza0').val(datos['cod_poliza']);      
+                        $('#n_poliza0').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza1(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza1").css('background-color', 'green');
+                        $("#n_poliza1").css('color', 'white');
+
+                        $('#n_poliza1').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre1').attr('hidden',true);
+                              
+                        $('#nom_titu1').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor1').val(datos[0]['idnom']);    
+
+                        $('#codasesor1').val(datos[0]['codvend']);  
+
+                        $('#id_poliza1').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza1').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza2(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza2").css('background-color', 'green');
+                        $("#n_poliza2").css('color', 'white');
+
+                        $('#n_poliza2').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre2').attr('hidden',true);
+                              
+                        $('#nom_titu2').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor2').val(datos[0]['idnom']);    
+
+                        $('#codasesor2').val(datos[0]['codvend']);  
+
+                        $('#id_poliza2').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza2').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+
+        function btnPoliza3(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza3").css('background-color', 'green');
+                        $("#n_poliza3").css('color', 'white');
+
+                        $('#n_poliza3').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre3').attr('hidden',true);
+                              
+                        $('#nom_titu3').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor3').val(datos[0]['idnom']);    
+
+                        $('#codasesor3').val(datos[0]['codvend']);  
+
+                        $('#id_poliza3').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza3').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza4(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza4").css('background-color', 'green');
+                        $("#n_poliza4").css('color', 'white');
+
+                        $('#n_poliza4').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre4').attr('hidden',true);
+                              
+                        $('#nom_titu4').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor4').val(datos[0]['idnom']);    
+
+                        $('#codasesor4').val(datos[0]['codvend']);  
+
+                        $('#id_poliza4').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza4').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza5(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza5").css('background-color', 'green');
+                        $("#n_poliza5").css('color', 'white');
+
+                        $('#n_poliza5').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre5').attr('hidden',true);
+                              
+                        $('#nom_titu5').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor5').val(datos[0]['idnom']);    
+
+                        $('#codasesor5').val(datos[0]['codvend']);  
+
+                        $('#id_poliza5').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza5').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza6(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza6").css('background-color', 'green');
+                        $("#n_poliza6").css('color', 'white');
+
+                        $('#n_poliza6').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre6').attr('hidden',true);
+                              
+                        $('#nom_titu6').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor6').val(datos[0]['idnom']);    
+
+                        $('#codasesor6').val(datos[0]['codvend']);  
+
+                        $('#id_poliza6').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza6').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza7(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza7").css('background-color', 'green');
+                        $("#n_poliza7").css('color', 'white');
+
+                        $('#n_poliza7').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre7').attr('hidden',true);
+                              
+                        $('#nom_titu7').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor7').val(datos[0]['idnom']);    
+
+                        $('#codasesor7').val(datos[0]['codvend']);  
+
+                        $('#id_poliza7').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza7').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza8(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza8").css('background-color', 'green');
+                        $("#n_poliza8").css('color', 'white');
+
+                        $('#n_poliza8').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre8').attr('hidden',true);
+                              
+                        $('#nom_titu8').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor8').val(datos[0]['idnom']);    
+
+                        $('#codasesor8').val(datos[0]['codvend']);  
+
+                        $('#id_poliza8').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza8').val(datos[0]['cod_poliza']);      
+                        
+                        $('#polizaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function btnPoliza9(id_poliza) {
+            $.ajax({
+                type:"POST",
+                data:"id_poliza=" + id_poliza,        
+                url:"validarpoliza_id.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    if (datos[0]['id_poliza']==null) {
+                        console.log('vacio');
+                        alert('seleccione una póliza');
+                    }
+                    else{
+                        $("#n_poliza9").css('background-color', 'green');
+                        $("#n_poliza9").css('color', 'white');
+
+                        $('#n_poliza9').attr('data-original-title','Póliza Existente');   
+                        $('#btnForm').removeAttr('disabled');   
+                        
+                        $('#btnPre9').attr('hidden',true);
+                              
+                        $('#nom_titu9').val(datos[0]['nombre_t']+" "+datos[0]['apellido_t']);   
+                        $('#asesor9').val(datos[0]['idnom']);    
+
+                        $('#codasesor9').val(datos[0]['codvend']);  
+
+                        $('#id_poliza9').val(datos[0]['id_poliza']);
+
+                        $('#n_poliza9').val(datos[0]['cod_poliza']);      
                         
                         $('#polizaexistente').modal('hide'); 
                     }
@@ -876,17 +1303,21 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
         function validarPoliza0(num_poliza){
+
+            if($("#n_poliza0").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            } 
             $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
-                url:"validarpoliza.php",
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
+                    console.log(datos);
 
 
-                    if (datos.length == null) {
-
-                        if (datos['id_poliza']==null) {
+                    if (datos == null) {
                             $("#n_poliza0").css('background-color', 'red');
                             $("#n_poliza0").css('color', 'white');
                  
@@ -897,8 +1328,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                             $('#nom_titu0').val('');
                             $('#asesor0').val('');
-                        }
-
                     }
                     else{
 
@@ -915,8 +1344,99 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             $('#asesor0').val('');
                         }
                         else{
-                            
+                            $("#tablaPE  tbody").empty();
 
+                            for (let index = 0; index < datos.length; index++) {
+
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+                                    var nombre_t=datos[index]['nombre_t'];
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
+                }
+            });
+        }
+
+        function validarPoliza1(num_poliza){
+            if($("#n_poliza1").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
+            $.ajax({
+                type:"POST",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+
+                    if (datos == null) {
+                            $("#n_poliza1").css('background-color', 'red');
+                            $("#n_poliza1").css('color', 'white');
+                 
+                            $('#n_poliza1').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
+
+                            $('#btnPre1').removeAttr('hidden');
+
+                            $('#nom_titu1').val('');
+                            $('#asesor1').val('');
+                    }
+                    else{
+
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza1").css('background-color', 'red');
+                            $("#n_poliza1").css('color', 'white');
+                 
+                            $('#n_poliza1').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
+
+                            $('#btnPre1').removeAttr('hidden');
+
+                            $('#nom_titu1').val('');
+                            $('#asesor1').val('');
+                        }
+                        else{
                             $("#tablaPE  tbody").empty();
 
                             for (let index = 0; index < datos.length; index++) {
@@ -935,411 +1455,770 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 {
                                     //console.log('vigente');
 
-                                    var htmlTags = '<tr>'+
-                                        '<td>' + datos[index]['id_poliza'] + '</td>'+
+                                    var htmlTags = '<tr ondblclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
                                         '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
-                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
 
                                 } else {
                                     
                                     //console.log('vencida');
 
-                                    var htmlTags = '<tr>'+
-                                        '<td>' + datos[index]['id_poliza'] + '</td>'+
+                                    var htmlTags = '<tr ondblclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
                                         '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
-                                        '<td style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success">Seleccionar</a></td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
                                 }
-
-                                
-                                
-
-                                
-
                                 $('#tablaPE tbody').append(htmlTags);
                             }
                             
-                            
-
-                        $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
                             $('#polizaexistente').modal('show'); 
 
-
                         }
-
-                    }
-                    
-
-                    
-
-                    
-                }
-            });
-        }
-
-        function validarPoliza1(num_poliza){
-            $.ajax({
-                type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza1").css('background-color', 'red');
-                        $("#n_poliza1").css('color', 'white');
-             
-                        $('#n_poliza1').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
-
-                        $('#btnPre1').removeAttr('hidden');
-
-                        $('#nom_titu1').val('');
-                        $('#asesor1').val('');
-                    }
-                    else{
-                        $("#n_poliza1").css('background-color', 'green');
-                        $("#n_poliza1").css('color', 'white');
-
-                        $('#n_poliza1').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');    
-
-                        $('#btnPre1').attr('hidden',true);
-
-                        $('#nom_titu1').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor1').val(datos['idnom']);     
-
-                        $('#codasesor1').val(datos['codvend']);       
-
-                        $('#id_poliza1').val(datos['id_poliza']);     
-                    }
+                    } 
                 }
             });
         }
 
         function validarPoliza2(num_poliza){
+            if($("#n_poliza2").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
+                    if (datos == null) {
+                            $("#n_poliza2").css('background-color', 'red');
+                            $("#n_poliza2").css('color', 'white');
+                 
+                            $('#n_poliza2').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza2").css('background-color', 'red');
-                        $("#n_poliza2").css('color', 'white');
-             
-                        $('#n_poliza2').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
+                            $('#btnPre2').removeAttr('hidden');
 
-                        $('#btnPre2').removeAttr('hidden');
-
-                        $('#nom_titu2').val('');
-                        $('#asesor2').val('');
+                            $('#nom_titu2').val('');
+                            $('#asesor2').val('');
                     }
                     else{
-                        $("#n_poliza2").css('background-color', 'green');
-                        $("#n_poliza2").css('color', 'white');
 
-                        $('#n_poliza2').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled'); 
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza2").css('background-color', 'red');
+                            $("#n_poliza2").css('color', 'white');
+                 
+                            $('#n_poliza2').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre2').attr('hidden',true);
+                            $('#btnPre2').removeAttr('hidden');
 
-                        $('#nom_titu2').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor2').val(datos['idnom']);   
+                            $('#nom_titu2').val('');
+                            $('#asesor2').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor2').val(datos['codvend']);   
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza2').val(datos['id_poliza']);              
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza3(num_poliza){
+            if($("#n_poliza3").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza3").css('background-color', 'red');
-                        $("#n_poliza3").css('color', 'white');
-             
-                        $('#n_poliza3').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre3').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza3").css('background-color', 'red');
+                            $("#n_poliza3").css('color', 'white');
+                 
+                            $('#n_poliza3').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu3').val('');
-                        $('#asesor3').val('');
+                            $('#btnPre3').removeAttr('hidden');
+
+                            $('#nom_titu3').val('');
+                            $('#asesor3').val('');
                     }
                     else{
-                        $("#n_poliza3").css('background-color', 'green');
-                        $("#n_poliza3").css('color', 'white');
 
-                        $('#n_poliza3').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza3").css('background-color', 'red');
+                            $("#n_poliza3").css('color', 'white');
+                 
+                            $('#n_poliza3').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre3').attr('hidden',true);
+                            $('#btnPre3').removeAttr('hidden');
 
-                        $('#nom_titu3').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor3').val(datos['idnom']);      
+                            $('#nom_titu3').val('');
+                            $('#asesor3').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor3').val(datos['codvend']);    
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza3').val(datos['id_poliza']);        
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza4(num_poliza){
+            if($("#n_poliza4").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza4").css('background-color', 'red');
-                        $("#n_poliza4").css('color', 'white');
-             
-                        $('#n_poliza4').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre4').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza4").css('background-color', 'red');
+                            $("#n_poliza4").css('color', 'white');
+                 
+                            $('#n_poliza4').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu4').val('');
-                        $('#asesor4').val('');
+                            $('#btnPre4').removeAttr('hidden');
+
+                            $('#nom_titu4').val('');
+                            $('#asesor4').val('');
                     }
                     else{
-                        $("#n_poliza4").css('background-color', 'green');
-                        $("#n_poliza4").css('color', 'white');
 
-                        $('#n_poliza4').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza4").css('background-color', 'red');
+                            $("#n_poliza4").css('color', 'white');
+                 
+                            $('#n_poliza4').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre4').attr('hidden',true);
+                            $('#btnPre4').removeAttr('hidden');
 
-                        $('#nom_titu4').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor4').val(datos['idnom']);    
+                            $('#nom_titu4').val('');
+                            $('#asesor4').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor4').val(datos['codvend']);    
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza4').val(datos['id_poliza']);          
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza5(num_poliza){
+            if($("#n_poliza5").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza5").css('background-color', 'red');
-                        $("#n_poliza5").css('color', 'white');
-             
-                        $('#n_poliza5').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre5').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza5").css('background-color', 'red');
+                            $("#n_poliza5").css('color', 'white');
+                 
+                            $('#n_poliza5').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu5').val('');
-                        $('#asesor5').val('');
+                            $('#btnPre5').removeAttr('hidden');
+
+                            $('#nom_titu5').val('');
+                            $('#asesor5').val('');
                     }
                     else{
-                        $("#n_poliza5").css('background-color', 'green');
-                        $("#n_poliza5").css('color', 'white');
 
-                        $('#n_poliza5').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza5").css('background-color', 'red');
+                            $("#n_poliza5").css('color', 'white');
+                 
+                            $('#n_poliza5').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre5').attr('hidden',true);
+                            $('#btnPre5').removeAttr('hidden');
 
-                        $('#nom_titu5').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor5').val(datos['idnom']);       
+                            $('#nom_titu5').val('');
+                            $('#asesor5').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor5').val(datos['codvend']);    
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza5').val(datos['id_poliza']);       
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza6(num_poliza){
+            if($("#n_poliza6").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza6").css('background-color', 'red');
-                        $("#n_poliza6").css('color', 'white');
-             
-                        $('#n_poliza6').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre6').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza6").css('background-color', 'red');
+                            $("#n_poliza6").css('color', 'white');
+                 
+                            $('#n_poliza6').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu6').val('');
-                        $('#asesor6').val('');
+                            $('#btnPre6').removeAttr('hidden');
+
+                            $('#nom_titu6').val('');
+                            $('#asesor6').val('');
                     }
                     else{
-                        $("#n_poliza6").css('background-color', 'green');
-                        $("#n_poliza6").css('color', 'white');
 
-                        $('#n_poliza6').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza6").css('background-color', 'red');
+                            $("#n_poliza6").css('color', 'white');
+                 
+                            $('#n_poliza6').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre6').attr('hidden',true);
+                            $('#btnPre6').removeAttr('hidden');
 
-                        $('#nom_titu6').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor6').val(datos['idnom']);       
+                            $('#nom_titu6').val('');
+                            $('#asesor6').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor6').val(datos['codvend']);  
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza6').val(datos['id_poliza']);         
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza7(num_poliza){
+            if($("#n_poliza7").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza7").css('background-color', 'red');
-                        $("#n_poliza7").css('color', 'white');
-             
-                        $('#n_poliza7').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre7').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza7").css('background-color', 'red');
+                            $("#n_poliza7").css('color', 'white');
+                 
+                            $('#n_poliza7').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu7').val('');
-                        $('#asesor7').val('');
+                            $('#btnPre7').removeAttr('hidden');
+
+                            $('#nom_titu7').val('');
+                            $('#asesor7').val('');
                     }
                     else{
-                        $("#n_poliza7").css('background-color', 'green');
-                        $("#n_poliza7").css('color', 'white');
 
-                        $('#n_poliza7').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
-                        
-                        $('#btnPre7').attr('hidden',true);
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza7").css('background-color', 'red');
+                            $("#n_poliza7").css('color', 'white');
+                 
+                            $('#n_poliza7').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu7').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor7').val(datos['idnom']);     
+                            $('#btnPre7').removeAttr('hidden');
 
-                        $('#codasesor7').val(datos['codvend']);   
+                            $('#nom_titu7').val('');
+                            $('#asesor7').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#id_poliza7').val(datos['id_poliza']);        
-                    }
+                            for (let index = 0; index < datos.length; index++) {
+
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza8(num_poliza){
+            if($("#n_poliza8").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza8").css('background-color', 'red');
-                        $("#n_poliza8").css('color', 'white');
-             
-                        $('#n_poliza8').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre8').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza8").css('background-color', 'red');
+                            $("#n_poliza8").css('color', 'white');
+                 
+                            $('#n_poliza8').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu8').val('');
-                        $('#asesor8').val('');
+                            $('#btnPre8').removeAttr('hidden');
+
+                            $('#nom_titu8').val('');
+                            $('#asesor8').val('');
                     }
                     else{
-                        $("#n_poliza8").css('background-color', 'green');
-                        $("#n_poliza8").css('color', 'white');
 
-                        $('#n_poliza8').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');  
-                        
-                        $('#btnPre8').attr('hidden',true);
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza8").css('background-color', 'red');
+                            $("#n_poliza8").css('color', 'white');
+                 
+                            $('#n_poliza8').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu8').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor8').val(datos['idnom']);    
+                            $('#btnPre8').removeAttr('hidden');
 
-                        $('#codasesor8').val(datos['codvend']);     
+                            $('#nom_titu8').val('');
+                            $('#asesor8').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#id_poliza8').val(datos['id_poliza']);       
-                    }
+                            for (let index = 0; index < datos.length; index++) {
+
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
 
         function validarPoliza9(num_poliza){
+            if($("#n_poliza9").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            }
             $.ajax({
                 type:"POST",
-                data:"num_poliza=" + num_poliza.value,
-                url:"validarpoliza.php",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 
-                    if (datos['id_cod_ramo']==null) {
-                        $("#n_poliza9").css('background-color', 'red');
-                        $("#n_poliza9").css('color', 'white');
-             
-                        $('#n_poliza9').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
-                        $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre9').removeAttr('hidden');
+                    if (datos == null) {
+                            $("#n_poliza9").css('background-color', 'red');
+                            $("#n_poliza9").css('color', 'white');
+                 
+                            $('#n_poliza9').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#nom_titu9').val('');
-                        $('#asesor9').val('');
+                            $('#btnPre9').removeAttr('hidden');
+
+                            $('#nom_titu9').val('');
+                            $('#asesor9').val('');
                     }
                     else{
-                        $("#n_poliza9").css('background-color', 'green');
-                        $("#n_poliza9").css('color', 'white');
 
-                        $('#n_poliza9').attr('data-original-title','Póliza Existente');   
-                        $('#btnForm').removeAttr('disabled');   
+                        if (datos[0]['id_poliza']==null) {
+                            $("#n_poliza9").css('background-color', 'red');
+                            $("#n_poliza9").css('color', 'white');
+                 
+                            $('#n_poliza9').attr('data-original-title','No Existe la Póliza para la Compañía Seleccionada, Debe Crearla y luego volver a introducir su Nº');
+                            $('#btnForm').attr('disabled',true);
 
-                        $('#btnPre9').attr('hidden',true);
+                            $('#btnPre9').removeAttr('hidden');
 
-                        $('#nom_titu9').val(datos['nombre_t']+" "+datos['apellido_t']);   
-                        $('#asesor9').val(datos['idnom']);    
+                            $('#nom_titu9').val('');
+                            $('#asesor9').val('');
+                        }
+                        else{
+                            $("#tablaPE  tbody").empty();
 
-                        $('#codasesor9').val(datos['codvend']);     
+                            for (let index = 0; index < datos.length; index++) {
 
-                        $('#id_poliza9').val(datos['id_poliza']);         
-                    }
+                                var d = new Date();
+                                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                
+                                var f = new Date(datos[index]['f_hastapoliza']);
+                                var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+                                var f = new Date(datos[index]['f_desdepoliza']);
+                                var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
+                                {
+                                    //console.log('vigente');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:green">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+
+                                } else {
+                                    
+                                    //console.log('vencida');
+
+                                    var htmlTags = '<tr ondblclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="cursor:pointer">>'+
+                                        '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
+                                        '<td nowrap>' + f_desde + '</td>'+
+                                        '<td nowrap>' + f_hasta + '</td>'+
+                                        '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['prima'] + '</td>'+
+                                        '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
+                                    '</tr>';
+                                }
+                                $('#tablaPE tbody').append(htmlTags);
+                            }
+                            
+                            $('#polizaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#polizaexistente').modal('show'); 
+
+                        }
+                    } 
                 }
             });
         }
@@ -1577,12 +2456,12 @@ console.log(prima9);
                         <table class="table table-hover table-striped table-bordered" id="tablaPE">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>id Poliza</th>
                                     <th>Nº de Póliza</th>
                                     <th>F Desde Seg</th>
                                     <th>F Hasta Seg</th>
                                     <th>Nombre Asegurado</th>
-                                    <th>Cía</th>
+                                    <th>Prima Suscrita</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
