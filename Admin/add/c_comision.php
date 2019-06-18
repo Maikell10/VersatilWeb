@@ -258,6 +258,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     <th>Asesor - Ejecutivo</th>
                                     <th hidden>Cod Asesor - Ejecutivo</th>
                                     <th hidden>idpoliza</th>
+                                    <th hidden>num</th>
                                 </tr>
                             <?php
                                 if ($_GET['exx']==1) {
@@ -294,6 +295,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['cod_vend'];?>" readonly></td>
                                         <td hidden><input type="text" class="form-control" ></td>
                                         <td hidden><input type="text" class="form-control" ></td>
+                                        <td hidden><input type="text" class="form-control" ></td>
                                     </tr>
                             <?php
                                     }
@@ -325,6 +327,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'codasesor'.$i;?>" name="<?php echo 'codasesor'.$i;?>" ></td>
 
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'id_poliza'.$i;?>" name="<?php echo 'id_poliza'.$i;?>" ></td>
+
+                                    <td hidden><input type="text" class="form-control" id="<?php echo 'num'.$i;?>" name="<?php echo 'num'.$i;?>" ></td>
 
                                     
                                 </tr>
@@ -460,7 +464,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 <div class="modal-body">
                     <form id="frmnuevoP">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
-                            <thead style="background-color: purple;color: white; font-weight: bold;">
+                            <thead style="background-color: #2737B0;color: white; font-weight: bold;">
                                 <tr>
                                 <th>Nº de Póliza</th>
                                 <th>Nombre Asegurado</th>
@@ -604,7 +608,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             
             $('#btnAgregarnuevo').click(function(){
                 
-
                 if($("#asegurado").val().length < 1) {  
                     alertify.error("El Nombre del Cliente es Obligatorio");
                     return false;  
@@ -622,7 +625,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             $('#frmnuevoP')[0].reset();
                             alertify.success("Agregada con Exito!!");
 
-                            if (($("#num").val())==0) {
+                            if (($("#num0").val())==0) {
                                 $("#n_poliza0").val(datos['cod_poliza']);
                                 $("#n_poliza0").css('background-color', 'green');
                                 $("#n_poliza0").css('color', 'white');
@@ -635,7 +638,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre0').attr('hidden',true);
                                 $('#id_poliza0').val('0'); 
                             }
-                            if (($("#num").val())==1) {
+                            if (($("#num1").val())==1) {
                                 $("#n_poliza1").val(datos['cod_poliza']);
                                 $("#n_poliza1").css('background-color', 'green');
                                 $("#n_poliza1").css('color', 'white');
@@ -648,7 +651,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre1').attr('hidden',true);
                                 $('#id_poliza1').val('0'); 
                             }
-                            if (($("#num").val())==2) {
+                            if (($("#num2").val())==2) {
                                 $("#n_poliza2").val(datos['cod_poliza']);
                                 $("#n_poliza2").css('background-color', 'green');
                                 $("#n_poliza2").css('color', 'white');
@@ -661,7 +664,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre2').attr('hidden',true);
                                 $('#id_poliza2').val('0'); 
                             }
-                            if (($("#num").val())==3) {
+                            if (($("#num3").val())==3) {
                                 $("#n_poliza3").val(datos['cod_poliza']);
                                 $("#n_poliza3").css('background-color', 'green');
                                 $("#n_poliza3").css('color', 'white');
@@ -674,7 +677,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre3').attr('hidden',true);
                                 $('#id_poliza3').val('0'); 
                             }
-                            if (($("#num").val())==4) {
+                            if (($("#num4").val())==4) {
                                 $("#n_poliza4").val(datos['cod_poliza']);
                                 $("#n_poliza4").css('background-color', 'green');
                                 $("#n_poliza4").css('color', 'white');
@@ -687,7 +690,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre4').attr('hidden',true);
                                 $('#id_poliza4').val('0'); 
                             }
-                            if (($("#num").val())==5) {
+                            if (($("#num5").val())==5) {
                                 $("#n_poliza5").val(datos['cod_poliza']);
                                 $("#n_poliza5").css('background-color', 'green');
                                 $("#n_poliza5").css('color', 'white');
@@ -700,7 +703,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre5').attr('hidden',true);
                                 $('#id_poliza5').val('0'); 
                             }
-                            if (($("#num").val())==6) {
+                            if (($("#num6").val())==6) {
                                 $("#n_poliza6").val(datos['cod_poliza']);
                                 $("#n_poliza6").css('background-color', 'green');
                                 $("#n_poliza6").css('color', 'white');
@@ -713,7 +716,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre6').attr('hidden',true);
                                 $('#id_poliza6').val('0'); 
                             }
-                            if (($("#num").val())==7) {
+                            if (($("#num7").val())==7) {
                                 $("#n_poliza7").val(datos['cod_poliza']);
                                 $("#n_poliza7").css('background-color', 'green');
                                 $("#n_poliza7").css('color', 'white');
@@ -726,7 +729,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre7').attr('hidden',true);
                                 $('#id_poliza7').val('0'); 
                             }
-                            if (($("#num").val())==8) {
+                            if (($("#num8").val())==8) {
                                 $("#n_poliza8").val(datos['cod_poliza']);
                                 $("#n_poliza8").css('background-color', 'green');
                                 $("#n_poliza8").css('color', 'white');
@@ -739,7 +742,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre8').attr('hidden',true);
                                 $('#id_poliza8').val('0'); 
                             }
-                            if (($("#num").val())==9) {
+                            if (($("#num9").val())==9) {
                                 $("#n_poliza9").val(datos['cod_poliza']);
                                 $("#n_poliza9").css('background-color', 'green');
                                 $("#n_poliza9").css('color', 'white');
@@ -1304,6 +1307,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
         function validarPoliza0(num_poliza){
 
+
             if($("#n_poliza0").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
@@ -1368,6 +1372,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1381,6 +1386,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1460,6 +1466,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1473,6 +1480,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1550,6 +1558,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1563,6 +1572,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1642,6 +1652,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1655,6 +1666,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1734,6 +1746,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1747,6 +1760,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1826,6 +1840,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1839,6 +1854,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1918,6 +1934,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -1931,6 +1948,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2010,6 +2028,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2023,6 +2042,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2102,6 +2122,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2115,6 +2136,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2194,6 +2216,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2207,6 +2230,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         '<td nowrap>' + f_desde + '</td>'+
                                         '<td nowrap>' + f_hasta + '</td>'+
                                         '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
+                                        '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                         '<td nowrap>' + datos[index]['prima'] + '</td>'+
                                         '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                     '</tr>';
@@ -2353,69 +2377,70 @@ console.log(prima9);
         function botonPreCarga0(){
             if ($("#n_poliza0").val() != '') {
                 $("#num_poliza").val($("#n_poliza0").val());
-                $("#num").val(0);
+                $("#num0").val(0);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga1(){
             if ($("#n_poliza1").val() != '') {
                 $("#num_poliza").val($("#n_poliza1").val());
-                $("#num").val(1);
+                $("#num1").val(1);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga2(){
             if ($("#n_poliza2").val() != '') {
                 $("#num_poliza").val($("#n_poliza2").val());
-                $("#num").val(2);
+                $("#num2").val(2);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga3(){
             if ($("#n_poliza3").val() != '') {
                 $("#num_poliza").val($("#n_poliza3").val());
-                $("#num").val(3);
+                $("#num3").val(3);
+                $("#asegurado").val('');
             }
         }
         function botonPreCarga4(){
             if ($("#n_poliza4").val() != '') {
                 $("#num_poliza").val($("#n_poliza4").val());
-                $("#num").val(4);
+                $("#num4").val(4);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga5(){
             if ($("#n_poliza5").val() != '') {
                 $("#num_poliza").val($("#n_poliza5").val());
-                $("#num").val(5);
+                $("#num5").val(5);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga6(){
             if ($("#n_poliza6").val() != '') {
                 $("#num_poliza").val($("#n_poliza6").val());
-                $("#num").val(6);
+                $("#num6").val(6);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga7(){
             if ($("#n_poliza7").val() != '') {
                 $("#num_poliza").val($("#n_poliza7").val());
-                $("#num").val(7);
+                $("#num7").val(7);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga8(){
             if ($("#n_poliza8").val() != '') {
                 $("#num_poliza").val($("#n_poliza8").val());
-                $("#num").val(8);
+                $("#num8").val(8);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga9(){
             if ($("#n_poliza9").val() != '') {
                 $("#num_poliza").val($("#n_poliza9").val());
-                $("#num").val(9);
+                $("#num9").val(9);
                 $("#asegurado").val('');
             }
         }
@@ -2460,6 +2485,7 @@ console.log(prima9);
                                     <th>F Desde Seg</th>
                                     <th>F Hasta Seg</th>
                                     <th>Nombre Asegurado</th>
+                                    <th>Cía</th>
                                     <th>Prima Suscrita</th>
                                     <th>Acciones</th>
                                 </tr>

@@ -14,6 +14,8 @@ if(isset($_SESSION['seudonimo'])) {
     $nuevafecha = strtotime ( '+1 year' , strtotime ( $fhoy ) ) ;
     $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
+    
+
  
 
 
@@ -23,6 +25,10 @@ if(isset($_SESSION['seudonimo'])) {
     $ob1= new Trabajo();
     $poliza = $ob1->get_poliza_pre_carga($_POST['idpolizaE']);
     $nombre_t= $poliza[0]['nombre_t'].' - '.$poliza[0]['apellido_t'];
+
+    $f_hasta=$poliza[0]['f_hastapoliza'];
+    $f_hasta_n = strtotime ( '+1 year' , strtotime ( $f_hasta ) ) ;
+    $f_hasta_n = date ( 'Y-m-d' , $f_hasta_n );
 
 
     $obj3= new Trabajo();
@@ -42,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
     
 
     $obj6= new Trabajo();
-    $recibo = $obj6->agregarRecibo($_POST['num_polizaE'],$fhoy,$nuevafecha,$poliza[0]['prima'],
+    $recibo = $obj6->agregarRecibo($_POST['num_polizaE'],$f_hasta,$f_hasta_n,$poliza[0]['prima'],
     $poliza[0]['fpago'],$poliza[0]['ncuotas'],$poliza[0]['montocuotas'],0,0,$_POST['num_polizaE']);
 
     
@@ -63,7 +69,7 @@ if(isset($_SESSION['seudonimo'])) {
         $fhoy,
         $z_produc,
         $usuario[0]['id_usuario'],
-        $nuevafecha,
+        $f_hasta_n,
         $poliza[0]['tcobertura'],
         $poliza[0]['currency'],
         $poliza[0]['id_tpoliza'],
@@ -71,7 +77,8 @@ if(isset($_SESSION['seudonimo'])) {
         $poliza[0]['codvend'],
         $poliza[0]['id_cod_ramo'],
         $poliza[0]['per_gc'],
-        $poliza[0]['t_cuenta']);
+        $poliza[0]['t_cuenta'],
+        $f_hasta);
 
     echo $obj->agregarPrePolizaE($datos);
     

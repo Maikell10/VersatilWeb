@@ -10,6 +10,10 @@ if(isset($_SESSION['seudonimo'])) {
 
     require_once "../class/clases.php";
 
+    $fhoy=date("Y-m-d");
+    $nuevafecha = strtotime ( '+1 year' , strtotime ( $fhoy ) ) ;
+    $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+
     $ob100= new Trabajo();
     $usuario = $ob100->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']);
 
@@ -26,7 +30,7 @@ if(isset($_SESSION['seudonimo'])) {
     $veh = $obj5->agregarVehiculo('-','-','-','-','-','-','-','-',$_POST['num_poliza']);
 
     $obj6= new Trabajo();
-    $recibo = $obj6->agregarRecibo($_POST['num_poliza'],'2017-01-01','2017-01-01',0,
+    $recibo = $obj6->agregarRecibo($_POST['num_poliza'],$fhoy,$nuevafecha,0,
     'CONTADO',1,0,0,0,$_POST['num_poliza']);
 
     $obj7= new Trabajo();
@@ -41,13 +45,13 @@ if(isset($_SESSION['seudonimo'])) {
     
     
     $obj= new Trabajo();
-    $fhoy=date("Y-m-d");
     $datos=array(
         $_POST['num_poliza'],
         $_POST['idcia'],
         $fhoy,
         $z_produc,
-        $usuario[0]['id_usuario']);
+        $usuario[0]['id_usuario'],
+        $nuevafecha,);
 
     echo $obj->agregarPrePoliza($datos);
     

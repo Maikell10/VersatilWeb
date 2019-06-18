@@ -3265,10 +3265,10 @@ class Trabajo extends Conectar{
 										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
 									values ('$datos[0]',
 											'$datos[2]',
-											'2017-01-01',
+											'$datos[2]',
 											'N/A',
-											'2017-01-01',
-											'2017-01-01',
+											'$datos[2]',
+											'$datos[5]',
 											'1',
 											'1',
 											'0',
@@ -3294,7 +3294,7 @@ class Trabajo extends Conectar{
 											'$datos[2]',
 											'$datos[2]',
 											'$datos[6]',
-											'$datos[2]',
+											'$datos[14]',
 											'$datos[5]',
 											'$datos[7]',
 											'$datos[8]',
@@ -3511,7 +3511,7 @@ class Trabajo extends Conectar{
 
 			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -3523,7 +3523,7 @@ class Trabajo extends Conectar{
                     poliza.codvend = ena.cod AND
 					poliza.id_poliza = dveh.idveh AND
                   	poliza.cod_poliza LIKE '%$id%'
-                    ORDER BY poliza.f_poliza DESC";
+					ORDER BY poliza.f_hastapoliza DESC, nombre_t ASC";
 			$result=mysqli_query(Conectar::con(),$sql);
 			if (!$result) {
 				    //echo "nada";
