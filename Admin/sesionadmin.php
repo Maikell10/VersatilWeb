@@ -216,7 +216,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <div class="card card-signup">
                             <form class="form" method="" action="">
                                 <div class="card-header card-header-info text-center">
-                                    <h3>¿Necesitas cotizar tu póliza de seguros?</h3>
+                                    <h3>Busqueda de Póliza por Nº de Póliza, ID Asegurado</h3>
                                 </div>
                                 <div class="card-body">
                                     <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
