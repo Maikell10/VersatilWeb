@@ -1,0 +1,404 @@
+<?php 
+session_start();
+if(isset($_SESSION['seudonimo'])) {
+
+  }
+    else {
+        header("Location: login.php");
+        exit();
+      }
+  
+  require_once("../../class/clases.php");
+
+  $obj1= new Trabajo();
+  $ramo = $obj1->get_element('dramo','cod_ramo'); 
+
+  $obj2= new Trabajo();
+  $cia = $obj2->get_element('dcia','nomcia'); 
+
+  $obj3= new Trabajo();
+  $asesor = $obj3->get_element('ena','idena'); 
+
+  $obj4= new Trabajo();
+  $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','id_enp'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','id_enr'); 
+
+
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../assets/img/apple-icon.png">
+    <link rel="icon" href="../../assets/img/logo1.png">
+    <title>
+        Versatil Seguros
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../assets/css/material-kit.css?v=2.0.1">
+    <!-- Documentation extras -->
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
+    <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
+
+    <link href="../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
+    
+    <!-- Alertify -->
+    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/alertify.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/alertify/css/themes/bootstrap.css">
+    <script src="../../assets/alertify/alertify.js"></script>
+
+
+    <!-- DataTables -->
+    <link href="../../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
+    <script src="../../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <script type="text/javascript">
+        function tabular(e,obj) {
+            tecla=(document.all) ? e.keyCode : e.which;
+            if(tecla!=13) return;
+            frm=obj.form;
+            for(i=0;i<frm.elements.length;i++) 
+            if(frm.elements[i]==obj) { 
+                if (i==frm.elements.length-1) i=-1;
+            break }
+            frm.elements[i+1].focus();
+            return false;
+        }
+    </script>
+</head>
+
+<body class="profile-page ">
+    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="../sesionadmin.php"> <img src="../../assets/img/logo1.png" width="45%" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li><b>[Producción]</b></li>
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">plus_one</i> Cargar Datos
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="crear_poliza.php" class="dropdown-item">
+                                <i class="material-icons">add_to_photos</i> Póliza
+                            </a>
+                            <a href="crear_comision.php" class="dropdown-item">
+                                <i class="material-icons">add_to_photos</i> Comisión
+                            </a>
+                            <a href="crear_asesor.php" class="dropdown-item">
+                                <i class="material-icons">person_add</i> Asesor
+                            </a>
+                            <a href="crear_compania.php" class="dropdown-item">
+                                <i class="material-icons">markunread_mailbox</i> Compañía
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">search</i> Buscar
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="../b_asesor.php" class="dropdown-item">
+                                <i class="material-icons">accessibility</i> Asesor
+                            </a>
+                            <a href="../b_cliente.php" class="dropdown-item">
+                                <i class="material-icons">accessibility</i> Cliente
+                            </a>
+                            <a href="../b_poliza.php" class="dropdown-item">
+                                <i class="material-icons">content_paste</i> Póliza
+                            </a>
+                            <a href="../b_vehiculo.php" class="dropdown-item">
+                                <i class="material-icons">commute</i> Vehículo
+                            </a>
+                            <a href="../b_comp.php" class="dropdown-item">
+                                <i class="material-icons">markunread_mailbox</i> Compañía
+                            </a>
+                            <a href="../b_reportes.php" class="dropdown-item">
+                                <i class="material-icons">library_books</i> Reportes de Cobranza
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="material-icons">trending_up</i> Gráficos
+                        </a>
+                        <div class="dropdown-menu dropdown-with-icons">
+                            <a href="../grafic/porcentaje.php" class="dropdown-item">
+                                <i class="material-icons">pie_chart</i> Porcentajes
+                            </a>
+                            <a href="../grafic/primas_s.php" class="dropdown-item">
+                                <i class="material-icons">bar_chart</i> Primas Suscritas
+                            </a>
+                            <a href="../grafic/primas_c.php" class="dropdown-item">
+                                <i class="material-icons">thumb_up</i> Primas Cobradas
+                            </a>
+                            <a href="../grafic/comisiones_c.php" class="dropdown-item">
+                                <i class="material-icons">timeline</i> Comisiones Cobradas
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="material-icons">show_chart</i> Gestión de Cobranza
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../sys/cerrar_sesion.php" onclick="scrollToDownload()">
+                            <i class="material-icons">eject</i> Cerrar Sesión
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../assets/img/logo2.png');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <div class="brand">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="main main-raised">
+        
+
+        
+
+        <div class="section">
+            <div class="container" >
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+            
+                <center>
+                <div class="col-md-auto col-md-offset-2">
+                    <?php 
+                        if (isset($_GET['cond'])) {
+                    ?> 
+                    <h1 class="title"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i>&nbsp;Agregada con Éxito</h1>  
+                    <?php       
+                        }
+                    ?>
+                    <h1 class="title"><i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp;Añadir Nueva Compañía</h1>  
+                </div>
+
+
+            
+                <form class="form-horizontal" id="frmnuevo" action="cia.php" method="post" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Nombre de Cía *</th>
+                                    <th>RIF</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre_cia" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                    <td><input type="text" class="form-control" id="rif" name="rif"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Nombre del Contacto</th>
+                                    <th>Cargo</th>
+                                    <th>Telf</th>
+                                    <th>Celular</th>
+                                    <th>e-mail</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre1" name="nombre1"></td>
+                                    <td><input type="text" class="form-control" id="cargo1" name="cargo1"></td>
+                                    <td><input type="text" class="form-control" id="tel1" name="tel1"></td>
+                                    <td><input type="text" class="form-control" id="cel1" name="cel1"></td>
+                                    <td><input type="email" class="form-control" id="email1" name="email1"></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre2" name="nombre2"></td>
+                                    <td><input type="text" class="form-control" id="cargo2" name="cargo2"></td>
+                                    <td><input type="text" class="form-control" id="tel2" name="tel2"></td>
+                                    <td><input type="text" class="form-control" id="cel2" name="cel2"></td>
+                                    <td><input type="email" class="form-control" id="email2" name="email2"></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre3" name="nombre3"></td>
+                                    <td><input type="text" class="form-control" id="cargo3" name="cargo3"></td>
+                                    <td><input type="text" class="form-control" id="tel3" name="tel3"></td>
+                                    <td><input type="text" class="form-control" id="cel3" name="cel3"></td>
+                                    <td><input type="email" class="form-control" id="email3" name="email3"></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre4" name="nombre4"></td>
+                                    <td><input type="text" class="form-control" id="cargo4" name="cargo4"></td>
+                                    <td><input type="text" class="form-control" id="tel4" name="tel4"></td>
+                                    <td><input type="text" class="form-control" id="cel4" name="cel4"></td>
+                                    <td><input type="email" class="form-control" id="email4" name="email4"></td>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre5" name="nombre5"></td>
+                                    <td><input type="text" class="form-control" id="cargo5" name="cargo5"></td>
+                                    <td><input type="text" class="form-control" id="tel5" name="tel5"></td>
+                                    <td><input type="text" class="form-control" id="cel5" name="cel5"></td>
+                                    <td><input type="email" class="form-control" id="email5" name="email5"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+        
+
+                      <center>
+                        <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button></center>
+
+                </form>
+                </center>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+        <div class="section" style="background-color: #40A8CB;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <div class="card card-signup">
+                            <form class="form" method="" action="">
+                                <div class="card-header card-header-info text-center">
+                                    <h3>¿Necesitas cotizar tu póliza de seguros?</h3>
+                                </div>
+                                <div class="card-body">
+                                    <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        
+    </div>
+
+
+
+
+
+    <footer class="footer ">
+        <div class="container">
+            <nav class="pull-left">
+                <ul>
+                    <li>
+                        <a href="https://www.versatilseguros.com">
+                            Versatil Panamá
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="copyright pull-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Versatil Seguros S.A.
+            </div>
+        </div>
+    </footer>
+    <!--   Core JS Files   -->
+
+    <script src="../../assets/js/core/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap-material-design.js"></script>
+    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <script src="../../assets/js/plugins/moment.min.js"></script>
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../../assets/js/plugins/nouislider.min.js"></script>
+    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+
+    <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+      
+    
+    <script language="javascript">
+
+    function Exportar(table, name){
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        if (!table.nodeType) table = document.getElementById(table)
+         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+         window.location.href = uri + base64(format(template, ctx))
+        }
+    </script>
+
+
+</body>
+
+</html>

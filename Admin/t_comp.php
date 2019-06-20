@@ -3,7 +3,7 @@
 require_once "../class/clases.php";
 
 $obj1= new Trabajo();
-$cia = $obj1->get_element('dcia','idcia'); 
+$cia = $obj1->get_element('dcia','nomcia'); 
 
 ?>
 
@@ -13,6 +13,7 @@ $cia = $obj1->get_element('dcia','idcia');
 		<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 			<tr>
 				<th>Nombre</th>
+				<th hidden>id</th>
                 <th>Preferencial</th>
 				<th>Fecha Desde Preferencial</th>
 				<th>Fecha Hasta Preferencial</th>
@@ -22,6 +23,7 @@ $cia = $obj1->get_element('dcia','idcia');
 		<tfoot>
 			<tr>
 				<th>Nombre</th>
+				<th hidden>id</th>
                 <th>Preferencial</th>
 				<th>Fecha Desde Preferencial</th>
 				<th>Fecha Hasta Preferencial</th>
@@ -33,8 +35,9 @@ $cia = $obj1->get_element('dcia','idcia');
 			for ($i=0; $i < sizeof($cia); $i++) { 
 				
 				?>
-				<tr >
-	                <td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+				<tr style="cursor:pointer">
+					<td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+					<td hidden><?php echo $cia[$i]['idcia']; ?></td>
 	                <td><?php if ($cia[$i]['preferencial']==0) {
 						echo "No";
 					} else {
@@ -63,7 +66,14 @@ $cia = $obj1->get_element('dcia','idcia');
 
 	$(function () {
       $('[data-tooltip="tooltip"]').tooltip()
-    })
+	});
+	
+
+	$( "#iddatatable tbody tr" ).dblclick(function() {
+		var customerId = $(this).find("td").eq(1).html();   
+
+		window.open ("v_cia.php?id_cia="+customerId ,'_blank');
+	});
 
 
 </script>

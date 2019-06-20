@@ -10,10 +10,12 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
+  $id_cia = $_GET['id_cia'];
+
   $obj1= new Trabajo();
-  $cia = $obj1->get_element('dcia','idcia'); 
+  $cia = $obj1->get_element_by_id('dcia','idcia',$id_cia); 
 
-
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,11 +53,7 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example').DataTable();
-        } );
-    </script>
+
 </head>
 
 <body class="profile-page ">
@@ -109,7 +107,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="b_vehiculo.php" class="dropdown-item">
                                 <i class="material-icons">commute</i> Vehículo
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="b_comp.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                             <a href="b_reportes.php" class="dropdown-item">
@@ -178,19 +176,72 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Lista Compañías
-                        <a href="add/crear_compania.php" class="btn btn-info pull-right menu" ><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Nueva Compañías</a>
-                    </h1>  
+                    <h1 class="title">Cía: <?php echo $cia[0]['nomcia']; ?></h1>  
+                    <h2 class="title">Rif: <?php echo $cia[0]['rif']; ?></h2>  
                 </div>
 
 
+                
 
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
+                    <thead>
+						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Nombre Compañía</th>
+                            <th>Rif</th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td ><?php echo $cia[0]['nomcia']; ?></td>
+                            <td ><?php echo $cia[0]['rif']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
+                    <thead>
+						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Nombre Contacto</th>
+                            <th>Cargo</th>
+                            <th>Tel</th>
+                            <th>Cel</th>
+                            <th>E-Mail</th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $obj11= new Trabajo();
+                            $contacto_cia = $obj11->get_element_by_id('contacto_cia','id_cia',$cia[0]['idcia']); 
+
+                            for ($i=0; $i < sizeof($contacto_cia); $i++) { 
+                           
+                        ?>
+                        <tr>
+                            <td ><?php echo $contacto_cia[$i]['nombre']; ?></td>
+                            <td ><?php echo $contacto_cia[$i]['cargo']; ?></td>
+                            <td ><?php echo $contacto_cia[$i]['tel']; ?></td>
+                            <td ><?php echo $contacto_cia[$i]['cel']; ?></td>
+                            <td ><?php echo $contacto_cia[$i]['email']; ?></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                </div>
+
+                <hr>
+
+                <center><a  href="e_cia.php?id_cia=<?php echo $cia[0]['id_cia'];?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Cía  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
+                        
     
-                <div id="tablaDatatable"></div>
 
+                
             </div>
         </div>
 
@@ -265,160 +316,6 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    
-
-    <!-- Modal -->
-    <div class="modal fade" id="agregarnuevosdatosmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega nueva Compañía</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevo">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigo" name="codigo">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombre" name="nombre">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ci" name="ci">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuenta" name="refcuenta">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar Nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Compañía</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoU">
-                        <input type="text" class="form-control input-sm" id="idena" name="idena" hidden="">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigoU" name="codigoU">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ciU" name="ciU">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuentaU" name="refcuentaU">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btnActualizar">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#btnAgregarnuevo').click(function(){
-                datos=$('#frmnuevo').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/agregarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#frmnuevo')[0].reset();
-                            $('#tablaDatatable').load('t_comp.php');
-                            alertify.success("agregado con exito :D");
-                        }else{
-                            alertify.error("Fallo al agregar :(");
-                        }
-                    }
-                });
-            });
-
-            $('#btnActualizar').click(function(){
-                datos=$('#frmnuevoU').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/actualizarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_comp.php');
-                            alertify.success("Actualizado con exito :D");
-                        }else{
-                            alertify.error("Fallo al actualizar :(");
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#tablaDatatable').load('t_comp.php');
-        });
-    </script>
-
-    <script type="text/javascript">
-        function agregaFrmActualizar(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena').val(datos['idena']);
-                    $('#nombreU').val(datos['idnom']);
-                    $('#codigoU').val(datos['cod']);
-                    $('#ciU').val(datos['id']);
-                    $('#refcuentaU').val(datos['refcuenta']);
-                }
-            });
-        }
-
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar una Compañía', '¿Seguro de eliminar esta Compañía?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_comp.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
-
-        $(function () {
-          $('[data-tooltip="tooltip"]').tooltip()
-        })
-    </script>
     <script language="javascript">
 
     function Exportar(table, name){
@@ -431,7 +328,6 @@ if(isset($_SESSION['seudonimo'])) {
          window.location.href = uri + base64(format(template, ctx))
         }
     </script>
-
 
 
 </body>

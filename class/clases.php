@@ -1117,6 +1117,50 @@ class Trabajo extends Conectar{
 
 
 
+	public function get_poliza_by_busq($busq)
+		{
+				$sql="SELECT * FROM
+						poliza, drecibo, titular, dramo, dcia
+						WHERE
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_titular = titular.id_titular AND 
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.cod_poliza LIKE '%$busq%'
+						
+						UNION ALL
+						
+						SELECT * FROM
+						poliza, drecibo, titular, dramo, dcia
+						WHERE
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_titular = titular.id_titular AND 
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.id_cia = dcia.idcia AND
+						titular.ci LIKE '%$busq%'";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//echo "No hay registros";
+					  //header("Location: b_f_product.php?m=2");
+					  //exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}
+
+
+
 
 
 
@@ -3349,13 +3393,41 @@ class Trabajo extends Conectar{
 
 	}
 
-	public function agregarGChComision($id_gc_h,$id_comision){
+public function agregarGChComision($id_gc_h,$id_comision){
 
 
 		$sql="INSERT into gc_h_comision (id_gc_h,id_comision)
 			values ('$id_gc_h',
 					'$id_comision')";
 		return mysqli_query(Conectar::con(),$sql);
+
+}
+
+
+public function agregarCia($nombre_cia,$rif){
+
+
+	$sql="INSERT into dcia (nomcia,preferencial,f_desde_pref,f_hasta_pref,rif)
+		values ('$nombre_cia',
+				'0',
+				'0000-00-00',
+				'0000-00-00',
+				'$rif')";
+	return mysqli_query(Conectar::con(),$sql);
+
+}
+
+public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
+
+
+	$sql="INSERT into contacto_cia (id_cia,nombre,cargo,tel,cel,email)
+		values ('$id_cia',
+				'$nombre',
+				'$cargo',
+				'$tel',
+				'$cel',
+				'$email')";
+	return mysqli_query(Conectar::con(),$sql);
 
 }
 

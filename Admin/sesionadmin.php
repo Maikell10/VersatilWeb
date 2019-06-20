@@ -214,15 +214,15 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="row">
                     <div class="col-md-12 ml-auto mr-auto">
                         <div class="card card-signup">
-                            <form class="form" method="" action="">
-                                <div class="card-header card-header-info text-center">
-                                    <h3>Busqueda de Póliza por Nº de Póliza, ID Asegurado</h3>
-                                </div>
-                                <div class="card-body">
-                                    <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
-                                </div>
-                                
-                            </form>
+                            <div class="card-header card-header-info text-center">
+                                <h3>Busqueda de Póliza por Nº de Póliza, ID Asegurado</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="form text-center" method="get" action="b_poliza_busq.php">
+                                    <input type="text" class="form-control" id="busq" name="busq" autocomplete="off">
+                                    <button type="submit" id="btnBusq" class="btn btn-info btn-lg">Buscar</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
