@@ -189,7 +189,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
-                <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" >
+                <form class="form-horizontal" id="frmnuevo" action="comp_pref_n.php" method="post" onKeypress="if(event.keyCode == 13) event.returnValue = false;">
                 <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Previsualizar</button></center>
                     <div class="table-responsive">   
                     <table class="table table-hover table-striped table-bordered">

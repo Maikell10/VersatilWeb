@@ -1163,6 +1163,34 @@ class Trabajo extends Conectar{
 
 
 
+	public function get_f_cia_pref($campo,$id_cia)
+		{
+				$sql="SELECT DISTINCT $campo FROM cia_pref WHERE id_cia=$id_cia ORDER BY $campo DESC";
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//echo "No hay registros";
+					  //header("Location: b_f_product.php?m=2");
+					  //exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}
+
+
+
+
+
 
 
 

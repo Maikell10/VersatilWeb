@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 session_start();
 if(isset($_SESSION['seudonimo'])) {
 
@@ -11,16 +12,76 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../class/clases.php");
 
 
+  $id_cia=$_POST['id_cia'];
 
-  $nomcia=$_POST['nomcia'];
+  $nombre_cia=$_GET['nombre_cia'];
+  $rif=$_GET['rif'];
 
-  $obj1= new Trabajo();
-  $cia = $obj1->get_element_by_id('dcia','nomcia',$nomcia); 
+  $nombre1=$_GET['nombre1'];
+  $cargo1=$_GET['cargo1'];
+  $tel1=$_GET['tel1'];
+  $cel1=$_GET['cel1'];
+  $email1=$_GET['email1'];
+  
+  $nombre2=$_GET['nombre2'];
+  $cargo2=$_GET['cargo2'];
+  $tel2=$_GET['tel2'];
+  $cel2=$_GET['cel2'];
+  $email2=$_GET['email2'];
 
-  $obj2= new Trabajo();
-  $asesor = $obj2->get_element('ena','idnom'); 
+  $nombre3=$_GET['nombre3'];
+  $cargo3=$_GET['cargo3'];
+  $tel3=$_GET['tel3'];
+  $cel3=$_GET['cel3'];
+  $email3=$_GET['email3'];
 
-  $cant_a=sizeof($asesor);
+  $nombre4=$_GET['nombre4'];
+  $cargo4=$_GET['cargo4'];
+  $tel4=$_GET['tel4'];
+  $cel4=$_GET['cel4'];
+  $email4=$_GET['email4'];
+
+  $nombre5=$_GET['nombre5'];
+  $cargo5=$_GET['cargo5'];
+  $tel5=$_GET['tel5'];
+  $cel5=$_GET['cel5'];
+  $email5=$_GET['email5'];
+	
+	
+	
+
+
+	
+	$obj1= new Trabajo();
+    $cia = $obj1->agregarCia($nombre_cia,$rif); 
+      
+    $obj2= new Trabajo();
+    $id_cia = $obj2->get_last_element('dcia','idcia'); 
+      
+
+    
+    if ($nombre1!=null) {
+        $ob1= new Trabajo();
+        $contacto1 = $ob1->agregarContactoCia($id_cia[0]['idcia'],$nombre1,$cargo1,$tel1,$cel1,$email1);
+    }
+    if ($nombre2!=null) {
+        $ob2= new Trabajo();
+        $contacto2 = $ob2->agregarContactoCia($id_cia[0]['idcia'],$nombre2,$cargo2,$tel2,$cel2,$email2);
+    }
+    if ($nombre3!=null) {
+        $ob3= new Trabajo();
+        $contacto3 = $ob3->agregarContactoCia($id_cia[0]['idcia'],$nombre3,$cargo3,$tel3,$cel3,$email3);
+    }
+    if ($nombre4!=null) {
+        $ob4= new Trabajo();
+        $contacto4 = $ob4->agregarContactoCia($id_cia[0]['idcia'],$nombre4,$cargo4,$tel4,$cel4,$email4);
+    }
+    if ($nombre5!=null) {
+        $ob5= new Trabajo();
+        $contacto5 = $ob5->agregarContactoCia($id_cia[0]['idcia'],$nombre5,$cargo5,$tel5,$cel5,$email5);
+    }
+     
+
 
 
 ?>
@@ -61,6 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
+
 </head>
 
 <body class="profile-page ">
@@ -82,16 +144,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">plus_one</i> Cargar Datos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="add/crear_poliza.php" class="dropdown-item">
+                            <a href="crear_poliza.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Póliza
                             </a>
-                            <a href="add/crear_comision.php" class="dropdown-item">
+                            <a href="crear_comision.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Comisión
                             </a>
-                            <a href="add/crear_asesor.php" class="dropdown-item">
+                            <a href="crear_asesor.php" class="dropdown-item">
                                 <i class="material-icons">person_add</i> Asesor
                             </a>
-                            <a href="add/crear_compania.php" class="dropdown-item">
+                            <a href="crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                         </div>
@@ -114,7 +176,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="b_vehiculo.php" class="dropdown-item">
                                 <i class="material-icons">commute</i> Vehículo
                             </a>
-                            <a href="#" class="dropdown-item">
+                            <a href="b_comp.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                             <a href="b_reportes.php" class="dropdown-item">
@@ -140,7 +202,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <a href="grafic/comisiones_c.php" class="dropdown-item">
                                 <i class="material-icons">timeline</i> Comisiones Cobradas
                             </a>
-                            <a href="" class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                                 <i class="material-icons">show_chart</i> Gestión de Cobranza
                             </a>
                         </div>
@@ -182,67 +244,10 @@ if(isset($_SESSION['seudonimo'])) {
         
 
         <div class="section">
-            <div class="container">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-
-                <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Previsualizar Preferencial de la Cía <?php echo $cia[0]['nomcia']; ?></h1>  
-                </div>
-
-
-                <form class="form-horizontal" id="frmnuevo" action="comp_pref_nn.php" method="post" >
-                <center><button type="submit" id="btnForm" class="btn btn-success btn-lg btn-round">Agregar Preferencial</button></center>
-                    <div class="table-responsive">   
-                    <table class="table table-hover table-striped table-bordered">
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                    <th>Fecha Desde Preferida</th>
-                                    <th>Fecha Hasta Preferida</th>
-                                    <th>%GC a Sumar</th>
-                                    <th hidden>nomcia</th>
-                                </tr>
-                            </thead>
-
-                            <tbody >
-                                <tr>
-                                    <td><input type="text" class="form-control" id="desdeP" name="desdeP" readonly value="<?php echo $_POST['desdeP'];?>"></td>
-                                    <td><input type="text" class="form-control" id="hastaP" name="hastaP" readonly value="<?php echo $_POST['hastaP'];?>"></td>
-                                    <td><input type="text" class="form-control" id="per_gc" name="per_gc" readonly value="<?php echo $_POST['per_gc'];?>"></td>
-
-                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
-                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <tr>
-                                    <th>Nombre Asesor</th>
-                                    <th>%GC</th>
-                                    <th>%GC a Sumar</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                            <?php
-                                for ($i=0; $i < sizeof($asesor); $i++) { 
-                                    
-                            ?>
-                                <tr>
-                                    <td><?php echo utf8_encode($asesor[$i]['idnom'])." [".$asesor[$i]['cod']."]"; ?></td>
-                                    <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
-                                    <td><input style="text-align:center" type="text" class="form-control" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" readonly value="<?php echo $_POST['gc_asesor'.$i];?>"></td>
-                                </tr>
-                            <?php   
-                                }
-                            ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-    
+            <div class="container" >
                 
-
             </div>
+
         </div>
 
 
@@ -301,38 +306,42 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
         </div>
     </footer>
+
     <!--   Core JS Files   -->
 
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/bootstrap-material-design.js"></script>
+    <script src="../../assets/js/core/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap-material-design.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
-    <script src="../assets/js/plugins/moment.min.js"></script>
-    <!--    Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-    <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--    Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../assets/js/plugins/nouislider.min.js"></script>
+    <script src="../../assets/js/plugins/moment.min.js"></script>
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="../../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../assets/js/material-kit.js?v=2.0.1"></script>
+    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
+    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
-    <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+    <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-    
-    <script language="javascript">
+    <script>
 
-    function Exportar(table, name){
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        if (!table.nodeType) table = document.getElementById(table)
-         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-         window.location.href = uri + base64(format(template, ctx))
-        }
-    </script>
 
+	  alertify.confirm('Compañía Cargada con Exito!', '¿Desea Cargar una nueva Compañía?', 
+	  	function(){ 
+	  		window.location.replace("crear_compania.php?cond=1");
+	  		alertify.success('Ok') 
+	  	}, 
+	  	function(){ 
+	  		window.location.replace("../sesionadmin.php");
+	  		alertify.error('Cancel')
+	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); 
+
+	
+
+	</script>
+ 
 
 
 </body>

@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 session_start();
 if(isset($_SESSION['seudonimo'])) {
 
@@ -10,40 +11,44 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
+ 
 
-  $busq = $_GET['busq'];
-  
-
-  
-  
-
-  $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_by_busq($busq); 
+    $id_cia=$_POST['id_cia'];
 
 
-
-  $Ejecutivo[sizeof($poliza)]=null;
-
-  for ($i=0; $i < sizeof($poliza); $i++) { 
-        $obj111= new Trabajo();
-        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
-        $nombre=$asesor1[0]['idnom'];
-
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
+	$nombre_cia=$_POST['nombre_cia'];
+    $rif=$_POST['rif'];
     
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
+	$nombre1=$_POST['nombre1'];
+	$cargo1=$_POST['cargo1'];
+	$tel1=$_POST['tel1'];
+	$cel1=$_POST['cel1'];
+    $email1=$_POST['email1'];
+    
+    $nombre2=$_POST['nombre2'];
+	$cargo2=$_POST['cargo2'];
+	$tel2=$_POST['tel2'];
+	$cel2=$_POST['cel2'];
+    $email2=$_POST['email2'];
 
-        $Ejecutivo[$i]=$nombre;                 
-  }
+    $nombre3=$_POST['nombre3'];
+	$cargo3=$_POST['cargo3'];
+	$tel3=$_POST['tel3'];
+	$cel3=$_POST['cel3'];
+    $email3=$_POST['email3'];
 
+    $nombre4=$_POST['nombre4'];
+	$cargo4=$_POST['cargo4'];
+	$tel4=$_POST['tel4'];
+	$cel4=$_POST['cel4'];
+    $email4=$_POST['email4'];
+
+    $nombre5=$_POST['nombre5'];
+	$cargo5=$_POST['cargo5'];
+	$tel5=$_POST['tel5'];
+	$cel5=$_POST['cel5'];
+    $email5=$_POST['email5'];
+    
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +64,6 @@ if(isset($_SESSION['seudonimo'])) {
     <title>
         Versatil Seguros
     </title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -69,6 +73,8 @@ if(isset($_SESSION['seudonimo'])) {
     <link href="../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
+    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
+
     
     <!-- Alertify -->
     <link rel="stylesheet" type="text/css" href="../assets/alertify/css/alertify.css">
@@ -77,20 +83,11 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <!-- DataTables -->
-    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="../DataTables/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="../DataTables/DataTables/js/jquery.dataTables.min.js"></script>
     <script src="../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
-    <link href="../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
-
-
-
-    <style type="text/css">
-        #carga{
-            height: 80vh
-        }
-    </style>
 
 </head>
 
@@ -98,7 +95,7 @@ if(isset($_SESSION['seudonimo'])) {
     <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="40%" /></a>
+                <a class="navbar-brand" href="sesionadmin.php"> <img src="../assets/img/logo1.png" width="45%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -113,16 +110,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <i class="material-icons">plus_one</i> Cargar Datos
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="add/crear_poliza.php" class="dropdown-item">
+                            <a href="crear_poliza.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Póliza
                             </a>
-                            <a href="add/crear_comision.php" class="dropdown-item">
+                            <a href="crear_comision.php" class="dropdown-item">
                                 <i class="material-icons">add_to_photos</i> Comisión
                             </a>
-                            <a href="add/crear_asesor.php" class="dropdown-item">
+                            <a href="crear_asesor.php" class="dropdown-item">
                                 <i class="material-icons">person_add</i> Asesor
                             </a>
-                            <a href="add/crear_compania.php" class="dropdown-item">
+                            <a href="crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                         </div>
@@ -210,129 +207,106 @@ if(isset($_SESSION['seudonimo'])) {
     <div class="main main-raised">
         
 
-        <div id="carga" class="d-flex justify-content-center align-items-center">
-            <div class="spinner-grow text-info" style="width: 7rem; height: 7rem;"></div>
-        </div>
- 
+        
+
         <div class="section">
-            <div class="container-fluid">
+            <div class="container" >
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
-                <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
-                    <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
-                </div>
-             
-
-
-
                 <center>
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th style="background-color: #E54848;">Prima Suscrita</th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody >
-                        <?php
-                        $totalsuma=0;
-                        $totalprima=0;
-                        $currency="";
-                        $cant=0;
-                        for ($i=0; $i < sizeof($poliza); $i++) { 
-                            if ($poliza[$i]['id_titular']==0) {
+                <div class="col-md-auto col-md-offset-2">
+                    <h1 class="title"><i class="fa fa-briefcase" aria-hidden="true"></i>&nbsp;Previsualizar Edición de Compañía
+                    </h1>  
+                </div>
 
-                            } else {
-                            $cant=$cant+1;
-                            $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
-                            $totalprima=$totalprima+$poliza[$i]['prima'];
-
-                            $originalDesde = $poliza[$i]['f_desdepoliza'];
-                            $newDesde = date("d/m/Y", strtotime($originalDesde));
-                            $originalHasta = $poliza[$i]['f_hastapoliza'];
-                            $newHasta = date("d/m/Y", strtotime($originalHasta));
-                            $originalFProd = $poliza[$i]['f_poliza'];
-				            $newFProd = date("d/m/Y", strtotime($originalFProd));
-
-                            if ($poliza[$i]['currency']==1) {
-                                $currency="$ ";
-                            }else{$currency="Bs ";}
-
-
-                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php            
-                            } else{
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
-                            <?php   
-                            }
-
-                            ?>
-                            
-                                
-                                <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
-                            </tr>
-                            <?php
-                            }
-                        }
-                        ?>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </tfoot>
-                </table></div>
-
-
-                <h1 class="title">Total de Prima</h1>
-                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
-
-                <h1 class="title">Total de Pólizas</h1>
-                <h1 class="title text-danger"><?php  echo $cant;?></h1>
-            </center>
 
             
-
-
                 
+                <form class="form-horizontal" id="frmnuevo" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th colspan="3">Nombre de Cía</th>
+                                    <th colspan="2">RIF</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr >
+                                    <td colspan="3"><input type="text" class="form-control" name="nombre_cia" readonly="readonly" value="<?php echo $nombre_cia;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="rif" readonly="readonly" value="<?php echo $rif;?>"></td>
+                                </tr>
+
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th>Nombre del Contacto</th>
+                                    <th>Cargo</th>
+                                    <th>Telf</th>
+                                    <th>Celular</th>
+                                    <th>e-mail</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" name="nombre1" readonly="readonly" value="<?php echo $nombre1;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo1" readonly="readonly" value="<?php echo $cargo1;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel1" readonly="readonly" value="<?php echo $tel1;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel1" readonly="readonly" value="<?php echo $cel1;?>"></td>
+                                    <td><input type="text" class="form-control" name="email1" readonly="readonly" value="<?php echo $email1;?>"></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="text" class="form-control" name="nombre2" readonly="readonly" value="<?php echo $nombre2;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo2" readonly="readonly" value="<?php echo $cargo2;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel2" readonly="readonly" value="<?php echo $tel2;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel2" readonly="readonly" value="<?php echo $cel2;?>"></td>
+                                    <td><input type="text" class="form-control" name="email2" readonly="readonly" value="<?php echo $email2;?>"></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="text" class="form-control" name="nombre3" readonly="readonly" value="<?php echo $nombre3;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo3" readonly="readonly" value="<?php echo $cargo3;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel3" readonly="readonly" value="<?php echo $tel3;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel3" readonly="readonly" value="<?php echo $cel3;?>"></td>
+                                    <td><input type="text" class="form-control" name="email3" readonly="readonly" value="<?php echo $email3;?>"></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="text" class="form-control" name="nombre4" readonly="readonly" value="<?php echo $nombre4;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo4" readonly="readonly" value="<?php echo $cargo4;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel4" readonly="readonly" value="<?php echo $tel4;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel4" readonly="readonly" value="<?php echo $cel4;?>"></td>
+                                    <td><input type="text" class="form-control" name="email4" readonly="readonly" value="<?php echo $email4;?>"></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="text" class="form-control" name="nombre5" readonly="readonly" value="<?php echo $nombre5;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo5" readonly="readonly" value="<?php echo $cargo5;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel5" readonly="readonly" value="<?php echo $tel5;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel5" readonly="readonly" value="<?php echo $cel5;?>"></td>
+                                    <td><input type="text" class="form-control" name="email5" readonly="readonly" value="<?php echo $email5;?>"></td>
+                                </tr>
+
+
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    
+
+
+                      <center>
+                        <a name="enlace" href="e_cia_nn.php?id_cia=<?php echo $id_cia;?>&nombre_cia=<?php echo $nombre_cia;?>&rif=<?php echo $rif;?>&nombre1=<?php echo $nombre1;?>&cargo1=<?php echo $cargo1;?>&tel1=<?php echo $tel1;?>&cel1=<?php echo $cel1;?>&email1=<?php echo $email1;?>&nombre2=<?php echo $nombre2;?>&cargo2=<?php echo $cargo2;?>&tel2=<?php echo $tel2;?>&cel2=<?php echo $cel2;?>&email2=<?php echo $email2;?>&nombre3=<?php echo $nombre3;?>&cargo3=<?php echo $cargo3;?>&tel3=<?php echo $tel3;?>&cel3=<?php echo $cel3;?>&email3=<?php echo $email3;?>&nombre4=<?php echo $nombre4;?>&cargo4=<?php echo $cargo4;?>&tel4=<?php echo $tel4;?>&cel4=<?php echo $cel4;?>&email4=<?php echo $email4;?>&nombre5=<?php echo $nombre5;?>&cargo5=<?php echo $cargo5;?>&tel5=<?php echo $tel5;?>&cel5=<?php echo $cel5;?>&email5=<?php echo $email5;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        
+                </form>
+                </center>
             </div>
 
         </div>
 
-        
+
 
 
 
@@ -388,9 +362,8 @@ if(isset($_SESSION['seudonimo'])) {
             </div>
         </div>
     </footer>
-    <!--   Core JS Files   -->
-    
 
+    <!--   Core JS Files   -->
 
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/bootstrap-material-design.js"></script>
@@ -405,45 +378,21 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+ 
+    <script>
+        onload = function(){ 
+          var ele = document.querySelectorAll('.validanumericos')[0];
 
-   
-
-
-
-
-    <script type="text/javascript">
-
-        const tablaLoad1 = document.getElementById("tablaLoad1");
-        const carga = document.getElementById("carga");
-
-        setTimeout(()=>{
-            carga.className = 'd-none';
-            tablaLoad1.removeAttribute("hidden");
-        }, 1500);
-        
-      
-
-        $(document).ready(function() {
-            $('#iddatatable').DataTable({
-                scrollX: 300,
-                "order": [[ 0, "desc" ]]
-            });
-        } );
-
-        $(function () {
-        $('[data-tooltip="tooltip"]').tooltip()
-        });
-
-        $( "#iddatatable tbody tr" ).click(function() {
-            var customerId = $(this).find("td").eq(1).html();   
-
-            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
-        });
-
+          ele.onkeypress = function(e) {
+             if(isNaN(this.value+String.fromCharCode(e.charCode)))
+                return false;
+          }
+          ele.onpaste = function(e){
+             e.preventDefault();
+          }
+        }
     </script>
     <script language="javascript">
 
@@ -457,8 +406,6 @@ if(isset($_SESSION['seudonimo'])) {
          window.location.href = uri + base64(format(template, ctx))
         }
     </script>
-
-
 
 </body>
 

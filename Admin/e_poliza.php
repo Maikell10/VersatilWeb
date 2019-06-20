@@ -252,7 +252,9 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <form class="form-horizontal" id="frmnuevo" action="e_poliza_n.php" method="post" >
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
 					<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 						<tr>
 							<th>N° de Póliza</th>
@@ -296,8 +298,10 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
 					</tbody>
 				</table>
+                </div>
 
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Ramo</th>
@@ -337,9 +341,10 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tbody>
                 </table>
+                </div>
 
-                
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Moneda</th>
@@ -374,8 +379,10 @@ if(isset($_SESSION['seudonimo'])) {
                         </div>
                     </tbody>
                 </table>
+                </div>
 
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>N° Recibo *</th>
@@ -412,6 +419,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
 
 
@@ -421,6 +429,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <h2 id="existeT" class="text-success"><strong></strong></h2>
                 <h2 id="no_existeT" class="text-danger"><strong></strong></h2>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered display" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -441,6 +450,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
 
                 
@@ -452,6 +462,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <h2 id="existeTom" class="text-success"><strong></strong></h2>
                 <h2 id="no_existeTom" class="text-danger"><strong></strong></h2>
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered display" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
@@ -472,11 +483,13 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                     </tbody>
                 </table>
+                </div>
 
 
 
                 <div class="form-row" id="tablaveh" hidden="true">      
                     <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
@@ -506,6 +519,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </tbody>
                         </table>
+                        </div>
                     </div>
 
                 

@@ -178,7 +178,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cía: <?php echo $cia[0]['nomcia']; ?></h1>  
+                    <h1 class="title">Cía: <?php echo utf8_encode($cia[0]['nomcia']); ?></h1>  
                     <h2 class="title">Rif: <?php echo $cia[0]['rif']; ?></h2>  
                 </div>
 
@@ -195,7 +195,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td ><?php echo $cia[0]['nomcia']; ?></td>
+                            <td ><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
                             <td ><?php echo $cia[0]['rif']; ?></td>
                         </tr>
                     </tbody>
@@ -222,8 +222,8 @@ if(isset($_SESSION['seudonimo'])) {
                            
                         ?>
                         <tr>
-                            <td ><?php echo $contacto_cia[$i]['nombre']; ?></td>
-                            <td ><?php echo $contacto_cia[$i]['cargo']; ?></td>
+                            <td ><?php echo utf8_encode($contacto_cia[$i]['nombre']); ?></td>
+                            <td ><?php echo utf8_encode($contacto_cia[$i]['cargo']); ?></td>
                             <td ><?php echo $contacto_cia[$i]['tel']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['cel']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['email']; ?></td>
@@ -237,9 +237,64 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <hr>
 
-                <center><a  href="e_cia.php?id_cia=<?php echo $cia[0]['id_cia'];?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Cía  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
+                <center><a  href="e_cia.php?id_cia=<?php echo $cia[0]['idcia'];?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Cía  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
                         
-    
+                <hr>
+                
+                <?php
+                //Si es preferencial
+                
+                $obj2= new Trabajo();
+                $desde_pref = $obj2->get_f_cia_pref('f_desde_pref',$cia[0]['idcia']);
+                
+                $obj3= new Trabajo();
+				$hasta_pref = $obj3->get_f_cia_pref('f_hasta_pref',$cia[0]['idcia']);
+
+                
+                if ($desde_pref[0]['f_desde_pref']==0) {
+                    //No es preferencial
+                } else {
+                    //Si es preferencial
+                
+
+                ?>
+                <div class="col-md-auto col-md-offset-2">  
+                    <h2 class="title">Fechas en que es preferencial (Mayor a Menor)</h2>  
+                </div>
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
+                    <thead>
+						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Fecha Desde Preferencial</th>
+                            <th>Fecha Hasta Preferencial</th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $obj11= new Trabajo();
+                            $contacto_cia = $obj11->get_element_by_id('contacto_cia','id_cia',$cia[0]['idcia']); 
+
+                            for ($i=0; $i < sizeof($desde_pref); $i++) { 
+
+                                $desde_prefn = date("d/m/Y", strtotime($desde_pref[$i]['f_desde_pref']));
+				                $hasta_prefn = date("d/m/Y", strtotime($hasta_pref[$i]['f_hasta_pref']));
+                           
+                        ?>
+                        <tr>
+                            <td ><?php echo $desde_prefn; ?></td>
+                            <td ><?php echo $hasta_prefn; ?></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                </div>
+
+                <?php
+                }
+                ?>
 
                 
             </div>
