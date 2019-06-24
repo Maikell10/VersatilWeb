@@ -1479,7 +1479,7 @@ class Trabajo extends Conectar{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
 						echo "No hay registros";
-				      	header("Location: b_gc.php?m=2");
+				      	header("Location: ../Admin/gc/b_gc.php?m=2");
 				      	exit();
 			      	}else
 		            	{

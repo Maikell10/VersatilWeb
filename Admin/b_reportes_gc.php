@@ -218,8 +218,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th hidden="">ID</th>
-                            <th>Fecha Pago GC</th>
+                            <th>Nº Generada</th>
+                            <th>Fecha Creación de GC</th>
                             <th>Fecha Desde Reporte GC</th>
                             <th>Fecha Hasta Reporte GC</th>
                         </tr>
@@ -231,8 +231,6 @@ if(isset($_SESSION['seudonimo'])) {
                         $gc_h = $obj1->get_element('gc_h','f_hoy_h'); 
 
                         for ($i=0; $i < sizeof($gc_h); $i++) { 
-                            $obj2= new Trabajo();
-                            $cia = $obj2->get_element_by_id('dcia','idcia',$reporte[$i]['id_cia']); 
 
                         
                             
@@ -243,7 +241,7 @@ if(isset($_SESSION['seudonimo'])) {
                             
                             ?>
                             <tr style="cursor: pointer">
-                                <td hidden><?php echo $gc_h[$i]['id_gc_h']; ?></td>
+                                <td><?php echo $gc_h[$i]['id_gc_h']; ?></td>
                                 <td><?php echo $f_pago_gc; ?></td>
                                 <td><?php echo $f_desde_rep; ?></td>
                                 <td><?php echo $f_hasta_rep; ?></td>

@@ -417,14 +417,23 @@ if(isset($_SESSION['seudonimo'])) {
                             <?php
 
                             }
-                            $total_per_com=($totalcomision*100)/$totalprimacom;
+                           
+                            
+                            
                             if (number_format($totalprimacom,2)==0.00 ) {
                                 $totalprimacom=0;
-                                $total_per_com=0;
                             }
                             if ($totalcomision==0) {
                                 $totalcomision=1;
                             }
+
+                            if ($totalprimacom==0) {
+                                $total_per_com=0;
+                            } else {
+                                $total_per_com=($totalcomision*100)/$totalprimacom;
+                            }
+                            
+                            
                             ?>
                             <tr class="no-tocar">
                                 <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
