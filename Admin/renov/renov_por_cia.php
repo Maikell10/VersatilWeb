@@ -36,9 +36,11 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
 
+  $asesor = $_GET['asesor'];
+  $cia = '';
 
   $obj1= new Trabajo();
-  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_c($desde,$hasta); 
+  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_ac($desde,$hasta,$cia,$asesor); 
 
 
 ?>
@@ -219,7 +221,7 @@ if(isset($_SESSION['seudonimo'])) {
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
                 </div>
                 
-                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
+                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <div class="form-group">
                     <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
@@ -250,7 +252,7 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_c($desde,$hasta,$distinct_c[$a]['nomcia']); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
 
                         ?>
                             <tr style="cursor: pointer;">
@@ -285,8 +287,8 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td><?php echo $newHasta; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                             </tr>
                             <?php
                             }
@@ -337,7 +339,7 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_c($desde,$hasta,$distinct_c[$a]['nomcia']); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
 
                         ?>
                             <tr style="cursor: pointer;">
@@ -371,8 +373,8 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td><?php echo $newHasta; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-                                <td nowrap><?php echo $poliza[$i]['nramo']; ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                             </tr>
                             <?php
                             }

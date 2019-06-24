@@ -12,7 +12,8 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../class/clases.php");
 
 
-  $id_cia=$_POST['id_cia'];
+  $id_cia=$_GET['id_cia'];
+
 
   $nombre_cia=$_GET['nombre_cia'];
   $rif=$_GET['rif'];
@@ -53,32 +54,32 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-    $cia = $obj1->agregarCia($nombre_cia,$rif); 
+    $cia = $obj1->editarCia($id_cia,$nombre_cia,$rif); 
       
     $obj2= new Trabajo();
-    $id_cia = $obj2->get_last_element('dcia','idcia'); 
+    $e_cia = $obj2->eliminarCiaContacto($id_cia); 
       
 
     
     if ($nombre1!=null) {
         $ob1= new Trabajo();
-        $contacto1 = $ob1->agregarContactoCia($id_cia[0]['idcia'],$nombre1,$cargo1,$tel1,$cel1,$email1);
+        $contacto1 = $ob1->agregarContactoCia($id_cia,$nombre1,$cargo1,$tel1,$cel1,$email1);
     }
     if ($nombre2!=null) {
         $ob2= new Trabajo();
-        $contacto2 = $ob2->agregarContactoCia($id_cia[0]['idcia'],$nombre2,$cargo2,$tel2,$cel2,$email2);
+        $contacto2 = $ob2->agregarContactoCia($id_cia,$nombre2,$cargo2,$tel2,$cel2,$email2);
     }
     if ($nombre3!=null) {
         $ob3= new Trabajo();
-        $contacto3 = $ob3->agregarContactoCia($id_cia[0]['idcia'],$nombre3,$cargo3,$tel3,$cel3,$email3);
+        $contacto3 = $ob3->agregarContactoCia($id_cia,$nombre3,$cargo3,$tel3,$cel3,$email3);
     }
     if ($nombre4!=null) {
         $ob4= new Trabajo();
-        $contacto4 = $ob4->agregarContactoCia($id_cia[0]['idcia'],$nombre4,$cargo4,$tel4,$cel4,$email4);
+        $contacto4 = $ob4->agregarContactoCia($id_cia,$nombre4,$cargo4,$tel4,$cel4,$email4);
     }
     if ($nombre5!=null) {
         $ob5= new Trabajo();
-        $contacto5 = $ob5->agregarContactoCia($id_cia[0]['idcia'],$nombre5,$cargo5,$tel5,$cel5,$email5);
+        $contacto5 = $ob5->agregarContactoCia($id_cia,$nombre5,$cargo5,$tel5,$cel5,$email5);
     }
      
 
@@ -327,16 +328,11 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script>
 
-
-	  alertify.confirm('Compañía Cargada con Exito!', '¿Desea Cargar una nueva Compañía?', 
-	  	function(){ 
-	  		window.location.replace("crear_compania.php?cond=1");
-	  		alertify.success('Ok') 
-	  	}, 
-	  	function(){ 
-	  		window.location.replace("../sesionadmin.php");
-	  		alertify.error('Cancel')
-	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); 
+        alertify.alert('Compañía Editada con Exito!', 'Compañía Editada Satisfactoriamente', 
+        function(){ 
+            alertify.success('Ok'); 
+            window.close();
+        });
 
 	
 

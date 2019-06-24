@@ -351,7 +351,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	 
 
-	   alertify.alert('Póliza Cargada con Exito!', 'Póliza Cargada Satisfactoriamente', 
+	   alertify.alert('Póliza Editada con Exito!', 'Póliza Editada Satisfactoriamente', 
         function(){ 
             alertify.success('Ok'); 
             window.close();

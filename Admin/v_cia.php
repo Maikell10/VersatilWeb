@@ -222,7 +222,7 @@ if(isset($_SESSION['seudonimo'])) {
                            
                         ?>
                         <tr>
-                            <td ><?php echo utf8_encode($contacto_cia[$i]['nombre']); ?></td>
+                            <td ><?php echo $contacto_cia[$i]['nombre']; ?></td>
                             <td ><?php echo utf8_encode($contacto_cia[$i]['cargo']); ?></td>
                             <td ><?php echo $contacto_cia[$i]['tel']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['cel']; ?></td>

@@ -234,7 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre_cia" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
+                                    <td><input type="text" class="form-control" id="nombre_cia" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="rif" name="rif"></td>
                                 </tr>
                                 </div>
@@ -257,36 +257,36 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre1" name="nombre1"></td>
-                                    <td><input type="text" class="form-control" id="cargo1" name="cargo1"></td>
+                                    <td><input type="text" class="form-control" id="nombre1" name="nombre1" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo1" name="cargo1" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="tel1" name="tel1"></td>
                                     <td><input type="text" class="form-control" id="cel1" name="cel1"></td>
                                     <td><input type="email" class="form-control" id="email1" name="email1"></td>
                                 </tr>
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre2" name="nombre2"></td>
-                                    <td><input type="text" class="form-control" id="cargo2" name="cargo2"></td>
+                                    <td><input type="text" class="form-control" id="nombre2" name="nombre2" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo2" name="cargo2" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="tel2" name="tel2"></td>
                                     <td><input type="text" class="form-control" id="cel2" name="cel2"></td>
                                     <td><input type="email" class="form-control" id="email2" name="email2"></td>
                                 </tr>
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre3" name="nombre3"></td>
-                                    <td><input type="text" class="form-control" id="cargo3" name="cargo3"></td>
+                                    <td><input type="text" class="form-control" id="nombre3" name="nombre3" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo3" name="cargo3" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="tel3" name="tel3"></td>
                                     <td><input type="text" class="form-control" id="cel3" name="cel3"></td>
                                     <td><input type="email" class="form-control" id="email3" name="email3"></td>
                                 </tr>
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre4" name="nombre4"></td>
-                                    <td><input type="text" class="form-control" id="cargo4" name="cargo4"></td>
+                                    <td><input type="text" class="form-control" id="nombre4" name="nombre4" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo4" name="cargo4" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="tel4" name="tel4"></td>
                                     <td><input type="text" class="form-control" id="cel4" name="cel4"></td>
                                     <td><input type="email" class="form-control" id="email4" name="email4"></td>
                                 </tr>
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre5" name="nombre5"></td>
-                                    <td><input type="text" class="form-control" id="cargo5" name="cargo5"></td>
+                                    <td><input type="text" class="form-control" id="nombre5" name="nombre5" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo5" name="cargo5" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="tel5" name="tel5"></td>
                                     <td><input type="text" class="form-control" id="cel5" name="cel5"></td>
                                     <td><input type="email" class="form-control" id="email5" name="email5"></td>
@@ -386,6 +386,10 @@ if(isset($_SESSION['seudonimo'])) {
       
     
     <script language="javascript">
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

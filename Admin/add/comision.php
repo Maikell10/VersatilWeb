@@ -13,6 +13,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $primat_com=$_GET['primat_com'];
+  $primat_comt=$_GET['primat_comt'];
+
   $comt=$_GET['comt'];
   $f_hasta=$_GET['f_hasta'];
   $f_pagoGc=$_GET['f_pagoGc'];
@@ -339,6 +341,24 @@ if(isset($_SESSION['seudonimo'])) {
 
                         
                     </div>
+
+                        <?php
+                            $primaRestante=$primat_comt-$totalPrima;
+                            if ($totalPrima>$primat_comt) {
+                        ?>  
+                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
+                        <?php      
+                            } elseif($totalPrima<$primat_comt) {
+                        ?>
+                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
+                        <?php 
+                            }elseif($totalPrima==$primat_comt) {
+                                $primaRestante=0;
+                        ?>
+                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
+                        <?php 
+                            }
+                        ?>
                     
                     
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Confirmar</button>

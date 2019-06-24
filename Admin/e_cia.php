@@ -208,7 +208,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 					<tbody >
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?php echo utf8_encode($cia[0]['nomcia']); ?>"></td>
+                            <td><input type="text" class="form-control" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?php echo utf8_encode($cia[0]['nomcia']); ?>" onkeyup="mayus(this);"></td>
                             <td><input type="text" class="form-control" name="rif" value="<?php echo $cia[0]['rif']; ?>"></td>
                             <td hidden><input type="text" class="form-control" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
                         </tr>
@@ -237,8 +237,8 @@ if(isset($_SESSION['seudonimo'])) {
                            
                         ?>
                         <tr style="background-color: white">
-                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($i+1); ?>" value="<?php echo utf8_encode($contacto_cia[$i]['nombre']); ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($i+1); ?>" value="<?php echo utf8_encode($contacto_cia[$i]['cargo']); ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($i+1); ?>" value="<?php echo utf8_encode($contacto_cia[$i]['nombre']); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($i+1); ?>" value="<?php echo utf8_encode($contacto_cia[$i]['cargo']); ?>" onkeyup="mayus(this);"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'tel'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['tel']; ?>"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'cel'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['cel']; ?>"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'email'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['email']; ?>"></td>
@@ -252,8 +252,8 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
 
                         <tr style="background-color: white">
-                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($a+1); ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($a+1); ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($a+1); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($a+1); ?>" onkeyup="mayus(this);"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'tel'.($a+1); ?>"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'cel'.($a+1); ?>"></td>
                             <td ><input type="text" class="form-control" name="<?php echo 'email'.($a+1); ?>"></td>
@@ -372,6 +372,10 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 <script language="javascript">
+
+    function mayus(e) {
+        e.value = e.value.toUpperCase();
+    }   
 
 function Exportar(table, name){
     var uri = 'data:application/vnd.ms-excel;base64,'

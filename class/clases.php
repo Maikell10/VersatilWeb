@@ -938,7 +938,7 @@ class Trabajo extends Conectar{
 
 
 
-	public function get__last_poliza_by_id($cod_poliza,$cond,$campo)
+	public function get__last_poliza_by_id($cod_poliza)
 		  {
 		      	$sql="SELECT id_poliza FROM poliza WHERE cod_poliza = '$cod_poliza'
 		      							ORDER BY f_poliza DESC";
@@ -3930,11 +3930,32 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 	}
 
 
+	public function editarCia($id_cia,$nombre_cia,$rif){
+
+
+		$sql="UPDATE dcia set nomcia='$nombre_cia',
+								rif='$rif'
+
+					where idcia= '$id_cia'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+	public function editarCiaContacto($id_cia,$nombre_cia,$rif){
+
+
+		$sql="UPDATE contacto_cia set nomcia='$nombre_cia',
+									  rif='$rif'
+
+					where id_cia= '$id_cia'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+
 //-------------------------------------------------------------------	
 
 //------------------------------ELIMINAR-------------------------------------
 
-	public function eliminarAsesor($id){
+		public function eliminarAsesor($id){
 
 			$sql="DELETE from ena where idena='$id'";
 			return mysqli_query(Conectar::con(),$sql);
@@ -3949,6 +3970,12 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 			mysqli_query(Conectar::con(),$sql2);
 
 			$sql="DELETE from poliza where id_poliza='$id'";
+			return mysqli_query(Conectar::con(),$sql);
+		}
+
+		public function eliminarCiaContacto($id_cia){
+
+			$sql="DELETE from contacto_cia where id_cia='$id_cia'";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 	

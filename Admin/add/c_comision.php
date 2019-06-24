@@ -1,4 +1,7 @@
 <?php 
+//Desactivar errores
+error_reporting(E_ALL ^ E_NOTICE);
+
 session_start();
 if(isset($_SESSION['seudonimo'])) {
 
@@ -347,16 +350,16 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                     <input style="width:40%" type="button" onclick="deleterow()" class="btn btn-danger borrar" value="Eliminar Última Fila" id="borrar"/>
 
                         <?php
-                        $primaRestante=$_GET['primat_com']-isset($totalprimaant);
-                            if (isset($totalprimaant)>$_GET['primat_com']) {
+                        $primaRestante=$_GET['primat_com']-$totalprimaant;
+                            if ($totalprimaant>$_GET['primat_com']) {
                         ?>  
                             <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
                         <?php      
-                            } elseif(isset($totalprimaant)<$_GET['primat_com']) {
+                            } elseif($totalprimaant<$_GET['primat_com']) {
                         ?>
                             <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
                         <?php 
-                            }elseif(isset($totalprimaant)==$_GET['primat_com']) {
+                            }elseif($totalprimaant==$_GET['primat_com']) {
                                 $primaRestante=0;
                         ?>
                         <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>

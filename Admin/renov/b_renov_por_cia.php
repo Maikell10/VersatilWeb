@@ -20,6 +20,17 @@ if(isset($_SESSION['seudonimo'])) {
   $obj3= new Trabajo();
   $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
 
+
+  $obj5= new Trabajo();
+  $asesor = $obj5->get_element('ena','idena');
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','id_enp'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','id_enr'); 
+
+
  $fechaMin=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
  //$fechaMax=date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
 
@@ -261,6 +272,27 @@ $fechaMax= $date->format($format);
                                 <option value="12">Diciembre</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Asesor:</label>
+                        <select class="form-control" name="asesor">
+                          <option>Seleccione el Asesor</option>
+                          <?php
+                            for($i=0;$i<sizeof($asesor);$i++)
+                                {  
+                            ?>
+                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                            <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                { ?> 
+                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                            <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                {?>
+                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                            <?php } ?>
+                        </select>
+                      </div>
                     </div>
     
     
