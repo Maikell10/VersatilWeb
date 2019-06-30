@@ -16,7 +16,10 @@ if(isset($_SESSION['seudonimo'])) {
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
 
+  $cont=1;
+
   if ($mes==null) {
+      $cont=12;
       $mesD=01;
       $mesH=12;
       $desde=$_GET['anio']."-".$mesD."-01";
@@ -155,16 +158,17 @@ if(isset($_SESSION['seudonimo'])) {
                 <center>
                 
                 <div class="table-responsive">
-                <table class="table table-hover table-striped display" id="mytable" >
+                <table class="table table-hover table-striped display" id="mytable" style="cursor: pointer;">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th hidden>id</th>
+                            <th>Mes</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Ramo</th>
                             <th>Asesor</th>
+                            <th hidden>id</th>
                         </tr>
                     </thead>
                     
@@ -175,17 +179,32 @@ if(isset($_SESSION['seudonimo'])) {
                         $currency="";
                         $totalpoliza=0;
 
-                        for ($a=0; $a < sizeof($distinct_c); $a++) { 
+                        for ($a=0; $a < $cont; $a++) { 
                             
                         
+                        if ($mes==null) {
+                            $desde1 = [$_GET['anio']."-01-01",$_GET['anio']."-02-01",$_GET['anio']."-03-01",$_GET['anio']."-04-01",$_GET['anio']."-05-01",$_GET['anio']."-06-01",$_GET['anio']."-07-01",$_GET['anio']."-08-01",$_GET['anio']."-09-01",$_GET['anio']."-10-01",$_GET['anio']."-11-01",$_GET['anio']."-12-01"];
+                            
+                            $hasta1 = [$_GET['anio']."-01-31",$_GET['anio']."-02-31",$_GET['anio']."-03-31",$_GET['anio']."-04-31",$_GET['anio']."-05-31",$_GET['anio']."-06-31",$_GET['anio']."-07-31",$_GET['anio']."-08-31",$_GET['anio']."-09-31",$_GET['anio']."-10-31",$_GET['anio']."-11-31",$_GET['anio']."-12-31"];
 
+                            $mes1 = [1,2,3,4,5,6,7,8,9,10,11,12];
+                        }else {
+                            $desde1 = [$desde];
+                            $hasta1 = [$hasta];
+                            $mes1 = [$mes];
+                        }
+
+                        
+
+                        
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde1[$a],$hasta1[$a],$cia,$asesor); 
                         
 
                         ?>
                             
-                                
+                            <tr>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $mes_arr[$mes1[$a]-1]; ?></td>        
 
                         <?php
 
@@ -204,16 +223,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>  
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -238,12 +253,13 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td ><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
                             </tr>
                             <?php
                             }
                             ?>
-                            <tr>
-                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo utf8_encode($distinct_c[$a]['nomcia']); ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
+                            <tr class="no-tocar">
+                                <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $mes_arr[$mes1[$a]-1]; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -254,12 +270,14 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
-                            <th hidden>id</th>
+                            <th>Mes</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Ramo</th>
+                            <th>Asesor</th>
+                            <th hidden>id</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -269,6 +287,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <table hidden class="table table-hover table-striped display table-responsive" id="Exportar_a_Excel" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
+                            <th>Mes</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
@@ -285,17 +304,32 @@ if(isset($_SESSION['seudonimo'])) {
                         $currency="";
                         $totalpoliza=0;
 
-                        for ($a=0; $a < sizeof($distinct_c); $a++) { 
+                        for ($a=0; $a < $cont; $a++) { 
                             
                         
+                        if ($mes==null) {
+                            $desde1 = [$_GET['anio']."-01-01",$_GET['anio']."-02-01",$_GET['anio']."-03-01",$_GET['anio']."-04-01",$_GET['anio']."-05-01",$_GET['anio']."-06-01",$_GET['anio']."-07-01",$_GET['anio']."-08-01",$_GET['anio']."-09-01",$_GET['anio']."-10-01",$_GET['anio']."-11-01",$_GET['anio']."-12-01"];
+                            
+                            $hasta1 = [$_GET['anio']."-01-31",$_GET['anio']."-02-31",$_GET['anio']."-03-31",$_GET['anio']."-04-31",$_GET['anio']."-05-31",$_GET['anio']."-06-31",$_GET['anio']."-07-31",$_GET['anio']."-08-31",$_GET['anio']."-09-31",$_GET['anio']."-10-31",$_GET['anio']."-11-31",$_GET['anio']."-12-31"];
 
+                            $mes1 = [1,2,3,4,5,6,7,8,9,10,11,12];
+                        }else {
+                            $desde1 = [$desde];
+                            $hasta1 = [$hasta];
+                            $mes1 = [$mes];
+                        }
+
+                        
+
+                        
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde1[$a],$hasta1[$a],$cia,$asesor); 
                         
 
                         ?>
                             
-                                
+                            <tr>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $mes_arr[$mes1[$a]-1]; ?></td>        
 
                         <?php
 
@@ -314,14 +348,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>  
-                            <tr style="cursor: pointer;">
-                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                            <tr style="cursor: pointer;">
-                                <td><?php echo utf8_encode($distinct_c[$a]['nomcia']); ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -350,8 +382,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <?php
                             }
                             ?>
-                            <tr>
-                                <td colspan="6" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo utf8_encode($distinct_c[$a]['nomcia']); ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
+                            <tr class="no-tocar">
+                                <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $mes_arr[$mes1[$a]-1]; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
@@ -362,12 +394,13 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
-                            <th hidden>id</th>
+                            <th>Mes</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Ramo</th>
+                            <th>Asesor</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -476,6 +509,22 @@ if(isset($_SESSION['seudonimo'])) {
      });
      });
     });
+
+        $( "#mytable tbody tr" ).click(function() {
+
+        if ($(this).attr('class') != 'no-tocar') {
+            var customerId = $(this).find("td").eq(7).html();  
+
+            if (customerId == null) {
+                var customerId = $(this).find("td").eq(6).html();  
+            } 
+
+            window.open ("../v_poliza.php?id_poliza="+customerId ,'_blank');
+        }
+        });
+
+        
+
     </script>
 
     <script language="javascript">

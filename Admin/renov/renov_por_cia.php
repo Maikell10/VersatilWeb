@@ -138,15 +138,15 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
                 <center>
 
-                <table class="table table-hover table-striped display table-responsive" id="mytable" >
+                <table class="table table-hover table-striped display table-responsive" id="mytable" style="cursor: pointer;">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th hidden>id</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Ramo</th>
+                            <th hidden>id</th>
                         </tr>
                     </thead>
                     
@@ -165,8 +165,7 @@ if(isset($_SESSION['seudonimo'])) {
                         $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
 
                         ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                            <tr>
                                 <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $distinct_c[$a]['nomcia']; ?></td>
 
                         <?php
@@ -199,11 +198,12 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo $newHasta; ?></td>
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
                             </tr>
                             <?php
                             }
                             ?>
-                            <tr>
+                            <tr class="no-tocar">
                                 <td colspan="5" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $distinct_c[$a]['nomcia']; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
@@ -215,12 +215,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
-                            <th hidden>id</th>
                             <th>Cía</th>
                             <th>N° Póliza</th>
                             <th>F Hasta Seguro</th>
                             <th>Nombre Titular</th>
                             <th>Ramo</th>
+                            <th hidden>id</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -414,6 +414,20 @@ if(isset($_SESSION['seudonimo'])) {
      });
      });
     });
+
+    $( "#mytable tbody tr" ).click(function() {
+
+    if ($(this).attr('class') != 'no-tocar') {
+        var customerId = $(this).find("td").eq(5).html();  
+
+        if (customerId == null) {
+            var customerId = $(this).find("td").eq(4).html();  
+        } 
+
+        window.open ("../v_poliza.php?id_poliza="+customerId ,'_blank');
+    }
+    });
+
     </script>
 
     <script language="javascript">

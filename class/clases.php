@@ -899,6 +899,9 @@ class Trabajo extends Conectar{
 			if ($asesor=='Seleccione el Asesor') {
 				$asesor='';
 			}
+			if ($cia=='Seleccione Cía') {
+				$cia='';
+			}
 			$sql="SELECT *  FROM 
 				poliza
 				INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
@@ -910,7 +913,7 @@ class Trabajo extends Conectar{
 				poliza.id_cod_ramo = dramo.cod_ramo AND
 				poliza.f_hastapoliza >= '$f_desde' AND
 				poliza.f_hastapoliza <= '$f_hasta' AND
-				nomcia = '$cia' AND
+				nomcia LIKE '%$cia%' AND
 				codvend LIKE '%$asesor%'
 				ORDER BY poliza.f_hastapoliza ASC";
 		$res=mysqli_query(Conectar::con(),$sql);
@@ -4119,7 +4122,7 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 	
 	function destruir(){
 
-		mysql_close($this->con);
+		mysqli_close(Conectar::con());
 	}	
 
 

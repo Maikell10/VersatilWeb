@@ -707,9 +707,6 @@ if(isset($_SESSION['seudonimo'])) {
                 function(){ 
                     window.location.replace("../../procesos/agregarGC.php?desde=<?php echo $desde;?>&hasta=<?php echo $hasta;?>&cia=<?php echo $ciaEnv;?>&asesor=<?php echo $asesorEnv;?>");
                     
-                    
-
-
 
 
                 }, 

@@ -73,7 +73,7 @@ if (isset($_GET["asesor"])!=null) {
     //recorremos el array de asesor seleccionado
     for ($i=0;$i<count($asesor);$i++)    
     {     
-    echo "<br>"  . $asesor[$i];    
+     "<br>"  . $asesor[$i];    
     }
 }
 
@@ -113,6 +113,8 @@ $Ejecutivo[sizeof($poliza)]=null;
     <title>
         Versatil Seguros
     </title>
+    <script src="../tableToExcel.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -185,11 +187,14 @@ $Ejecutivo[sizeof($poliza)]=null;
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1" hidden="true">
                     <h1 class="title">Resultado de Búsqueda de Póliza</h1>  
                 </div>
+
+                <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
                 
                 <?php
                 if ($status == 1) {
 
                 ?>
+
 
                 <center>
                 <div class="table-responsive">
@@ -309,7 +314,8 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table></div>
+                </table>
+                </div>
 
 
                 <h1 class="title">Total de Prima</h1>
@@ -518,7 +524,8 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>
-                </table></div>
+                </table>
+                </div>
 
 
                 <h1 class="title">Total de Prima</h1>
@@ -527,6 +534,91 @@ $Ejecutivo[sizeof($poliza)]=null;
                 <h1 class="title">Total de Pólizas</h1>
                 <h1 class="title text-danger"><?php  echo $cant;?></h1>
             </center>
+
+
+
+
+            <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel" hidden>
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>N° Póliza</th>
+                            <th>Nombre Asesor</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th style="background-color: #E54848;">Prima Suscrita</th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody >
+                        <?php
+                        $totalsuma=0;
+                        $totalprima=0;
+                        $currency="";
+                        $cant=0;
+                        for ($i=0; $i < sizeof($poliza); $i++) { 
+                            if ($poliza[$i]['id_titular']==0) {
+
+                            } else {
+                            $cant=$cant+1;
+                            $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
+                            $totalprima=$totalprima+$poliza[$i]['prima'];
+
+                            $originalDesde = $poliza[$i]['f_desdepoliza'];
+                            $newDesde = date("d/m/Y", strtotime($originalDesde));
+                            $originalHasta = $poliza[$i]['f_hastapoliza'];
+                            $newHasta = date("d/m/Y", strtotime($originalHasta));
+                            $originalFProd = $poliza[$i]['f_poliza'];
+				            $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                            if ($poliza[$i]['currency']==1) {
+                                $currency="$ ";
+                            }else{$currency="Bs ";}
+
+
+                            if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                            <?php            
+                            } else{
+                            ?>
+                            <tr style="cursor: pointer;">
+                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                            <?php   
+                            }
+
+                            ?>
+                            
+                                
+                                <td><?php echo $Ejecutivo[$i]; ?></td>
+                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo $newDesde; ?></td>
+                                <td><?php echo $newHasta; ?></td>
+                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                            </tr>
+                            <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+
+
+                    <tfoot>
+                        <tr>
+                            <th>N° Póliza</th>
+                            <th>Nombre Asesor</th>
+                            <th>Cía</th>
+                            <th>F Desde Seguro</th>
+                            <th>F Hasta Seguro</th>
+                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Nombre Titular</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
 
             <?php
                 }

@@ -183,10 +183,9 @@ if(isset($_SESSION['seudonimo'])) {
                 <center>
                 
                 <div class="table-responsive">
-                <table class="table table-hover table-striped display" id="mytable" >
+                <table class="table table-hover table-striped display" id="mytable" style="cursor: pointer;">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
-                            <th hidden>id</th>
                             <th>Asesor</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>
@@ -194,6 +193,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Ramo</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
+                            <th hidden>id</th>
                         </tr>
                     </thead>
                     
@@ -226,8 +226,7 @@ if(isset($_SESSION['seudonimo'])) {
                         }
 
                         ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$a]['id_poliza']; ?></td>
+                            <tr>
                                 <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
 
                         <?php
@@ -263,11 +262,12 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $newHasta; ?></td>
+                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
                             </tr>
                             <?php
                             }
                             ?>
-                            <tr>
+                            <tr class="no-tocar">
                                 <td colspan="7" style="background-color: #F53333;color: white;font-weight: bold">Total <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font></td>
                             </tr>
                         <?php
@@ -279,7 +279,6 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr>
-                            <th hidden>id</th>
                             <th>Asesor</th>
                             <th>N° Póliza</th>
                             <th>Nombre Titular</th>
@@ -287,6 +286,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Ramo</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
+                            <th hidden>id</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -489,6 +489,20 @@ if(isset($_SESSION['seudonimo'])) {
 
 
    <script language="javascript">
+
+    $( "#mytable tbody tr" ).click(function() {
+
+    if ($(this).attr('class') != 'no-tocar') {
+        var customerId = $(this).find("td").eq(7).html();  
+
+        if (customerId == null) {
+            var customerId = $(this).find("td").eq(6).html();  
+        } 
+
+        window.open ("../v_poliza.php?id_poliza="+customerId ,'_blank');
+    }
+    });
+
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'
