@@ -163,6 +163,7 @@ if(isset($_SESSION['seudonimo'])) {
  
                 
                 <h2 style="color:green" id="sumaP"></h2>
+                <h2 style="color:green" id="sumaP1"></h2>
                         
                             
             </div>
@@ -328,7 +329,7 @@ if(isset($_SESSION['seudonimo'])) {
                             url:"sumar_rep.php?id_rep_com="+datos['id_rep_com'],
                             success:function(r){
                                 datos1=jQuery.parseJSON(r);
-
+                                console.log(datos1);
                                 if (datos1['SUM(prima_com)']==null) {
                                     $("#sumaP").text('No se han cargado comisiones al reporte todavía');
                                 }   
@@ -336,8 +337,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     
                                     
                                     var restante = new Intl.NumberFormat().format(datos['primat_com'] - datos1['SUM(prima_com)']);
-                                    console.log(restante);
                                     $("#sumaP").text('La Prima Cobrada Pendiente a Cargar es: $'+restante);
+
+
+                                    var comRestante = new Intl.NumberFormat().format(datos['comt'] - datos1['SUM(comt)']);
+                                    $("#sumaP1").text('La Comisión Cobrada Pendiente a Cargar es: $'+comRestante);
                                 }
                                 
                             }

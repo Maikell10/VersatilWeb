@@ -230,7 +230,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     </td>
                                     <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
-                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
+                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>, <?php echo 'calcularRest1(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
 
                                     <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
 
@@ -273,6 +273,24 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $primaRestante=0;
                         ?>
                         <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
+                        <?php 
+                            }
+                        ?>
+
+                        <?php
+                            $comRestante=$_GET['comt']-$totalcomant;
+                            if ($totalprimaant>$_GET['comt']) {
+                        ?>  
+                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
+                        <?php      
+                            } elseif($totalcomant<$_GET['comt']) {
+                        ?>
+                            <h2 style="color:red;font-weight:bold" id="Rest1">Falta cargar <?php echo "$ ".number_format($comRestante,2);?> de comisiones</h2>
+                        <?php 
+                            }elseif($totalcomant==$_GET['comt']) {
+                                $comRestante=0;
+                        ?>
+                        <h2 style="color:green;font-weight:bold" id="Rest1">Pendiente a Cargar $0</h2>
                         <?php 
                             }
                         ?>
@@ -2205,13 +2223,66 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                var prima9 = 0;
             }
 
-console.log(prima9);
+            console.log(prima9);
 
             var primaRestante = '<?php echo $primaRestante;?>';
 
             var Rest=primaRestante-prima0-prima1-prima2-prima3-prima4-prima5-prima6-prima7-prima8-prima9;
 
-            $("#Rest").text('Falta cargar $'+Rest);
+            $("#Rest").text('Falta cargar $'+Rest+' de prima sujeta a comisión');
+        }
+
+        function calcularRest1(comision){
+            
+            var comision0 = $("#comision0").val();
+            var comision1 = $("#comision1").val();
+            var comision2 = $("#comision2").val();
+            var comision3 = $("#comision3").val();
+            var comision4 = $("#comision4").val();
+            var comision5 = $("#comision5").val();
+            var comision6 = $("#comision6").val();
+            var comision7 = $("#comision7").val();
+            var comision8 = $("#comision8").val();
+            var comision9 = $("#comision9").val();
+
+            if (($("#comision0").val() == '')){
+               var comision0 = 0;
+            }
+            if (($("#comision1").val() == '') || ($("#comision1").val() == null)){
+               var comision1 = 0;
+            }
+            if (($("#comision2").val() == '') || ($("#comision2").val() == null)){
+               var comision2 = 0;
+            }
+            if (($("#comision3").val() == '') || ($("#comision3").val() == null)){
+               var comision3 = 0;
+            }
+            if (($("#comision4").val() == '') || ($("#comision4").val() == null)){
+               var comision4 = 0;
+            }
+            if (($("#comision5").val() == '') || ($("#comision5").val() == null)){
+               var comision5 = 0;
+            }
+            if (($("#comision6").val() == '') || ($("#comision6").val() == null)){
+               var comision6 = 0;
+            }
+            if (($("#comision7").val() == '') || ($("#comision7").val() == null)){
+               var comision7 = 0;
+            }
+            if (($("#comision8").val() == '') || ($("#comision8").val() == null)){
+               var comision8 = 0;
+            }
+            if (($("#comision9").val() == '') || ($("#comision9").val() == null)){
+               var comision9 = 0;
+            }
+
+            console.log(comision0);
+
+            var comRestante = '<?php echo $comRestante;?>';
+
+            var Rest=comRestante-comision0-comision1-comision2-comision3-comision4-comision5-comision6-comision7-comision8-comision9;
+
+            $("#Rest1").text('Falta cargar $'+Rest+' de comisiones');
         }
 
         function calcularP0(comision){

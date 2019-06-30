@@ -16,6 +16,7 @@ if(isset($_SESSION['seudonimo'])) {
   $primat_comt=$_GET['primat_comt'];
 
   $comt=$_GET['comt'];
+  $comtt=$_GET['comtt'];
   $f_hasta=$_GET['f_hasta'];
   $f_pagoGc=$_GET['f_pagoGc'];
   $id_rep=$_GET['id_rep'];
@@ -263,6 +264,24 @@ if(isset($_SESSION['seudonimo'])) {
                             <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
                         <?php 
                             }elseif($totalPrima==$primat_comt) {
+                                $primaRestante=0;
+                        ?>
+                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
+                        <?php 
+                            }
+                        ?>
+
+                        <?php
+                            $primaRestante=$comtt-$totalComision;
+                            if ($totalComision>$comtt) {
+                        ?>  
+                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
+                        <?php      
+                            } elseif($totalComision<$comtt) {
+                        ?>
+                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
+                        <?php 
+                            }elseif($totalComision==$comtt) {
                                 $primaRestante=0;
                         ?>
                         <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>

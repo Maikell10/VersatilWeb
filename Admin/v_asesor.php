@@ -14,6 +14,19 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj1= new Trabajo();
   $asesor = $obj1->get_element_by_id('ena','cod',$cod_asesor); 
+  $nombre=$asesor[0]['idnom'];
+
+    if (sizeof($asesor)==null) {
+        $ob3= new Trabajo();
+        $asesor = $ob3->get_element_by_id('enp','cod',$cod_asesor); 
+        $nombre=$asesor[0]['nombre'];
+    }
+
+    if (sizeof($asesor)==null) {
+        $ob3= new Trabajo();
+        $asesor = $ob3->get_element_by_id('enr','cod',$cod_asesor); 
+        $nombre=$asesor[0]['nombre'];
+    }
 
 
 ?>
@@ -89,7 +102,7 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Asesor: <?php echo $asesor[0]['idnom']; ?></h1>  
+                    <h1 class="title">Asesor: <?php echo $nombre; ?></h1>  
                     <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
                 </div>
 
@@ -107,7 +120,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <tbody>
                         <tr>
                             <td ><?php echo $asesor[0]['id']; ?></td>
-                            <td ><?php echo $asesor[0]['idnom']; ?></td>
+                            <td ><?php echo $nombre; ?></td>
                             <td ><?php echo $asesor[0]['email']; ?></td>
                             <td><?php echo $asesor[0]['cel']; ?></td>
                         </tr>

@@ -3966,7 +3966,7 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 	
 	public function obtenSumaReporte($id_rep_com){
 
-			$sql="SELECT SUM(prima_com) FROM rep_com, comision
+			$sql="SELECT SUM(prima_com), SUM(comt) FROM rep_com, comision
 					WHERE 
 					rep_com.id_rep_com=comision.id_rep_com AND
 					comision.id_rep_com= '$id_rep_com'";
@@ -3975,7 +3975,8 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 			$ver=mysqli_fetch_row($result);
 			
 			$datos1=array(
-				'SUM(prima_com)' => $ver[0]
+				'SUM(prima_com)' => $ver[0],
+				'SUM(comt)' => $ver[1]
 				);
 			return $datos1;
 

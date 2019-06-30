@@ -61,7 +61,7 @@ $cia = $obj1->get_element('dcia','nomcia');
 					<td><?php echo $desde_prefn; ?></td>
 					<td><?php echo $hasta_prefn; ?></td>
 					<td style="text-align: center;">
-	                    <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?php echo $cia[$i]['nomcia'];?>" class="btn btn-success btn-sm btn-round"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+	                    <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?php echo $cia[$i]['nomcia'];?>" class="btn btn-info btn-sm btn-round"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
 	                </td>
 				</tr>
 				<?php
