@@ -1137,7 +1137,40 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND 
 						poliza.id_cod_ramo = dramo.cod_ramo AND
 						poliza.id_cia = dcia.idcia AND
-						titular.ci LIKE '%$busq%'";
+						titular.ci LIKE '%$busq%'
+						
+						UNION ALL
+						
+						SELECT * FROM
+						poliza, drecibo, titular, dramo, dcia
+						WHERE
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_titular = titular.id_titular AND 
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.id_cia = dcia.idcia AND
+						titular.nombre_t LIKE '%$busq%'
+						
+						UNION ALL
+						
+						SELECT * FROM
+						poliza, drecibo, titular, dramo, dcia
+						WHERE
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_titular = titular.id_titular AND 
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.id_cia = dcia.idcia AND
+						titular.apellido_t LIKE '%$busq%'
+						
+						UNION ALL
+						
+						SELECT * FROM
+						poliza, drecibo, titular, dramo, dcia
+						WHERE
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_titular = titular.id_titular AND 
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.codvend = '$busq'";
 		$res=mysqli_query(Conectar::con(),$sql);
 		
 		$filas=mysqli_num_rows($res); 
@@ -1480,6 +1513,108 @@ class Trabajo extends Conectar{
 					if ($filas == 0) { 
 						echo "No hay registros";
 				      	header("Location: ../Admin/gc/b_gc.php?m=2");
+				      	exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+		}
+
+		public function get_gc_by_filtro_distinct_a_carga($f_desde,$f_hasta,$cia,$asesor)
+			{
+				
+				
+
+				if ($cia!='' && $asesor!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
+
+					$sql="SELECT DISTINCT codvend FROM 
+								comision
+								INNER JOIN poliza, rep_com, dcia
+								WHERE 
+								poliza.id_poliza = comision.id_poliza AND
+								comision.id_rep_com = rep_com.id_rep_com AND
+								poliza.id_cia=dcia.idcia AND
+								rep_com.f_pago_gc >= '$f_desde' AND
+								rep_com.f_pago_gc <= '$f_hasta' AND
+								nomcia IN ".$ciaIn." AND
+								codvend  IN ".$asesorIn." AND
+                            	not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+								ORDER BY comision.cod_vend ASC";
+				}
+				if ($cia=='' && $asesor=='') {
+					$sql="SELECT DISTINCT codvend FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							codvend  LIKE '%$asesor%' AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY comision.cod_vend ASC";
+				}
+				if ($cia=='' && $asesor!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
+
+					$sql="SELECT DISTINCT codvend FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							nomcia LIKE '%$cia%' AND
+							codvend  IN ".$asesorIn." AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY comision.cod_vend ASC";
+				}
+				if ($asesor=='' && $cia!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					$sql="SELECT DISTINCT codvend FROM 
+							comision
+							INNER JOIN poliza, rep_com, dcia
+							WHERE 
+							poliza.id_poliza = comision.id_poliza AND
+							comision.id_rep_com = rep_com.id_rep_com AND
+							poliza.id_cia=dcia.idcia AND
+							rep_com.f_pago_gc >= '$f_desde' AND
+							rep_com.f_pago_gc <= '$f_hasta' AND
+							codvend LIKE '%$asesor%' AND
+							nomcia  IN ".$ciaIn." AND
+                            not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
+							ORDER BY comision.cod_vend ASC";
+				}
+				
+				
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			$filas=mysqli_num_rows($res); 
+			if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						echo "No hay registros";
+				      	header("Location: b_gc.php?m=2");
 				      	exit();
 			      	}else
 		            	{

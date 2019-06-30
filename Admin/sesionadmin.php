@@ -7,6 +7,7 @@ if(isset($_SESSION['seudonimo'])) {
         header("Location: login.php");
         exit();
       }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,100 +33,8 @@ if(isset($_SESSION['seudonimo'])) {
 </head>
 
 <body class="profile-page ">
-    <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="../index.html"> <img src="../assets/img/logo1.png" width="45%" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <i class="material-icons">plus_one</i> Cargar Datos
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="add/crear_poliza.php" class="dropdown-item">
-                                <i class="material-icons">add_to_photos</i> Póliza
-                            </a>
-                            <a href="add/crear_comision.php" class="dropdown-item">
-                                <i class="material-icons">add_to_photos</i> Comisión
-                            </a>
-                            <a href="add/crear_asesor.php" class="dropdown-item">
-                                <i class="material-icons">person_add</i> Asesor
-                            </a>
-                            <a href="add/crear_compania.php" class="dropdown-item">
-                                <i class="material-icons">markunread_mailbox</i> Compañía
-                            </a>
-                        </div>
-                    </li>
 
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <i class="material-icons">search</i> Buscar
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="b_asesor.php" class="dropdown-item">
-                                <i class="material-icons">accessibility</i> Asesor
-                            </a>
-                            <a href="b_cliente.php" class="dropdown-item">
-                                <i class="material-icons">accessibility</i> Cliente
-                            </a>
-                            <a href="b_poliza.php" class="dropdown-item">
-                                <i class="material-icons">content_paste</i> Póliza
-                            </a>
-                            <a href="b_vehiculo.php" class="dropdown-item">
-                                <i class="material-icons">commute</i> Vehículo
-                            </a>
-                            <a href="b_comp.php" class="dropdown-item">
-                                <i class="material-icons">markunread_mailbox</i> Compañía
-                            </a>
-                            <a href="b_reportes.php" class="dropdown-item">
-                                <i class="material-icons">library_books</i> Reportes de Comision
-                            </a>
-                            <a href="b_reportes_cia.php" class="dropdown-item">
-                                <i class="material-icons">library_books</i> Reportes de Comision por Cía
-                            </a>
-                        </div>
-                    </li>
-
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <i class="material-icons">trending_up</i> Gráficos
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="grafic/porcentaje.php" class="dropdown-item">
-                                <i class="material-icons">pie_chart</i> Porcentajes
-                            </a>
-                            <a href="grafic/primas_s.php" class="dropdown-item">
-                                <i class="material-icons">bar_chart</i> Primas Suscritas
-                            </a>
-                            <a href="grafic/primas_c.php" class="dropdown-item">
-                                <i class="material-icons">thumb_up</i> Primas Cobradas
-                            </a>
-                            <a href="grafic/comisiones_c.php" class="dropdown-item">
-                                <i class="material-icons">timeline</i> Comisiones Cobradas
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                <i class="material-icons">show_chart</i> Gestión de Cobranza
-                            </a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="../sys/cerrar_sesion.php" onclick="scrollToDownload()">
-                            <i class="material-icons">eject</i> Cerrar Sesión
-                        </a>
-                    </li>
-                   
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php require('navigation.php');?>
 
 
 
@@ -215,7 +124,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="col-md-12 ml-auto mr-auto">
                         <div class="card card-signup">
                             <div class="card-header card-header-info text-center">
-                                <h3>Busqueda de Póliza por Nº de Póliza, ID Asegurado</h3>
+                                <h3>Busqueda General de Póliza</h3>
                             </div>
                             <div class="card-body">
                                 <form class="form text-center" method="get" action="b_poliza_busq.php">
