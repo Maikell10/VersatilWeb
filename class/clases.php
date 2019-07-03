@@ -1616,7 +1616,7 @@ class Trabajo extends Conectar{
 				}else{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
-						echo "No hay registros";
+						//echo "No hay registros";
 				      	header("Location: b_gc.php?m=2");
 				      	exit();
 			      	}else
@@ -1636,7 +1636,7 @@ class Trabajo extends Conectar{
 					// create sql part for IN condition by imploding comma after each id
 					$ciaIn = "('" . implode("','", $cia) ."')";
 
-					$sql="SELECT * FROM comision 
+					$sql="SELECT drecibo.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision FROM comision 
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
@@ -1654,7 +1654,8 @@ class Trabajo extends Conectar{
 				}
 
 				if ($cia=='') {
-					$sql="SELECT * FROM comision 
+					$sql="SELECT drecibo.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision
+							FROM comision 
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 

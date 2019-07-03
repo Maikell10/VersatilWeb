@@ -1,6 +1,11 @@
 <?php
 //----Obtengo el permiso del usuario
-$permiso = $_SESSION['id_permiso'];
+require_once("../../../class/clases.php");
+
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$permiso = $user[0]['id_permiso'];
 //----------------------
 ?>
 <nav class="navbar navbar-color-on-scroll navbar-transparent    fixed-top  navbar-expand-lg bg-info" color-on-scroll="100" id="sectionsNav">
