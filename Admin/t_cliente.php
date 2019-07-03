@@ -68,7 +68,7 @@ $cliente = $obj1->get_element('titular','id_titular');
     $( "#iddatatable tbody tr" ).click(function() {
     	var customerId = $(this).find("td").eq(1).html();   
 
-	  	window.location.href = "v_cliente.php?id_cliente="+customerId;
+		window.open ("v_cliente.php?id_cliente="+customerId ,'_blank');
 	});
 
 

@@ -144,9 +144,9 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
 							<tr>
 				                <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
-				                <td ><?php echo $cliente[$i]['nramo']; ?></td>
-                                <td ><?php echo $cliente[$i]['nomcia']; ?></td>
-                                <td ><?php echo $cliente[$i]['idnom']; ?></td>
+				                <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
+                                <td ><?php echo utf8_encode($cliente[$i]['nomcia']); ?></td>
+                                <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
                                 <td nowrap><?php echo $newDesde; ?></td>
                                 <td nowrap><?php echo $newHasta; ?></td>
                                 <td ><?php echo $cliente[$i]['cod_recibo']; ?></td>
@@ -188,9 +188,9 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             <tr>
                                 <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
-                                <td ><?php echo $cliente[$i]['nramo']; ?></td>
-                                <td ><?php echo $cliente[$i]['nomcia']; ?></td>
-                                <td ><?php echo $cliente[$i]['idnom']; ?></td>
+                                <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
+                                <td ><?php echo utf8_encode($cliente[$i]['nomcia']); ?></td>
+                                <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
                                 <td nowrap><?php echo $newDesde; ?></td>
                                 <td nowrap><?php echo $newHasta; ?></td>
                                 <td ><?php echo $cliente[$i]['cod_recibo']; ?></td>

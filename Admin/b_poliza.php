@@ -45,8 +45,6 @@ $fechaMax= $date->format($format);
   $obj1= new Trabajo();
   $poliza = $obj1->get_poliza_total(); 
   
-  $dest= new Trabajo();
-  $dest = $dest->destruir();
 
 
   $Ejecutivo[sizeof($poliza)]=null;
@@ -294,9 +292,6 @@ $fechaMax= $date->format($format);
                                     
                                 //} else {
 
-                                    
-                                    
-                                
                                 
                                 $totalsuma=$totalsuma+$poliza[$i]['sumaasegurada'];
                                 $totalprima=$totalprima+$poliza[$i]['prima'];
