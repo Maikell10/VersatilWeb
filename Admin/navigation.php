@@ -40,6 +40,9 @@ $permiso = $user[0]['id_permiso'];
                             <a href="add/crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
+                            <a href="add/crear_usuario.php" class="dropdown-item">
+                                <i class="material-icons">person_add</i> Usuario
+                            </a>
                             <?php
                                 }
                             ?>

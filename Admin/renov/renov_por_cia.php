@@ -10,6 +10,10 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  if (isset($_GET["asesor"])!=null) {
+    $asesor=$_GET["asesor"]; 
+  }else{$asesor='';}
+
   $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
   $mes = $_GET['mes'];
@@ -36,11 +40,9 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
 
-  $asesor = $_GET['asesor'];
-  $cia = '';
 
   $obj1= new Trabajo();
-  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_ac($desde,$hasta,$cia,$asesor); 
+  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_c($desde,$hasta,$asesor); 
 
 
 ?>
@@ -162,7 +164,7 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_c($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
 
                         ?>
                             <tr>
@@ -249,7 +251,7 @@ if(isset($_SESSION['seudonimo'])) {
                         
 
                         $obj2= new Trabajo();
-                        $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                        $poliza = $obj2->get_poliza_total_by_filtro_renov_c($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
 
                         ?>
                             <tr style="cursor: pointer;">

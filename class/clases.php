@@ -740,9 +740,14 @@ class Trabajo extends Conectar{
 				}
 		}
 
-	public function get_poliza_total_by_filtro_renov_distinct_c($f_desde,$f_hasta)
+	public function get_poliza_total_by_filtro_renov_distinct_c($f_desde,$f_hasta, $asesor)
 			{
-				$sql="SELECT DISTINCT nomcia FROM 
+				
+				if ($asesor!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
+
+					$sql="SELECT DISTINCT nomcia FROM 
 					poliza
 					INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
 					WHERE 
@@ -752,8 +757,24 @@ class Trabajo extends Conectar{
 					poliza.id_cia = dcia.idcia AND
 					poliza.id_cod_ramo = dramo.cod_ramo AND
 					poliza.f_hastapoliza >= '$f_desde' AND
-					poliza.f_hastapoliza <= '$f_hasta'
+					poliza.f_hastapoliza <= '$f_hasta' AND
+					codvend IN ".$asesorIn."
 					ORDER BY nomcia ASC";
+				}
+				if ($asesor=='') {
+					$sql="SELECT DISTINCT nomcia FROM 
+					poliza
+					INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					drecibo.idtitu = titular.id_titular AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.f_hastapoliza >= '$f_desde' AND
+					poliza.f_hastapoliza <= '$f_hasta' 
+					ORDER BY nomcia ASC";
+				}
 			$res=mysqli_query(Conectar::con(),$sql);
 			
 			$filas=mysqli_num_rows($res); 
@@ -763,7 +784,7 @@ class Trabajo extends Conectar{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
 						echo "No hay registros";
-				      	header("Location: b_poliza.php?m=2");
+				      	header("Location: b_renov_por_cia.php?m=2");
 				      	exit();
 			      	}else
 		            	{
@@ -856,22 +877,44 @@ class Trabajo extends Conectar{
 				}
 		}	
 
-		public function get_poliza_total_by_filtro_renov_c($f_desde,$f_hasta,$cia)
+		public function get_poliza_total_by_filtro_renov_c($f_desde,$f_hasta,$cia,$asesor)
 			{
+
+				if ($asesor!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$asesorIn = "('" . implode("','", $asesor) ."')";
+
+					$sql="SELECT *  FROM 
+						poliza
+						INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+						WHERE 
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						drecibo.idtitu = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.f_hastapoliza >= '$f_desde' AND
+						poliza.f_hastapoliza <= '$f_hasta' AND
+						nomcia LIKE '%$cia%' AND
+						codvend IN ".$asesorIn."
+						ORDER BY poliza.f_hastapoliza ASC";
+				}
+				if ($asesor=='') {
+					$sql="SELECT *  FROM 
+						poliza
+						INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+						WHERE 
+						poliza.id_poliza = drecibo.idrecibo AND
+						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+						drecibo.idtitu = titular.id_titular AND
+						poliza.id_cia = dcia.idcia AND
+						poliza.id_cod_ramo = dramo.cod_ramo AND
+						poliza.f_hastapoliza >= '$f_desde' AND
+						poliza.f_hastapoliza <= '$f_hasta' AND
+						nomcia LIKE '%$cia%'
+						ORDER BY poliza.f_hastapoliza ASC";
+				}
 				
-				$sql="SELECT *  FROM 
-					poliza
-					INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
-					WHERE 
-					poliza.id_poliza = drecibo.idrecibo AND
-					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-					drecibo.idtitu = titular.id_titular AND
-					poliza.id_cia = dcia.idcia AND
-					poliza.id_cod_ramo = dramo.cod_ramo AND
-					poliza.f_hastapoliza >= '$f_desde' AND
-					poliza.f_hastapoliza <= '$f_hasta' AND
-					nomcia = '$cia'
-					ORDER BY poliza.f_hastapoliza ASC";
 			$res=mysqli_query(Conectar::con(),$sql);
 			
 			$filas=mysqli_num_rows($res); 
@@ -881,7 +924,7 @@ class Trabajo extends Conectar{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
 						echo "No hay registros";
-				      	header("Location: b_poliza.php?m=2");
+				      	header("Location: b_renov_por_cia.php?m=2");
 				      	exit();
 			      	}else
 		            	{

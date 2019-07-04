@@ -7,45 +7,28 @@ if(isset($_SESSION['seudonimo'])) {
         header("Location: login.php");
         exit();
       }
-      
+  
   require_once("../../class/clases.php");
 
-
   $obj1= new Trabajo();
-  $asesor = $obj1->get_element('ena','idena'); 
+  $ramo = $obj1->get_element('dramo','cod_ramo'); 
 
   $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_hastapoliza','poliza'); 
+  $cia = $obj2->get_element('dcia','nomcia'); 
 
   $obj3= new Trabajo();
-  $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
+  $asesor = $obj3->get_element('ena','idena'); 
 
-
-  $obj5= new Trabajo();
-  $asesor = $obj5->get_element('ena','idnom');
+  $obj4= new Trabajo();
+  $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
 
   $obj31= new Trabajo();
-  $liderp = $obj31->get_element('enp','nombre'); 
+  $liderp = $obj31->get_element('enp','id_enp'); 
 
   $obj32= new Trabajo();
-  $referidor = $obj32->get_element('enr','nombre'); 
+  $referidor = $obj32->get_element('enr','id_enr'); 
 
 
- $fechaMin=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
- //$fechaMax=date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"]));
-
-
- //FECHA MAYORES A 2024
-$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-$format = 'Y';
-
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-
-// Print it
-$fechaMax= $date->format($format);
 
 
 ?>
@@ -62,7 +45,6 @@ $fechaMax= $date->format($format);
     <title>
         Versatil Seguros
     </title>
-    <link rel="stylesheet" type="text/css" href="../../bootstrap-4.2.1/css/bootstrap.css">
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -72,8 +54,7 @@ $fechaMax= $date->format($format);
     <link href="../../assets/assets-for-demo/demo.css" rel="stylesheet" />
     <link href="../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
 
-    <!-- BOOTSTRAP SELECT CSS -->
-    <link rel="stylesheet" href="../../css/bootstrap-select.css">
+    <link href="../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 
     
     <!-- Alertify -->
@@ -89,13 +70,19 @@ $fechaMax= $date->format($format);
     <script src="../../DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
 
 
-
-    <style type="text/css">
-        #carga{
-            height: 80vh
+    <script type="text/javascript">
+        function tabular(e,obj) {
+            tecla=(document.all) ? e.keyCode : e.which;
+            if(tecla!=13) return;
+            frm=obj.form;
+            for(i=0;i<frm.elements.length;i++) 
+            if(frm.elements[i]==obj) { 
+                if (i==frm.elements.length-1) i=-1;
+            break }
+            frm.elements[i+1].focus();
+            return false;
         }
-    </style>
-
+    </script>
 </head>
 
 <body class="profile-page ">
@@ -122,113 +109,100 @@ $fechaMax= $date->format($format);
 
 
     <div class="main main-raised">
-    
-    
+        
+
+        
+
         <div class="section">
-            <div class="container">
+            <div class="container" >
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
             
+                <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <center><h1 class="title">Pólizas a Renovar por Cía</h1></center>
-                </div> 
-                <div class="row" style="justify-content: center;">
-                    <h3>Seleccione su Búsqueda</h3>
+                    <?php 
+                        if (isset($_GET['cond'])) {
+                    ?> 
+                    <h1 class="title"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i>&nbsp;Agregada con Éxito</h1>  
+                    <?php       
+                        }
+                    ?>
+                    <h1 class="title"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Añadir Nuevo Usuario</h1>  
                 </div>
-                <br />
-    
-                <?php if (isset($_GET['m'])==2) {?>
-    
-                <div class="alert alert-danger" role="alert">
-                    No existen datos para la búsqueda seleccionada!
-                </div>
-    
-                <?php } ?>
-    
-    
-                <form class="form-horizontal" action="renov_por_cia.php" method="get">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Año Vigencia Seguro:</label>
-                            <select class="form-control" name="anio" id="anio">
-    
-                                <?php
-                                for($i=$fechaMin; $i <= $fechaMax; $i++)
-                                { 
-                                if ($i<date('Y')) {
-                                     
-                                 }else{
-                            ?>
-                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                <?php
-                                    }
-                                $date=$date+1;
-                                     
-                                } 
-                            ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Mes Vigencia Seguro:</label>
-                            <select class="form-control" name="mes" id="mes">
-                                <option value="">Seleccione Mes</option>
-                                <option value="1">Enero</option>
-                                <option value="2">Febrero</option>
-                                <option value="3">Marzo</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Mayo</option>
-                                <option value="6">Junio</option>
-                                <option value="7">Julio</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Septiembre</option>
-                                <option value="10">Octubre</option>
-                                <option value="11">Noviembre</option>
-                                <option value="12">Diciembre</option>
-                            </select>
-                        </div>
+
+
+            
+                <form class="form-horizontal" id="frmnuevo" action="cia.php" method="post" >
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Nombre del Usuario *</th>
+                                    <th>Apellido *</th>
+                                    <th>Cédula *</th>
+                                    <th>Z Producc *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre" name="nombre" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="apellido" name="apellido" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="rif" name="rif"></td>
+                                    <td><select name="zprod" id="zprod" class="custom-select">
+                                        <option value="">CARACAS</option>
+                                    </select></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="form-row">
-                      <div class="form-group col-md-12">
-                        <label>Asesor:</label>
-                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true" data-live-search="true">
-                           
-                            <?php
-                            for($i=0;$i<sizeof($asesor);$i++)
-                                {  
-                            ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
-                            <?php }for($i=0;$i<sizeof($liderp);$i++)
-                                { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
-                            <?php } for($i=0;$i<sizeof($referidor);$i++)
-                                {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
-                            <?php } ?>
-                        </select>
-                      </div>
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Nombre del Contacto</th>
+                                    <th>Cargo</th>
+                                    <th>Telf</th>
+                                    <th>Celular</th>
+                                    <th>e-mail</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="nombre1" name="nombre1" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="cargo1" name="cargo1" onkeyup="mayus(this);"></td>
+                                    <td><input type="text" class="form-control" id="tel1" name="tel1"></td>
+                                    <td><input type="text" class="form-control" id="cel1" name="cel1"></td>
+                                    <td><input type="email" class="form-control" id="email1" name="email1"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
                     </div>
-    
-    
-    
-    
-    
-    
-                    <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>
-    
+
+
+
+        
+
+                      <center>
+                        <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button></center>
+
                 </form>
-    
-    
-    
+                </center>
             </div>
-    
+
         </div>
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
         <div class="section" style="background-color: #40A8CB;">
             <div class="container">
                 <div class="row">
@@ -241,19 +215,19 @@ $fechaMax= $date->format($format);
                                 <div class="card-body">
                                     <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
                                 </div>
-    
+                                
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+        
     </div>
 
 
@@ -280,8 +254,6 @@ $fechaMax= $date->format($format);
         </div>
     </footer>
     <!--   Core JS Files   -->
-    
-
 
     <script src="../../assets/js/core/popper.min.js"></script>
     <script src="../../assets/js/bootstrap-material-design.js"></script>
@@ -296,13 +268,16 @@ $fechaMax= $date->format($format);
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
+    <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-    <!-- Bootstrap Select JavaScript -->
-    <script src="../../js/bootstrap-select.js"></script>
-
-
+      
+    
     <script language="javascript">
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'
@@ -314,6 +289,7 @@ $fechaMax= $date->format($format);
          window.location.href = uri + base64(format(template, ctx))
         }
     </script>
+
 
 </body>
 
