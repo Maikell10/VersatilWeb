@@ -112,25 +112,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-        <div class="section" style="background-color: #40A8CB;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <div class="card card-signup">
-                            <form class="form" method="" action="">
-                                <div class="card-header card-header-info text-center">
-                                    <h3>¿Necesitas cotizar tu póliza de seguros?</h3>
-                                </div>
-                                <div class="card-body">
-                                    <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
-                                </div>
-                                
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php require('footer_b.php');?>
 
 
 

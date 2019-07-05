@@ -135,31 +135,20 @@ if(isset($_SESSION['seudonimo'])) {
 
 
             </div>
+            
 
          
 
         </div>
+        
 
 
 
         <br><br><br><br>
 
-
-
-        <div class="section" style="background-color: #40A8CB;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <div class="card card-signup">
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-
-        </div>
+        <?php require('footer_b.php');?>
 
 
         

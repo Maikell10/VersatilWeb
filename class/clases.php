@@ -3642,6 +3642,22 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 }
 
 
+public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso){
+
+
+	$sql="INSERT into usuarios (nombre_usuario,cedula_usuario,clave_usuario,id_permiso,apellido_usuario,seudonimo,z_produccion)
+		values ('$nombre',
+				'$ci',
+				'$clave',
+				'$id_permiso',
+				'$apellido',
+				'$seudonimo',
+				'$zprod')";
+	return mysqli_query(Conectar::con(),$sql);
+
+}
+
+
 //-------------------------------------------------------------------
 
 

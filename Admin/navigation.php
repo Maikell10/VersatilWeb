@@ -75,6 +75,15 @@ $permiso = $user[0]['id_permiso'];
                             <a href="b_reportes_cia.php" class="dropdown-item">
                                 <i class="material-icons">library_books</i> Reportes de Comision por Cía
                             </a>
+                            <?php
+                                if ($permiso==1) {
+                            ?>
+                            <a href="b_usuario.php" class="dropdown-item">
+                                <i class="material-icons">person</i> Usuario
+                            </a>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </li>
 

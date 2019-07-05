@@ -40,6 +40,9 @@ $permiso = $user[0]['id_permiso'];
                             <a href="crear_compania.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
+                            <a href="crear_usuario.php" class="dropdown-item">
+                                <i class="material-icons">person_add</i> Usuario
+                            </a>
                             <?php
                                 }
                             ?>
@@ -69,6 +72,15 @@ $permiso = $user[0]['id_permiso'];
                             <a href="../b_reportes.php" class="dropdown-item">
                                 <i class="material-icons">library_books</i> Reportes de Cobranza
                             </a>
+                            <?php
+                                if ($permiso==1) {
+                            ?>
+                            <a href="../b_usuario.php" class="dropdown-item">
+                                <i class="material-icons">person</i> Usuario
+                            </a>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </li>
 

@@ -122,7 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <?php 
                         if (isset($_GET['cond'])) {
                     ?> 
-                    <h1 class="title"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i>&nbsp;Agregada con Éxito</h1>  
+                    <h1 class="title"><i class="fa fa-check-square-o text-success" aria-hidden="true"></i>&nbsp;Agregado con Éxito</h1>  
                     <?php       
                         }
                     ?>
@@ -131,7 +131,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
             
-                <form class="form-horizontal" id="frmnuevo" action="cia.php" method="post" >
+                <form class="form-horizontal" id="frmnuevo" action="usuario.php" method="post" >
                     <div class="form-row table-responsive">      
                         <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -148,9 +148,10 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr style="background-color: white">
                                     <td><input type="text" class="form-control" id="nombre" name="nombre" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="apellido" name="apellido" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
-                                    <td><input type="text" class="form-control" id="rif" name="rif"></td>
+                                    <td><input type="text" class="form-control" id="ci" name="ci"></td>
                                     <td><select name="zprod" id="zprod" class="custom-select">
-                                        <option value="">CARACAS</option>
+                                        <option value="PANAMÁ">PANAMÁ</option>
+                                        <option value="CARACAS">CARACAS</option>
                                     </select></td>
                                 </tr>
                                 </div>
@@ -162,22 +163,21 @@ if(isset($_SESSION['seudonimo'])) {
                         <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Nombre del Contacto</th>
-                                    <th>Cargo</th>
-                                    <th>Telf</th>
-                                    <th>Celular</th>
-                                    <th>e-mail</th>
+                                    <th>Seudónimo</th>
+                                    <th>Clave</th>
+                                    <th>Permisos</th>
                                 </tr>
                             </thead>
 
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="nombre1" name="nombre1" onkeyup="mayus(this);"></td>
-                                    <td><input type="text" class="form-control" id="cargo1" name="cargo1" onkeyup="mayus(this);"></td>
-                                    <td><input type="text" class="form-control" id="tel1" name="tel1"></td>
-                                    <td><input type="text" class="form-control" id="cel1" name="cel1"></td>
-                                    <td><input type="email" class="form-control" id="email1" name="email1"></td>
+                                    <td><input type="text" class="form-control" id="seudonimo" name="seudonimo"></td>
+                                    <td><input type="text" class="form-control" id="clave" name="clave"></td>
+                                    <td><select name="id_permiso" id="id_permiso" class="custom-select">
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Usuario</option>
+                                    </select></td>
                                 </tr>
                                 </div>
                             </tbody>
@@ -203,25 +203,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-        <div class="section" style="background-color: #40A8CB;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <div class="card card-signup">
-                            <form class="form" method="" action="">
-                                <div class="card-header card-header-info text-center">
-                                    <h3>¿Necesitas cotizar tu póliza de seguros?</h3>
-                                </div>
-                                <div class="card-body">
-                                    <center><a href="" class="btn btn-lg btn-info">Cotizar</a></center>
-                                </div>
-                                
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php require('footer_b.php');?>
 
 
 
