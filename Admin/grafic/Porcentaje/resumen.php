@@ -117,7 +117,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 
                 <center>
-                <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
+                <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Resumen')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
 
                 <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable1">
                   <thead style="background-color: #00bcd4;color: white; font-weight: bold;">

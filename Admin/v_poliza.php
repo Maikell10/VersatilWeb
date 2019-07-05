@@ -707,6 +707,9 @@ if ( (!$con_id) || (!$lr) ) {
                         }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];} echo utf8_encode($asesorr);
                     ?></h5>
                     <hr>
+                    
+                    <h5 class="modal-title" id="exampleModalLabel">Cía: <?php echo $poliza[0]['nomcia']; ?></h5>
+                    <hr>
 
                     <form id="frmnuevoP">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">

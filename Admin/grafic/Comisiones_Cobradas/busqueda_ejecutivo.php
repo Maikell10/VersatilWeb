@@ -97,7 +97,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <h1 class="title">Comisiones Cobradas por Ejecutivo</h1> 
                     <br/>
                     <a name="nombre"></a>
-                    <a href="../primas_s.php" class="btn btn-danger btn-lg btn-round">Gráficos de Prima Suscrita</a></center>
+                    <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
 
@@ -109,7 +109,7 @@ if(isset($_SESSION['seudonimo'])) {
       </div>
       <br/>
 
-      <?php if ($_GET['m']==2) {?>
+      <?php if (isset($_GET['m'])==2) {?>
   
     <div class="alert alert-danger" role="alert">
         No existen datos para la búsqueda seleccionada!

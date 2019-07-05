@@ -149,7 +149,7 @@ foreach($sumatotalCia as $key=>$value) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
  

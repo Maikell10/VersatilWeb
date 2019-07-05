@@ -90,7 +90,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_ramo.php">
                   <div class="card-body">
-                    <h5 class="card-title">Prima Suscrita por Ramo</h5>
+                    <h5 class="card-title">Por Ramo</h5>
                   </div>
                 </a>
                 </div>
@@ -100,7 +100,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_prima_mes.php">
                   <div class="card-body">
-                    <h5 class="card-title">Primas Suscritas por Mes</h5>
+                    <h5 class="card-title">Por Mes</h5>
                   </div>
                 </a>
                 </div>
@@ -108,7 +108,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_prima_semana.php?m=1">
                   <div class="card-body">
-                    <h5 class="card-title">Primas Suscritas por Semana</h5>
+                    <h5 class="card-title">Por Semana</h5>
                   </div>
                 </a>
                 </div>
@@ -122,7 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_cia.php">
                   <div class="card-body">
-                    <h5 class="card-title">Prima Suscrita por Cía</h5>
+                    <h5 class="card-title">Por Cía</h5>
                   </div>
                 </a>
                 </div>
@@ -130,7 +130,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_tipo_poliza.php" >
                   <div class="card-body">
-                    <h5 class="card-title">Prima Suscrita por Tipo de Póliza</h5>
+                    <h5 class="card-title">Por Tipo de Póliza</h5>
                   </div>
                 </a>
                 </div>
@@ -138,7 +138,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_ejecutivo.php">
                   <div class="card-body">
-                    <h5 class="card-title">Prima Suscrita por Ejecutivo</h5>
+                    <h5 class="card-title">Por Ejecutivo</h5>
                   </div>
                 </a>
                 </div>
@@ -150,7 +150,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-3">
                 <a href="Primas_Suscritas/busqueda_fpago.php">
                   <div class="card-body">
-                    <h5 class="card-title">Prima Suscrita por Forma de Pago</h5>
+                    <h5 class="card-title">Por Forma de Pago</h5>
                   </div>
                 </a>
                 </div>

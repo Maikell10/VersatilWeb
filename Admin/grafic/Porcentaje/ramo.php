@@ -149,7 +149,7 @@ foreach($sumatotalRamo as $key=>$value) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
@@ -212,12 +212,10 @@ foreach($sumatotalRamo as $key=>$value) {
 
         <br><br><br><br>
 
-
-
-        <?php require('footer_b.php');?>
-    
-    
       </div>
+
+      
+      <?php require('footer_b.php');?>
     </div>
 
 

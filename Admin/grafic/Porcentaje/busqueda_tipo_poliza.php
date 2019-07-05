@@ -101,7 +101,7 @@ if(isset($_SESSION['seudonimo'])) {
       </div>
       <br/>
 
-      <?php if ($_GET['m']==2) {?>
+      <?php if (isset($_GET['m'])==2) {?>
   
         <div class="alert alert-danger" role="alert">
             No existen datos para la búsqueda seleccionada!
@@ -177,7 +177,7 @@ if(isset($_SESSION['seudonimo'])) {
                 for($i=0;$i<sizeof($cia);$i++)
                   {  
               ?>
-                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                  <option value="<?php echo utf8_encode($cia[$i]["nomcia"]);?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
               <?php
                 } 
               ?> 
@@ -194,7 +194,7 @@ if(isset($_SESSION['seudonimo'])) {
                 for($i=0;$i<sizeof($ramo);$i++)
                   {  
               ?>
-                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo $ramo[$i]["nramo"];?></option>
               <?php
                 } 
               ?> 

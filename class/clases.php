@@ -14,7 +14,8 @@ class Conectar{
 		$hostname="209.208.111.101";
         $username="versatils";
         $password="AB2016vER2s85";
-        $dbname="versatil_sdb";
+		$dbname="versatil_sdb";
+		
 
 		return $con;
 	}	
@@ -2054,7 +2055,8 @@ class Trabajo extends Conectar{
 		    	if ($ramo=='Seleccione Ramo') {
 		    		$ramo='';
 		    	}
-
+				
+				
 		      	$sql="SELECT DISTINCT tipo_poliza FROM poliza, tipo_poliza, dcia, dramo WHERE 
 		      			poliza.id_tpoliza=tipo_poliza.id_t_poliza AND
 								poliza.id_cia=dcia.idcia AND
@@ -2064,22 +2066,25 @@ class Trabajo extends Conectar{
 		      			nomcia LIKE '%$cia%' AND
 		      			nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
-				
+
+				$filas=mysqli_num_rows($res); 
 				if (!$res) {
-				    //No hay registros
+					//No hay registros
 				}else{
 					$filas=mysqli_num_rows($res); 
 					if ($filas == 0) { 
-				      	header("Location: busqueda_tipo_poliza.php?m=2#nombre");
-				      	//exit();
-			      	}else
-		            	{
-		               		while($reg=mysqli_fetch_assoc($res)) {
-		               			$this->t[]=$reg;
-		              		}
-	              			return $this->t;
+						echo "coooooooo";
+						//header("Location: busqueda_tipo_poliza.php?m=2#nombre");
+						exit();
+					}else
+						{
+							while($reg=mysqli_fetch_assoc($res)) {
+								$this->t[]=$reg;
+							}
+							return $this->t;
 						}
-				}
+					}
+				
 
 				
 		       }
@@ -4175,6 +4180,12 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		public function eliminarCiaContacto($id_cia){
 
 			$sql="DELETE from contacto_cia where id_cia='$id_cia'";
+			return mysqli_query(Conectar::con(),$sql);
+		}
+
+		public function eliminarUsuario($id){
+
+			$sql="DELETE from usuarios where id_usuario='$id'";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 	

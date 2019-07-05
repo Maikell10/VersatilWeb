@@ -108,7 +108,7 @@ if(isset($_SESSION['seudonimo'])) {
       </div>
       <br/>
 
-      <?php if ($_GET['m']==2) {?>
+      <?php if (isset($_GET['m'])==2) {?>
   
         <div class="alert alert-danger" role="alert">
             No existen datos para la búsqueda seleccionada!

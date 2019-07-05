@@ -33,25 +33,26 @@ if(isset($_SESSION['seudonimo'])) {
     $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
-
-
+  
+  
   $obj1= new Trabajo();
   $tpoliza = $obj1->get_distinct_element_tpoliza($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
-
+  
+  
   $totals=0;
   $totalCant=0;
 
   $tpolizaArray[sizeof($tpoliza)]=null;
   $sumatotalTpoliza[sizeof($tpoliza)]=null;
   $cantArray[sizeof($tpoliza)]=null;
-
+  
 
   for($i=0;$i<sizeof($tpoliza);$i++)
     {  
 
       $obj2= new Trabajo();
       $tpolizaPoliza = $obj2->get_poliza_graf_2($tpoliza[$i]['tipo_poliza'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
-    
+      
       $cantArray[$i]=sizeof($tpolizaPoliza);
       $sumasegurada=0;
       for($a=0;$a<sizeof($tpolizaPoliza);$a++)
@@ -153,7 +154,7 @@ foreach($sumatotalTpoliza as $key=>$value) {
                     <br/>
                     
                     <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Tipo de Póliza')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
@@ -206,12 +207,9 @@ foreach($sumatotalTpoliza as $key=>$value) {
 
     <br><br><br><br>
 
-
-
-    <?php require('footer_b.php');?>
-    
     
       </div>
+      <?php require('footer_b.php');?>
     </div>
 
 
