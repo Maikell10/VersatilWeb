@@ -3149,7 +3149,7 @@ class Trabajo extends Conectar{
 							poliza.id_cod_ramo=dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND 
 							MONTH(f_desdepoliza)=$mes AND
-							id_cia LIKE '%$cia%' AND
+							nomcia LIKE '%$cia%' AND
 							nramo LIKE '%$ramo%' ";
 				$res=mysqli_query(Conectar::con(),$sql);
 				

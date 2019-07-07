@@ -161,6 +161,7 @@ if(isset($_SESSION['seudonimo'])) {
                       $obj2= new Trabajo();
                       $primaMes = $obj2->get_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia'],$mesB); 
 
+                     
                       $obj4= new Trabajo();
                       $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia']);
                     
