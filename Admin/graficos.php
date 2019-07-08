@@ -125,7 +125,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-dark mb-3" hidden>
                 <a href="#" >
                   <div class="card-body">
                     <center><h5 class="card-title">Gestión de Cobranza</h5></center>

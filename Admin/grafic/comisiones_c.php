@@ -165,7 +165,7 @@ if(isset($_SESSION['seudonimo'])) {
         <br><br><br><br>
 
 
-
+        </div>
         <?php require('footer_b.php');?>
 
 

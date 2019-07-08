@@ -2711,6 +2711,119 @@ class Trabajo extends Conectar{
 						}
 				}
 				}
+
+
+		public function get_poliza_graf_prima_c_6($codvend,$ramo,$desde,$hasta,$cia)
+				{
+					if ($ramo=='Seleccione Ramo') {
+						$ramo='';
+					}
+					if ($cia=='Seleccione Cía') {
+						$cia='';
+					}
+					  $sql="SELECT * FROM poliza, drecibo, dcia, dramo, ena WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND 
+								poliza.id_cod_ramo=dramo.cod_ramo AND 
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend=ena.cod AND
+								f_hastapoliza >= '$desde' AND
+								f_hastapoliza <= '$hasta' AND
+								nramo LIKE '%$ramo%' AND
+								nomcia LIKE '%$cia%' AND
+								poliza.codvend = '$codvend' ";
+					$res=mysqli_query(Conectar::con(),$sql);
+					
+					if (!$res) {
+						//No hay registros
+					}else{
+						$filas=mysqli_num_rows($res); 
+						if ($filas == 0) { 
+							  //header("Location: incorrecto.php?m=2");
+							  //exit();
+						  }else
+							{
+								   while($reg=mysqli_fetch_assoc($res)) {
+									   $this->t[]=$reg;
+								  }
+								  return $this->t;
+							}
+					}
+				}
+	
+		public function get_poliza_graf_prima_c_6_p($codvend,$ramo,$desde,$hasta,$cia)
+				{
+					if ($ramo=='Seleccione Ramo') {
+						$ramo='';
+					}
+					if ($cia=='Seleccione Cía') {
+						$cia='';
+					}
+					
+					  $sql="SELECT * FROM poliza, drecibo, dcia, dramo, enp WHERE 
+							  poliza.id_poliza = drecibo.idrecibo AND 
+							  poliza.id_cod_ramo=dramo.cod_ramo AND 
+							  poliza.id_cia=dcia.idcia AND
+							  poliza.codvend=enp.cod AND
+							  f_hastapoliza >= '$desde' AND
+							  f_hastapoliza <= '$hasta' AND
+							  nramo LIKE '%$ramo%' AND
+							  nomcia LIKE '%$cia%' AND
+							  poliza.codvend = '$codvend' ";
+					$res=mysqli_query(Conectar::con(),$sql);
+					
+					if (!$res) {
+						//No hay registros
+					}else{
+						$filas=mysqli_num_rows($res); 
+						if ($filas == 0) { 
+							  //header("Location: incorrecto.php?m=2");
+							  //exit();
+						  }else
+							{
+								   while($reg=mysqli_fetch_assoc($res)) {
+									   $this->t[]=$reg;
+								  }
+								  return $this->t;
+							}
+					}
+				}
+	
+		public function get_poliza_graf_prima_c_6_r($codvend,$ramo,$desde,$hasta,$cia)
+				{
+					if ($ramo=='Seleccione Ramo') {
+						$ramo='';
+					}
+					if ($cia=='Seleccione Cía') {
+						$cia='';
+					}
+					  $sql="SELECT * FROM poliza, drecibo, dcia, dramo, enr WHERE 
+							poliza.id_poliza = drecibo.idrecibo AND 
+							poliza.id_cod_ramo=dramo.cod_ramo AND 
+							poliza.id_cia=dcia.idcia AND
+							poliza.codvend=enr.cod AND
+							f_hastapoliza >= '$desde' AND
+							f_hastapoliza <= '$hasta' AND
+							nramo LIKE '%$ramo%' AND
+							nomcia LIKE '%$cia%' AND
+							poliza.codvend = '$codvend' ";
+					$res=mysqli_query(Conectar::con(),$sql);
+					
+					if (!$res) {
+						//No hay registros
+					}else{
+						$filas=mysqli_num_rows($res); 
+						if ($filas == 0) { 
+							  //header("Location: incorrecto.php?m=2");
+							  //exit();
+						  }else
+							{
+								   while($reg=mysqli_fetch_assoc($res)) {
+									   $this->t[]=$reg;
+								  }
+								  return $this->t;
+							}
+					}
+					}
 				
 
 //--------------------FIN GRÁFICO 6 PRIMA EJECUTIVO-------------------	
@@ -3171,7 +3284,7 @@ class Trabajo extends Conectar{
 
 			   }
 			   
-			   public function get_distinct_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia)
+		public function get_distinct_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia)
 			   {
 				   
 				   if ($cia=='Seleccione Cía') {
@@ -3210,6 +3323,567 @@ class Trabajo extends Conectar{
 				   }
    
 				  }
+
+
+		public function get_distinct_ramo_prima_c($anio,$cia)
+			{
+				if ($cia=='Seleccione Cía') {
+					$cia='';
+				}
+				//YEAR(f_desdepoliza)=$anio AND
+				$sql="SELECT DISTINCT nramo FROM poliza 
+					INNER JOIN dcia, dramo, comision WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+					
+					nomcia LIKE '%$cia%'  
+					ORDER BY dramo.nramo ASC ";
+				$res=mysqli_query(Conectar::con(),$sql);
+					  
+				if (!$res) {
+					//No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else{
+						while($reg=mysqli_fetch_assoc($res)) {
+							 $this->t[]=$reg;
+						}
+						return $this->t;
+						}
+					}
+			}
+		
+		public function get_distinct_cia_prima_c($anio,$ramo)
+			{
+				if ($ramo=='Seleccione Ramo') {
+					$ramo='';
+					$sql="SELECT DISTINCT nomcia FROM poliza 
+					INNER JOIN dcia, dramo, comision WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+					nramo LIKE '%$ramo%'  
+					ORDER BY dramo.nramo ASC ";
+				}else {
+					$sql="SELECT DISTINCT nomcia FROM poliza 
+					INNER JOIN dcia, dramo, comision WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+					nramo = '$ramo'  
+					ORDER BY dramo.nramo ASC ";
+				}
+
+				$res=mysqli_query(Conectar::con(),$sql);
+					  
+				if (!$res) {
+					//No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else{
+						while($reg=mysqli_fetch_assoc($res)) {
+							 $this->t[]=$reg;
+						}
+						return $this->t;
+						}
+					}
+			}
+
+		
+		public function get_distinct_tipo_poliza_prima_c($anio,$ramo,$cia)
+			{
+				if ($ramo=='Seleccione Ramo' && $cia=='Seleccione Cía') {
+					$ramo='';
+					$cia='';
+					$sql="SELECT DISTINCT tipo_poliza FROM poliza 
+					INNER JOIN dcia, dramo, comision, tipo_poliza WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY tipo_poliza ASC";
+				}elseif ($ramo=='Seleccione Ramo') {
+					$ramo='';
+					$sql="SELECT DISTINCT tipo_poliza FROM poliza 
+					INNER JOIN dcia, dramo, comision, tipo_poliza WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia = '$cia'
+					ORDER BY tipo_poliza ASC";
+				}elseif ($cia=='Seleccione Cía') {
+					$cia='';
+					$sql="SELECT DISTINCT tipo_poliza FROM poliza 
+					INNER JOIN dcia, dramo, comision, tipo_poliza WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					nramo = '$ramo' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY tipo_poliza ASC";
+				}else {
+					$sql="SELECT DISTINCT tipo_poliza FROM poliza 
+					INNER JOIN dcia, dramo, comision, tipo_poliza WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					nramo = '$ramo' AND
+                    nomcia = '$cia'
+					ORDER BY tipo_poliza ASC";
+				}
+
+				$res=mysqli_query(Conectar::con(),$sql);
+					  
+				if (!$res) {
+					//No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else{
+						while($reg=mysqli_fetch_assoc($res)) {
+							 $this->t[]=$reg;
+						}
+						return $this->t;
+						}
+					}
+			}
+
+		
+		public function get_distinct_f_pago_prima_c($anio,$ramo,$cia)
+			{
+				if ($ramo=='Seleccione Ramo' && $cia=='Seleccione Cía') {
+					$ramo='';
+					$cia='';
+					$sql="SELECT DISTINCT fpago FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY fpago ASC";
+				}elseif ($ramo=='Seleccione Ramo') {
+					$ramo='';
+					$sql="SELECT DISTINCT fpago FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia = '$cia'
+					ORDER BY fpago ASC";
+				}elseif ($cia=='Seleccione Cía') {
+					$cia='';
+					$sql="SELECT DISTINCT fpago FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo = '$ramo' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY fpago ASC";
+				}else {
+					$sql="SELECT DISTINCT fpago FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo = '$ramo' AND
+                    nomcia = '$cia'
+					ORDER BY fpago ASC";
+				}
+
+				$res=mysqli_query(Conectar::con(),$sql);
+					  
+				if (!$res) {
+					//No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else{
+						while($reg=mysqli_fetch_assoc($res)) {
+							 $this->t[]=$reg;
+						}
+						return $this->t;
+						}
+					}
+			}
+
+		public function get_distinct_ejecutivo_prima_c($anio,$ramo,$cia)
+			{
+				if ($ramo=='Seleccione Ramo' && $cia=='Seleccione Cía') {
+					$ramo='';
+					$cia='';
+					$sql="SELECT DISTINCT codvend FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY codvend ASC";
+				}elseif ($ramo=='Seleccione Ramo') {
+					$ramo='';
+					$sql="SELECT DISTINCT codvend FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo LIKE '%$ramo%' AND
+                    nomcia = '$cia'
+					ORDER BY codvend ASC";
+				}elseif ($cia=='Seleccione Cía') {
+					$cia='';
+					$sql="SELECT DISTINCT codvend FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo = '$ramo' AND
+                    nomcia LIKE '%$cia%'
+					ORDER BY codvend ASC";
+				}else {
+					$sql="SELECT DISTINCT codvend FROM poliza 
+					INNER JOIN dcia, dramo, comision, drecibo WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+                    poliza.id_poliza = drecibo.idrecibo AND
+					nramo = '$ramo' AND
+                    nomcia = '$cia'
+					ORDER BY codvend ASC";
+				}
+
+				$res=mysqli_query(Conectar::con(),$sql);
+					  
+				if (!$res) {
+					//No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+						//header("Location: incorrecto.php?m=2");
+						//exit();
+					}else{
+						while($reg=mysqli_fetch_assoc($res)) {
+							 $this->t[]=$reg;
+						}
+						return $this->t;
+						}
+					}
+			}
+
+
+		public function get_poliza_c_cobrada_ramo($ramo,$cia,$anio)
+			{
+					  
+			if ($cia=='Seleccione Cía') {
+				$cia='';
+			}
+			//YEAR(f_desdepoliza)=$anio AND
+			$sql="SELECT * FROM poliza 
+						INNER JOIN dcia, drecibo, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND
+						poliza.id_poliza=drecibo.idrecibo AND 
+						poliza.id_cod_ramo=dramo.cod_ramo AND
+						poliza.id_poliza = comision.id_poliza AND 
+						
+						nomcia LIKE '%$cia%' AND
+						nramo = '$ramo' ";
+			$res=mysqli_query(Conectar::con(),$sql);
+					  
+			if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//header("Location: incorrecto.php?m=2");
+					//exit();
+				}else
+					{
+						while($reg=mysqli_fetch_assoc($res)) {
+							$this->t[]=$reg;
+						}
+						return $this->t;
+					}
+				}
+		}
+
+	public function get_poliza_c_cobrada_cia($cia,$ramo,$anio)
+		{
+				  
+		if ($ramo=='Seleccione Ramo') {
+			$ramo='';
+			$sql="SELECT * FROM poliza 
+					INNER JOIN dcia, drecibo, dramo, comision WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_poliza=drecibo.idrecibo AND 
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+					nomcia = '$cia' AND
+					nramo LIKE '%$ramo%' ";
+		}else {
+			$sql="SELECT * FROM poliza 
+					INNER JOIN dcia, drecibo, dramo, comision WHERE 
+					poliza.id_cia=dcia.idcia AND
+					poliza.id_poliza=drecibo.idrecibo AND 
+					poliza.id_cod_ramo=dramo.cod_ramo AND
+					poliza.id_poliza = comision.id_poliza AND 
+					nomcia = '$cia' AND
+					nramo = '$ramo' ";
+		}
+		
+		$res=mysqli_query(Conectar::con(),$sql);
+				  
+		if (!$res) {
+			//No hay registros
+		}else{
+			$filas=mysqli_num_rows($res); 
+			if ($filas == 0) { 
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			}else
+				{
+					while($reg=mysqli_fetch_assoc($res)) {
+						$this->t[]=$reg;
+					}
+					return $this->t;
+				}
+			}
+	}
+
+
+	public function get_poliza_c_cobrada_tipo_poliza($tipo_poliza,$cia,$ramo,$anio)
+		{
+				  
+		if ($ramo=='Seleccione Ramo' && $cia='Seleccione Cía') {
+			$ramo='';
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision, tipo_poliza WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				tipo_poliza.tipo_poliza = '$tipo_poliza' AND
+				nomcia LIKE '%$cia%' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($ramo=='Seleccione Ramo') {
+			$ramo='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision, tipo_poliza WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				tipo_poliza.tipo_poliza = '$tipo_poliza' AND
+				nomcia = '$cia' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($cia='Seleccione Cía') {
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision, tipo_poliza WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				tipo_poliza.tipo_poliza = '$tipo_poliza' AND
+				nomcia LIKE '%$cia%' AND
+				nramo = '$ramo' ";
+		}else {
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision, tipo_poliza WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+				tipo_poliza.tipo_poliza = '$tipo_poliza' AND
+				nomcia = '$cia' AND
+				nramo = '$ramo' ";
+		}
+		
+		$res=mysqli_query(Conectar::con(),$sql);
+				  
+		if (!$res) {
+			//No hay registros
+		}else{
+			$filas=mysqli_num_rows($res); 
+			if ($filas == 0) { 
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			}else
+				{
+					while($reg=mysqli_fetch_assoc($res)) {
+						$this->t[]=$reg;
+					}
+					return $this->t;
+				}
+			}
+	}
+
+
+	public function get_poliza_c_cobrada_f_pago($f_pago,$cia,$ramo,$anio)
+		{
+				  
+		if ($ramo=='Seleccione Ramo' && $cia='Seleccione Cía') {
+			$ramo='';
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				drecibo.fpago = '$f_pago' AND
+				nomcia LIKE '%$cia%' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($ramo=='Seleccione Ramo') {
+			$ramo='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				drecibo.fpago = '$f_pago' AND
+				nomcia = '$cia' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($cia='Seleccione Cía') {
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				drecibo.fpago = '$f_pago' AND
+				nomcia LIKE '%$cia%' AND
+				nramo = '$ramo' ";
+		}else {
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				drecibo.fpago = '$f_pago' AND
+				nomcia = '$cia' AND
+				nramo = '$ramo' ";
+		}
+		
+		$res=mysqli_query(Conectar::con(),$sql);
+				  
+		if (!$res) {
+			//No hay registros
+		}else{
+			$filas=mysqli_num_rows($res); 
+			if ($filas == 0) { 
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			}else
+				{
+					while($reg=mysqli_fetch_assoc($res)) {
+						$this->t[]=$reg;
+					}
+					return $this->t;
+				}
+			}
+	}
+
+	public function get_poliza_c_cobrada_ejecutivo($ejecutivo,$cia,$ramo,$anio)
+		{
+				  
+		if ($ramo=='Seleccione Ramo' && $cia='Seleccione Cía') {
+			$ramo='';
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				comision.cod_vend = '$ejecutivo' AND
+				nomcia LIKE '%$cia%' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($ramo=='Seleccione Ramo') {
+			$ramo='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				comision.cod_vend = '$ejecutivo' AND
+				nomcia = '$cia' AND
+				nramo LIKE '%$ramo%' ";
+		}elseif ($cia='Seleccione Cía') {
+			$cia='';
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				comision.cod_vend = '$ejecutivo' AND
+				nomcia LIKE '%$cia%' AND
+				nramo = '$ramo' ";
+		}else {
+			$sql="SELECT * FROM poliza 
+				INNER JOIN dcia, drecibo, dramo, comision WHERE 
+				poliza.id_cia=dcia.idcia AND
+				poliza.id_poliza=drecibo.idrecibo AND 
+				poliza.id_cod_ramo=dramo.cod_ramo AND
+				poliza.id_poliza = comision.id_poliza AND 
+				comision.cod_vend = '$ejecutivo' AND
+				nomcia = '$cia' AND
+				nramo = '$ramo' ";
+		}
+		
+		$res=mysqli_query(Conectar::con(),$sql);
+				  
+		if (!$res) {
+			//No hay registros
+		}else{
+			$filas=mysqli_num_rows($res); 
+			if ($filas == 0) { 
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			}else
+				{
+					while($reg=mysqli_fetch_assoc($res)) {
+						$this->t[]=$reg;
+					}
+					return $this->t;
+				}
+			}
+	}
 
 
 

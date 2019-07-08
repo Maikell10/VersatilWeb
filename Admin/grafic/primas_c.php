@@ -87,7 +87,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
                 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Primas_Cobradas/busqueda_ramo.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Ramo</h5>
@@ -105,7 +105,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3" hidden>
                 <a href="Primas_Cobradas/busqueda_prima_semana.php?m=1">
                   <div class="card-body">
                     <h5 class="card-title">Por Semana</h5>
@@ -119,7 +119,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Primas_Cobradas/busqueda_cia.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Cía</h5>
@@ -127,7 +127,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Primas_Cobradas/busqueda_tipo_poliza.php" >
                   <div class="card-body">
                     <h5 class="card-title">Por Tipo de Póliza</h5>
@@ -135,7 +135,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Primas_Cobradas/busqueda_ejecutivo.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Ejecutivo</h5>
@@ -147,7 +147,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Primas_Cobradas/busqueda_fpago.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Forma de Pago</h5>
@@ -164,7 +164,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         <br><br><br><br>
 
-
+        </div>
 
         <?php require('footer_b.php');?>
 

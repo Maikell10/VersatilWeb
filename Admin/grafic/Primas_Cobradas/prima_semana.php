@@ -10,89 +10,108 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
-  $mes = $_GET['mes'];
-  $desde=$_GET['anio']."-".$_GET['mes']."-01";
-  $hasta=$_GET['anio']."-".$_GET['mes']."-31";
 
-  if ($mes==null) {
-      $mesD=01;
-      $mesH=12;
-      $desde=$_GET['anio']."-".$mesD."-01";
-      $hasta=$_GET['anio']."-".$mesH."-31";
-  }
+$mesA=$_GET['mes']+01;
+$numeroConCeros = str_pad($mesA, 2, "0", STR_PAD_LEFT);
 
 
-  $anio = $_GET['anio'];
-  if ($anio==null) {
-    $obj11= new Trabajo();
-    $fechaMin = $obj11->get_fecha_min('f_hastapoliza','poliza'); 
-    $desde=$fechaMin[0]['MIN(f_hastapoliza)'];
-  
-    $obj12= new Trabajo();
-    $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
-    $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
-  }
+$desde=$_GET['desde'].'-'.$numeroConCeros.'-01';
+$hasta=$_GET['desde'].'-'.$numeroConCeros.'-31';
+
+
+
+
+#separas la fecha en subcadenas y asignarlas a variables
+#relacionadas en contenido, por ejemplo dia, mes y anio.
+
+$dia   = substr($desde,8,2);
+$mes = substr($desde,5,2);
+$anio = substr($desde,0,4); 
+
+
+$semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));  
+
+//donde:
+        
+#W (mayúscula) te devuelve el número de semana
+#w (minúscula) te devuelve el número de día dentro de la semana (0=domingo, #6=sabado)
+
+//echo $semana;  
+
+
+
 
 
   $obj1= new Trabajo();
-  $ejecutivo = $obj1->get_distinct_element_ejecutivo($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $dia_mes = $obj1->get_dia_mes_prima($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+
+
 
   $totals=0;
   $totalCant=0;
 
-  $ejecutivoArray[sizeof($ejecutivo)]=null;
-  $sumatotalEjecutivo[sizeof($ejecutivo)]=null;
-  $cantArray[sizeof($ejecutivo)]=null;
+  $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
 
-  for($i=0;$i<sizeof($ejecutivo);$i++)
+
+
+  $ramoArray[sizeof($dia_mes)]=null;
+  $cantArray[sizeof($dia_mes)]=null;
+  $primaPorMes[sizeof($dia_mes)]=null;
+
+  
+
+  for($i=0;$i<sizeof($dia_mes);$i++)
     {  
+      $dia=$dia_mes[$i]['f_desdepoliza'];
+
+      $dia1   = substr($dia,8,2);
+      $mes1 = substr($dia,5,2);
+      $anio1 = substr($dia,0,4); 
+
+
+      $semana = date('W',  mktime(0,0,0,$mes1,$dia1,$anio1));  
 
       $obj2= new Trabajo();
-      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
-
-      $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
-
+      $primaMes = $obj2->get_poliza_graf_p3($_GET['ramo'],$dia,$_GET['cia']); 
+    
       
-      if ($ejecutivoPoliza[0]['idnom']==null) {
-        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
-        $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
-
-        if ($ejecutivoPoliza[0]['nombre']==null ) {
-            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
-            $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
-          }
-      }
-
-      
-
-      $cantArray[$i]=sizeof($ejecutivoPoliza);
       $sumasegurada=0;
-      for($a=0;$a<sizeof($ejecutivoPoliza);$a++)
+      for($a=0;$a<sizeof($primaMes);$a++)
         { 
-          $sumasegurada=$sumasegurada+$ejecutivoPoliza[$a]['prima'];
+          $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
 
         } 
+        $cantArray[$i]=sizeof($primaMes);
         $totals=$totals+$sumasegurada;
         $totalCant=$totalCant+$cantArray[$i];
-        $sumatotalEjecutivo[$i]=$sumasegurada;
-        
+        $semanaMesArray[$i]=$semana;
+        $primaPorMes[$i]=$sumasegurada;
+
     }
 
 
-asort($sumatotalEjecutivo , SORT_NUMERIC);
+
+$semSinDuplicado=array_values(array_unique($semanaMesArray));
 
 
-$x = array();
-foreach($sumatotalEjecutivo as $key=>$value) {
-
-   $x[count($x)] = $key;
-
-}
 
 
-  //isset($_POST["ramo"]);
-  //onchange = "this.form.submit()"
+
+    for ($i=0; $i < sizeof($semSinDuplicado); $i++) { 
+      $var1=0;
+      $cant1=0;
+      for ($a=0; $a < sizeof($semanaMesArray); $a++) { 
+        if ($semanaMesArray[$a]==$semSinDuplicado[$i]) {
+          $var1=$var1+$primaPorMes[$a];
+          $cant1=$cant1+$cantArray[$a];
+        }
+      }
+      $primaPorMesF[$i]=$var1;
+      $cantArrayF[$i]=$cant1;
+    }
+    
+
 
 
 ?>
@@ -124,13 +143,15 @@ foreach($sumatotalEjecutivo as $key=>$value) {
     
     <link href="../../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 
+    <link href="../../../Chart/samples/style.css" rel="stylesheet">
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
 </head>
 
 <body class="profile-page ">
     
-    <?php require('navigation.php');?>
+  <?php require('navigation.php');?>
 
 
 
@@ -162,22 +183,24 @@ foreach($sumatotalEjecutivo as $key=>$value) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Primas Suscritas por Ejecutivo</h1> 
+                    <h1 class="title">Primas Cobradas por Semana del Año <?php echo $_GET['desde'];?></h1> 
                     <br/>
                     
-                    <a href="../primas_s.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Suscritas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
 
 
-    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
-       <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+
+
+    <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel">
+      <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Ejecutivo Cuenta</th>
-          <th scope="col">Prima Suscrita</th>
-          <th scope="col">%</th>
+          <th scope="col">Semana del Año Desde Recibo</th>
+          <th scope="col">Prima Cobrada</th>
           <th scope="col">Cantidad</th>
         </tr>
       </thead>
@@ -185,15 +208,13 @@ foreach($sumatotalEjecutivo as $key=>$value) {
         <?php
           
 
-          for ($i=sizeof($ejecutivo); $i > 0; $i--) { 
-              //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
+          for ($i=0; $i < sizeof($semSinDuplicado); $i++) { 
+
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>
-          </th>
-          <td align="right"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]],2); ?></td>
-          <td><?php echo number_format(($sumatotalEjecutivo[$x[$i]]*100)/$totals,2)." %"; ?></td>
-          <td><?php echo $cantArray[$x[$i]]; ?></td>
+          <th scope="row"><?php echo $semSinDuplicado[$i]; ?></th>
+          <td align="right"><?php echo "$".number_format($primaPorMesF[$i],2); ?></td>
+          <td><?php echo $cantArrayF[$i]; ?></td>
         </tr>
         <?php
             }
@@ -203,12 +224,20 @@ foreach($sumatotalEjecutivo as $key=>$value) {
         <tr>
           <th scope="col">TOTAL</th>
           <th align="right"><?php echo "$".number_format($totals,2); ?></th>
-          <th scope="col">100%</th>
           <th scope="col"><?php echo $totalCant; ?></th>
         </tr>
       </thead>
     </table>
     </div>
+    
+        
+
+
+    
+    
+    </div>
+
+
 
     <div class="container">
       <canvas id="myChart">
@@ -249,46 +278,50 @@ foreach($sumatotalEjecutivo as $key=>$value) {
     </footer>
 
 
-
-
     
-    <script>
+
+    <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../../../assets/js/core/popper.min.js"></script>
+    <script src="../../../assets/js/bootstrap-material-design.js"></script>
+    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+
+
+
+    <script src="../../../Chart/Chart.bundle.js"></script>  
+    <script src="../../../Chart/samples/utils.js"></script>
+    <script src="../../../Chart/samples/charts/area/analyser.js"></script>
+
+
+
+  <script>
     let myChart = document.getElementById('myChart').getContext('2d');
 
     // Global Options
     Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 12;
+    Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#777';
 
     let massPopChart = new Chart(myChart, {
-      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        labels:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+        labels:[<?php for($i=0; $i < sizeof($semSinDuplicado); $i++){ ?>
+        '<?php echo $semSinDuplicado[$i];?>',
 
                 <?php }?>],
 
         datasets:[{
-
-          data:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--)
+          label:"Prima por Semana",
+          data:[<?php for($i=0; $i < sizeof($semSinDuplicado); $i++)
             {  
                 ?>
-                '<?php echo $sumatotalEjecutivo[$x[$i]]; ?>',
-            <?php }?>
-          ],
+                '<?php echo $primaPorMesF[$i]; ?>',
+            <?php }?>],
           //backgroundColor:'green',
-          backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(53, 57, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)',
-            'red',
-            'blue',
-            'yellow'
-          ],
+          backgroundColor:'rgba(120, 255, 86, 0.6)',
           borderWidth:1,
           borderColor:'#777',
           hoverBorderWidth:3,
@@ -298,12 +331,12 @@ foreach($sumatotalEjecutivo as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Prima Suscrita por Ejecutivo (%)',
+          text:'Prima Cobrada por Semana',
           fontSize:25
         },
         legend:{
           display:true,
-          position:'bottom',
+          position:'right',
           labels:{
             fontColor:'#000'
           }
@@ -322,17 +355,7 @@ foreach($sumatotalEjecutivo as $key=>$value) {
       }
     });
   </script>
-
-    <!--   Core JS Files   -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="../../../assets/js/core/popper.min.js"></script>
-    <script src="../../../assets/js/bootstrap-material-design.js"></script>
-    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
-
-    <script language="javascript">
+  <script language="javascript">
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'
