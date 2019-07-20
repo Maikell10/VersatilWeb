@@ -106,7 +106,7 @@ $fechaMax= $date->format($format);
                   <center>
                     <h1 class="title">Primas Cobradas por Ejecutivo</h1> 
                     <br/>
-                    
+                    <a name="nombre"></a>
                     <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
@@ -117,6 +117,14 @@ $fechaMax= $date->format($format);
         <h3>Seleccione su Búsqueda</h3>
       </div>
       <br/>
+
+      <?php if (isset($_GET['m'])==2) {?>
+  
+      <div class="alert alert-danger" role="alert">
+          No existen datos para la búsqueda seleccionada!
+      </div>
+
+      <?php } ?>
 
       <form class="form-horizontal" action="ejecutivo.php" method="get">
         <div class="form-row">

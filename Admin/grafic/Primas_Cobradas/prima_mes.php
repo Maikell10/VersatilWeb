@@ -304,7 +304,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="container">
-      <div class="wrapper col-12"><canvas id="chart-0"></canvas></div>
+      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
     </div>
 
     <br><br><br><br>
@@ -389,13 +389,14 @@ if(isset($_SESSION['seudonimo'])) {
         }
       },
       scales: {
-        xAxes: [{
-          ticks: {
-            autoSkip: false,
-            maxRotation: 0
+            xAxes: [{
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 50,
+                    minRotation: 50,
+                }
+            }]
           }
-        }]
-      }
     };
 
     [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {

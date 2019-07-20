@@ -35,7 +35,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $ejecutivo = $obj1->get_distinct_element_ejecutivo($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $ejecutivo = $obj1->get_distinct_element_ejecutivo_ps($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
 
   $totals=0;
   $totalCant=0;
@@ -49,17 +49,17 @@ if(isset($_SESSION['seudonimo'])) {
     {  
 
       $obj2= new Trabajo();
-      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
 
       $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
 
       
       if ($ejecutivoPoliza[0]['idnom']==null) {
-        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
         $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
 
         if ($ejecutivoPoliza[0]['nombre']==null ) {
-            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['cod_vend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
             $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
           }
       }
@@ -285,9 +285,53 @@ foreach($sumatotalEjecutivo as $key=>$value) {
             'rgba(153, 102, 255, 0.6)',
             'rgba(255, 159, 64, 0.6)',
             'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
             'red',
             'blue',
-            'yellow'
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)',
+            'rgb(255, 255, 0)',
+            'rgb(0, 0, 204)',
+            'rgb(0, 153, 153)',
+            'rgb(102, 102, 153)',
+            'brown',
+            'purple',
+            'rgb(0, 102, 102)',
+            'rgb(51, 204, 51)',
+            'rgb(255, 80, 80)',
+            'rgb(102, 0, 204)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'yellow',
+            'white',
+            'gray',
+            'rgb(204, 0, 0)',
+            'rgb(204, 0, 204)',
+            'rgb(102, 0, 204)',
+            'rgb(0, 204, 153)',
+            'rgb(204, 204, 0)',
+            'rgb(102, 0, 51)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)'
           ],
           borderWidth:1,
           borderColor:'#777',

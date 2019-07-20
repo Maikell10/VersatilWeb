@@ -44,6 +44,8 @@ if(isset($_SESSION['seudonimo'])) {
   $obj12= new Trabajo();
   $f_pago = $obj12->get_distinct_f_pago_prima_c($_GET['anio'],$_GET['ramo'],$_GET['cia']); 
 
+  $totalPArray[sizeof($f_pago)]=null;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -256,6 +258,8 @@ if(isset($_SESSION['seudonimo'])) {
                         $totalP=$prima_pagada1+$prima_pagada2+$prima_pagada3+$prima_pagada4+$prima_pagada5+$prima_pagada6+$prima_pagada7+$prima_pagada8+$prima_pagada9+$prima_pagada10+$prima_pagada11+$prima_pagada12;
 
                         $totalPC=$totalPC+$totalP;
+
+                        $totalPArray[$i]=$totalP;
                   ?>
                   <tr>
                     <th scope="row"><?php echo utf8_encode($f_pago[$i]['fpago']); ?></th>
@@ -307,7 +311,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="container">
-      <div class="wrapper col-12"><canvas id="chart-0"></canvas></div>
+      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
     </div>
 
     <br><br><br><br>
@@ -409,23 +413,18 @@ if(isset($_SESSION['seudonimo'])) {
       new Chart('chart-' + index, {
         type: 'line',
         data: {
-          labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+          labels: [<?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
+                '<?php echo utf8_encode($f_pago[$i]['fpago']); ?>',
+
+                <?php }?>],
           datasets: [{
             backgroundColor: utils.transparentize(presets.red),
             borderColor: presets.red,
             data: [
-                '<?php echo $primaCobradaPorMes1; ?>',
-                '<?php echo $primaCobradaPorMes2; ?>',
-                '<?php echo $primaCobradaPorMes3; ?>',
-                '<?php echo $primaCobradaPorMes4; ?>',
-                '<?php echo $primaCobradaPorMes5; ?>',
-                '<?php echo $primaCobradaPorMes6; ?>',
-                '<?php echo $primaCobradaPorMes7; ?>',
-                '<?php echo $primaCobradaPorMes8; ?>',
-                '<?php echo $primaCobradaPorMes9; ?>',
-                '<?php echo $primaCobradaPorMes10; ?>',
-                '<?php echo $primaCobradaPorMes11; ?>',
-                '<?php echo $primaCobradaPorMes12; ?>'
+              <?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
+              '<?php echo $totalPArray[$i]; ?>',
+
+                <?php }?>
           ],
             label: 'Prima Cobrada',
             fill: boundary,
@@ -439,6 +438,14 @@ if(isset($_SESSION['seudonimo'])) {
             text: 'Gráfico Prima Cobrada por Forma de Pago',
             fontSize:25,
             display: true
+          },scales: {
+            xAxes: [{
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 50,
+                    minRotation: 50,
+                }
+            }]
           }
         })
       });
