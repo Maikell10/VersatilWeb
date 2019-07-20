@@ -10,6 +10,10 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -35,7 +39,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj= new Trabajo();
-  $cia = $obj->get_distinct_cia_comision($desde,$hasta); 
+  $cia = $obj->get_distinct_cia_comision($desde,$hasta,$tipo_cuenta); 
  
 
 ?>
@@ -122,12 +126,12 @@ if(isset($_SESSION['seudonimo'])) {
                     for ($i=0; $i < sizeof($cia); $i++) { 
 
                       $obj6= new Trabajo();
-                      $resumen = $obj6->get_resumen_comision($desde,$hasta,$cia[$i]['id_cia']);
+                      $resumen = $obj6->get_resumen_comision($desde,$hasta,$cia[$i]['id_cia'],$tipo_cuenta);
 
                       
 
                       $obj12= new Trabajo();
-                      $resumen_poliza = $obj12->get_resumen_por_cia_de_poliza($desde,$hasta,$cia[$i]['id_cia']); 
+                      $resumen_poliza = $obj12->get_resumen_por_cia_de_poliza($desde,$hasta,$cia[$i]['id_cia'],$tipo_cuenta); 
 
                       $prima_suscrita=0;
                       $per_gc_a=0;

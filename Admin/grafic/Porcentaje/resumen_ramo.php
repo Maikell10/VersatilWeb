@@ -10,6 +10,11 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -34,7 +39,7 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
   $obj= new Trabajo();
-  $cia = $obj->get_distinct_cia_comision($desde,$hasta); 
+  $cia = $obj->get_distinct_cia_comision2($desde,$hasta,$tipo_cuenta); 
 
 
   
@@ -122,7 +127,7 @@ if(isset($_SESSION['seudonimo'])) {
                     for ($i=0; $i < sizeof($cia); $i++) { 
 
                       $obj11= new Trabajo();
-                      $ramo = $obj11->get_distinct_element_ramo($desde,$hasta,$cia[$i]['nomcia']); 
+                      $ramo = $obj11->get_distinct_element_ramo3($desde,$hasta,$cia[$i]['nomcia'],$tipo_cuenta); 
 
                         if (sizeof($ramo)==0) {
                             $cont=1;

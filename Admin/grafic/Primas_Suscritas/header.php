@@ -37,6 +37,8 @@
 <link href="../../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 <style type="text/css">
     #carga{
         height: 80vh

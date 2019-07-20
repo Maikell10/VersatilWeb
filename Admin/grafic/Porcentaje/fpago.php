@@ -11,6 +11,18 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -35,7 +47,7 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
   $obj1= new Trabajo();
-  $fpago = $obj1->get_distinct_element_fpago($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $fpago = $obj1->get_distinct_element_fpago($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
 
   $totals=0;
   $totalCant=0;
@@ -49,7 +61,7 @@ if(isset($_SESSION['seudonimo'])) {
     {  
 
       $obj2= new Trabajo();
-      $fpagoPoliza = $obj2->get_poliza_graf_4($fpago[$i]['fpago'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+      $fpagoPoliza = $obj2->get_poliza_graf_4($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
       $cantArray[$i]=sizeof($fpagoPoliza);
       $sumasegurada=0;
