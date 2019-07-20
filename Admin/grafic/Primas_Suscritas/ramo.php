@@ -83,34 +83,7 @@ foreach($sumatotalRamo as $key=>$value) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-    <!-- Favicons -->
-    <link rel="icon" href="../../../assets/img/logo1.png">
-    <title>
-        Versatil Seguros
-    </title>
-    <script src="../../../tableToExcel.js"></script>
-
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
-    
-    <link rel="stylesheet" href="../../../assets/css/material-kit.css?v=2.0.1">
-    <!-- Documentation extras -->
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../../assets/assets-for-demo/demo.css" rel="stylesheet" />
-    <link href="../../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
-    
-    <link href="../../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
-
-    <link href="../../../Chart/samples/style.css" rel="stylesheet">
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-
+  <?php require('header.php');?>
 </head>
 
 <body class="profile-page ">

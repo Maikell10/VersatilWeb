@@ -147,7 +147,7 @@ $fechaMax= $date->format($format);
 
         
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label>Tipo de Cuenta:</label>
             <select class="form-control" name="tipo_cuenta">
               <option>Tipo Cuenta</option>
@@ -155,7 +155,7 @@ $fechaMax= $date->format($format);
               <option value="1">Colectivo</option>
             </select>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6" hidden>
             <label>Status:</label>
             <select class="form-control" name="status">
               <option>Status</option>
