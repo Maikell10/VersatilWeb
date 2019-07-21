@@ -10,6 +10,15 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -35,7 +44,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $cia = $obj1->get_distinct_element_cia($desde,$hasta,$_GET['ramo']); 
+  $cia = $obj1->get_distinct_element_cia($desde,$hasta,$ramo,$tipo_cuenta); 
 
   $totals=0;
   $totalCant=0;
@@ -49,7 +58,7 @@ if(isset($_SESSION['seudonimo'])) {
     {  
 
       $obj2= new Trabajo();
-      $ciaPoliza = $obj2->get_poliza_graf_3($cia[$i]['nomcia'],$_GET['ramo'],$desde,$hasta); 
+      $ciaPoliza = $obj2->get_poliza_graf_3($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta); 
     
       $cantArray[$i]=sizeof($ciaPoliza);
       $sumasegurada=0;

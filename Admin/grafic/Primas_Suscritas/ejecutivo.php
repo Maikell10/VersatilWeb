@@ -10,6 +10,19 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
+
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -35,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $ejecutivo = $obj1->get_distinct_element_ejecutivo_ps($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $ejecutivo = $obj1->get_distinct_element_ejecutivo_ps($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
 
   $totals=0;
   $totalCant=0;
@@ -49,17 +62,17 @@ if(isset($_SESSION['seudonimo'])) {
     {  
 
       $obj2= new Trabajo();
-      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
 
       $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
 
       
       if ($ejecutivoPoliza[0]['idnom']==null) {
-        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
         $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
 
         if ($ejecutivoPoliza[0]['nombre']==null ) {
-            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['codvend'],$_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
             $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
           }
       }

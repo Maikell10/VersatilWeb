@@ -95,7 +95,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-6">
           <label>Año Vigencia Seguro:</label>
-            <select class="form-control" name="anio" id="anio">
+            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
                 <option value="">Seleccione Año</option>
             <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
@@ -111,7 +111,7 @@ if(isset($_SESSION['seudonimo'])) {
           </div>
           <div class="form-group col-md-6">
           <label>Mes Vigencia Seguro:</label>
-            <select class="form-control" name="mes" id="mes">
+            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                 <option value="">Seleccione Mes</option>
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>

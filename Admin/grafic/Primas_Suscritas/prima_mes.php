@@ -10,11 +10,24 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
+
 $desde=$_GET['desde'].'-01-01';
 $hasta=($_GET['desde']).'-12-31';
 
   $obj1= new Trabajo();
-  $mes = $obj1->get_mes_prima($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $mes = $obj1->get_mes_prima($desde,$hasta,$cia,$ramo,$tipo_cuenta,'1'); 
 
 
 
@@ -38,7 +51,7 @@ $hasta=($_GET['desde']).'-12-31';
       $hasta=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-31";
 
       $obj2= new Trabajo();
-      $primaMes = $obj2->get_poliza_grafp_2($_GET['ramo'],$desde,$hasta,$_GET['cia']); 
+      $primaMes = $obj2->get_poliza_grafp_2($ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
       $cantArray[$i]=sizeof($primaMes);
       $sumasegurada=0;
@@ -151,7 +164,7 @@ $hasta=($_GET['desde']).'-12-31';
 
 
     <div class="container">
-      <div class="wrapper col-12"><canvas id="chart-0"></canvas></div>
+      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
     </div>
 
     <br><br><br><br>

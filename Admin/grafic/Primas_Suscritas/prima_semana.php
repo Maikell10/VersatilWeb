@@ -10,6 +10,19 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
+
 
 $mesA=$_GET['mes']+01;
 $numeroConCeros = str_pad($mesA, 2, "0", STR_PAD_LEFT);
@@ -43,7 +56,7 @@ $semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));
 
 
   $obj1= new Trabajo();
-  $dia_mes = $obj1->get_dia_mes_prima($desde,$hasta,$_GET['cia'],$_GET['ramo']); 
+  $dia_mes = $obj1->get_dia_mes_prima($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
 
 
 
@@ -73,7 +86,7 @@ $semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));
       $semana = date('W',  mktime(0,0,0,$mes1,$dia1,$anio1));  
 
       $obj2= new Trabajo();
-      $primaMes = $obj2->get_poliza_graf_p3($_GET['ramo'],$dia,$_GET['cia']); 
+      $primaMes = $obj2->get_poliza_graf_p3($ramo,$dia,$cia,$tipo_cuenta); 
     
       
       $sumasegurada=0;

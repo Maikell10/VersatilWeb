@@ -76,7 +76,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
                 <div class="card text-white bg-info mb-3">
-                <a href="Primas_Suscritas/busqueda_prima_semana.php?m=1">
+                <a href="Primas_Suscritas/busqueda_prima_semana.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Semana</h5>
                   </div>

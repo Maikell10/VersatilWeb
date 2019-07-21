@@ -95,7 +95,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-6">
           <label>Año Vigencia Seguro:</label>
-            <select class="form-control" name="anio" id="anio">
+            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
                 <option value="">Seleccione Año</option>
             <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
@@ -111,7 +111,7 @@ if(isset($_SESSION['seudonimo'])) {
           </div>
           <div class="form-group col-md-6">
           <label>Mes Vigencia Seguro:</label>
-            <select class="form-control" name="mes" id="mes">
+            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                 <option value="">Seleccione Mes</option>
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
@@ -130,15 +130,14 @@ if(isset($_SESSION['seudonimo'])) {
         </div>
         
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label>Tipo de Cuenta:</label>
-            <select class="form-control" name="tipo_cuenta">
-              <option>Tipo Cuenta</option>
-              <option value="0">Individual</option>
-              <option value="1">Colectivo</option>
+            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
+              <option value="1">Individual</option>
+              <option value="2">Colectivo</option>
             </select>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6" hidden>
             <label>Status Final:</label>
             <select class="form-control" name="status">
               <option>Status Final</option>
@@ -152,8 +151,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Cía:</label>
-            <select class="form-control" name="cia">
-              <option>Seleccione Cía</option>
+            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
               <?php
                 for($i=0;$i<sizeof($cia);$i++)
                   {  
@@ -169,8 +167,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Ramo:</label>
-            <select class="form-control" name="ramo">
-              <option>Seleccione Ramo</option>
+            <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
               <?php
                 for($i=0;$i<sizeof($ramo);$i++)
                   {  
@@ -240,6 +237,9 @@ if(isset($_SESSION['seudonimo'])) {
    
     <script src="../../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../../js/bootstrap-select.js"></script>
 
    
 

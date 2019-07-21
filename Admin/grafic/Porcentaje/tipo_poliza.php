@@ -48,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
   
   
   $obj1= new Trabajo();
-  $tpoliza = $obj1->get_distinct_element_tpoliza($desde,$hasta,$cia,$ramo,$tipo_cuenta,'1'); 
+  $tpoliza = $obj1->get_distinct_element_tpoliza($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
   
   
   $totals=0;
