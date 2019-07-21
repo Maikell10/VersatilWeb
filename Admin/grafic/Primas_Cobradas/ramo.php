@@ -10,6 +10,13 @@ if(isset($_SESSION['seudonimo'])) {
 
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
 
 
   $obj1= new Trabajo();
@@ -42,7 +49,7 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes12=0;
 
   $obj12= new Trabajo();
-  $ramo = $obj12->get_distinct_ramo_prima_c($_GET['anio'],$_GET['cia']); 
+  $ramo = $obj12->get_distinct_ramo_prima_c($_GET['anio'],$cia,$tipo_cuenta); 
 
   $totalPArray[sizeof($ramo)]=null;
 
@@ -128,7 +135,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                         
                         $obj2= new Trabajo();
-                        $primaMes = $obj2->get_poliza_c_cobrada_ramo($ramo[$i]['nramo'],$_GET['cia'],$_GET['anio']); 
+                        $primaMes = $obj2->get_poliza_c_cobrada_ramo($ramo[$i]['nramo'],$cia,$_GET['anio'],$tipo_cuenta); 
 
                     
                         $obj4= new Trabajo();

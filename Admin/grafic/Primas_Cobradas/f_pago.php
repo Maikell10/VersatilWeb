@@ -10,6 +10,18 @@ if(isset($_SESSION['seudonimo'])) {
 
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
 
   $obj1= new Trabajo();
   $mes = $obj1->get_mes_prima_BN(); 
@@ -42,7 +54,7 @@ if(isset($_SESSION['seudonimo'])) {
 
  
   $obj12= new Trabajo();
-  $f_pago = $obj12->get_distinct_f_pago_prima_c($_GET['anio'],$_GET['ramo'],$_GET['cia']); 
+  $f_pago = $obj12->get_distinct_f_pago_prima_c($_GET['anio'],$ramo,$cia,$tipo_cuenta); 
 
   $totalPArray[sizeof($f_pago)]=null;
 
@@ -128,7 +140,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                         
                         $obj2= new Trabajo();
-                        $primaMes = $obj2->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'],$_GET['cia'],$_GET['ramo'],$_GET['anio']); 
+                        $primaMes = $obj2->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'],$cia,$ramo,$_GET['anio'],$tipo_cuenta); 
 
                     
                         $obj4= new Trabajo();

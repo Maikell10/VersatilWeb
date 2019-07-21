@@ -80,7 +80,7 @@ $fechaMax= $date->format($format);
                   <center>
                     <h1 class="title">Primas Cobradas por Mes <strong style="color:red">(Bola de Nieve)</strong></h1> 
                     <br/>
-                    
+                    <a name="nombre"></a>
                     <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
@@ -92,11 +92,19 @@ $fechaMax= $date->format($format);
       </div>
       <br/>
 
+      <?php if (isset($_GET['m'])==2) {?>
+  
+      <div class="alert alert-danger" role="alert">
+          No existen datos para la búsqueda seleccionada!
+      </div>
+
+      <?php } ?>
+
       <form class="form-horizontal" action="prima_mes.php" method="get">
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Seleccione el Año de Pago:</label>
-            <select class="form-control" name="desde">
+            <select class="form-control selectpicker" name="desde" data-style="btn-white">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
@@ -113,15 +121,14 @@ $fechaMax= $date->format($format);
 
         
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
             <label>Tipo de Cuenta:</label>
-            <select class="form-control" name="tipo_cuenta">
-              <option>Tipo Cuenta</option>
-              <option value="0">Individual</option>
-              <option value="1">Colectivo</option>
+            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
+              <option value="1">Individual</option>
+              <option value="2">Colectivo</option>
             </select>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-6" hidden>
             <label>Status:</label>
             <select class="form-control" name="status">
               <option>Status</option>
@@ -135,8 +142,7 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Cía:</label>
-            <select class="form-control" name="cia">
-              <option>Seleccione Cía</option>
+            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
               <?php
                 for($i=0;$i<sizeof($cia);$i++)
                   {  
@@ -153,8 +159,7 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Ramo:</label>
-            <select class="form-control" name="ramo">
-              <option>Seleccione Ramo</option>
+            <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
               <?php
                 for($i=0;$i<sizeof($ramo);$i++)
                   {  
@@ -220,6 +225,9 @@ $fechaMax= $date->format($format);
    
     <script src="../../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../../js/bootstrap-select.js"></script>
 
    
 

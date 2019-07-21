@@ -10,6 +10,19 @@ if(isset($_SESSION['seudonimo'])) {
 
   require_once("../../../class/clases.php");
 
+  if (isset($_GET["tipo_cuenta"])!=null) {
+    $tipo_cuenta=$_GET["tipo_cuenta"]; 
+  }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
+
  $desdeI=$_GET['desde'].'-01-01';
  $hastaI=($_GET['desde']).'-12-31';
 
@@ -42,6 +55,7 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
   
+
 
 ?>
 <!DOCTYPE html>
@@ -133,11 +147,11 @@ if(isset($_SESSION['seudonimo'])) {
                       
 
                       $obj2= new Trabajo();
-                      $primaMes = $obj2->get_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia'],$mesB); 
+                      $primaMes = $obj2->get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$mesB,$tipo_cuenta); 
 
                      
                       $obj4= new Trabajo();
-                      $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($_GET['ramo'],$desde,$hasta,$_GET['cia']);
+                      $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$tipo_cuenta);
                     
                       $cantArray[$i]=sizeof($cant_p);
                       $sumasegurada=0;

@@ -40,33 +40,7 @@ $fechaMax= $date->format($format);
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    
-    <!-- Favicons -->
-    <link rel="icon" href="../../../assets/img/logo1.png">
-    <title>
-        Versatil Seguros
-    </title>
-
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
-    
-    <link rel="stylesheet" href="../../../assets/css/material-kit.css?v=2.0.1">
-    <!-- Documentation extras -->
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../../assets/assets-for-demo/demo.css" rel="stylesheet" />
-    <link href="../../../assets/assets-for-demo/vertical-nav.css" rel="stylesheet" />
-    
-    <link href="../../../bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet">
-
-   
-
- 
-
+  <?php require('header.php');?>
 </head>
 
 
@@ -130,7 +104,7 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Seleccione el Año de Pago:</label>
-            <select class="form-control" name="anio">
+            <select class="form-control selectpicker" name="anio" data-style="btn-white">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
@@ -149,10 +123,9 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Tipo de Cuenta:</label>
-            <select class="form-control" name="tipo_cuenta">
-              <option>Tipo Cuenta</option>
-              <option value="0">Individual</option>
-              <option value="1">Colectivo</option>
+            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
+              <option value="1">Individual</option>
+              <option value="2">Colectivo</option>
             </select>
           </div>
           <div class="form-group col-md-6" hidden>
@@ -169,8 +142,7 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Cía:</label>
-            <select class="form-control" name="cia">
-              <option>Seleccione Cía</option>
+            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
               <?php
                 for($i=0;$i<sizeof($cia);$i++)
                   {  
@@ -238,6 +210,9 @@ $fechaMax= $date->format($format);
    
     <script src="../../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../../js/bootstrap-select.js"></script>
 
    
 
