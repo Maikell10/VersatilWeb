@@ -11,9 +11,13 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../class/clases.php");
 
   $ci_cliente = $_GET['id_cliente'];
+  $id_titular = $_GET['id_titu'];
 
   $obj1= new Trabajo();
   $cliente = $obj1->get_poliza_by_cliente($ci_cliente); 
+
+  $obj2= new Trabajo();
+  $datos_c = $obj2->get_element_by_id('titular','id_titular',$id_titular);
 
 
 ?>
@@ -54,14 +58,18 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+
 
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title">Cliente: <?php echo $cliente[0]['nombre_t']." ".$cliente[0]['apellido_t']; ?></h1>  
                     <h2 class="title">Nº ID: <?php echo $cliente[0]['ci']; ?></h2>  
                 </div>
 
-
+                <hr>
+                <center>
+                <a  href="e_cliente.php?id_titu=<?php echo $id_titular;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Cliente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                </center>
+                <hr>
 
                 <?php
                 $contAct=0;
@@ -83,7 +91,9 @@ if(isset($_SESSION['seudonimo'])) {
                     <?php
                         if ($contAct>0) {
                     ?>
-                <table class="table table-hover table-striped table-bordered table-responsive" id="" >
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
                     <thead>
                         <tr style="background-color: green;color: white; font-weight: bold; font-size: 25px;text-align: center"><th colspan="10">Activas</th></tr>
 						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -124,14 +134,17 @@ if(isset($_SESSION['seudonimo'])) {
 							<?php
                             }
 						  }
-                        }
                         ?>
                     </tbody>
                 </table>
+                </div>
                         <?php
+                        }
                         if ($contInact>0) {
 						?>
-                <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="" >
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display" id="" >
                             <tr style="background-color: red;color: white; font-weight: bold;font-size: 25px;text-align: center"><th colspan="10">Inactivas</th></tr>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <th>N° de Póliza</th>
@@ -172,8 +185,61 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
 					</tbody>
 				</table>
+                </div>
 
 
+
+
+                <div class="col-md-auto col-md-offset-2">
+                    <h2 class="title">Datos del Cliente</h2>  
+                </div>
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Fecha Nacimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <?php
+
+                            $originalFnac = $datos_c[0]['f_nac'];
+                            $newFnac = date("d/m/Y", strtotime($originalFnac));
+                           
+
+                            ?>
+                            <tr >
+                                <td><?php echo $datos_c[0]['ci']; ?></td>
+                                <td><?php echo utf8_encode($datos_c[0]['nombre_t']); ?></td>
+                                <td><?php echo utf8_encode($datos_c[0]['apellido_t']); ?></td>
+                                <td><?php echo $newFnac; ?></td>
+                            </tr>
+                            <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <th>Celular</th>
+                                <th>Teléfono</th>
+                                <th colspan="2">email</th>
+                            </tr>
+                            <tr >
+                                <td><?php echo $datos_c[0]['cell']; ?></td>
+                                <td><?php echo $datos_c[0]['telf']; ?></td>
+                                <td colspan="2"><?php echo $datos_c[0]['email']; ?></td>
+                            </tr>
+                            <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <th colspan="4">Dirección</th>
+                            </tr>
+                            <tr >
+                                <td colspan="4"><?php echo utf8_encode($datos_c[0]['direcc']); ?></td>
+                            </tr>
+                    </tbody>
+                </table>
+                </div>
+
+              
+                
 
 
                 

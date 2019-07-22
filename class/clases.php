@@ -7863,6 +7863,22 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
+	public function editarCliente($id_titular,$nombre,$apellido,$ci,$f_nac,$cel,$telf,$email,$direcc){
+
+
+		$sql="UPDATE titular set 	nombre_t='$nombre',
+								 	apellido_t='$apellido',
+									ci='$ci',
+									cell='$cel',
+									telf='$telf',
+									f_nac='$f_nac',
+									direcc='$direcc',
+									email='$email'
+
+					where id_titular= '$id_titular'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
 
 //-------------------------------------------------------------------	
 

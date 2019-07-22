@@ -66,9 +66,10 @@ $cliente = $obj1->get_element('titular','id_titular');
     });
 
     $( "#iddatatable tbody tr" ).click(function() {
-    	var customerId = $(this).find("td").eq(1).html();   
+    	var customerId = $(this).find("td").eq(1).html(); 
+		var customerId1 = $(this).find("td").eq(0).html();   
 
-		window.open ("v_cliente.php?id_cliente="+customerId ,'_blank');
+		window.open ("v_cliente.php?id_cliente="+customerId+"&id_titu="+customerId1 ,'_blank');
 	});
 
 
