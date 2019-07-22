@@ -43,31 +43,14 @@ $fechaMax= $date->format($format);
 
 
   $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_total(); 
+  $poliza = $obj1->get_poliza_total_by_asesor_ena(); 
+
+  $obj3= new Trabajo();
+  $poliza1 = $obj3->get_poliza_total_by_asesor_enp(); 
+
+  $obj4= new Trabajo();
+  $poliza2 = $obj4->get_poliza_total_by_asesor_enr(); 
   
-
-
-  $Ejecutivo[sizeof($poliza)]=null;
-
-  for ($i=0; $i < sizeof($poliza); $i++) { 
-        $obj111= new Trabajo();
-        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
-        $nombre=$asesor1[0]['idnom'];
-
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
-    
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
-
-        $Ejecutivo[$i]=$nombre;                 
-  }
 
 
   $dest= new Trabajo();
@@ -289,11 +272,113 @@ $fechaMax= $date->format($format);
                                 ?>
                                 
                                     
-                                    <td><?php echo utf8_encode($Ejecutivo[$i]); ?></td>
+                                    <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
                                     <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                    <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                </tr>
+                                <?php
+                                //}
+                            }
+                            ?>
+                            <?php
+                            //asesor enp
+                            for ($i=0; $i < sizeof($poliza1); $i++) { 
+                                
+                                $totalsuma=$totalsuma+$poliza1[$i]['sumaasegurada'];
+                                $totalprima=$totalprima+$poliza1[$i]['prima'];
+
+                                $originalDesde = $poliza1[$i]['f_desdepoliza'];
+                                $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                $originalHasta = $poliza1[$i]['f_hastapoliza'];
+                                $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                $originalFProd = $poliza1[$i]['f_poliza'];
+                                $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                                if ($poliza1[$i]['currency']==1) {
+                                    $currency="$ ";
+                                }else{$currency="Bs ";}
+
+
+                                if ($poliza1[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza1[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza1[$i]['id_poliza']; ?></td>
+                                    <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <?php            
+                                } else{
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza1[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza1[$i]['id_poliza']; ?></td>
+                                    <td style="color: #E54848;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <?php   
+                                }
+
+                                $nombre=$poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t'];
+                                ?>
+                                
+                                    
+                                    <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
+                                    <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                    <td><?php echo $newDesde; ?></td>
+                                    <td><?php echo $newHasta; ?></td>
+                                    <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
+                                    <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                </tr>
+                                <?php
+                                //}
+                            }
+                            ?>
+                            <?php
+                            //asesor enr
+                            for ($i=0; $i < sizeof($poliza2); $i++) { 
+                                
+                                $totalsuma=$totalsuma+$poliza2[$i]['sumaasegurada'];
+                                $totalprima=$totalprima+$poliza2[$i]['prima'];
+
+                                $originalDesde = $poliza2[$i]['f_desdepoliza'];
+                                $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                $originalHasta = $poliza2[$i]['f_hastapoliza'];
+                                $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                $originalFProd = $poliza2[$i]['f_poliza'];
+                                $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                                if ($poliza2[$i]['currency']==1) {
+                                    $currency="$ ";
+                                }else{$currency="Bs ";}
+
+
+                                if ($poliza2[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza2[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza2[$i]['id_poliza']; ?></td>
+                                    <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <?php            
+                                } else{
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td hidden><?php echo $poliza2[$i]['f_poliza']; ?></td>
+                                    <td hidden><?php echo $poliza2[$i]['id_poliza']; ?></td>
+                                    <td style="color: #E54848;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <?php   
+                                }
+
+                                $nombre=$poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t'];
+                                ?>
+                                
+                                    
+                                    <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
+                                    <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                    <td><?php echo $newDesde; ?></td>
+                                    <td><?php echo $newHasta; ?></td>
+                                    <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
                                 </tr>
                                 <?php
@@ -324,7 +409,7 @@ $fechaMax= $date->format($format);
                     <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
 
                     <h1 class="title">Total de Pólizas</h1>
-                    <h1 class="title text-danger"><?php  echo sizeof($poliza);?></h1>
+                    <h1 class="title text-danger"><?php  echo sizeof($poliza)+sizeof($poliza1)+sizeof($poliza2);?></h1>
 
                 </center>
 
@@ -389,11 +474,105 @@ $fechaMax= $date->format($format);
                                 ?>
                                 
                                     
-                                    <td><?php echo utf8_encode($Ejecutivo[$i]); ?></td>
+                                    <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
                                     <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                    <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                </tr>
+                                <?php
+                                //}
+                            }
+                            ?>
+                            <?php
+                            //asesor enp
+                            for ($i=0; $i < sizeof($poliza1); $i++) { 
+                                
+                                $totalsuma=$totalsuma+$poliza1[$i]['sumaasegurada'];
+                                $totalprima=$totalprima+$poliza1[$i]['prima'];
+
+                                $originalDesde = $poliza1[$i]['f_desdepoliza'];
+                                $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                $originalHasta = $poliza1[$i]['f_hastapoliza'];
+                                $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                $originalFProd = $poliza1[$i]['f_poliza'];
+                                $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                                if ($poliza1[$i]['currency']==1) {
+                                    $currency="$ ";
+                                }else{$currency="Bs ";}
+
+
+                                if ($poliza1[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <?php            
+                                } else{
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td style="color: #E54848;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <?php   
+                                }
+
+                                $nombre=$poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t'];
+                                ?>
+                                
+                                    
+                                    <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
+                                    <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                    <td><?php echo $newDesde; ?></td>
+                                    <td><?php echo $newHasta; ?></td>
+                                    <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
+                                    <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                </tr>
+                                <?php
+                                //}
+                            }
+                            ?>
+                            <?php
+                            //asesor enr
+                            for ($i=0; $i < sizeof($poliza2); $i++) { 
+                                
+                                $totalsuma=$totalsuma+$poliza2[$i]['sumaasegurada'];
+                                $totalprima=$totalprima+$poliza2[$i]['prima'];
+
+                                $originalDesde = $poliza2[$i]['f_desdepoliza'];
+                                $newDesde = date("d/m/Y", strtotime($originalDesde));
+                                $originalHasta = $poliza2[$i]['f_hastapoliza'];
+                                $newHasta = date("d/m/Y", strtotime($originalHasta));
+
+                                $originalFProd = $poliza2[$i]['f_poliza'];
+                                $newFProd = date("d/m/Y", strtotime($originalFProd));
+
+                                if ($poliza2[$i]['currency']==1) {
+                                    $currency="$ ";
+                                }else{$currency="Bs ";}
+
+
+                                if ($poliza2[$i]['f_hastapoliza'] >= date("Y-m-d")) {
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <?php            
+                                } else{
+                                ?>
+                                <tr style="cursor: pointer;">
+                                    <td style="color: #E54848;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <?php   
+                                }
+
+                                $nombre=$poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t'];
+                                ?>
+                                
+                                    
+                                    <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
+                                    <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                    <td><?php echo $newDesde; ?></td>
+                                    <td><?php echo $newHasta; ?></td>
+                                    <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
                                 </tr>
                                 <?php
