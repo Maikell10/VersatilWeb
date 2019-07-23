@@ -85,10 +85,11 @@ $fechaMax= $date->format($format);
         <div class="section">
             <div class="container">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-            
+            <a name="nombre"></a>
                 <div class="col-md-auto col-md-offset-2">
                     <center><h1 class="title">Pólizas a Renovar por Cía</h1></center>
                 </div> 
+                
                 <div class="row" style="justify-content: center;">
                     <h3>Seleccione su Búsqueda</h3>
                 </div>
@@ -107,7 +108,7 @@ $fechaMax= $date->format($format);
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Año Vigencia Seguro:</label>
-                            <select class="form-control" name="anio" id="anio">
+                            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
     
                                 <?php
                                 for($i=$fechaMin; $i <= $fechaMax; $i++)
@@ -127,7 +128,7 @@ $fechaMax= $date->format($format);
                         </div>
                         <div class="form-group col-md-6">
                             <label>Mes Vigencia Seguro:</label>
-                            <select class="form-control" name="mes" id="mes">
+                            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                                 <option value="">Seleccione Mes</option>
                                 <option value="1">Enero</option>
                                 <option value="2">Febrero</option>

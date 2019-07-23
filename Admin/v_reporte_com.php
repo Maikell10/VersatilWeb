@@ -66,13 +66,26 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
             
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title">Compañía: <?php echo $cia[0]['nomcia']; ?></h1>
                 </div>
 
                 <br>
+
+                <hr>
+
+                <center>
+
+                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-tooltip="tooltip" data-placement="top" title="Añadir" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+
+                <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Fechas Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+                <button  onclick="eliminarDatos('<?php echo $id_rep_com; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                </center>
+                        
+                <hr>
+
 
                 <div class="form-group">
                     <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Escriba para buscar">
@@ -110,6 +123,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Comisión</th>
                             <th>% Comisión</th>
                             <th>Asesor - Ejecutivo</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -141,6 +155,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <td align="right"><?php echo "$ ".number_format($comision[$i]['comision'],2); ?></td>
                             <td align="center"><?php echo number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
                             <td><?php echo $comision[$i]['cod_vend']; ?></td>
+                            <td><button  onclick="eliminarComision('<?php echo $comision[$i]['id_comision']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button></td>
                         </tr>
                         <?php
                         }
@@ -157,6 +172,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <td align="right"><font size=4><?php echo "$ ".number_format($totalCom,2); ?></font></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th>N° de Póliza</th>
@@ -166,6 +182,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Comisión</th>
                             <th>% Comisión</th>
                             <th>Asesor - Ejecutivo</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -234,6 +251,60 @@ if(isset($_SESSION['seudonimo'])) {
 
     
     <script language="javascript">
+
+
+        function eliminarDatos(id_rep_com){
+            alertify.confirm('Eliminar Reporte de Comisiones', '¿Seguro de eliminar este Reporte de Comisiones?', function(){
+                $('.alertify .ajs-header').css('background-color', 'green');
+    
+                $.ajax({
+                    type:"POST",
+                    data:"id_rep_com=" + id_rep_com,
+                    url:"../procesos/eliminarRepCom.php",
+                    success:function(r){
+                        if(r==1){
+                            alertify.alert('Eliminado con exito !', 'El Reporte de Comisiones fue eliminado con exito', function(){
+                                alertify.success('OK');
+                                window.close();
+                            });
+                        }else{
+                            alertify.error("No se pudo eliminar");
+                        }
+                    }
+                });
+
+            }
+            , function(){
+
+            });
+        }
+
+        function eliminarComision(id_comision){
+            alertify.confirm('Eliminar Comisione Seleccionada', '¿Seguro de eliminar esta Comisión?', function(){
+                $('.alertify .ajs-header').css('background-color', 'green');
+    
+                $.ajax({
+                    type:"POST",
+                    data:"id_comision=" + id_comision,
+                    url:"../procesos/eliminarComision.php",
+                    success:function(r){
+                        if(r==1){
+                            alertify.alert('Eliminada con exito !', 'La Comisión fue eliminada con exito', function(){
+                                alertify.success('OK');
+                                location.reload();
+                            });
+                        }else{
+                            alertify.error("No se pudo eliminar");
+                        }
+                    }
+                });
+
+            }
+            , function(){
+
+            });
+        }
+
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

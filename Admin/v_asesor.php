@@ -15,17 +15,23 @@ if(isset($_SESSION['seudonimo'])) {
   $obj1= new Trabajo();
   $asesor = $obj1->get_element_by_id('ena','cod',$cod_asesor); 
   $nombre=$asesor[0]['idnom'];
+  $id=$asesor[0]['idena'];
+  $a=1;
 
     if (sizeof($asesor)==null) {
         $ob3= new Trabajo();
         $asesor = $ob3->get_element_by_id('enp','cod',$cod_asesor); 
         $nombre=$asesor[0]['nombre'];
+        $id=$asesor[0]['id_enp'];
+        $a=2;
     }
 
     if (sizeof($asesor)==null) {
         $ob3= new Trabajo();
         $asesor = $ob3->get_element_by_id('enr','cod',$cod_asesor); 
         $nombre=$asesor[0]['nombre'];
+        $id=$asesor[0]['id_enr'];
+        $a=3;
     }
 
 
@@ -67,7 +73,6 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title">Asesor: <?php echo $nombre; ?></h1>  
@@ -76,7 +81,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-                <table class="table table-hover table-striped table-bordered table-responsive" id="" >
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
                     <thead>
 						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
 							<th>ID Asesor</th>
@@ -94,6 +100,16 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tbody>
                 </table>
+                </div>
+
+
+                <hr>
+                <center>
+                <a  href="e_asesor.php?id_asesor=<?php echo $id;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+                <button  onclick="eliminarDatos('<?php echo $id; ?>', '<?php echo $a; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                </center>
+                <hr>
                         
     
 
@@ -155,6 +171,33 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script language="javascript">
+
+    function eliminarDatos(idasesor, a){
+            alertify.confirm('Eliminar Asesor', '¿Seguro de eliminar este Asesor?', function(){
+                $('.alertify .ajs-header').css('background-color', 'green');
+               
+                $.ajax({
+                    type:"POST",
+                    data:"idasesor=" + idasesor ,
+                    url:"../procesos/eliminarAsesor.php?a="+a,
+                    success:function(r){
+                        if(r==1){
+                            alertify.alert('Eliminado con exito !', 'El Asesor fue eliminado con exito', function(){
+                                alertify.success('OK');
+                                window.close();
+                            });
+                        }else{
+                            alertify.error("No se pudo eliminar");
+                        }
+                    }
+                });
+
+            }
+            , function(){
+
+            });
+        }
+
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

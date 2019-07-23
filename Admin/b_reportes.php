@@ -364,7 +364,7 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad1.removeAttribute("hidden");
-        }, 1500);
+        }, 6500);
 
     </script>
 
@@ -385,28 +385,6 @@ if(isset($_SESSION['seudonimo'])) {
             });
         }
 
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar un Asesor', '¿Seguro de eliminar este Asesor?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()

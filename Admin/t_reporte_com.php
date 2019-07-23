@@ -15,14 +15,15 @@ $totalCom=0;
 
 
 <center>
-	<table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable1">
+<div class="table-responsive">
+	<table class="table table-hover table-striped table-bordered" id="iddatatable1">
 		<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 			<tr>
 				<th hidden="">ID</th>
                 <th hidden="">ID</th>
-                <th style="width:10%">Fecha Hasta Reporte</th>
-                <th style="width:20%">Prima Cobrada</th>
-                <th style="width:20%">Comisión Cobrada</th>
+                <th style="width:10%" nowrap>Fecha Hasta Reporte</th>
+                <th style="width:20%" nowrap>Prima Cobrada</th>
+                <th style="width:20%" nowrap>Comisión Cobrada</th>
 				<th style="width:50%" nowrap>Compañía</th>
 				<th nowrap>Fecha Pago de la GC</th>
 			</tr>
@@ -71,14 +72,15 @@ $totalCom=0;
 			<tr>
 				<th hidden="">ID</th>
                 <th hidden="">ID</th>
-                <th>Fecha Hasta Reporte</th>
-                <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
-                <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
-				<th>Compañía</th>
-				<th>Fecha Pago de la GC</th>
+                <th >Fecha Hasta Reporte</th>
+                <th >Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
+                <th >Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
+				<th >Compañía</th>
+				<th >Fecha Pago de la GC</th>
 			</tr>
 		</tfoot>
 	</table>
+</div>
 </center>
 
 
@@ -98,7 +100,7 @@ $totalCom=0;
     $( "#iddatatable1 tbody tr" ).click(function() {
     	var customerId = $(this).find("td").eq(1).html();   
 
-	  	window.location.href = "v_reporte_com.php?id_rep_com="+customerId;
+		window.open ("v_reporte_com.php?id_rep_com="+customerId ,'_blank');
 	});
 
 	

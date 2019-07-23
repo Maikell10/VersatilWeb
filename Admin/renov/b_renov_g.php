@@ -108,7 +108,7 @@ $fechaMax= $date->format($format);
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label>Año Vigencia Seguro:</label>
-                        <select class="form-control" name="anio" id="anio">
+                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
                             
                         <?php
                             for($i=$fechaMin; $i <= $fechaMax; $i++)
@@ -127,7 +127,7 @@ $fechaMax= $date->format($format);
                       </div>
                       <div class="form-group col-md-6">
                         <label>Mes Vigencia Seguro:</label>
-                        <select class="form-control" name="mes" id="mes">
+                        <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -150,8 +150,7 @@ $fechaMax= $date->format($format);
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label>Cía:</label>
-                        <select class="form-control" name="cia">
-                          <option>Seleccione Cía</option>
+                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
                           <?php
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
@@ -164,8 +163,7 @@ $fechaMax= $date->format($format);
                       </div>
                       <div class="form-group col-md-6">
                         <label>Asesor:</label>
-                        <select class="form-control" name="asesor">
-                        <option value="Seleccione el Asesor">Seleccione el Asesor</option>
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true" data-live-search="true">
                             <?php
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
@@ -249,6 +247,9 @@ $fechaMax= $date->format($format);
     <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../js/bootstrap-select.js"></script>
 
     <script language="javascript">
 

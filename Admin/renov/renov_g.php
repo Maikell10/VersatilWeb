@@ -10,6 +10,16 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
+  if (isset($_GET["asesor"])!=null) {
+    $asesor=$_GET["asesor"]; 
+  }else{$asesor='';}
+
+
+
   $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
   $mes = $_GET['mes'];
@@ -39,9 +49,6 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
 
-
-  $cia = $_GET['cia'];
-  $asesor = $_GET['asesor'];
 
 
   $obj1= new Trabajo();
@@ -94,16 +101,16 @@ if(isset($_SESSION['seudonimo'])) {
                     ?></font>
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
                     <?php
-                        if ($cia=='Seleccione Cía') {
-                        } else {
+                        if ($cia=='') {
+                        } else { $ciaIn = "" . implode(",", $cia) ."";
                     ?>
-                    <h2>Cía: <font style="font-weight:bold"><?php echo $cia; ?></font>
+                    <h2>Cía: <font style="font-weight:bold"><?php echo $ciaIn; ?></font>
                     <?php
                         }
-                        if ($asesor=='Seleccione el Asesor') {
-                        } else {
+                        if ($asesor=='') { 
+                        } else { $asesorIn = "" . implode(",", $asesor) ."";
                     ?>
-                    Asesor: <font style="font-weight:bold"><?php echo $asesor; ?></font></h2>
+                    Asesor: <font style="font-weight:bold"><?php echo $asesorIn; ?></font></h2>
                     <?php
                         }
                     ?>
@@ -159,7 +166,12 @@ if(isset($_SESSION['seudonimo'])) {
                         $obj2= new Trabajo();
                         $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde1[$a],$hasta1[$a],$cia,$asesor); 
                         
-
+                        if (sizeof($poliza)==null) {
+                            //echo "nada";
+                        } else {
+                            
+                        
+                        
                         ?>
                             
                             <tr>
@@ -222,6 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
+                            }
                         }
                         ?>
                     </tbody>
@@ -284,6 +297,9 @@ if(isset($_SESSION['seudonimo'])) {
                         $obj2= new Trabajo();
                         $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde1[$a],$hasta1[$a],$cia,$asesor); 
                         
+                        if (sizeof($poliza)==null) {
+                            //echo "nada";
+                        } else {
 
                         ?>
                             
@@ -346,6 +362,7 @@ if(isset($_SESSION['seudonimo'])) {
                             </tr>
                         <?php
                         $totalpoliza=$totalpoliza+sizeof($poliza);
+                            }
                         }
                         ?>
                     </tbody>

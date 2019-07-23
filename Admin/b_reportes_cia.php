@@ -292,30 +292,6 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#btnAgregarnuevo').click(function(){
-                datos=$('#frmnuevo').serialize();
-
-                $.ajax({
-                    type:"POST",
-                    data:datos,
-                    url:"../procesos/agregarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#frmnuevo')[0].reset();
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("agregado con exito :D");
-                        }else{
-                            alertify.error("Fallo al agregar :(");
-                        }
-                    }
-                });
-            });
-
-            
-        });
-    </script>
-    <script type="text/javascript">
         
         $(document).ready(function(){
             $('#tablaDatatable').load('t_reportes.php');
@@ -327,7 +303,7 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad.removeAttribute("hidden");
-        }, 1500);
+        }, 4500);
 
     </script>
 
@@ -348,28 +324,6 @@ if(isset($_SESSION['seudonimo'])) {
             });
         }
 
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar un Asesor', '¿Seguro de eliminar este Asesor?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_asesor.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()

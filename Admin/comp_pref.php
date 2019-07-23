@@ -237,28 +237,6 @@ if(isset($_SESSION['seudonimo'])) {
             });
         }
 
-        function eliminarDatos(idena){
-            alertify.confirm('Eliminar una Compañía', '¿Seguro de eliminar esta Compañía?', function(){
-
-                $.ajax({
-                    type:"POST",
-                    data:"idena=" + idena,
-                    url:"../procesos/eliminarAsesor.php",
-                    success:function(r){
-                        if(r==1){
-                            $('#tablaDatatable').load('t_comp.php');
-                            alertify.success("Eliminado con exito !");
-                        }else{
-                            alertify.error("No se pudo eliminar...");
-                        }
-                    }
-                });
-
-            }
-            , function(){
-
-            });
-        }
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()

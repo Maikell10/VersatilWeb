@@ -17,17 +17,18 @@ $totalCant=0;
 ?>
 
 
-<center>
-	<table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+	<center>
+	<div class="table-responsive">
+	<table class="table table-hover table-striped table-bordered" id="iddatatable" >
 		<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 			<tr>
-				<th>Nombre</th>
+				<th nowrap>Nombre</th>
 				<th hidden="">ID</th>
-                <th>Código</th>
-				<th>%GC</th>
-				<th>%GC Viajes</th>
-                <th>Cant Pólizas</th>
-                <th>Total Prima Suscrita</th>
+                <th nowrap>Código</th>
+				<th nowrap>%GC</th>
+				<th nowrap>%GC Viajes</th>
+                <th nowrap>Cant Pólizas</th>
+                <th nowrap>Total Prima Suscrita</th>
 			</tr>
 		</thead>
 		
@@ -45,7 +46,7 @@ $totalCant=0;
 				
 				?>
 				<tr style="cursor: pointer">
-					<td><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<td nowrap><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
 					<td hidden=""><?php echo $asesor[$i]['idena']; ?></td>
 	                <td><?php echo $asesor[$i]['cod']; ?></td>
 					<td><?php echo number_format($asesor[$i]['pre1'],0)."%"; ?></td>
@@ -60,16 +61,17 @@ $totalCant=0;
 
 		<tfoot>
 			<tr>
-				<th>Nombre</th>
+				<th nowrap>Nombre</th>
 				<th hidden="">ID</th>
                 <th>Código</th>
 				<th>%GC</th>
 				<th>%GC Viajes</th>
-                <th>Cant Pólizas <?php echo $totalCant; ?></th>
-                <th>Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
+                <th nowrap>Cant Pólizas <?php echo $totalCant; ?></th>
+                <th nowrap>Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>
+	</div>
 	</center>
 
 
@@ -88,7 +90,7 @@ $totalCant=0;
     $( "#iddatatable tbody tr" ).click(function() {
     	var customerId = $(this).find("td").eq(2).html();   
 
-	  	window.location.href = "../v_asesor.php?cod_asesor="+customerId;
+		window.open ("../v_asesor.php?cod_asesor="+customerId ,'_blank');
 	});
 
 	

@@ -10,6 +10,10 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../../class/clases.php");
 
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
+
   $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
   $mes = $_GET['mes'];
@@ -35,7 +39,6 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
 
-  $cia = $_GET['cia'];
 
 
   $obj1= new Trabajo();
@@ -124,10 +127,10 @@ if(isset($_SESSION['seudonimo'])) {
                     ?></font>
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
                     <?php
-                        if ($cia=='Seleccione Cía') {
-                        } else {
+                        if ($cia=='') {
+                        } else { $ciaIn = "" . implode(",", $cia) ."";
                     ?>
-                    <h2>Cía: <font style="font-weight:bold"><?php echo $cia; ?></font></h2>
+                    <h2>Cía: <font style="font-weight:bold"><?php echo $ciaIn; ?></font></h2>
                     <?php
                         }
                     ?>
