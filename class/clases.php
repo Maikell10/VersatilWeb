@@ -8038,6 +8038,54 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
+	public function editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs){
+
+		if ($a==1) {
+			$sql="UPDATE ena set 	id='$id',
+								 	idnom='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs'
+
+					where idena= '$id_asesor'";
+			return mysqli_query(Conectar::con(),$sql);
+		}
+
+		if ($a==2) {
+			$sql="UPDATE enp set 	id='$id',
+								 	nombre='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs'
+
+					where id_enp= '$id_asesor'";
+			return mysqli_query(Conectar::con(),$sql);
+		}
+
+		if ($a==3) {
+			$sql="UPDATE enr set 	id='$id',
+								 	nombre='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs'
+
+					where id_enr= '$id_asesor'";
+			return mysqli_query(Conectar::con(),$sql);
+		}
+
+		
+	}
+
+
 
 //-------------------------------------------------------------------	
 

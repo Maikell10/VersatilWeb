@@ -9,6 +9,7 @@ if(isset($_SESSION['seudonimo'])) {
       }
       
   require_once("../class/clases.php");
+  
 
 
   $mes = $_GET['mes'];
@@ -100,15 +101,16 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 
                 <center>
-                <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable1">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th hidden="">ID</th>
                             <th hidden="">ID</th>
-                            <th style="width:10%">Fecha Hasta Reporte</th>
-                            <th style="width:20%">Prima Cobrada</th>
-                            <th style="width:20%">Comisión Cobrada</th>
-                            <th style="width:30%" nowrap>Compañía</th>
+                            <th nowrap>Fecha Hasta Reporte</th>
+                            <th >Prima Cobrada</th>
+                            <th >Comisión Cobrada</th>
+                            <th nowrap>Compañía</th>
                             <th nowrap>Fecha Pago de la GC</th>
                         </tr>
                     </thead>
@@ -166,6 +168,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
             </center>
 
             <table class="table table-hover table-striped table-bordered table-responsive" id="Exportar_a_Excel" hidden>
@@ -322,7 +325,7 @@ if(isset($_SESSION['seudonimo'])) {
       $( "#iddatatable1 tbody tr" ).click(function() {
         var customerId = $(this).find("td").eq(1).html();   
 
-        window.location.href = "v_reporte_com.php?id_rep_com="+customerId;
+        window.open ("v_reporte_com.php?id_rep_com="+customerId ,'_blank');
        });
 
     </script>

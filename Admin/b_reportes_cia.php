@@ -76,48 +76,6 @@ if(isset($_SESSION['seudonimo'])) {
                 <br/>
 
 
-                <center><form class="form-horizontal" action="b_reportes_cia1.php" method="get" style="width: 80%">
-                    <div class="form-row" style="text-align: left;">
-                      
-                      <div class="form-group col-md-6">
-                        <label align="left">Año Reporte:</label>
-                        <select class="form-control" name="anio" id="anio">
-                            <option value="">Seleccione Año</option>
-                        <?php
-                            
-                            for($i=$fechaMinRep; $i <= $fechaMaxRep; $i++)
-                            {  
-                        ?>
-                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                        <?php
-                            } 
-                        ?> 
-                        </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label>Mes Reporte:</label>
-                        <select class="form-control" name="mes" id="mes">
-                            <option value="">Seleccione Mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                      </div>
-                    </div>
-
-
-                      <button type="submit" class="btn btn-success btn-round btn-lg" >Buscar</button>
-
-                </form></center>
 
 
 
@@ -187,108 +145,12 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
+
     
 
-    <!-- Modal -->
-    <div class="modal fade" id="agregarnuevosdatosmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega nuevo Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevo">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigo" name="codigo">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombre" name="nombre">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ci" name="ci">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuenta" name="refcuenta">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoU">
-                        <input type="text" class="form-control input-sm" id="idena" name="idena" hidden="">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigoU" name="codigoU">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ciU" name="ciU">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuentaU" name="refcuentaU">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btnActualizar">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Modal Monto-->
-    <div class="modal fade" id="modalMonto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Totales de Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>C.I o Pasaporte</th>
-                            <th>Ref Cuenta</th>
-                        </tr>
-                    </thead>
-
-                    <tbody >
-                            <tr >
-                                <td><input type="text" class="form-control input-sm" id="codigoU1" name="codigoU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="nombreU1" name="nombreU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="ciU1" name="ciU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="refcuentaU1" name="refcuentaU1" readonly="true"></td>
-                            </tr>
-                    </tbody>
-                </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
     <script type="text/javascript">
@@ -308,44 +170,11 @@ if(isset($_SESSION['seudonimo'])) {
     </script>
 
     <script type="text/javascript">
-        function agregaFrmActualizar(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena').val(datos['idena']);
-                    $('#nombreU').val(datos['idnom']);
-                    $('#codigoU').val(datos['cod']);
-                    $('#ciU').val(datos['id']);
-                    $('#refcuentaU').val(datos['refcuenta']);
-                }
-            });
-        }
-
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()
         })
 
-
-
-        function agregaFrmMonto(idena){
-            $.ajax({
-                type:"POST",
-                data:"idena=" + idena,
-                url:"../procesos/obtenDatos.php",
-                success:function(r){
-                    datos=jQuery.parseJSON(r);
-                    $('#idena1').val(datos['idena']);
-                    $('#nombreU1').val(datos['idnom']);
-                    $('#codigoU1').val(datos['cod']);
-                    $('#ciU1').val(datos['id']);
-                    $('#refcuentaU1').val(datos['refcuenta']);
-                }
-            });
-        }
     </script>
     <script language="javascript">
 

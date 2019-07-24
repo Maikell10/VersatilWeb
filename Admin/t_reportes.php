@@ -98,7 +98,7 @@ $totalCom=0;
     $( "#iddatatable tbody tr" ).click(function() {
     	var customerId = $(this).find("td").eq(0).html();   
 
-	  	window.location.href = "v_reporte_cia.php?nom_cia="+customerId;
+		window.open ("b_reportes1.php?anio=&mes=&cia="+customerId ,'_blank');
 	});
 
 	

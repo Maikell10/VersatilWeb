@@ -90,7 +90,17 @@ if(isset($_SESSION['seudonimo'])) {
                         }else{
                     ?></font>
                         Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes']-1]; } ?></font></h2>
+
+                    <?php
+                        if ($asesor=='') {
+                        } else { $asesorIn = "" . implode(",", $asesor) ."";
+                    ?>
+                    <h2>Asesor: <font style="font-weight:bold"><?php echo $asesorIn; ?></font></h2>
+                    <?php
+                        }
+                    ?>
                 </div>
+
                 
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../assets/img/excel.png" width="60" alt=""></a></center>
 
@@ -99,7 +109,8 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
                 <center>
 
-                <table class="table table-hover table-striped display table-responsive" id="mytable" style="cursor: pointer;">
+                <div class="table-responsive">
+                <table class="table table-hover table-striped display" id="mytable" style="cursor: pointer;">
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Cía</th>
@@ -185,6 +196,7 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tfoot>
                 </table>
+                </div>
 
 
                 <table hidden class="table table-hover table-striped display table-responsive" id="Exportar_a_Excel" >

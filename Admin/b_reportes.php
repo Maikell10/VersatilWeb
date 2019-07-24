@@ -83,7 +83,7 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       <div class="form-group col-md-6">
                         <label align="left">Año Reporte Pago GC:</label>
-                        <select class="form-control" name="anio" id="anio">
+                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
                             <option value="">Seleccione Año</option>
                         <?php
                             $date=date('Y', strtotime($fechaMinRep[0]["MIN(f_pago_gc)"]));
@@ -99,7 +99,7 @@ if(isset($_SESSION['seudonimo'])) {
                       </div>
                       <div class="form-group col-md-6">
                         <label>Mes Reporte Pago GC:</label>
-                        <select class="form-control" name="mes" id="mes">
+                        <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
                             <option value="">Seleccione Mes</option>
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -122,7 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="form-row" style="text-align: left;">
                       <div class="form-group col-md-12">
                         <label align="left">Cía:</label>
-                        <select class="form-control" name="cia">
+                        <select class="form-control selectpicker" name="cia" data-style="btn-white"  data-actions-box="true" data-live-search="true">
                           <option>Seleccione Cía</option>
                           <?php
                             for($i=0;$i<sizeof($cia);$i++)
@@ -209,107 +209,8 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
     
-
-    <!-- Modal -->
-    <div class="modal fade" id="agregarnuevosdatosmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega nuevo Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevo">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigo" name="codigo">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombre" name="nombre">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ci" name="ci">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuenta" name="refcuenta">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoU">
-                        <input type="text" class="form-control input-sm" id="idena" name="idena" hidden="">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigoU" name="codigoU">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ciU" name="ciU">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuentaU" name="refcuentaU">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btnActualizar">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Modal Monto-->
-    <div class="modal fade" id="modalMonto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Totales de Asesor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>C.I o Pasaporte</th>
-                            <th>Ref Cuenta</th>
-                        </tr>
-                    </thead>
-
-                    <tbody >
-                            <tr >
-                                <td><input type="text" class="form-control input-sm" id="codigoU1" name="codigoU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="nombreU1" name="nombreU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="ciU1" name="ciU1" readonly="true"></td>
-                                <td><input type="text" class="form-control input-sm" id="refcuentaU1" name="refcuentaU1" readonly="true"></td>
-                            </tr>
-                    </tbody>
-                </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
 
 
     <script type="text/javascript">

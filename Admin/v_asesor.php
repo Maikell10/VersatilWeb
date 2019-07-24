@@ -75,7 +75,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Asesor: <?php echo $nombre; ?></h1>  
+                    <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
                     <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
                 </div>
 
@@ -94,10 +94,29 @@ if(isset($_SESSION['seudonimo'])) {
                     <tbody>
                         <tr>
                             <td ><?php echo $asesor[0]['id']; ?></td>
-                            <td ><?php echo $nombre; ?></td>
+                            <td ><?php echo utf8_encode($nombre); ?></td>
                             <td ><?php echo $asesor[0]['email']; ?></td>
                             <td><?php echo $asesor[0]['cel']; ?></td>
                         </tr>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Banco</th>
+                            <th>Tipo de Cuenta</th>
+                            <th colspan="2">N Cuenta</th>
+						</tr>
+                        <tr>
+                            <td ><?php echo $asesor[0]['banco']; ?></td>
+                            <td ><?php echo $asesor[0]['tipo_cuenta']; ?></td>
+                            <td colspan="2"><?php echo $asesor[0]['num_cuenta']; ?></td>
+                        </tr>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th colspan="4">Observaciones</th>
+						</tr>
+                        <tr>
+                            <td colspan="4"><?php echo utf8_encode($asesor[0]['obs']); ?></td>
+                        </tr>
+
                     </tbody>
                 </table>
                 </div>
@@ -105,7 +124,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <hr>
                 <center>
-                <a  href="e_asesor.php?id_asesor=<?php echo $id;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_asesor.php?id_asesor=<?php echo $id;?>&a=<?php echo $a;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
                 <button  onclick="eliminarDatos('<?php echo $id; ?>', '<?php echo $a; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 </center>
