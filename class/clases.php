@@ -8086,6 +8086,22 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 	}
 
 
+	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso){
+
+
+		$sql="UPDATE usuarios set 	nombre_usuario='$nombre',
+								 	cedula_usuario='$ci',
+									clave_usuario='$clave',
+									id_permiso='$id_permiso',
+									apellido_usuario='$apellido',
+									seudonimo='$seudonimo',
+									z_produccion='$zprod'
+
+					where id_usuario= '$id_usuario'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+
 
 //-------------------------------------------------------------------	
 

@@ -119,7 +119,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" id="apellido" name="apellido" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" onkeyup="mayus(this);"></td>
                                     <td><input type="text" class="form-control" id="ci" name="ci"></td>
                                     <td><select name="zprod" id="zprod" class="custom-select">
-                                        <option value="PANAMÁ">PANAMÁ</option>
+                                        <option value="PANAMA">PANAMA</option>
                                         <option value="CARACAS">CARACAS</option>
                                     </select></td>
                                 </tr>

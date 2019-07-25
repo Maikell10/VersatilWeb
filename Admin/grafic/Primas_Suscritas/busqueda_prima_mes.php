@@ -103,7 +103,7 @@ $fechaMax= $date->format($format);
 
       <form class="form-horizontal" action="prima_mes.php" method="get">
         <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label>Seleccione el Año Desde Seguro:</label>
             <select class="form-control selectpicker" name="desde" data-style="btn-white">
               <?php
@@ -118,47 +118,8 @@ $fechaMax= $date->format($format);
               ?> 
             </select>
           </div>
-        </div>
 
-        
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label>Tipo de Cuenta:</label>
-            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
-              <option value="1">Individual</option>
-              <option value="2">Colectivo</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6" hidden>
-            <label>Status Final:</label>
-            <select class="form-control" name="status">
-              <option>Status Final</option>
-              <option value="0">Activa</option>
-              <option value="1">Anulada</option>
-              <option value="2">Inactiva</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label>Cía:</label>
-            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
-              <?php
-                for($i=0;$i<sizeof($cia);$i++)
-                  {  
-              ?>
-                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
-              <?php
-                } 
-              ?> 
-            </select>
-          </div>
-        </div>
-
-
-        <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label>Ramo:</label>
             <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
               <?php
@@ -171,7 +132,47 @@ $fechaMax= $date->format($format);
               ?> 
             </select>
           </div>
+
+
         </div>
+
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Tipo de Cuenta:</label>
+            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
+              <option value="1">Individual</option>
+              <option value="2">Colectivo</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Cía:</label>
+            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+              <?php
+                for($i=0;$i<sizeof($cia);$i++)
+                  {  
+              ?>
+                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+              <?php
+                } 
+              ?> 
+            </select>
+          </div>
+
+
+          <div class="form-group col-md-6" hidden>
+            <label>Status Final:</label>
+            <select class="form-control" name="status">
+              <option>Status Final</option>
+              <option value="0">Activa</option>
+              <option value="1">Anulada</option>
+              <option value="2">Inactiva</option>
+            </select>
+          </div>
+        </div>
+
+       
 
 
 

@@ -96,6 +96,16 @@ if(isset($_SESSION['seudonimo'])) {
                             <?php
 
                             for ($i=0; $i < sizeof($usuario); $i++) { 
+
+                                if ($usuario[$i]['id_permiso']==1) {
+                                    $permiso='Administrador';
+                                }
+                                if ($usuario[$i]['id_permiso']==2) {
+                                    $permiso='Usuario';
+                                }
+                                if ($usuario[$i]['id_permiso']==3) {
+                                    $permiso='Asesor';
+                                }
     
                             ?>
                             <tr style="cursor: pointer;">
@@ -103,7 +113,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><?php echo $usuario[$i]['seudonimo']; ?></td>
                                 <td nowrap><?php echo utf8_encode($usuario[$i]['nombre_usuario']." ".$usuario[$i]['apellido_usuario']); ?></td>
                                 <td><?php echo $usuario[$i]['cedula_usuario']; ?></td>
-                                <td><?php echo $usuario[$i]['id_permiso']; ?></td>
+                                <td><?php echo $permiso; ?></td>
                                 <td><?php echo utf8_encode($usuario[$i]['z_produccion']); ?></td>
                             </tr>
                             <?php
@@ -195,67 +205,6 @@ if(isset($_SESSION['seudonimo'])) {
 
     
 
-    <!-- Modal -->
-    <div class="modal fade" id="agregarnuevosdatosmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega nueva Póliza</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevo">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigo" name="codigo">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombre" name="nombre">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ci" name="ci">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuenta" name="refcuenta">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar Nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Póliza</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoU">
-                        <input type="text" class="form-control input-sm" id="idena" name="idena" hidden="">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigoU" name="codigoU">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ciU" name="ciU">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuentaU" name="refcuentaU">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btnActualizar">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
    
     <script type="text/javascript">
@@ -265,7 +214,7 @@ if(isset($_SESSION['seudonimo'])) {
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad.removeAttribute("hidden");
-        }, 1500);
+        }, 1000);
     </script>
 
     <script type="text/javascript">

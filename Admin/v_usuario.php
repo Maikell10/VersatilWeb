@@ -95,13 +95,21 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <?php 
-                            
+                            if ($usuario[0]['id_permiso']==1) {
+                                $permiso='Administrador';
+                            }
+                            if ($usuario[0]['id_permiso']==2) {
+                                $permiso='Usuario';
+                            }
+                            if ($usuario[0]['id_permiso']==3) {
+                                $permiso='Asesor';
+                            }
                            
                         ?>
                         <tr>
                             <td colspan="2"><?php echo $usuario[0]['seudonimo']; ?></td>
                             <td ><?php echo $usuario[0]['clave_usuario']; ?></td>
-                            <td ><?php echo $usuario[0]['id_permiso']; ?></td>
+                            <td ><?php echo $permiso; ?></td>
                         </tr>
                     </tbody>
                 </table>
