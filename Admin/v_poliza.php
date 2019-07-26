@@ -680,6 +680,8 @@ if ( (!$con_id) || (!$lr) ) {
                     <hr>
                     
                     <h5 class="modal-title" id="exampleModalLabel">Cía: <?php echo $poliza[0]['nomcia']; ?></h5>
+
+                    <h5 class="modal-title" id="exampleModalLabel">Ramo: <?php echo utf8_encode($poliza[0]['nramo']); ?></h5>
                     <hr>
 
                     <form id="frmnuevoP">

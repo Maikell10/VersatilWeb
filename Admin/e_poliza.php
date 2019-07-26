@@ -532,8 +532,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="modal-body">
                     <form id="frmnuevoT" autocomplete="off">
 
-                        <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable">
+                        <div class="table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Razón Social *</th>
@@ -618,8 +618,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="modal-body">
                     <form id="frmnuevoTom" autocomplete="off">
 
-                        <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display  table-responsive nowrap" id="iddatatable1">
+                        <div class="table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Razón Social *</th>

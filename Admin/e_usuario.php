@@ -205,7 +205,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 <script language="javascript">
 
-    $(document).ready(function(){
+        $(document).ready(function(){
             $('#cant_poliza option:first').prop('selected',true);
 
             document.getElementById("zprod").value = "<?php echo $usuario[0]['z_produccion'];?>";

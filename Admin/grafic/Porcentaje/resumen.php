@@ -160,7 +160,13 @@ if(isset($_SESSION['seudonimo'])) {
                       $totalCant=$totalCant+sizeof($resumen);
                       $totalPerGCA=$totalPerGCA+$per_gc_a;
 
-
+                      if (is_nan($per_gc_a/sizeof($resumen_poliza))) {
+                          //echo "0%";
+                          $prom_gc='0%';
+                      } else {
+                          //echo number_format($per_gc_a/sizeof($resumen_poliza),2)."%";
+                          $prom_gc=number_format($per_gc_a/sizeof($resumen_poliza),2)."%";
+                      }
                       
                       
                       ?>
@@ -172,12 +178,7 @@ if(isset($_SESSION['seudonimo'])) {
                           <td align="right"><?php echo "$ ".number_format($comision_cobrada,2); ?></td>
                           <td align="center"><?php echo number_format(($comision_cobrada*100)/$prima_cobrada,2)."%"; ?></td>
                           <td align="right"><?php echo "$ ".number_format($gc_pagada,2); ?></td>
-                          <td align="center"><?php if (is_nan($per_gc_a/sizeof($resumen_poliza))) {
-                                                        echo "0%";
-                                                    } else {
-                                                        echo number_format($per_gc_a/sizeof($resumen_poliza),2)."%";
-                                                    }
-                          ?></td>
+                          <td align="center"><?php echo $prom_gc;?></td>
                           <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
                           <td align="center"><?php echo $totalCantP; ?></td>
                       </tr>

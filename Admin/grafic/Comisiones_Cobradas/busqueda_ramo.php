@@ -68,7 +68,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Ejecutivo</h1> 
+                    <h1 class="title">Comisiones Cobradas por Ramo</h1> 
                     <br/>
                     <a name="nombre"></a>
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
@@ -91,7 +91,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     <?php } ?>
 
-      <form class="form-horizontal" action="ejecutivo.php" method="get">
+      <form class="form-horizontal" action="ramo.php" method="get">
         <div class="form-row">
           <div class="form-group col-md-6">
           <label>Año Vigencia Seguro:</label>
@@ -166,21 +166,6 @@ if(isset($_SESSION['seudonimo'])) {
 
    
 
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label>Ramo:</label>
-            <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
-              <?php
-                for($i=0;$i<sizeof($ramo);$i++)
-                  {  
-              ?>
-                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
-              <?php
-                } 
-              ?> 
-            </select>
-          </div>
-        </div>
 
 
           <center><button type="submit" class="btn btn-success btn-lg btn-round">Buscar</button></center>

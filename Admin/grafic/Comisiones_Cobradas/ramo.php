@@ -18,10 +18,6 @@ if(isset($_SESSION['seudonimo'])) {
     $cia=$_GET["cia"]; 
   }else{$cia='';}
 
-  if (isset($_GET["ramo"])!=null) {
-    $ramo=$_GET["ramo"]; 
-  }else{$ramo='';}
-
 
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
@@ -48,7 +44,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $ejecutivo = $obj1->get_distinct_element_ejecutivo($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
+  $ramo = $obj1->get_distinct_element_ramo_pc($desde,$hasta,$cia,$tipo_cuenta); 
 
   $totals=0;
   $totalpc=0;
@@ -57,100 +53,85 @@ if(isset($_SESSION['seudonimo'])) {
   $totalCant=0;
   $totalcantt=0;
 
-  $ejecutivoArray[sizeof($ejecutivo)]=null;
-  $sumatotalEjecutivo[sizeof($ejecutivo)]=null;
-  $sumatotalEjecutivoPC[sizeof($ejecutivo)]=null;
-  $sumatotalEjecutivoCC[sizeof($ejecutivo)]=null;
-  $cantArray[sizeof($ejecutivo)]=null;
-
   $totalPrimaSuscrita=0;
   $totalPrimaCobrada=0;
   $totalComisionCobrada=0;
   $totalGCPagada=0;
   $totalCant=0;
-  for($i=0;$i<sizeof($ejecutivo);$i++)
+  
+
+  $ramoArray[sizeof($ramo)]=null;
+  $sumatotalRamo[sizeof($ramo)]=null;
+  $cantArray[sizeof($ramo)]=null;
+
+  $sumatotalRamoPC[sizeof($ramo)]=null;
+  $sumatotalRamoCC[sizeof($ramo)]=null;
+
+  for($i=0;$i<sizeof($ramo);$i++)
     {  
 
       $obj2= new Trabajo();
-      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_6($ejecutivo[$i]['cod_vend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-      $nombre=$ejecutivoPoliza[0]['idnom'];
-      
-
-      if (sizeof($ejecutivoPoliza)==null) {
-        $obj2= new Trabajo();
-        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_6_p($ejecutivo[$i]['cod_vend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-        $nombre=$ejecutivoPoliza[0]['nombre'];
-      }
-
-      if (sizeof($ejecutivoPoliza)==null) {
-        $obj2= new Trabajo();
-        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_6_r($ejecutivo[$i]['cod_vend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-        $nombre=$ejecutivoPoliza[0]['nombre'];
-      }
-
-
- 
-
-      $obj11= new Trabajo();
-            $resumen = $obj11->get_resumen_por_asesor($desde,$hasta,$ejecutivo[$i]['cod_vend'],$cia,$ramo,$tipo_cuenta);
-              
-            
-            $prima_cobrada=0;
-            $comision_cobrada=0;
-            $gc_pagada=0;
-            for ($a=0; $a < sizeof($resumen); $a++) { 
-              $prima_cobrada=$prima_cobrada+$resumen[$a]['prima_com'];
-              $comision_cobrada=$comision_cobrada+$resumen[$a]['comision'];
-
-              
-              $gc_pagada=$gc_pagada+(($resumen[$a]['per_gc']*$resumen[$a]['comision'])/100);
-            }
-            //$totalPrimaCobrada=$totalPrimaCobrada+$prima_cobrada;
-            $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
-            $totalGCPagada=$totalGCPagada+$gc_pagada;
-            $totalCant=$totalCant+sizeof($resumen);
-
-            if ($prima_cobrada==0) {
-            $per_gc=0;
-            } else {
-            $per_gc=(($comision_cobrada*100)/$prima_cobrada);
-            }
-
-
-      $cantArray[$i]=sizeof($ejecutivoPoliza);
+      $ramoPoliza = $obj2->get_poliza_graf_1_pc($ramo[$i]['nramo'],$desde,$hasta,$cia,$tipo_cuenta); 
+    
+      $cantArray[$i]=sizeof($ramoPoliza);
       $sumasegurada=0;
-      $obj111= new Trabajo();
-      $resumen_poliza = $obj111->get_resumen_por_asesor_en_poliza($desde,$hasta,$ejecutivo[$i]['cod_vend'],$cia,$ramo,$tipo_cuenta);
-      for($a=0;$a<sizeof($resumen_poliza);$a++)
+      $prima_cobrada=0;
+      $comision_cobrada=0;
+      $gc_pagada=0;
+
+      for($a=0;$a<sizeof($ramoPoliza);$a++)
         { 
-          $sumasegurada=$sumasegurada+$resumen_poliza[$a]['prima'];
+
+            $prima_cobrada=$prima_cobrada+$ramoPoliza[$a]['prima_com'];
+            $comision_cobrada=$comision_cobrada+$ramoPoliza[$a]['comision'];
+
+            $gc_pagada=$gc_pagada+(($ramoPoliza[$a]['per_gc']*$ramoPoliza[$a]['comision'])/100);
 
         } 
+
+        $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
+        $totalGCPagada=$totalGCPagada+$gc_pagada;
+        $totalCant=$totalCant+sizeof($ramoPoliza);
+
+        if ($prima_cobrada==0) {
+        $per_gc=0;
+        } else {
+        $per_gc=(($comision_cobrada*100)/$prima_cobrada);
+        }
+        
+        $sumasegurada=0;
+        $obj1111= new Trabajo();
+        $resumen_poliza = $obj1111->get_resumen_por_ramo_en_poliza($desde,$hasta,$ramo[$i]['nramo']);
+        for($f=0;$f<sizeof($resumen_poliza);$f++)
+        { 
+
+           $sumasegurada=$sumasegurada+$resumen_poliza[$f]['prima'];
+
+        } 
+
+
         $totals=$totals+$sumasegurada;
         $totalpc=$totalpc+$prima_cobrada;
         $totalcc=$totalcc+$comision_cobrada;
         $totalgcp=$totalgcp+$gc_pagada;
-        $totalcantt=$totalcantt+sizeof($resumen);
-        $totalCant=$totalCant+$cantArray[$i];
-        $sumatotalEjecutivo[$i]=$sumasegurada;
-        $sumatotalEjecutivoPC[$i]=$prima_cobrada;
-        $sumatotalEjecutivoCC[$i]=$comision_cobrada;
-        $sumatotalEjecutivoGCP[$i]=$gc_pagada;
-        $ejecutivoArray[$i]=$nombre;
+        $sumatotalRamo[$i]=$sumasegurada;
+        $sumatotalRamoPC[$i]=$prima_cobrada;
+        $sumatotalRamoCC[$i]=$comision_cobrada;
+        $sumatotalRamoGCP[$i]=$gc_pagada;
+        $ramoArray[$i]=$ramo[$i]['nramo'];
     }
 
 
-asort($sumatotalEjecutivo , SORT_NUMERIC);
+
+asort($sumatotalRamo , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalEjecutivo as $key=>$value) {
+foreach($sumatotalRamo as $key=>$value) {
 
    $x[count($x)] = $key;
 
 }
-
-
   //isset($_POST["ramo"]);
   //onchange = "this.form.submit()"
 
@@ -197,20 +178,18 @@ foreach($sumatotalEjecutivo as $key=>$value) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Ejecutivo</h1> 
+                    <h1 class="title">Distribución de la Cartera por Ramo</h1> 
                     <br/>
                     
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Pólizas a Renovar por Asesor')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
-
-
 
     <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Ejecutivo Cuenta</th>
+          <th scope="col">Ramo</th>
           <th scope="col">Prima Suscrita</th>
           <th scope="col">Prima Cobrada</th>
           <th scope="col">Prima Pendiente</th>
@@ -224,52 +203,42 @@ foreach($sumatotalEjecutivo as $key=>$value) {
       <tbody>
         <?php
           
-          
-          for ($i=sizeof($ejecutivo); $i > 0; $i--) {  
 
-            if ($sumatotalEjecutivoPC[$x[$i]]==0) {
+          for ($i=sizeof($ramo); $i > 0; $i--) { 
+              
+            if ($sumatotalRamoPC[$x[$i]]==0) {
                 $per_gc=0;
             } else {
-                $per_gc=(($sumatotalEjecutivoCC[$x[$i]]*100)/$sumatotalEjecutivoPC[$x[$i]]);
-            }
-
-            if (isset($sumatotalEjecutivoGCP[$x[$i]])) {
-              $gc_pagada_1=$sumatotalEjecutivoGCP[$x[$i]];
-            }else {
-              //nulo
-              $gc_pagada_1=0;
+                $per_gc=(($sumatotalRamoCC[$x[$i]]*100)/$sumatotalRamoPC[$x[$i]]);
             }
 
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>
-          </th>
-          <td align="right"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalEjecutivoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]]-$sumatotalEjecutivoPC[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalEjecutivoCC[$x[$i]],2); ?></td>
+          <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
+          <td align="right"><?php echo "$".number_format($sumatotalRamo[$x[$i]],2); ?></td>
+          <td align="right"><?php echo "$".number_format($sumatotalRamoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
+          <td align="right"><?php echo "$".number_format($sumatotalRamoCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
-          <td align="right"><?php echo number_format($gc_pagada_1,2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalEjecutivoCC[$x[$i]]-$gc_pagada_1,2); ?></td>
+          <td align="right"><?php echo number_format($sumatotalRamoGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
             }
         ?>
       </tbody>
-      <thead>
-        <tr style="background-color: #E54848;color:white">
+      <thead style="background-color: #E54848;color:white">
+        <tr>
           <th scope="col">TOTAL</th>
           <th align="right"><?php echo "$".number_format($totals,2); ?></th>
           <th align="right"><?php echo "$".number_format($totalpc,2); ?></th>
           <th align="right"><?php echo "$".number_format($totals-$totalpc,2); ?></th>
           <th align="right"><?php echo "$".number_format($totalcc,2); ?></th>
           <th align="right"><?php echo "$".number_format(($totalcc*100)/$totalpc,2); ?></th>
-
           <th align="right"><?php echo "$".number_format($totalgcp,2); ?></th>
           <th align="right"><?php echo "$".number_format($totalcc-$totalgcp,2); ?></th>
-
-          <th scope="col"><?php echo $totalcantt; ?></th>
+          <th scope="col"><?php echo $totalCant; ?></th>
         </tr>
       </thead>
 
@@ -288,19 +257,33 @@ foreach($sumatotalEjecutivo as $key=>$value) {
         </tr>
       </tfoot>
     </table>
+    
+        
+
+
+    
+    
     </div>
 
- 
 
 
-    <br><br><br><br>
+    <div class="container">
+      <canvas id="myChart">
+        
+      </canvas>
+    </div>
 
 
-
-        <?php require('footer_b.php');?>
     
-    
+      
+
+
+        <br><br><br><br>
+
       </div>
+
+      
+      <?php require('footer_b.php');?>
     </div>
 
 
@@ -323,8 +306,86 @@ foreach($sumatotalEjecutivo as $key=>$value) {
             </div>
         </div>
     </footer>
-
     
+    <script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
+
+    let massPopChart = new Chart(myChart, {
+      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[<?php for($i=sizeof($ramo); $i > 0; $i--){ ?>
+        '<?php echo utf8_encode($ramoArray[$x[$i]]); ?>',
+
+                <?php }?>],
+
+        datasets:[{
+
+          data:[<?php for($i=sizeof($ramo); $i > 0; $i--)
+            {  
+                $sumasegurada=($sumatotalRamo[$x[$i]]*100)/$totals;
+                ?>
+                '<?php echo number_format($sumasegurada,2); ?>',
+            <?php }?>
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'red',
+            'blue',
+            '#B44242',
+            '#7BB442',
+            '#42B489',
+            '#4276B4',
+            '#6F42B4',
+            '#B442A1',
+            'yellow',
+            '#7198FF',
+            '#FFBE71'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Grafico de Distribución de la Cartera por Ramo (%)',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+    });
+  </script>
 
     <!--   Core JS Files   -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
