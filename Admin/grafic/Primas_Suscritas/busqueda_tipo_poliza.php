@@ -24,7 +24,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-
+  $fhoy=date("Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -255,6 +255,12 @@ if(isset($_SESSION['seudonimo'])) {
         endDate: '<?php echo $fechaMax[0]["MAX(f_hastapoliza)"];?>',
       });
     </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change();  
+      });
+    </script> 
     <script language="javascript">
 
     function Exportar(table, name){

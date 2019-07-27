@@ -18,33 +18,20 @@ if(isset($_SESSION['seudonimo'])) {
     $cia=$_GET["cia"]; 
   }else{$cia='';}
 
-
-  $mes = $_GET['mes'];
-  $desde=$_GET['anio']."-".$_GET['mes']."-01";
-  $hasta=$_GET['anio']."-".$_GET['mes']."-31";
-
-  if ($mes==null) {
-      $mesD=01;
-      $mesH=12;
-      $desde=$_GET['anio']."-".$mesD."-01";
-      $hasta=$_GET['anio']."-".$mesH."-31";
-  }
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
 
 
-  $anio = $_GET['anio'];
-  if ($anio==null) {
-    $obj11= new Trabajo();
-    $fechaMin = $obj11->get_fecha_min('f_hastapoliza','poliza'); 
-    $desde=$fechaMin[0]['MIN(f_hastapoliza)'];
-  
-    $obj12= new Trabajo();
-    $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
-    $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
-  }
+$desde=$_GET['desde'].'-01-01';
+$hasta=($_GET['desde']).'-12-31';
 
 
   $obj1= new Trabajo();
-  $ramo = $obj1->get_distinct_element_ramo_pc($desde,$hasta,$cia,$tipo_cuenta); 
+  $mes = $obj1->get_mes_prima_pc($desde,$hasta,$cia,$ramo,$tipo_cuenta,'1'); 
+
+
+
 
   $totals=0;
   $totalpc=0;
@@ -58,40 +45,47 @@ if(isset($_SESSION['seudonimo'])) {
   $totalComisionCobrada=0;
   $totalGCPagada=0;
   $totalCant=0;
-  
 
-  $ramoArray[sizeof($ramo)]=null;
-  $sumatotalRamo[sizeof($ramo)]=null;
-  $cantArray[sizeof($ramo)]=null;
+  $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
-  $sumatotalRamoPC[sizeof($ramo)]=null;
-  $sumatotalRamoCC[sizeof($ramo)]=null;
 
-  for($i=0;$i<sizeof($ramo);$i++)
+
+  $mesArray[sizeof($mes)]=null;
+  $cantArray[sizeof($mes)]=null;
+  $primaPorMes[sizeof($mes)]=null;
+
+  $sumatotalMes[sizeof($mes)]=null;
+  $sumatotalMesPC[sizeof($mes)]=null;
+  $sumatotalMesCC[sizeof($mes)]=null;
+
+
+  for($i=0;$i<sizeof($mes);$i++)
     {  
+      $desde=$_GET['desde']."-".$mes[$i]["Month(f_hastapoliza)"]."-01";
+      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_hastapoliza)"]."-31";
 
       $obj2= new Trabajo();
-      $ramoPoliza = $obj2->get_poliza_graf_1_pc($ramo[$i]['nramo'],$desde,$hasta,$cia,$tipo_cuenta); 
+      $primaMes = $obj2->get_poliza_grafp_2_pc($ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
-      $cantArray[$i]=sizeof($ramoPoliza);
+      $cantArray[$i]=sizeof($primaMes);
       $sumasegurada=0;
       $prima_cobrada=0;
       $comision_cobrada=0;
       $gc_pagada=0;
-
-      for($a=0;$a<sizeof($ramoPoliza);$a++)
+      for($a=0;$a<sizeof($primaMes);$a++)
         { 
+            $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
 
-            $prima_cobrada=$prima_cobrada+$ramoPoliza[$a]['prima_com'];
-            $comision_cobrada=$comision_cobrada+$ramoPoliza[$a]['comision'];
+            $prima_cobrada=$prima_cobrada+$primaMes[$a]['prima_com'];
+            $comision_cobrada=$comision_cobrada+$primaMes[$a]['comision'];
 
-            $gc_pagada=$gc_pagada+(($ramoPoliza[$a]['per_gc']*$ramoPoliza[$a]['comision'])/100);
+            $gc_pagada=$gc_pagada+(($primaMes[$a]['per_gc']*$primaMes[$a]['comision'])/100);
 
         } 
 
         $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
         $totalGCPagada=$totalGCPagada+$gc_pagada;
-        $totalCant=$totalCant+sizeof($ramoPoliza);
+        $totalCant=$totalCant+sizeof($primaMes);
 
         if ($prima_cobrada==0) {
         $per_gc=0;
@@ -101,7 +95,7 @@ if(isset($_SESSION['seudonimo'])) {
         
         $sumasegurada=0;
         $obj1111= new Trabajo();
-        $resumen_poliza = $obj1111->get_resumen_por_ramo_en_poliza($desde,$hasta,$ramo[$i]['nramo']);
+        $resumen_poliza = $obj1111->get_resumen_por_mes_en_poliza($desde,$hasta,$mes[$i]["Month(f_hastapoliza)"]);
         for($f=0;$f<sizeof($resumen_poliza);$f++)
         { 
 
@@ -109,31 +103,15 @@ if(isset($_SESSION['seudonimo'])) {
 
         } 
 
-
         $totals=$totals+$sumasegurada;
         $totalpc=$totalpc+$prima_cobrada;
         $totalcc=$totalcc+$comision_cobrada;
         $totalgcp=$totalgcp+$gc_pagada;
-        $sumatotalRamo[$i]=$sumasegurada;
-        $sumatotalRamoPC[$i]=$prima_cobrada;
-        $sumatotalRamoCC[$i]=$comision_cobrada;
-        $sumatotalRamoGCP[$i]=$gc_pagada;
-        $ramoArray[$i]=$ramo[$i]['nramo'];
+        $primaPorMes[$i]=$sumasegurada;
+        $primaPorMesPC[$i]=$prima_cobrada;
+        $primaPorMesCC[$i]=$comision_cobrada;
+        $primaPorMesGCP[$i]=$gc_pagada;
     }
-
-
-
-asort($sumatotalRamo , SORT_NUMERIC);
-
-
-$x = array();
-foreach($sumatotalRamo as $key=>$value) {
-
-   $x[count($x)] = $key;
-
-}
-  //isset($_POST["ramo"]);
-  //onchange = "this.form.submit()"
 
 
 ?>
@@ -145,8 +123,8 @@ foreach($sumatotalRamo as $key=>$value) {
 </head>
 
 <body class="profile-page ">
-    
-    <?php require('navigation.php');?>
+
+  <?php require('navigation.php');?>
 
 
 
@@ -178,19 +156,22 @@ foreach($sumatotalRamo as $key=>$value) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Ramo</h1> 
+                    <h1 class="title">Comisiones Cobradas por Mes del Año <?php echo $_GET['desde'];?></h1></h1> 
                     <br/>
                     
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Prima Suscrita por Mes')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
-    <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
-       <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+
+
+    <div class="table-responsive">
+    <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel">
+      <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Ramo</th>
-          <th scope="col">Prima Suscrita</th>
+          <th>Mes Vigencia</th>
+          <th>Prima Suscrita</th>
           <th scope="col">Prima Cobrada</th>
           <th scope="col">Prima Pendiente</th>
           <th scope="col">Comisión Cobrada</th>
@@ -203,26 +184,25 @@ foreach($sumatotalRamo as $key=>$value) {
       <tbody>
         <?php
           
-
-          for ($i=sizeof($ramo); $i > 0; $i--) { 
+          for ($i=0; $i < sizeof($mes); $i++) { 
               
-            if ($sumatotalRamoPC[$x[$i]]==0) {
+            if ($primaPorMesPC[$i]==0) {
                 $per_gc=0;
             } else {
-                $per_gc=(($sumatotalRamoCC[$x[$i]]*100)/$sumatotalRamoPC[$x[$i]]);
+                $per_gc=(($primaPorMesCC[$i]*100)/$primaPorMesPC[$i]);
             }
 
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-          <td align="right"><?php echo "$".number_format($sumatotalRamo[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalRamoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalRamoCC[$x[$i]],2); ?></td>
+          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastapoliza)"]-1]; ?></th>
+          <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
+          <td align="right"><?php echo "$".number_format($primaPorMesPC[$i],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($primaPorMes[$i]-$primaPorMesPC[$i],2); ?></td>
+          <td align="right"><?php echo "$".number_format($primaPorMesCC[$i],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
-          <td align="right"><?php echo number_format($sumatotalRamoGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
-          <td><?php echo $cantArray[$x[$i]]; ?></td>
+          <td align="right"><?php echo number_format($primaPorMesGCP[$i],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($primaPorMesCC[$i]-$primaPorMesGCP[$i],2); ?></td>
+          <td><?php echo $cantArray[$i]; ?></td>
         </tr>
         <?php
             }
@@ -257,6 +237,7 @@ foreach($sumatotalRamo as $key=>$value) {
         </tr>
       </tfoot>
     </table>
+    </div>
     
         
 
@@ -268,22 +249,17 @@ foreach($sumatotalRamo as $key=>$value) {
 
 
     <div class="container">
-      <canvas id="myChart">
-        
-      </canvas>
+      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
     </div>
 
+    <br><br><br><br>
 
+
+
+    <?php require('footer_b.php');?>
     
-      
-
-
-        <br><br><br><br>
-
+    
       </div>
-
-      
-      <?php require('footer_b.php');?>
     </div>
 
 
@@ -306,86 +282,9 @@ foreach($sumatotalRamo as $key=>$value) {
             </div>
         </div>
     </footer>
-    
-    <script>
-    let myChart = document.getElementById('myChart').getContext('2d');
 
-    // Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = '#777';
 
-    let massPopChart = new Chart(myChart, {
-      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-      data:{
-        labels:[<?php for($i=sizeof($ramo); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ramoArray[$x[$i]]); ?>',
 
-                <?php }?>],
-
-        datasets:[{
-
-          data:[<?php for($i=sizeof($ramo); $i > 0; $i--)
-            {  
-                $sumasegurada=($sumatotalRamo[$x[$i]]*100)/$totals;
-                ?>
-                '<?php echo number_format($sumasegurada,2); ?>',
-            <?php }?>
-          ],
-          //backgroundColor:'green',
-          backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(53, 57, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)',
-            'red',
-            'blue',
-            '#B44242',
-            '#7BB442',
-            '#42B489',
-            '#4276B4',
-            '#6F42B4',
-            '#B442A1',
-            'yellow',
-            '#7198FF',
-            '#FFBE71'
-          ],
-          borderWidth:1,
-          borderColor:'#777',
-          hoverBorderWidth:3,
-          hoverBorderColor:'#000'
-        }]
-      },
-      options:{
-        title:{
-          display:true,
-          text:'Grafico de Distribución de la Cartera por Ramo (%)',
-          fontSize:25
-        },
-        legend:{
-          display:true,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
-        }
-      }
-    });
-  </script>
 
     <!--   Core JS Files   -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -396,7 +295,99 @@ foreach($sumatotalRamo as $key=>$value) {
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script language="javascript">
+    <script src="../../../Chart/Chart.bundle.js"></script>  
+    <script src="../../../Chart/samples/utils.js"></script>
+    <script src="../../../Chart/samples/charts/area/analyser.js"></script>
+
+    
+    <script>
+    var presets = window.chartColors;
+    var utils = Samples.utils;
+    var inputs = {
+      min: 0,
+      count: 12,
+      decimals: 2,
+      continuity: 1
+    };
+
+    function generateData(config) {
+      return utils.numbers(Chart.helpers.merge(inputs, config || {}));
+    }
+
+    function generateLabels(config) {
+      return utils.months(Chart.helpers.merge({
+        count: inputs.count,
+        section: 3
+      }, config || {}));
+    }
+
+    var options = {
+      maintainAspectRatio: false,
+      spanGaps: false,
+      elements: {
+        line: {
+          tension: 0.000001
+        }
+      },
+      plugins: {
+        filler: {
+          propagate: false
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0
+          }
+        }]
+      }
+    };
+
+    [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
+
+      // reset the random seed to generate the same data for all charts
+      utils.srand(12);
+
+      new Chart('chart-' + index, {
+        type: 'line',
+        data: {
+          labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+          datasets: [{
+            backgroundColor: utils.transparentize(presets.red),
+            borderColor: presets.red,
+            data: [<?php $a=0; for($i=0;$i<=11;$i++)
+            {   
+                if (($mes[$a]["Month(f_hastapoliza)"]-1) == $i) {
+                  $dataPrima=$primaPorMes[$a]; 
+                  if ($a<(sizeof($mes)-1)) {
+                    $a++;
+                  }
+                }else{$dataPrima=0;}
+                ?>
+                '<?php echo $dataPrima; ?>',
+            <?php }?>
+          ],
+            label: 'Prima Suscrita',
+            fill: boundary,
+            pointHoverRadius: 30,
+            pointHitRadius: 20,
+            pointRadius: 5,
+          }]
+        },
+        options: Chart.helpers.merge(options, {
+          title: {
+            text: 'Gráfico Prima Suscrita por Mes',
+            fontSize:25,
+            display: true
+          }
+        })
+      });
+    });
+
+    
+  </script>
+  <script language="javascript">
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'
@@ -408,5 +399,9 @@ foreach($sumatotalRamo as $key=>$value) {
          window.location.href = uri + base64(format(template, ctx))
         }
     </script>
+
+
+  
+
   </body>
 </html>

@@ -67,7 +67,7 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 
                 
-                <div class="card text-white bg-dark mb-6">
+                <div class="card text-white bg-info mb-6">
                 <a href="Comisiones_Cobradas/busqueda_prima_mes.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Mes</h5>
@@ -111,7 +111,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
 
-                <div class="card text-white bg-dark mb-3">
+                <div class="card text-white bg-info mb-3">
                 <a href="Comisiones_Cobradas/busqueda_fpago.php">
                   <div class="card-body">
                     <h5 class="card-title">Por Forma de Pago</h5>

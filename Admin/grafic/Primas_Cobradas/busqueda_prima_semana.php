@@ -24,6 +24,7 @@ if(isset($_SESSION['seudonimo'])) {
 
   $mes=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
+  $fhoy=date("Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +96,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Seleccione el Año:</label>
-            <select class="form-control" name="desde">
+            <select class="form-control" name="desde" name="desde">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)

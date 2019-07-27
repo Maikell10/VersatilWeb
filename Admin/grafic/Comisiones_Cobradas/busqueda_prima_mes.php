@@ -16,26 +16,15 @@ if(isset($_SESSION['seudonimo'])) {
   $obj2= new Trabajo();
   $ramo = $obj2->get_distinct_element('nramo','dramo'); 
 
+  $obj2= new Trabajo();
+  $fechaMin = $obj2->get_fecha_min('f_hastapoliza','poliza'); 
+
   $obj3= new Trabajo();
-  $fechaMin = $obj3->get_fecha_min('f_hastapoliza','poliza'); 
+  $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza'); 
 
-  $obj4= new Trabajo();
-  $fechaMax = $obj4->get_fecha_max('f_hastapoliza','poliza'); 
+  $fhoy=date("Y");
 
 
-//FECHA MAYORES A 2024
-$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-$format = 'Y';
-
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-
-// Print it
-$fechaMax= $date->format($format);
-
-$fhoy=date("Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +35,7 @@ $fhoy=date("Y");
 
 
 <body class="profile-page ">
-
+    
     <?php require('navigation.php');?>
 
 
@@ -79,13 +68,14 @@ $fhoy=date("Y");
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Primas Cobradas por Mes <strong style="color:red">(Bola de Nieve)</strong></h1> 
+                    <h1 class="title">Comisiones Cobradas por Forma de Pago</h1> 
                     <br/>
                     <a name="nombre"></a>
-                    <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
+                    <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
- 
+
+
       
 
       <div class="row" style="justify-content: center;">
@@ -95,57 +85,30 @@ $fhoy=date("Y");
 
       <?php if (isset($_GET['m'])==2) {?>
   
-      <div class="alert alert-danger" role="alert">
-          No existen datos para la búsqueda seleccionada!
-      </div>
+    <div class="alert alert-danger" role="alert">
+        No existen datos para la búsqueda seleccionada!
+    </div>
 
-      <?php } ?>
+    <?php } ?>
 
       <form class="form-horizontal" action="prima_mes.php" method="get">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label>Seleccione el Año de Pago:</label>
+          <label>Año Vigencia Seguro:</label>
             <select class="form-control selectpicker" name="desde" id="desde" data-style="btn-white">
-              <?php
+                <option value="">Seleccione Año</option>
+            <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
-                  {  
-              ?>
-                  <option value="<?php echo $date;?>"><?php echo $date;?></option>
-              <?php
-                  $date=$date+1;
+                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
+                {  
+            ?>
+                <option value="<?php echo $date;?>"><?php echo $date;?></option>
+            <?php
+                $date=$date+1;
                 } 
-              ?> 
+            ?> 
             </select>
           </div>
-
-          <div class="form-group col-md-6">
-            <label>Tipo de Cuenta:</label>
-            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
-              <option value="1">Individual</option>
-              <option value="2">Colectivo</option>
-            </select>
-          </div>
-        </div>
-
-        
-   
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>Cía:</label>
-            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
-              <?php
-                for($i=0;$i<sizeof($cia);$i++)
-                  {  
-              ?>
-                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
-              <?php
-                } 
-              ?> 
-            </select>
-          </div>
-
           <div class="form-group col-md-6">
             <label>Ramo:</label>
             <select class="form-control selectpicker" name="ramo[]" multiple data-style="btn-white" data-header="Seleccione Ramo" data-actions-box="true" data-live-search="true">
@@ -160,16 +123,57 @@ $fhoy=date("Y");
             </select>
           </div>
         </div>
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Tipo de Cuenta:</label>
+            <select class="form-control selectpicker" name="tipo_cuenta[]" multiple data-style="btn-white" data-header="Tipo de Cuenta" data-actions-box="true" data-live-search="true">
+              <option value="1">Individual</option>
+              <option value="2">Colectivo</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Cía:</label>
+            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+              <?php
+                for($i=0;$i<sizeof($cia);$i++)
+                  {  
+              ?>
+                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+              <?php
+                } 
+              ?> 
+            </select>
+          </div>
 
 
-      
+          <div class="form-group col-md-6" hidden>
+            <label>Status Final:</label>
+            <select class="form-control" name="status">
+              <option>Status Final</option>
+              <option value="0">Activa</option>
+              <option value="1">Anulada</option>
+              <option value="2">Inactiva</option>
+            </select>
+          </div>
+        </div>
+
+   
 
 
-          <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>
+
+          <center><button type="submit" class="btn btn-success btn-lg btn-round">Buscar</button></center>
 
       </form>
       
-      </div>
+
+
+      
+
+
+    
+    </div>
       </div>
       <br><br><br><br>
 
@@ -223,17 +227,7 @@ $fhoy=date("Y");
    
 
     <script type="text/javascript">
-      $('#desde').datepicker({  
-        format: "yyyy-mm-dd", 
-        startDate: '<?php echo $fechaMin[0]["MIN(f_desdepoliza)"];?>',
-      });
 
-      $('#hasta').datepicker({  
-        format: "yyyy-mm-dd", 
-        endDate: '<?php echo $fechaMax[0]["MAX(f_hastapoliza)"];?>',
-      });
-    </script>
-    <script type="text/javascript">
       $(document).ready(function(){
           $('#desde').val(<?php echo $fhoy;?>); 
           $('#desde').change();  

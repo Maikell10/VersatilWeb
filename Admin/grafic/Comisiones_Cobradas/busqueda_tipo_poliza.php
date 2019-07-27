@@ -91,7 +91,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     <?php } ?>
 
-      <form class="form-horizontal" action="ejecutivo.php" method="get">
+      <form class="form-horizontal" action="tipo_poliza.php" method="get">
         <div class="form-row">
           <div class="form-group col-md-6">
           <label>Año Vigencia Seguro:</label>
@@ -249,9 +249,8 @@ if(isset($_SESSION['seudonimo'])) {
     <script type="text/javascript">
 
       $(document).ready(function(){
-
-          document.getElementById("anio").value = <?php echo $fhoy;?>;
-          console.log(<?php echo $fhoy;?>);
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change();  
       });
     </script>
     <script language="javascript">

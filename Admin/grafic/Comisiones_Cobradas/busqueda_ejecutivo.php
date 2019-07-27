@@ -249,9 +249,8 @@ if(isset($_SESSION['seudonimo'])) {
     <script type="text/javascript">
 
       $(document).ready(function(){
-
-          document.getElementById("anio").value = <?php echo $fhoy;?>;
-          console.log(<?php echo $fhoy;?>);
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change();  
       });
     </script>
     <script language="javascript">

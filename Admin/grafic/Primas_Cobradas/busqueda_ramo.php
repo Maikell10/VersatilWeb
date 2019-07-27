@@ -35,6 +35,7 @@ $date = new DateTime($dateString);
 // Print it
 $fechaMax= $date->format($format);
 
+$fhoy=date("Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +105,7 @@ $fechaMax= $date->format($format);
         <div class="form-row">
           <div class="form-group col-md-12">
             <label>Seleccione el Año de Pago:</label>
-            <select class="form-control selectpicker" name="anio" data-style="btn-white">
+            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
@@ -228,6 +229,12 @@ $fechaMax= $date->format($format);
         endDate: '<?php echo $fechaMax[0]["MAX(f_hastapoliza)"];?>',
       });
     </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change();  
+      });
+    </script> 
     <script language="javascript">
 
     function Exportar(table, name){

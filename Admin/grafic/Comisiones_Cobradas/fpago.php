@@ -7,12 +7,17 @@ if(isset($_SESSION['seudonimo'])) {
         header("Location: login.php");
         exit();
       }
+
       
   require_once("../../../class/clases.php");
 
   if (isset($_GET["tipo_cuenta"])!=null) {
     $tipo_cuenta=$_GET["tipo_cuenta"]; 
   }else{$tipo_cuenta='';}
+
+  if (isset($_GET["cia"])!=null) {
+    $cia=$_GET["cia"]; 
+  }else{$cia='';}
 
   if (isset($_GET["ramo"])!=null) {
     $ramo=$_GET["ramo"]; 
@@ -41,9 +46,8 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
 
-
   $obj1= new Trabajo();
-  $cia = $obj1->get_distinct_element_cia_pc($desde,$hasta,$ramo,$tipo_cuenta); 
+  $fpago = $obj1->get_distinct_element_fpago_pc($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
 
   $totals=0;
   $totalpc=0;
@@ -58,39 +62,41 @@ if(isset($_SESSION['seudonimo'])) {
   $totalGCPagada=0;
   $totalCant=0;
 
-  $ciaArray[sizeof($cia)]=null;
-  $sumatotalCia[sizeof($cia)]=null;
-  $cantArray[sizeof($cia)]=null;
+  $fpagoArray[sizeof($fpago)]=null;
+  $sumatotalFpago[sizeof($fpago)]=null;
+  $cantArray[sizeof($fpago)]=null;
 
-  $sumatotalCiaPC[sizeof($cia)]=null;
-  $sumatotalCiaCC[sizeof($cia)]=null;
+  $sumatotalFpagoPC[sizeof($fpago)]=null;
+  $sumatotalFpagoCC[sizeof($fpago)]=null;
 
 
-  for($i=0;$i<sizeof($cia);$i++)
+  for($i=0;$i<sizeof($fpago);$i++)
     {  
 
       $obj2= new Trabajo();
-      $ciaPoliza = $obj2->get_poliza_graf_3_pc($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta); 
+      $fpagoPoliza = $obj2->get_poliza_graf_4_pc($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
-      $cantArray[$i]=sizeof($ciaPoliza);
+      $cantArray[$i]=sizeof($fpagoPoliza);
       $sumasegurada=0;
       $prima_cobrada=0;
       $comision_cobrada=0;
       $gc_pagada=0;
 
-      for($a=0;$a<sizeof($ciaPoliza);$a++)
+      for($a=0;$a<sizeof($fpagoPoliza);$a++)
         { 
+            $sumasegurada=$sumasegurada+$fpagoPoliza[$a]['prima'];
 
-            $prima_cobrada=$prima_cobrada+$ciaPoliza[$a]['prima_com'];
-            $comision_cobrada=$comision_cobrada+$ciaPoliza[$a]['comision'];
+            $prima_cobrada=$prima_cobrada+$fpagoPoliza[$a]['prima_com'];
+            $comision_cobrada=$comision_cobrada+$fpagoPoliza[$a]['comision'];
 
-            $gc_pagada=$gc_pagada+(($ciaPoliza[$a]['per_gc']*$ciaPoliza[$a]['comision'])/100);
+            $gc_pagada=$gc_pagada+(($fpagoPoliza[$a]['per_gc']*$fpagoPoliza[$a]['comision'])/100);
 
         } 
 
+
         $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
         $totalGCPagada=$totalGCPagada+$gc_pagada;
-        $totalCant=$totalCant+sizeof($ciaPoliza);
+        $totalCant=$totalCant+sizeof($fpagoPoliza);
 
         if ($prima_cobrada==0) {
         $per_gc=0;
@@ -100,7 +106,7 @@ if(isset($_SESSION['seudonimo'])) {
         
         $sumasegurada=0;
         $obj1111= new Trabajo();
-        $resumen_poliza = $obj1111->get_resumen_por_cia_en_poliza($desde,$hasta,$cia[$i]['nomcia']);
+        $resumen_poliza = $obj1111->get_resumen_por_fpago_en_poliza($desde,$hasta,$fpago[$i]['fpago']);
         for($f=0;$f<sizeof($resumen_poliza);$f++)
         { 
 
@@ -113,25 +119,27 @@ if(isset($_SESSION['seudonimo'])) {
         $totalpc=$totalpc+$prima_cobrada;
         $totalcc=$totalcc+$comision_cobrada;
         $totalgcp=$totalgcp+$gc_pagada;
-        $sumatotalCia[$i]=$sumasegurada;
-        $sumatotalCiaPC[$i]=$prima_cobrada;
-        $sumatotalCiaCC[$i]=$comision_cobrada;
-        $sumatotalCiaGCP[$i]=$gc_pagada;
-        $ciaArray[$i]=$cia[$i]['nomcia'];
+        $sumatotalFpago[$i]=$sumasegurada;
+        $sumatotalFpagoPC[$i]=$prima_cobrada;
+        $sumatotalFpagoCC[$i]=$comision_cobrada;
+        $sumatotalFpagoGCP[$i]=$gc_pagada;
+        $fpagoArray[$i]=$fpago[$i]['fpago'];
     }
 
-asort($sumatotalCia , SORT_NUMERIC);
+
+asort($sumatotalFpago , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalCia as $key=>$value) {
+foreach($sumatotalFpago as $key=>$value) {
 
    $x[count($x)] = $key;
 
 }
+
+
   //isset($_POST["ramo"]);
   //onchange = "this.form.submit()"
-
 
 
 ?>
@@ -176,21 +184,20 @@ foreach($sumatotalCia as $key=>$value) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Cía</h1> 
+                    <h1 class="title">Comisiones Cobradas por Forma de Pago</h1> 
                     <br/>
                     
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Forma de Pago')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
- 
 
-      
+
 
     <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Cía</th>
+          <th scope="col">Pago</th>
           <th scope="col">Prima Suscrita</th>
           <th scope="col">Prima Cobrada</th>
           <th scope="col">Prima Pendiente</th>
@@ -205,24 +212,24 @@ foreach($sumatotalCia as $key=>$value) {
         <?php
           
 
-          for ($i=sizeof($cia); $i > 0; $i--) { 
-              
-            if ($sumatotalCiaPC[$x[$i]]==0) {
+          for ($i=sizeof($fpago); $i > 0; $i--) { 
+             
+            
+            if ($sumatotalFpagoPC[$x[$i]]==0) {
                 $per_gc=0;
             } else {
-                $per_gc=(($sumatotalCiaCC[$x[$i]]*100)/$sumatotalCiaPC[$x[$i]]);
+                $per_gc=(($sumatotalFpagoCC[$x[$i]]*100)/$sumatotalFpagoPC[$x[$i]]);
             }
-
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ciaArray[$x[$i]]); ?></th>
-          <td align="right"><?php echo "$".number_format($sumatotalCia[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalCiaPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalCia[$x[$i]]-$sumatotalCiaPC[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalCiaCC[$x[$i]],2); ?></td>
+          <th scope="row"><?php echo utf8_encode($fpagoArray[$x[$i]]);?></th>
+          <td align="right"><?php echo "$".number_format($sumatotalFpago[$x[$i]],2); ?></td>
+          <td align="right"><?php echo "$".number_format($sumatotalFpagoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalFpago[$x[$i]]-$sumatotalFpagoPC[$x[$i]],2); ?></td>
+          <td align="right"><?php echo "$".number_format($sumatotalFpagoCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
-          <td align="right"><?php echo number_format($sumatotalCiaGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalCiaCC[$x[$i]]-$sumatotalCiaGCP[$x[$i]],2); ?></td>
+          <td align="right"><?php echo number_format($sumatotalFpagoGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalFpagoCC[$x[$i]]-$sumatotalFpagoGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -267,11 +274,13 @@ foreach($sumatotalCia as $key=>$value) {
     </div>
 
 
-    <br><br><br><br>
+    <br/><br/><br/>
+
+  <br><br><br><br>
 
 
 
-    <?php require('footer_b.php');?>
+  <?php require('footer_b.php');?>
     
     
       </div>
@@ -311,16 +320,16 @@ foreach($sumatotalCia as $key=>$value) {
     let massPopChart = new Chart(myChart, {
       type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        labels:[<?php for($i=sizeof($cia); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ciaArray[$x[$i]]); ?>',
+        labels:[<?php for($i=sizeof($fpago); $i > 0; $i--){ ?>
+        '<?php echo  utf8_encode($fpagoArray[$x[$i]]) ;?>',
 
                 <?php }?>],
 
         datasets:[{
 
-          data:[<?php for($i=sizeof($cia); $i > 0; $i--)
+          data:[<?php for($i=sizeof($fpago); $i > 0; $i--)
             {  
-                $sumasegurada=($sumatotalCia[$x[$i]]*100)/$totals;
+                $sumasegurada=($sumatotalFpago[$x[$i]]*100)/$totals;
                 ?>
                 '<?php echo number_format($sumasegurada,2); ?>',
             <?php }?>
@@ -336,19 +345,7 @@ foreach($sumatotalCia as $key=>$value) {
             'rgba(255, 99, 132, 0.6)',
             'red',
             'blue',
-            'yellow',
-            '#B44242',
-            '#7BB442',
-            '#42B489',
-            '#4276B4',
-            '#6F42B4',
-            '#B442A1',
-            'brown',
-            '#7198FF',
-            '#FFBE71',
-            'green',
-            'gray',
-            'pink'
+            'yellow'
           ],
           borderWidth:1,
           borderColor:'#777',
@@ -359,7 +356,7 @@ foreach($sumatotalCia as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Cía (%)',
+          text:'Grafico de Distribución de la Cartera por Forma de Pago (%)',
           fontSize:25
         },
         legend:{

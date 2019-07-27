@@ -24,6 +24,7 @@ if(isset($_SESSION['seudonimo'])) {
 
   $mes=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
+  $fhoy=date("Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +96,7 @@ if(isset($_SESSION['seudonimo'])) {
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Seleccione el Año:</label>
-            <select class="form-control selectpicker" name="desde" data-style="btn-white">
+            <select class="form-control selectpicker" name="desde" id="desde" data-style="btn-white">
               <?php
                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
@@ -255,6 +256,12 @@ if(isset($_SESSION['seudonimo'])) {
         endDate: '<?php echo $fechaMax[0]["MAX(f_hastapoliza)"];?>',
       });
     </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#desde').val(<?php echo $fhoy;?>); 
+          $('#desde').change();  
+      });
+    </script> 
     <script language="javascript">
 
     function Exportar(table, name){
