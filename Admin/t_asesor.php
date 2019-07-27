@@ -45,7 +45,17 @@ $totalCant=0;
 				
 				?>
 				<tr style="cursor: pointer">
-					<td nowrap><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<?php
+						if ($asesor[$i]['act']==1) {
+					?>
+					<td nowrap class="text-success"><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<?php
+						}else {
+					?>
+					<td nowrap class="text-danger"><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<?php	
+						}
+					?>
 					<td hidden=""><?php echo $asesor[$i]['idena']; ?></td>
 	                <td><?php echo $asesor[$i]['cod']; ?></td>
 	                <td><?php echo $asesor[$i]['id']; ?></td>
@@ -68,7 +78,17 @@ $totalCant=0;
 
 				?>
 				<tr style="cursor: pointer">
-					<td nowrap><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php
+						if ($proyecto[$i]['act']==1) {
+					?>
+					<td nowrap class="text-success"><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php
+						}else {
+					?>
+					<td nowrap class="text-danger"><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php	
+						}
+					?>
 					<td hidden=""><?php echo $proyecto[$i]['id_enp']; ?></td>
 	                <td><?php echo $proyecto[$i]['cod']; ?></td>
 	                <td><?php echo $proyecto[$i]['id']; ?></td>
@@ -94,7 +114,17 @@ $totalCant=0;
 				}
 			?>
 			<tr style="cursor: pointer">
-					<td nowrap><?php echo utf8_encode($referidor[$i]['nombre']); ?></td>
+					<?php
+						if ($referidor[$i]['act']==1) {
+					?>
+					<td nowrap class="text-success"><?php echo utf8_encode($referidor[$i]['nombre']); ?></td>
+					<?php
+						}else {
+					?>
+					<td nowrap class="text-danger"><?php echo utf8_encode($referidor[$i]['nombre']); ?></td>
+					<?php	
+						}
+					?>
 					<td hidden=""><?php echo $referidor[$i]['id_enr']; ?></td>
 	                <td><?php echo $referidor[$i]['cod']; ?></td>
 	                <td><?php echo $referidor[$i]['id']; ?></td>

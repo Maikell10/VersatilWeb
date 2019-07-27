@@ -22,7 +22,7 @@ if(isset($_SESSION['seudonimo'])) {
 	$fhoy=date("Y-m-d");
     //$femisionP=$_POST['emisionP'];
     $femisionP=date("Y-m-d");
-	$t_cobertura=$_POST['t_cobertura'];
+    $t_cobertura='-';
 	$fdesdeP=$_POST['desdeP'];
 	$fhastaP=$_POST['hastaP'];
 	$currency=$_POST['currency'];
@@ -112,8 +112,8 @@ if(isset($_SESSION['seudonimo'])) {
     
 
 
-    $originalEmision = $_POST['emisionP'];
-    $newEmision = date("d/m/Y", strtotime($originalEmision));
+    //$originalEmision = $_POST['emisionP'];
+    //$newEmision = date("d/m/Y", strtotime($originalEmision));
     $originalDesdeP = $_POST['desdeP'];
     $newDesdeP = date("d/m/Y", strtotime($originalDesdeP));
     $originalHastaP = $_POST['hastaP'];
@@ -213,8 +213,9 @@ if(isset($_SESSION['seudonimo'])) {
             
                 
                 <form class="form-horizontal" id="frmnuevo" >
-                    <div class="form-row">      
-                        <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
+                    <div class="form-row">     
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
                                 <tr>
                                     <th nowrap colspan="2">N° de Póliza</th>
@@ -339,6 +340,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </tbody>
                         </table>
+                        </div> 
                     </div>
 
 

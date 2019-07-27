@@ -9822,6 +9822,15 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
+	public function editarAsesorCom($id_poliza,$codasesor){
+
+
+		$sql="UPDATE comision set 	cod_vend='$codasesor'
+
+					where id_poliza= '$id_poliza'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
 
 
 //-------------------------------------------------------------------	

@@ -93,7 +93,10 @@ if(isset($_SESSION['seudonimo'])) {
     $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 
       
     $obj11= new Trabajo();
-  	$vehiculo = $obj11->editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 
+    $vehiculo = $obj11->editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 
+      
+    $obj111= new Trabajo();
+  	$asesorCom = $obj111->editarAsesorCom($id_poliza,$codasesor); 
 
   	$tipo_poliza_print="";
   	if ($tipo_poliza==1) {
