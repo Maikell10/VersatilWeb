@@ -278,7 +278,7 @@ foreach($sumatotalRamo as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Ramo (%)',
+          text:'Distribución de la Cartera por Ramo (%)',
           fontSize:25
         },
         legend:{

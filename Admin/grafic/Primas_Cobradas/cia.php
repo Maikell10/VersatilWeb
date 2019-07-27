@@ -94,7 +94,7 @@ if(isset($_SESSION['seudonimo'])) {
           <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
               <div class="col-md-auto col-md-offset-2" style="text-align:center">
-                  <h1 class="title">Primas Cobradas por Ramo</h1> 
+                  <h1 class="title">Primas Cobradas por Cía</h1> 
                   <h2>Año: <?php echo $_GET['anio'];?></h2>
                   <br>
                   
@@ -291,7 +291,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="container">
-      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
+      <div class="wrapper col-12"><canvas id="myChart"></canvas></div>
     </div>
 
     <br><br><br><br>
@@ -340,98 +340,88 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../../../Chart/samples/utils.js"></script>
     <script src="../../../Chart/samples/charts/area/analyser.js"></script>
 
-    
-    <script>
-    var presets = window.chartColors;
-    var utils = Samples.utils;
-    var inputs = {
-      min: 0,
-      count: 12,
-      decimals: 2,
-      continuity: 1
-    };
+  
 
-    function generateData(config) {
-      return utils.numbers(Chart.helpers.merge(inputs, config || {}));
-    }
+<script>
+    let myChart = document.getElementById('myChart').getContext('2d');
 
-    function generateLabels(config) {
-      return utils.months(Chart.helpers.merge({
-        count: inputs.count,
-        section: 3
-      }, config || {}));
-    }
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
 
-    var options = {
-      maintainAspectRatio: false,
-      spanGaps: false,
-      elements: {
-        line: {
-          tension: 0.000001
-        }
-      },
-      plugins: {
-        filler: {
-          propagate: false
-        }
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            autoSkip: false,
-            maxRotation: 0
-          }
-        }]
-      }
-    };
-
-    [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
-
-      // reset the random seed to generate the same data for all charts
-      utils.srand(12);
-
-      new Chart('chart-' + index, {
-        type: 'line',
-        data: {
-          labels: [<?php for($i=0; $i < sizeof($cia); $i++){ ?>
+    let massPopChart = new Chart(myChart, {
+      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[<?php for($i=0; $i < sizeof($cia); $i++){ ?>
           '<?php echo utf8_encode($cia[$i]['nomcia']); ?>',
 
                 <?php }?>],
-          datasets: [{
-            backgroundColor: utils.transparentize(presets.red),
-            borderColor: presets.red,
-            data: [
-              <?php for($i=0; $i < sizeof($cia); $i++){ ?>
+
+        datasets:[{
+
+          data:[<?php for($i=0; $i < sizeof($cia); $i++){ ?>
               '<?php echo $totalPArray[$i]; ?>',
 
                 <?php }?>
           ],
-            label: 'Prima Cobrada',
-            fill: boundary,
-            pointHoverRadius: 30,
-            pointHitRadius: 20,
-            pointRadius: 5,
-          }]
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'red',
+            'blue',
+            'yellow',
+            '#B44242',
+            '#7BB442',
+            '#42B489',
+            '#4276B4',
+            '#6F42B4',
+            '#B442A1',
+            'brown',
+            '#7198FF',
+            '#FFBE71',
+            'green',
+            'gray',
+            'pink'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Primas Cobradas por Cía',
+          fontSize:25
         },
-        options: Chart.helpers.merge(options, {
-          title: {
-            text: 'Gráfico Prima Cobrada por Mes',
-            fontSize:25,
-            display: true
-          },scales: {
-            xAxes: [{
-                ticks: {
-                    autoSkip: false,
-                    maxRotation: 50,
-                    minRotation: 50,
-                }
-            }]
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
           }
-        })
-      });
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
     });
-
-    
   </script>
   <script language="javascript">
 

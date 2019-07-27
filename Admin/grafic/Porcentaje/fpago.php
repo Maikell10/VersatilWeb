@@ -270,7 +270,7 @@ foreach($sumatotalFpago as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Forma de Pago (%)',
+          text:'Distribución de la Cartera por Forma de Pago (%)',
           fontSize:25
         },
         legend:{

@@ -7639,7 +7639,7 @@ class Trabajo extends Conectar{
 								YEAR(f_pago_prima)=$anio AND
 								nramo IN ".$ramoIn." AND
 								t_cuenta  IN ".$tipo_cuentaIn." 
-								ORDER BY dramo.nramo ASC";
+								ORDER BY dcia.nomcia ASC";
 				}
 				if ($ramo=='' && $tipo_cuenta=='') {
 					$sql="SELECT DISTINCT nomcia FROM poliza 
@@ -7648,7 +7648,7 @@ class Trabajo extends Conectar{
 							poliza.id_cod_ramo=dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND 
 							YEAR(f_pago_prima)=$anio 
-							ORDER BY dramo.nramo ASC";
+							ORDER BY dcia.nomcia ASC";
 				}
 				if ($ramo=='' && $tipo_cuenta!='') {
 
@@ -7662,7 +7662,7 @@ class Trabajo extends Conectar{
 							poliza.id_poliza = comision.id_poliza AND 
 							YEAR(f_pago_prima)=$anio AND
 							t_cuenta  IN ".$tipo_cuentaIn." 
-							ORDER BY dramo.nramo ASC";
+							ORDER BY dcia.nomcia ASC";
 				}
 				if ($tipo_cuenta=='' && $ramo!='') {
 
@@ -7676,7 +7676,7 @@ class Trabajo extends Conectar{
 							poliza.id_poliza = comision.id_poliza AND 
 							YEAR(f_pago_prima)=$anio AND
 							nramo IN ".$ramoIn."
-							ORDER BY dramo.nramo ASC";
+							ORDER BY dcia.nomcia ASC";
 				}
 
 				$res=mysqli_query(Conectar::con(),$sql);

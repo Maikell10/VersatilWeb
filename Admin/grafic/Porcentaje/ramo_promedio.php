@@ -262,7 +262,7 @@ foreach($sumatotalRamoProm as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico Prima Promedio por Ramo (%)',
+          text:'Prima Promedio por Ramo (%)',
           fontSize:25
         },
         legend:{

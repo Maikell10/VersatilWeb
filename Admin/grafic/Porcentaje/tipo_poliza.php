@@ -271,7 +271,7 @@ foreach($sumatotalTpoliza as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Tipo de Poliza (%)',
+          text:'Distribución de la Cartera por Tipo de Poliza (%)',
           fontSize:25
         },
         legend:{

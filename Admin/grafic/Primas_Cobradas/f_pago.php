@@ -296,7 +296,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="container">
-      <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
+      <div class="wrapper col-12"><canvas id="myChart"></canvas></div>
     </div>
 
     <br><br><br><br>
@@ -346,97 +346,75 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../../../Chart/samples/charts/area/analyser.js"></script>
 
     
-    <script>
-    var presets = window.chartColors;
-    var utils = Samples.utils;
-    var inputs = {
-      min: 0,
-      count: 12,
-      decimals: 2,
-      continuity: 1
-    };
+  
+  <script>
+    let myChart = document.getElementById('myChart').getContext('2d');
 
-    function generateData(config) {
-      return utils.numbers(Chart.helpers.merge(inputs, config || {}));
-    }
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = '#777';
 
-    function generateLabels(config) {
-      return utils.months(Chart.helpers.merge({
-        count: inputs.count,
-        section: 3
-      }, config || {}));
-    }
-
-    var options = {
-      maintainAspectRatio: false,
-      spanGaps: false,
-      elements: {
-        line: {
-          tension: 0.000001
-        }
-      },
-      plugins: {
-        filler: {
-          propagate: false
-        }
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            autoSkip: false,
-            maxRotation: 0
-          }
-        }]
-      }
-    };
-
-    [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
-
-      // reset the random seed to generate the same data for all charts
-      utils.srand(12);
-
-      new Chart('chart-' + index, {
-        type: 'line',
-        data: {
-          labels: [<?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
+    let massPopChart = new Chart(myChart, {
+      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[<?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
                 '<?php echo utf8_encode($f_pago[$i]['fpago']); ?>',
 
                 <?php }?>],
-          datasets: [{
-            backgroundColor: utils.transparentize(presets.red),
-            borderColor: presets.red,
-            data: [
-              <?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
+
+        datasets:[{
+
+          data:[<?php for($i=0; $i < sizeof($f_pago); $i++){ ?>
               '<?php echo $totalPArray[$i]; ?>',
 
                 <?php }?>
           ],
-            label: 'Prima Cobrada',
-            fill: boundary,
-            pointHoverRadius: 30,
-            pointHitRadius: 20,
-            pointRadius: 5,
-          }]
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'red',
+            'blue',
+            'yellow'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Primas Cobradas por Forma de Pago (%)',
+          fontSize:25
         },
-        options: Chart.helpers.merge(options, {
-          title: {
-            text: 'Gráfico Prima Cobrada por Forma de Pago',
-            fontSize:25,
-            display: true
-          },scales: {
-            xAxes: [{
-                ticks: {
-                    autoSkip: false,
-                    maxRotation: 50,
-                    minRotation: 50,
-                }
-            }]
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
           }
-        })
-      });
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
     });
-
-    
   </script>
   <script language="javascript">
 
