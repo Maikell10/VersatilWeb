@@ -12,7 +12,10 @@ $obj5= new Trabajo();
 $referidor = $obj5->get_element('enr','nombre'); 
 
 $totalPrima=0;
+$totalPrimaC=0;
 $totalCant=0;
+
+
 
 ?>
 
@@ -28,6 +31,7 @@ $totalCant=0;
                 <th nowrap>C.I o Pasaporte</th>
                 <th nowrap>Cant Pólizas</th>
                 <th nowrap>Total Prima Suscrita</th>
+				<th nowrap>Total Prima Cobrada</th>
 			</tr>
 		</thead>
 		
@@ -42,6 +46,10 @@ $totalCant=0;
 					$totalPrima=$totalPrima+$asesort[$a]['prima'];
 					$totalCant=$totalCant+1;
 				}
+
+				$obj6= new Trabajo();
+				$primaC = $obj6->get_prima_cobrada_asesor($asesor[$i]['cod']); 
+				$totalPrimaC=$totalPrimaC+$primaC[0]['SUM(prima_com)'];
 				
 				?>
 				<tr style="cursor: pointer">
@@ -61,6 +69,7 @@ $totalCant=0;
 	                <td><?php echo $asesor[$i]['id']; ?></td>
 	                <td><?php echo sizeof($asesort); ?></td>
 	                <td><?php echo "$ ".number_format($prima,2); ?></td>
+					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 					
 				</tr>
 				<?php
@@ -75,6 +84,10 @@ $totalCant=0;
 					$totalPrima=$totalPrima+$proyectot[$a]['prima'];
 					$totalCant=$totalCant+1;
 				}
+
+				$obj6= new Trabajo();
+				$primaC = $obj6->get_prima_cobrada_asesor($proyecto[$i]['cod']); 
+				$totalPrimaC=$totalPrimaC+$primaC[0]['SUM(prima_com)'];
 
 				?>
 				<tr style="cursor: pointer">
@@ -95,6 +108,7 @@ $totalCant=0;
 
 	                <td><?php echo sizeof($proyectot); ?></td>
 	                <td><?php echo "$ ".number_format($prima,2); ?></td>
+					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 	                
 				</tr>
 				<?php
@@ -112,6 +126,10 @@ $totalCant=0;
 					$totalPrima=$totalPrima+$referidort[$a]['prima'];
 					$totalCant=$totalCant+1;
 				}
+
+				$obj6= new Trabajo();
+				$primaC = $obj6->get_prima_cobrada_asesor($referidor[$i]['cod']); 
+				$totalPrimaC=$totalPrimaC+$primaC[0]['SUM(prima_com)'];
 			?>
 			<tr style="cursor: pointer">
 					<?php
@@ -131,6 +149,7 @@ $totalCant=0;
 
 	                <td><?php echo sizeof($referidort); ?></td>
 	                <td><?php echo "$ ".number_format($prima,2); ?></td>
+					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 	                
 				</tr>
 				<?php
@@ -145,7 +164,8 @@ $totalCant=0;
                 <th>Código</th>
                 <th>C.I o Pasaporte</th>
                 <th nowrap>Cant Pólizas <?php echo $totalCant; ?></th>
-                <th nowrap>Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
+                <th >Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
+				<th >Total Prima Cobrada $<?php echo number_format($totalPrimaC,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>

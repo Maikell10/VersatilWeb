@@ -146,6 +146,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><select name="id_permiso" id="id_permiso" class="custom-select">
                                         <option value="1">Administrador</option>
                                         <option value="2">Usuario</option>
+                                        <option value="3">Asesor</option>
                                     </select></td>
                                 </tr>
                                 </div>

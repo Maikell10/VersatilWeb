@@ -8,6 +8,7 @@ $proyecto = $obj3->get_element('enp','nombre');
 
 
 $totalPrima=0;
+$totalPrimaC=0;
 $totalCant=0;
 
 ?>
@@ -24,6 +25,7 @@ $totalCant=0;
                 <th nowrap>C.I o Pasaporte</th>
                 <th nowrap>Cant Pólizas</th>
                 <th nowrap>Total Prima Suscrita</th>
+				<th nowrap>Total Prima Cobrada</th>
 			</tr>
 		</thead>
 		
@@ -39,14 +41,29 @@ $totalCant=0;
 					$totalCant=$totalCant+1;
 				}
 				
+				$obj6= new Trabajo();
+				$primaC = $obj6->get_prima_cobrada_asesor($proyecto[$i]['cod']); 
+				$totalPrimaC=$totalPrimaC+$primaC[0]['SUM(prima_com)'];
+
 				?>
 				<tr style="cursor: pointer">
-					<td nowrap><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php
+						if ($proyecto[$i]['act']==1) {
+					?>
+					<td nowrap class="text-success"><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php
+						}else {
+					?>
+					<td nowrap class="text-danger"><?php echo utf8_encode($proyecto[$i]['nombre']); ?></td>
+					<?php	
+						}
+					?>
 					<td hidden=""><?php echo $proyecto[$i]['id_enp']; ?></td>
 	                <td><?php echo $proyecto[$i]['cod']; ?></td>
 	                <td><?php echo $proyecto[$i]['id']; ?></td>
 	                <td><?php echo sizeof($proyectot); ?></td>
 	                <td><?php echo "$ ".number_format($prima,2); ?></td>
+					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 				</tr>
 				<?php
 			}
@@ -60,7 +77,8 @@ $totalCant=0;
                 <th>Código</th>
                 <th>C.I o Pasaporte</th>
                 <th nowrap>Cant Pólizas <?php echo $totalCant; ?></th>
-                <th nowrap>Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
+                <th >Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
+				<th >Total Prima Cobrada $<?php echo number_format($totalPrimaC,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>

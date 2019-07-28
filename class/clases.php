@@ -428,6 +428,31 @@ class Trabajo extends Conectar{
 
 
 
+		public function get_prima_cobrada_asesor($codvend)
+		    {
+		      	$sql="SELECT SUM(prima_com)  FROM comision
+						WHERE 
+						cod_vend = '$codvend'";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+			      		{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+			}
+
+
 		public function get_asesor_total($id)
 		    {
 		      	$sql="SELECT *  FROM 
@@ -459,8 +484,6 @@ class Trabajo extends Conectar{
 	              			return $this->t;
 						}
 				}
-
-				
 			}
 
 		public function get_asesor_proyecto_total($id)
@@ -8943,12 +8966,12 @@ class Trabajo extends Conectar{
 
 	public function agregarPoliza($cod_poliza,$f_poliza,$f_emi,$tcobertura,$f_desdepoliza,
 									$f_hastapoliza,$currency,$id_tpoliza,$sumaasegurada,$id_zproduccion,
-									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind,$t_cuenta,$id_usuario){
+									$codvend,$id_cod_ramo,$id_cia,$id_titular,$id_tomador,$asesor_ind,$t_cuenta,$id_usuario,$obs){
 
 
 			$sql="INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario, obs_p)
 									values ('$cod_poliza',
 											'$f_poliza',
 											'$f_emi',
@@ -8966,7 +8989,8 @@ class Trabajo extends Conectar{
 											'$id_tomador',
 											'$asesor_ind',
 											'$t_cuenta',
-											'$id_usuario')";
+											'$id_usuario',
+											'$obs')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -9649,7 +9673,7 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 			return mysqli_query(Conectar::con(),$sql);
 	}
 
-	public function editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular,$idtomador,$asesor_ind,$t_cuenta){
+	public function editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular,$idtomador,$asesor_ind,$t_cuenta,$obs_p){
 
 
 		$sql="UPDATE poliza set cod_poliza='$n_poliza',
@@ -9668,7 +9692,8 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 								id_titular='$idtitular',
 								id_tomador='$idtomador',
 								per_gc='$asesor_ind',
-								t_cuenta='$t_cuenta'
+								t_cuenta='$t_cuenta',
+								obs_p='$obs_p'
 
 					where id_poliza= '$id_poliza'";
 		return mysqli_query(Conectar::con(),$sql);
@@ -9759,7 +9784,7 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
-	public function editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs){
+	public function editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act){
 
 		if ($a==1) {
 			$sql="UPDATE ena set 	id='$id',
@@ -9769,7 +9794,8 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 									banco='$banco',
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
-									obs='$obs'
+									obs='$obs',
+									act='$act'
 
 					where idena= '$id_asesor'";
 			return mysqli_query(Conectar::con(),$sql);
@@ -9783,7 +9809,8 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 									banco='$banco',
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
-									obs='$obs'
+									obs='$obs',
+									act='$act'
 
 					where id_enp= '$id_asesor'";
 			return mysqli_query(Conectar::con(),$sql);
@@ -9797,7 +9824,8 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 									banco='$banco',
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
-									obs='$obs'
+									obs='$obs',
+									act='$act'
 
 					where id_enr= '$id_asesor'";
 			return mysqli_query(Conectar::con(),$sql);

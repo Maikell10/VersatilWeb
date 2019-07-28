@@ -8,6 +8,7 @@ if(isset($_SESSION['seudonimo'])) {
         exit();
       }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

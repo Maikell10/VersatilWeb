@@ -27,6 +27,10 @@ session_start();
 		$_SESSION['id_permiso'] = $permiso;
 		header("Location: ../Admin/sesionadmin.php?m=1");
 	}
+	if ($permiso==3) {
+		$_SESSION['id_permiso'] = $permiso;
+		header("Location: ../Admin/sesionadmin.php?m=1");
+	}
 				
  
 ?>

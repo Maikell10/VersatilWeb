@@ -22,6 +22,12 @@ if(isset($_SESSION['seudonimo'])) {
     $tipo_cuenta=$_POST['tipo_cuenta'];
     $num_cuenta=$_POST['num_cuenta'];
     $obs=$_POST['obs'];
+    $act=$_POST['act'];
+
+    $estatus='Inactivo';
+    if ($act==1) {
+        $estatus='Activo';
+    }
 
 	
     
@@ -108,11 +114,13 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                     
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
-                                    <th colspan="4">Observaciones</th>
+                                    <th colspan="3">Observaciones</th>
+                                    <th>Estatus</th>
                                 </tr>
 
                                 <tr>
-                                    <td colspan="4"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?php echo $obs;?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?php echo $obs;?>"></td>
+                                    <td><input type="text" class="form-control" name="act" readonly="readonly" value="<?php echo $estatus;?>"></td>
                                 </tr>
 
                                
@@ -130,7 +138,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?php echo $id_asesor;?>&nombre=<?php echo $nombre;?>&email=<?php echo $email;?>&id=<?php echo $id;?>&cel=<?php echo $cel;?>&banco=<?php echo $banco;?>&tipo_cuenta=<?php echo $tipo_cuenta;?>&num_cuenta=<?php echo $num_cuenta;?>&obs=<?php echo $obs;?>&a=<?php echo $a;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?php echo $id_asesor;?>&nombre=<?php echo $nombre;?>&email=<?php echo $email;?>&id=<?php echo $id;?>&cel=<?php echo $cel;?>&banco=<?php echo $banco;?>&tipo_cuenta=<?php echo $tipo_cuenta;?>&num_cuenta=<?php echo $num_cuenta;?>&obs=<?php echo $obs;?>&a=<?php echo $a;?>&act=<?php echo $act;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

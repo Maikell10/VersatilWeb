@@ -442,6 +442,24 @@ if(isset($_SESSION['seudonimo'])) {
                     </tbody>
                 </table></center>
 
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered display nowrap" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr style="background-color:white">
+                            <td><input type="text" class="form-control validanumericos2" id="obs_p" name="obs_p" value="<?php echo $poliza[0]['obs_p']; ?>" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
+
+
                 <hr>
                 <button type="submit" style="width: 100%" data-tooltip="tooltip" data-placement="bottom" title="Previsualizar" class="btn btn-success btn-lg" value="">Previsualizar Edición &nbsp;<i class="fa fa-check" aria-hidden="true"></i></button>
                 <hr>

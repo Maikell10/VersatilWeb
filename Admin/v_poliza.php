@@ -328,6 +328,21 @@ if ( (!$con_id) || (!$lr) ) {
                 </table>
                 </div>
 
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr >
+                            <td><?php echo $poliza[0]['obs_p']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
 
 <!-- -----------------SI ES PÓLIZA PENDIENTE NO MOSTRAR------------------ -->
                 <?php 

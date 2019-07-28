@@ -390,6 +390,25 @@ if(isset($_SESSION['seudonimo'])) {
                         </table>
                     </div></center>
 
+
+                    <div class="form-row table-responsive">      
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <div class="form-group col-md-12">
+                                <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="obs" name="obs" maxlength="200" autocomplete="off"></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+
         
 
                       <center>

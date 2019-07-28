@@ -75,6 +75,17 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
+                    <?php 
+                    if ($asesor[0]['act']==0) {
+                    ?>
+                    <h2 class="float-right text-danger">&nbsp;<i class="fa fa-times" aria-hidden="true"></i></h2>
+                    <?php
+                    }if ($asesor[0]['act']==1) {
+                    ?>
+                    <h2 class="float-right text-success">&nbsp;<i class="fa fa-check" aria-hidden="true"></i></h2>
+                    <?php
+                    }
+                    ?>
                     <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
                     <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
                 </div>
@@ -111,10 +122,16 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
 
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-							<th colspan="4">Observaciones</th>
+							<th colspan="3">Observaciones</th>
+                            <th>Estatus</th>
 						</tr>
                         <tr>
-                            <td colspan="4"><?php echo utf8_encode($asesor[0]['obs']); ?></td>
+                            <td colspan="3"><?php echo utf8_encode($asesor[0]['obs']); ?></td>
+                            <td><?php   $estatus='Inactivo';
+                                        if ($asesor[0]['act']==1) {
+                                            $estatus='Activo';
+                                        }
+                            echo $estatus; ?></td>
                         </tr>
 
                     </tbody>

@@ -125,10 +125,15 @@ if(isset($_SESSION['seudonimo'])) {
                             <td colspan="2"><input type="text" class="form-control" name="num_cuenta" required value="<?php echo $asesor[0]['num_cuenta']; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                            <th colspan="4">Observaciones</th>
+                            <th colspan="3">Observaciones</th>
+                            <th>Estatus</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td colspan="4"><input type="text" class="form-control" name="obs" required value="<?php echo $asesor[0]['obs']; ?>"></td>
+                            <td colspan="3"><input type="text" class="form-control" name="obs" required value="<?php echo $asesor[0]['obs']; ?>"></td>
+                            <td><select name="act" id="act" class="custom-select">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                            </select></td>
                         </tr>
 					</tbody>
 				</table>
@@ -222,6 +227,12 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 <script language="javascript">
+
+    $(document).ready(function(){
+
+        document.getElementById("act").value = "<?php echo $asesor[0]['act'];?>";
+        
+    });
 
 
     function mayus(e) {

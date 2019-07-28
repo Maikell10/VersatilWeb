@@ -181,13 +181,14 @@ if(isset($_SESSION['seudonimo'])) {
                             <?php
                                 }
                             }
-                        }
-                        ?>
+                            ?>
 					</tbody>
 				</table>
                 </div>
 
-
+                <?php
+                    }
+                ?>
 
 
                 <div class="col-md-auto col-md-offset-2">

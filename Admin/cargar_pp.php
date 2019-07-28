@@ -122,7 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
                     }
                     
                     
-                    echo $nombre; ?></h1>
+                    echo utf8_encode($nombre); ?></h1>
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {
@@ -423,6 +423,25 @@ if(isset($_SESSION['seudonimo'])) {
                         </tr>
                     </tbody>
                 </table></center>
+
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody >
+                        <div class="form-group col-md-12">
+                            <tr style="background-color: white">
+                                    <td><input type="text" class="form-control" id="obs" name="obs" maxlength="200" autocomplete="off"></td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+                </div>
 
                 <hr>
                 <button type="submit" style="width: 100%" data-tooltip="tooltip" data-placement="bottom" title="Previsualizar" class="btn btn-success btn-lg" value="">Previsualizar Póliza Pendiente &nbsp;<i class="fa fa-check" aria-hidden="true"></i></button>

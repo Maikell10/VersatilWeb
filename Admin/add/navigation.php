@@ -20,6 +20,9 @@ $permiso = $user[0]['id_permiso'];
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
+                    <?php
+                        if ($permiso!=3) {
+                    ?>
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">plus_one</i> Cargar Datos
@@ -48,30 +51,43 @@ $permiso = $user[0]['id_permiso'];
                             ?>
                         </div>
                     </li>
+                    <?php
+                        }
+                    ?>
+
 
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">search</i> Buscar
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
+                            <?php
+                                if ($permiso!=3) {
+                            ?>
                             <a href="../b_asesor.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Asesor
                             </a>
                             <a href="../b_cliente.php" class="dropdown-item">
                                 <i class="material-icons">accessibility</i> Cliente
                             </a>
+                            <?php
+                                }
+                            ?>
                             <a href="../b_poliza.php" class="dropdown-item">
                                 <i class="material-icons">content_paste</i> Póliza
                             </a>
-                            <a href="../b_vehiculo.php" class="dropdown-item">
-                                <i class="material-icons">commute</i> Vehículo
-                            </a>
+                            <?php
+                                if ($permiso!=3) {
+                            ?>
                             <a href="../b_comp.php" class="dropdown-item">
                                 <i class="material-icons">markunread_mailbox</i> Compañía
                             </a>
                             <a href="../b_reportes.php" class="dropdown-item">
                                 <i class="material-icons">library_books</i> Reportes de Cobranza
                             </a>
+                            <?php
+                                }
+                            ?>
                             <?php
                                 if ($permiso==1) {
                             ?>

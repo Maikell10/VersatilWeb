@@ -23,6 +23,7 @@ if(isset($_SESSION['seudonimo'])) {
     $tipo_cuenta=$_GET['tipo_cuenta'];
     $num_cuenta=$_GET['num_cuenta'];
     $obs=$_GET['obs'];
+    $act=$_GET['act'];
 	
 	
 	
@@ -30,7 +31,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-    $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs); 
+    $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act); 
 
       
 

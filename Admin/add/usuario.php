@@ -33,6 +33,9 @@ if(isset($_SESSION['seudonimo'])) {
     if ($id_permiso == '2') {
         $permiso_user='USUARIO';
     }
+    if ($id_permiso == '3') {
+        $permiso_user='ASESOR';
+    }
     
     
 
