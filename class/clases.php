@@ -198,6 +198,37 @@ class Trabajo extends Conectar{
 				}
 			}	
 
+		public function get_poliza_total_by_asesor_ena_user($cod_asesor_user)
+		    {
+		      	$sql="SELECT *  FROM 
+                    poliza
+                  	INNER JOIN drecibo, titular, dcia, ena
+                  	WHERE 
+                  	poliza.id_poliza = drecibo.idrecibo AND
+                  	poliza.id_titular = titular.id_titular AND
+                  	poliza.id_cia = dcia.idcia AND
+					poliza.codvend = ena.cod AND
+					poliza.codvend = '$cod_asesor_user'
+                    ORDER BY poliza.id_poliza ASC";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+			      		{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+			}	
+
 
 		public function get_poliza_total_by_asesor_enp()
 		    {
@@ -209,6 +240,37 @@ class Trabajo extends Conectar{
                   	poliza.id_titular = titular.id_titular AND
                   	poliza.id_cia = dcia.idcia AND
 					poliza.codvend = enp.cod 
+                    ORDER BY poliza.id_poliza ASC";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+			      		{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+			}	
+
+		public function get_poliza_total_by_asesor_enp_user($cod_asesor_user)
+		    {
+		      	$sql="SELECT *  FROM 
+                    poliza
+                  	INNER JOIN drecibo, titular, dcia, enp
+                  	WHERE 
+                  	poliza.id_poliza = drecibo.idrecibo AND
+                  	poliza.id_titular = titular.id_titular AND
+                  	poliza.id_cia = dcia.idcia AND
+					poliza.codvend = enp.cod AND
+					poliza.codvend = '$cod_asesor_user'
                     ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
 				
@@ -259,8 +321,40 @@ class Trabajo extends Conectar{
 				}
 			}	
 
+		public function get_poliza_total_by_asesor_enr_user($cod_asesor_user)
+		    {
+		      	$sql="SELECT *  FROM 
+                    poliza
+                  	INNER JOIN drecibo, titular, dcia, enr
+                  	WHERE 
+                  	poliza.id_poliza = drecibo.idrecibo AND
+                  	poliza.id_titular = titular.id_titular AND
+                  	poliza.id_cia = dcia.idcia AND
+					poliza.codvend = enr.cod AND
+					poliza.codvend = '$cod_asesor_user'
+                    ORDER BY poliza.id_poliza ASC";
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	//exit();
+			      	}else
+			      		{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+			}	
 
-			public function get_poliza_pre_carga($id_poliza)
+
+
+		public function get_poliza_pre_carga($id_poliza)
 		    {
 		      	$sql="SELECT *  FROM 
 				  	poliza
@@ -2217,6 +2311,87 @@ class Trabajo extends Conectar{
 				}
 			}
 
+		public function get_distinct_element_ramo_by_user($desde,$hasta,$cia,$tipo_cuenta,$asesor)
+			{
+			  
+				  if ($cia!='' && $tipo_cuenta!='') {
+					  // create sql part for IN condition by imploding comma after each id
+					  $ciaIn = "('" . implode("','", $cia) ."')";
+  
+					  // create sql part for IN condition by imploding comma after each id
+					  $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
+  
+					  $sql="SELECT DISTINCT dramo.nramo FROM poliza 
+								  INNER JOIN dramo, dcia WHERE 
+								  poliza.id_cod_ramo=dramo.cod_ramo AND
+								  poliza.id_cia=dcia.idcia AND
+								  f_hastapoliza >= '$desde' AND
+								  f_hastapoliza <= '$hasta' AND
+								  poliza.codvend = '$asesor' AND
+								  nomcia IN ".$ciaIn." AND
+								  t_cuenta  IN ".$tipo_cuentaIn." 
+								  ORDER BY dramo.nramo ASC";
+				  }
+				  if ($cia=='' && $tipo_cuenta=='') {
+					  $sql="SELECT DISTINCT dramo.nramo FROM poliza 
+							  INNER JOIN dramo, dcia WHERE 
+							  poliza.id_cod_ramo=dramo.cod_ramo AND
+							  poliza.id_cia=dcia.idcia AND
+							  poliza.codvend = '$asesor' AND
+							  f_hastapoliza >= '$desde' AND
+							  f_hastapoliza <= '$hasta'
+							  ORDER BY dramo.nramo ASC";
+				  }
+				  if ($cia=='' && $tipo_cuenta!='') {
+  
+					  // create sql part for IN condition by imploding comma after each id
+					  $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
+  
+					  $sql="SELECT DISTINCT dramo.nramo FROM poliza 
+							  INNER JOIN dramo, dcia WHERE 
+							  poliza.id_cod_ramo=dramo.cod_ramo AND
+							  poliza.id_cia=dcia.idcia AND
+							  poliza.codvend = '$asesor' AND
+							  f_hastapoliza >= '$desde' AND
+							  f_hastapoliza <= '$hasta' AND
+							  t_cuenta  IN ".$tipo_cuentaIn." 
+							  ORDER BY dramo.nramo ASC";
+				  }
+				  if ($tipo_cuenta=='' && $cia!='') {
+  
+					  // create sql part for IN condition by imploding comma after each id
+					  $ciaIn = "('" . implode("','", $cia) ."')";
+  
+					  $sql="SELECT DISTINCT dramo.nramo FROM poliza 
+							  INNER JOIN dramo, dcia WHERE 
+							  poliza.id_cod_ramo=dramo.cod_ramo AND
+							  poliza.id_cia=dcia.idcia AND
+							  poliza.codvend = '$asesor' AND
+							  f_hastapoliza >= '$desde' AND
+							  f_hastapoliza <= '$hasta' AND
+							  nomcia IN ".$ciaIn."
+							  ORDER BY dramo.nramo ASC";
+				  }
+  
+  
+				  $res=mysqli_query(Conectar::con(),$sql);
+				  if (!$res) {
+					  //No hay registros
+				  }else{
+					  $filas=mysqli_num_rows($res); 
+					  if ($filas == 0) { 
+								  header("Location: busqueda_ramo.php?m=2#nombre");
+							//exit();
+						}else
+						  {
+								 while($reg=mysqli_fetch_assoc($res)) {
+									 $this->t[]=$reg;
+								}
+								return $this->t;
+						  }
+				  }
+			  }
+
 		
 		public function get_distinct_element_ramo_pc($desde,$hasta,$cia,$tipo_cuenta)
 		  {
@@ -2493,6 +2668,92 @@ class Trabajo extends Conectar{
 								poliza.id_poliza = drecibo.idrecibo AND
 								poliza.id_cod_ramo=dramo.cod_ramo AND
 								poliza.id_cia=dcia.idcia AND
+								f_hastapoliza >= '$desde' AND
+								f_hastapoliza <= '$hasta' AND
+								dcia.nomcia IN ".$ciaIn." AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+				}
+						
+				$res=mysqli_query(Conectar::con(),$sql);
+				
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+
+			   }
+
+		public function get_poliza_graf_1_by_user($ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor)
+		    {
+
+				if ($cia!='' && $tipo_cuenta!='') {
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					// create sql part for IN condition by imploding comma after each id
+					$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
+
+					$sql="SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend = '$asesor' AND
+								f_hastapoliza >= '$desde' AND
+								f_hastapoliza <= '$hasta' AND
+								dcia.nomcia IN ".$ciaIn." AND
+								t_cuenta  IN ".$tipo_cuentaIn." AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+				}
+				if ($cia=='' && $tipo_cuenta=='') {
+					$sql="SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend = '$asesor' AND
+								f_hastapoliza >= '$desde' AND
+								f_hastapoliza <= '$hasta' AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+				}
+				if ($cia=='' && $tipo_cuenta!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
+
+					$sql="SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend = '$asesor' AND
+								f_hastapoliza >= '$desde' AND
+								f_hastapoliza <= '$hasta' AND
+								t_cuenta  IN ".$tipo_cuentaIn." AND
+								dramo.nramo = '$ramo'
+								ORDER BY dramo.nramo ASC";
+				}
+				if ($tipo_cuenta=='' && $cia!='') {
+
+					// create sql part for IN condition by imploding comma after each id
+					$ciaIn = "('" . implode("','", $cia) ."')";
+
+					$sql="SELECT * FROM poliza, drecibo, dramo, dcia WHERE 
+								poliza.id_poliza = drecibo.idrecibo AND
+								poliza.id_cod_ramo=dramo.cod_ramo AND
+								poliza.id_cia=dcia.idcia AND
+								poliza.codvend = '$asesor' AND
 								f_hastapoliza >= '$desde' AND
 								f_hastapoliza <= '$hasta' AND
 								dcia.nomcia IN ".$ciaIn." AND

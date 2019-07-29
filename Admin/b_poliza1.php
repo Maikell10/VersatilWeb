@@ -49,55 +49,7 @@ if(isset($_SESSION['seudonimo'])) {
   $hasta=$fechaMax[0]["MAX(f_hastapoliza)"];
 
 
- 
-  $status = isset($_GET['status']);
-  if ($status == 1) {
-    $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro_status_a(date("Y-m-d")); 
-  }
-  if ($status == 2) {
-    $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro_status_i(date("Y-m-d")); 
-  }
-  if ($status == 3) {
-    $obj1= new Trabajo();
-    $poliza = $obj1->get_poliza_total_by_filtro($desde,date("Y-m-d")); 
-  }
 
-if (isset($_GET["asesor"])!=null) {
-    $asesor=$_GET["asesor"]; 
-    $obj123= new Trabajo();
-    $poliza = $obj123->get_poliza_total_by_filtro_asesor($desde,$hasta,$asesor); 
-    
-
-    //recorremos el array de asesor seleccionado
-    for ($i=0;$i<count($asesor);$i++)    
-    {     
-     "<br>"  . $asesor[$i];    
-    }
-}
-
-$Ejecutivo[sizeof($poliza)]=null;
-
-  for ($i=0; $i < sizeof($poliza); $i++) { 
-        $obj111= new Trabajo();
-        $asesor1 = $obj111->get_element_by_id('ena','cod',$poliza[$i]['codvend']);
-        $nombre=$asesor1[0]['idnom'];
-
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enp','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
-    
-        if (sizeof($asesor1)==null) {
-            $ob3= new Trabajo();
-            $asesor1 = $ob3->get_element_by_id('enr','cod',$poliza[$i]['codvend']); 
-            $nombre=$asesor1[0]['nombre'];
-        }
-
-        $Ejecutivo[$i]=$nombre;                 
-  }
 
 ?>
 <!DOCTYPE html>
@@ -147,249 +99,6 @@ $Ejecutivo[sizeof($poliza)]=null;
 
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
                 
-                <?php
-                if ($status == 1) {
-
-                ?>
-
-
-                <center>
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Status</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th style="background-color: #E54848;">Prima Suscrita</th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody >
-                        <?php
-                        $f_hoy=date("Y-m-d");
-                        $totalsuma=0;
-                        $totalprima=0;
-                        $currency="";
-                        $cant=0;
-                        for ($a=0; $a < sizeof($poliza); $a++) { 
-                        
-                        $obj111= new Trabajo();   
-                        $polizat = $obj111->get_poliza_comision_by_id($poliza[$a]['id_poliza']); 
-                       
-                       
-
-                            if ($polizat[0]['id_titular']==0) {
-					
-                            } else {
-                            $cant=$cant+1;
-                            $totalsuma=$totalsuma+$polizat[0]['sumaasegurada'];
-                            $totalprima=$totalprima+$polizat[0]['prima'];
-
-                            $originalDesde = $polizat[0]['f_desdepoliza'];
-                            $newDesde = date("d/m/Y", strtotime($originalDesde));
-                            $originalHasta = $polizat[0]['f_hastapoliza'];
-                            $newHasta = date("d/m/Y", strtotime($originalHasta));
-                            $originalFProd = $polizat[0]['f_poliza'];
-				            $newFProd = date("d/m/Y", strtotime($originalFProd));
-
-                            if ($polizat[0]['currency']==1) {
-                                $currency="$ ";
-                            }else{$currency="Bs ";}
-
-                            
-                            if ( ( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 30 days")) ) || ( $polizat[0]['ncuotas']==1 ) ) {
-                                
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
-                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold">Activa</td>
-                            <?php            
-                            } if (( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 60 days")) ) && ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 31 days")) ) && ( $polizat[0]['ncuotas']!=1 ) ) {
-                                
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
-                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
-                                <td style="color: #D8DC03;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
-                                <td style="color: #D8DC03;font-weight: bold">Activa 30</td>
-                            <?php
-                            }
-                            if (( $polizat[0]['f_pago_prima'] >= date("Y-m-d",strtotime($f_hoy."- 120 days")) ) && ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 61 days")) ) && ( $polizat[0]['ncuotas']!=1 ) ){
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
-                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
-                                <td style="color: #F27A02;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
-                                <td style="color: #F27A02;font-weight: bold">Activa 60</td>
-                            <?php   
-                            }if ( $polizat[0]['f_pago_prima'] <= date("Y-m-d",strtotime($f_hoy."- 121 days")) && ( $polizat[0]['ncuotas']!=1 ) ){
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
-                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
-                                <td style="color: red;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
-                                <td style="color: red;font-weight: bold">Inactiva</td>
-                            <?php
-                            }
-                            ?>
-                            
-                                
-                                <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo utf8_encode($polizat[0]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']); ?></td>
-                            </tr>
-                            <?php
-                            }
-                        }
-                        ?>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Status</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </tfoot>
-                </table>
-                </div>
-
-
-                <h1 class="title">Total de Prima</h1>
-                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
-
-                <h1 class="title">Total de Pólizas</h1>
-                <h1 class="title text-danger"><?php  echo $cant;?></h1>
-                </center>
-
-
-                <?php
-                    }
-                
-
-                if ($status == 2) {
-
-                ?>
-                <center>
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th style="background-color: #E54848;">Prima Suscrita</th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody >
-                        <?php
-                        $f_hoy=date("Y-m-d");
-                        $totalsuma=0;
-                        $totalprima=0;
-                        $currency="";
-                        $cant=0;
-                        for ($a=0; $a < sizeof($poliza); $a++) { 
-                        
-                        $obj111= new Trabajo();   
-                        $polizat = $obj111->get_poliza_comision_by_id($poliza[$a]['id_poliza']); 
-                       
-                       
-
-                            if ($polizat[0]['id_titular']==0) {
-					
-                            } else {
-                            $cant=$cant+1;
-                            $totalsuma=$totalsuma+$polizat[0]['sumaasegurada'];
-                            $totalprima=$totalprima+$polizat[0]['prima'];
-
-                            $originalDesde = $polizat[0]['f_desdepoliza'];
-                            $newDesde = date("d/m/Y", strtotime($originalDesde));
-                            $originalHasta = $polizat[0]['f_hastapoliza'];
-                            $newHasta = date("d/m/Y", strtotime($originalHasta));
-                            $originalFProd = $polizat[0]['f_poliza'];
-				            $newFProd = date("d/m/Y", strtotime($originalFProd));
-
-                            if ($polizat[0]['currency']==1) {
-                                $currency="$ ";
-                            }else{$currency="Bs ";}
-
-    
-                            ?>
-                            <tr style="cursor: pointer;">
-                                <td hidden><?php echo $polizat[0]['f_poliza']; ?></td>
-                                <td hidden><?php echo $polizat[0]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $polizat[0]['cod_poliza']; ?></td>
-                            
-                                
-                                <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo utf8_encode($polizat[0]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($polizat[0]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($polizat[0]['nombre_t']." ".$polizat[0]['apellido_t']); ?></td>
-                            </tr>
-                            <?php
-                            }
-                        }
-                        ?>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <th hidden>f_poliza</th>
-                            <th hidden>id</th>
-                            <th>N° Póliza</th>
-                            <th>Nombre Asesor</th>
-                            <th>Cía</th>
-                            <th>F Desde Seguro</th>
-                            <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
-                            <th>Nombre Titular</th>
-                        </tr>
-                    </tfoot>
-                </table></div>
-
-
-                <h1 class="title">Total de Prima</h1>
-                <h1 class="title text-danger">$ <?php  echo number_format($totalprima,2);?></h1>
-
-                <h1 class="title">Total de Pólizas</h1>
-                <h1 class="title text-danger"><?php  echo $cant;?></h1>
-                </center>
-
-
-                <?php
-                    }if ($status ==  null){
-                ?>
-
-
 
 
                 <center>
@@ -507,7 +216,6 @@ $Ejecutivo[sizeof($poliza)]=null;
                             <th>Nombre Titular</th>
                         </tr>
                     </thead>
-                    
                     <tbody >
                         <?php
                         $totalsuma=0;
@@ -548,7 +256,6 @@ $Ejecutivo[sizeof($poliza)]=null;
 
                             ?>
                             
-                                
                                 <td><?php echo $Ejecutivo[$i]; ?></td>
                                 <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
@@ -561,8 +268,6 @@ $Ejecutivo[sizeof($poliza)]=null;
                         }
                         ?>
                     </tbody>
-
-
                     <tfoot>
                         <tr>
                             <th>N° Póliza</th>
@@ -577,9 +282,6 @@ $Ejecutivo[sizeof($poliza)]=null;
                 </table>
 
 
-            <?php
-                }
-            ?>
 
 
                 
