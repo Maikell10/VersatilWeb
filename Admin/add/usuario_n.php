@@ -20,13 +20,17 @@ if(isset($_SESSION['seudonimo'])) {
 	$zprod=$_GET['zprod'];
 	$seudonimo=$_GET['seudonimo'];
 	$clave=$_GET['clave'];
-	$id_permiso=$_GET['id_permiso'];
+    $id_permiso=$_GET['id_permiso'];
+    
+    $asesor=$_GET['asesor'];
   
 
-
+    if ($id_permiso != '3') {
+        $asesor='';
+    }
 	
 	$obj1= new Trabajo();
-    $cia = $obj1->agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso); 
+    $cia = $obj1->agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor); 
 
 
 

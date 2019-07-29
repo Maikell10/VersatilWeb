@@ -115,6 +115,46 @@ if(isset($_SESSION['seudonimo'])) {
                 </table>
                 </div>
 
+
+                <?php 
+                    if ($usuario[0]['id_permiso']==3) {
+
+                        $obj111= new Trabajo();
+                        $asesor1 = $obj111->get_element_by_id('ena','cod',$usuario[0]['cod_vend']);
+                        $nombre_a=$asesor1[0]['idnom'];
+
+                        if (sizeof($asesor1)==null) {
+                            $ob3= new Trabajo();
+                            $asesor1 = $ob3->get_element_by_id('enp','cod',$usuario[0]['cod_vend']); 
+                            $nombre_a=$asesor1[0]['nombre'];
+                        }
+                    
+                        if (sizeof($asesor1)==null) {
+                            $ob3= new Trabajo();
+                            $asesor1 = $ob3->get_element_by_id('enr','cod',$usuario[0]['cod_vend']); 
+                            $nombre_a=$asesor1[0]['nombre'];
+                        }
+                ?>
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="" >
+                    <thead>
+						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Asesor Asociado</th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $nombre_a; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <?php 
+                    }
+                ?>
+
+
+
                 <hr>
 
                 <center>

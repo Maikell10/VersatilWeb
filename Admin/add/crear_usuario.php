@@ -155,6 +155,38 @@ if(isset($_SESSION['seudonimo'])) {
                     </div>
 
 
+                    <div class="table-responsive">      
+                        <table class="table table-hover table-striped table-bordered"  id="tablaAsesor" hidden>
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Asesor Asociado *</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <tr style="background-color: white">
+                                    <td align="center"><select class="form-control selectpicker" name="asesor"  data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true" data-live-search="true">
+                           
+                                        <?php
+                                        for($i=0;$i<sizeof($asesor);$i++)
+                                            {  
+                                        ?>
+                                            <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                        <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                            { ?> 
+                                            <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                        <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                            {?>
+                                            <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                        <?php } ?>
+                                    </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
 
         
 
@@ -223,6 +255,9 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../js/bootstrap-select.js"></script>
+
       
     
     <script language="javascript">
@@ -230,6 +265,14 @@ if(isset($_SESSION['seudonimo'])) {
         function mayus(e) {
             e.value = e.value.toUpperCase();
         }
+
+        $( "#id_permiso" ).change(function() {
+            if ($('#id_permiso').val()==3) {
+                $('#tablaAsesor').removeAttr('hidden');
+            }else{
+                $('#tablaAsesor').attr('hidden',true);
+            }
+        });
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

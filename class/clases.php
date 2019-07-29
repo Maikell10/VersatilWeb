@@ -9249,17 +9249,18 @@ public function agregarContactoCia($id_cia,$nombre,$cargo,$tel,$cel,$email){
 }
 
 
-public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso){
+public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor){
 
 
-	$sql="INSERT into usuarios (nombre_usuario,cedula_usuario,clave_usuario,id_permiso,apellido_usuario,seudonimo,z_produccion)
+	$sql="INSERT into usuarios (nombre_usuario,cedula_usuario,clave_usuario,id_permiso,apellido_usuario,seudonimo,z_produccion,cod_vend)
 		values ('$nombre',
 				'$ci',
 				'$clave',
 				'$id_permiso',
 				'$apellido',
 				'$seudonimo',
-				'$zprod')";
+				'$zprod',
+				'$asesor')";
 	return mysqli_query(Conectar::con(),$sql);
 
 }
@@ -9835,7 +9836,7 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 	}
 
 
-	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso){
+	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor){
 
 
 		$sql="UPDATE usuarios set 	nombre_usuario='$nombre',
@@ -9844,7 +9845,8 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 									id_permiso='$id_permiso',
 									apellido_usuario='$apellido',
 									seudonimo='$seudonimo',
-									z_produccion='$zprod'
+									z_produccion='$zprod',
+									cod_vend='$asesor'
 
 					where id_usuario= '$id_usuario'";
 		return mysqli_query(Conectar::con(),$sql);

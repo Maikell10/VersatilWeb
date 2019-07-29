@@ -79,6 +79,10 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
             </div>
 
+
+            <?php
+                if ($permiso!=3) {
+            ?>
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
@@ -100,6 +104,9 @@ if(isset($_SESSION['seudonimo'])) {
                     
                 </div>
             </div>
+            <?php
+                }
+            ?>
 
         </div>
 

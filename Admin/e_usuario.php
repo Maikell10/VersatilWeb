@@ -17,7 +17,15 @@ if(isset($_SESSION['seudonimo'])) {
   $obj1= new Trabajo();
   $usuario = $obj1->get_element_by_id('usuarios','id_usuario',$id_usuario); 
 
- 
+
+  $obj3= new Trabajo();
+  $asesor = $obj3->get_element('ena','idena'); 
+
+  $obj31= new Trabajo();
+  $liderp = $obj31->get_element('enp','id_enp'); 
+
+  $obj32= new Trabajo();
+  $referidor = $obj32->get_element('enr','id_enr'); 
   
 
 ?>
@@ -118,6 +126,36 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
 
 
+                  
+                <table class="table table-hover table-striped table-bordered"  id="tablaAsesor" hidden>
+                    <thead>
+						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Asesor Asociado</th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: white">
+                            <td align="center"><select class="form-control selectpicker" name="asesor" id="asesor"  data-style="btn-white" data-header="Seleccione el Asesor" data-actions-box="true" data-live-search="true">
+                    
+                                <?php
+                                for($i=0;$i<sizeof($asesor);$i++)
+                                    {  
+                                ?>
+                                    <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                <?php }for($i=0;$i<sizeof($liderp);$i++)
+                                    { ?> 
+                                    <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                <?php } for($i=0;$i<sizeof($referidor);$i++)
+                                    {?>
+                                    <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                <?php } ?>
+                            </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
                 
 
 
@@ -199,7 +237,8 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-    
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
 
 
 
@@ -207,12 +246,29 @@ if(isset($_SESSION['seudonimo'])) {
 <script language="javascript">
 
         $(document).ready(function(){
-            $('#cant_poliza option:first').prop('selected',true);
 
             document.getElementById("zprod").value = "<?php echo $usuario[0]['z_produccion'];?>";
 
             document.getElementById("id_permiso").value = "<?php echo $usuario[0]['id_permiso'];?>";
+
+            $('#asesor').val('<?php echo $usuario[0]['cod_vend'];?>'); 
+            $('#asesor').change(); 
+
+            if ($('#id_permiso').val()==3) {
+                $('#tablaAsesor').removeAttr('hidden');
+            }else{
+                $('#tablaAsesor').attr('hidden',true);
+            }
             
+        });
+
+
+        $( "#id_permiso" ).change(function() {
+            if ($('#id_permiso').val()==3) {
+                $('#tablaAsesor').removeAttr('hidden');
+            }else{
+                $('#tablaAsesor').attr('hidden',true);
+            }
         });
 
 

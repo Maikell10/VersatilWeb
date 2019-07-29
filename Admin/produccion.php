@@ -63,15 +63,17 @@ if(isset($_SESSION['seudonimo'])) {
                         </div>
 
                         <div class="card text-white bg-info mb-3">
-                            <a href="b_cliente.php">
+                            <a href="b_pendientes.php">
                                 <div class="card-body">
-                                    <h5 class="card-title">Clientes</h5>
+                                    <h5 class="card-title">Pólizas Pendientes</h5>
                                 </div>
                             </a>
                         </div>
                     </div>
                 
-
+                    <?php
+                        if ($permiso!=3) {
+                    ?>
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
                             <a href="b_comp.php">
@@ -98,18 +100,25 @@ if(isset($_SESSION['seudonimo'])) {
                             </a>
                         </div>
                         <div class="card text-white bg-info mb-3">
-                            <a href="b_pendientes.php">
+                            <a href="b_cliente.php">
                                 <div class="card-body">
-                                    <h5 class="card-title">Pólizas Pendientes</h5>
+                                    <h5 class="card-title">Clientes</h5>
                                 </div>
                             </a>
                         </div>
                     </div>
+                    <?php
+                        }
+                    ?>
 
                 </div>
 
             </div>
  
+
+            <?php
+                if ($permiso!=3) {
+            ?>
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
@@ -150,6 +159,9 @@ if(isset($_SESSION['seudonimo'])) {
 
             
             </div>
+            <?php
+                }
+            ?>
 
 
         </div>

@@ -65,11 +65,17 @@ if(isset($_SESSION['seudonimo'])) {
                                         <i class="material-icons">alarm_on</i> Renovación
                                     </a>
                                 </li>
+                                <?php
+                                    if ($permiso!=3) {
+                                ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="administracion.php">
                                         <i class="material-icons">schedule</i> Administración
                                     </a>
                                 </li>
+                                <?php
+                                    }
+                                ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="graficos.php">
                                     <i class="material-icons">trending_up</i> Gráficos

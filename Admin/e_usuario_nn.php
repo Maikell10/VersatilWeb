@@ -23,11 +23,18 @@ if(isset($_SESSION['seudonimo'])) {
 	$seudonimo=$_GET['seudonimo'];
 	$clave=$_GET['clave'];
     $id_permiso=$_GET['id_permiso'];
+
+    $asesor=$_GET['asesor'];
+  
+
+    if ($id_permiso != '3') {
+        $asesor='';
+    }
 	
 
 	
 	$obj1= new Trabajo();
-    $usuario = $obj1->editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso); 
+    $usuario = $obj1->editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor); 
 
      
 

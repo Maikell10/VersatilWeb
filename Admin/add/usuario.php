@@ -25,6 +25,8 @@ if(isset($_SESSION['seudonimo'])) {
 	$clave=$_POST['clave'];
     $id_permiso=$_POST['id_permiso'];
 
+    $asesor=$_POST['asesor'];
+
     $permiso_user='';
     
     if ($id_permiso == '1') {
@@ -35,8 +37,27 @@ if(isset($_SESSION['seudonimo'])) {
     }
     if ($id_permiso == '3') {
         $permiso_user='ASESOR';
+
+
+        $obj111= new Trabajo();
+        $asesor1 = $obj111->get_element_by_id('ena','cod',$asesor);
+        $nombre_a=$asesor1[0]['idnom'];
+
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enp','cod',$asesor); 
+            $nombre_a=$asesor1[0]['nombre'];
+        }
+    
+        if (sizeof($asesor1)==null) {
+            $ob3= new Trabajo();
+            $asesor1 = $ob3->get_element_by_id('enr','cod',$asesor); 
+            $nombre_a=$asesor1[0]['nombre'];
+        }
+
     }
     
+
     
 
 ?>
@@ -119,6 +140,18 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" name="permiso" readonly="readonly" value="<?php echo $permiso_user;?>"></td>
                                 </tr>
 
+                                <?php if ($id_permiso == '3') {   
+                                ?>
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th colspan="4">Asesor Asociado</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><input type="text" class="form-control" name="nombre_a" readonly="readonly" value="<?php echo utf8_encode($nombre_a);?>"></td>
+                                </tr>
+                                <?php 
+                                }
+                                ?>
+
                                 
 
                                 </div>
@@ -132,7 +165,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="usuario_n.php?nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&zprod=<?php echo $zprod;?>&seudonimo=<?php echo $seudonimo;?>&clave=<?php echo $clave;?>&id_permiso=<?php echo $id_permiso;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="usuario_n.php?nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&zprod=<?php echo $zprod;?>&seudonimo=<?php echo $seudonimo;?>&clave=<?php echo $clave;?>&id_permiso=<?php echo $id_permiso;?>&asesor=<?php echo $asesor;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>
