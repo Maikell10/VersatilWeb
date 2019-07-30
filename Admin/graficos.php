@@ -87,7 +87,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
 
-                <div class="card text-white bg-info mb-3">
+                <div class="card text-white bg-info mb-6">
                 <a href="grafic/comisiones_c.php">
                   <div class="card-body">
                     <center><h5 class="card-title">Comisiones Cobradas</h5></center>
@@ -95,10 +95,10 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-dark mb-3" hidden>
-                <a href="#" >
+                <div class="card text-white bg-info mb-6">
+                <a href="grafic/resumen.php" >
                   <div class="card-body">
-                    <center><h5 class="card-title">Gestión de Cobranza</h5></center>
+                    <center><h5 class="card-title">Resúmen</h5></center>
                   </div>
                 </a>
                 </div>

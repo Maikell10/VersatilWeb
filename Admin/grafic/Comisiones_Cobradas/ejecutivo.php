@@ -140,11 +140,11 @@ if(isset($_SESSION['seudonimo'])) {
     }
 
 
-asort($sumatotalEjecutivo , SORT_NUMERIC);
+asort($sumatotalEjecutivoCC , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalEjecutivo as $key=>$value) {
+foreach($sumatotalEjecutivoCC as $key=>$value) {
 
    $x[count($x)] = $key;
 
@@ -246,11 +246,11 @@ foreach($sumatotalEjecutivo as $key=>$value) {
           </th>
           <td align="right"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalEjecutivoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]]-$sumatotalEjecutivoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]]-$sumatotalEjecutivoPC[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalEjecutivoCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($gc_pagada_1,2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalEjecutivoCC[$x[$i]]-$gc_pagada_1,2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalEjecutivoCC[$x[$i]]-$gc_pagada_1,2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -290,6 +290,12 @@ foreach($sumatotalEjecutivo as $key=>$value) {
     </table>
     </div>
 
+
+    <div class="container">
+      <canvas id="myChart">
+        
+      </canvas>
+    </div>
  
 
 
@@ -334,6 +340,122 @@ foreach($sumatotalEjecutivo as $key=>$value) {
     <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
     <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+
+
+    <script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 12;
+    Chart.defaults.global.defaultFontColor = '#777';
+
+    let massPopChart = new Chart(myChart, {
+      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--){ ?>
+        '<?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>',
+
+                <?php }?>],
+
+        datasets:[{
+
+          data:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--)
+            {  
+                ?>
+                '<?php echo $sumatotalEjecutivoCC[$x[$i]]; ?>',
+            <?php }?>
+          ],
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)',
+            'rgb(255, 255, 0)',
+            'rgb(0, 0, 204)',
+            'rgb(0, 153, 153)',
+            'rgb(102, 102, 153)',
+            'brown',
+            'purple',
+            'rgb(0, 102, 102)',
+            'rgb(51, 204, 51)',
+            'rgb(255, 80, 80)',
+            'rgb(102, 0, 204)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'yellow',
+            'white',
+            'gray',
+            'rgb(204, 0, 0)',
+            'rgb(204, 0, 204)',
+            'rgb(102, 0, 204)',
+            'rgb(0, 204, 153)',
+            'rgb(204, 204, 0)',
+            'rgb(102, 0, 51)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)'
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+        title:{
+          display:true,
+          text:'Comisión Cobrada por Ejecutivo',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'bottom',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        }
+      }
+    });
+  </script>
 
     <script language="javascript">
 

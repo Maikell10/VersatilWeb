@@ -75,18 +75,18 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
+                    <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
                     <?php 
                     if ($asesor[0]['act']==0) {
                     ?>
-                    <h2 class="float-right text-danger">&nbsp;<i class="fa fa-times" aria-hidden="true"></i></h2>
+                    <h2 class="float-right text-danger">Inactivo &nbsp;<i class="fa fa-times" aria-hidden="true"></i></h2>
                     <?php
                     }if ($asesor[0]['act']==1) {
                     ?>
-                    <h2 class="float-right text-success">&nbsp;<i class="fa fa-check" aria-hidden="true"></i></h2>
+                    <h2 class="float-right text-success">Activo &nbsp;<i class="fa fa-check" aria-hidden="true"></i></h2>
                     <?php
                     }
                     ?>
-                    <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
                     <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
                 </div>
 
@@ -141,9 +141,14 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <hr>
                 <center>
+                <a  href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?php echo $asesor[0]['cod'];?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-lg">Ver Pólizas Asesor  &nbsp;<i class="fa fa-eye" aria-hidden="true"></i></a>
+
                 <a  href="e_asesor.php?id_asesor=<?php echo $id;?>&a=<?php echo $a;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
+
+                <?php if ($permiso==1) { ?>
                 <button  onclick="eliminarDatos('<?php echo $id; ?>', '<?php echo $a; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <?php }?>
                 </center>
                 <hr>
                         

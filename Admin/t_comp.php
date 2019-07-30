@@ -1,9 +1,22 @@
 <?php
+session_start();
+if(isset($_SESSION['seudonimo'])) {
+
+  }
+    else {
+        header("Location: login.php");
+        exit();
+      }
 
 require_once "../class/clases.php";
 
 $obj1= new Trabajo();
 $cia = $obj1->get_element('dcia','nomcia'); 
+
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$permiso = $user[0]['id_permiso'];
 
 ?>
 
@@ -17,7 +30,9 @@ $cia = $obj1->get_element('dcia','nomcia');
                 <th>Preferencial</th>
 				<th>F Desde Preferencial (Última)</th>
 				<th>F Hasta Preferencial (Última)</th>
-                <th>Preferencial</th>
+				<?php if ($permiso==1) { ?>
+				<th>Preferencial</th>
+				<?php }?>
 			</tr>
 		</thead>
 		<tfoot>
@@ -27,7 +42,9 @@ $cia = $obj1->get_element('dcia','nomcia');
                 <th>Preferencial</th>
 				<th>F Desde Preferencial (Última)</th>
 				<th>F Hasta Preferencial (Última)</th>
-                <th>Preferencial</th>
+				<?php if ($permiso==1) { ?>
+				<th>Preferencial</th>
+				<?php }?>
 			</tr>
 		</tfoot>
 		<tbody >
@@ -60,9 +77,11 @@ $cia = $obj1->get_element('dcia','nomcia');
 					?></td>
 					<td><?php echo $desde_prefn; ?></td>
 					<td><?php echo $hasta_prefn; ?></td>
+					<?php if ($permiso==1) { ?>
 					<td style="text-align: center;">
 	                    <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?php echo $cia[$i]['nomcia'];?>" class="btn btn-info btn-sm btn-round"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
-	                </td>
+					</td>
+					<?php }?>
 				</tr>
 				<?php
 			}

@@ -120,11 +120,11 @@ if(isset($_SESSION['seudonimo'])) {
         $ciaArray[$i]=$cia[$i]['nomcia'];
     }
 
-asort($sumatotalCia , SORT_NUMERIC);
+asort($sumatotalCiaCC , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalCia as $key=>$value) {
+foreach($sumatotalCiaCC as $key=>$value) {
 
    $x[count($x)] = $key;
 
@@ -218,11 +218,11 @@ foreach($sumatotalCia as $key=>$value) {
           <th scope="row"><?php echo utf8_encode($ciaArray[$x[$i]]); ?></th>
           <td align="right"><?php echo "$".number_format($sumatotalCia[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalCiaPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalCia[$x[$i]]-$sumatotalCiaPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalCia[$x[$i]]-$sumatotalCiaPC[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalCiaCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($sumatotalCiaGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalCiaCC[$x[$i]]-$sumatotalCiaGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalCiaCC[$x[$i]]-$sumatotalCiaGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -320,9 +320,9 @@ foreach($sumatotalCia as $key=>$value) {
 
           data:[<?php for($i=sizeof($cia); $i > 0; $i--)
             {  
-                $sumasegurada=($sumatotalCia[$x[$i]]*100)/$totals;
+                $sumasegurada=($sumatotalCiaCC[$x[$i]]);
                 ?>
-                '<?php echo number_format($sumasegurada,2); ?>',
+                '<?php echo $sumasegurada; ?>',
             <?php }?>
           ],
           //backgroundColor:'green',
@@ -359,7 +359,7 @@ foreach($sumatotalCia as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Cía (%)',
+          text:'Comisión Cobrada por Cía',
           fontSize:25
         },
         legend:{

@@ -40,7 +40,6 @@ if(isset($_SESSION['seudonimo'])) {
   }
 
 
-
   $obj1= new Trabajo();
   $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_c($desde,$hasta,$asesor); 
 

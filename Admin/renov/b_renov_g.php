@@ -146,7 +146,7 @@ $fechaMax= $date->format($format);
                     </div>
                     
                     
-
+                    <?php if ($permiso!=3) { ?>
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label>Cía:</label>
@@ -179,6 +179,32 @@ $fechaMax= $date->format($format);
                         </select>
                       </div>
                     </div>
+                    <?php }?>
+
+
+                    <?php if ($permiso==3) { ?>
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Cía:</label>
+                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+                          <?php
+                            for($i=0;$i<sizeof($cia);$i++)
+                              {  
+                          ?>
+                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                          <?php
+                            } 
+                          ?> 
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6" hidden>
+                        <label>Asesor:</label>
+                        <select class="form-control" name="asesor[]">
+                            <option value="<?php echo $user[0]['cod_vend'];?>"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <?php }?>
 
 
                       <center><button type="submit" class="btn btn-success btn-round btn-lg">Buscar</button></center>

@@ -61,6 +61,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div>
+                        
+                        <?php if ($permiso!=3) { ?>
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_por_asesor.php">
                                 <div class="card-body">
@@ -68,6 +70,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div>
+                        <?php }?>
+
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_g.php">
                                 <div class="card-body">

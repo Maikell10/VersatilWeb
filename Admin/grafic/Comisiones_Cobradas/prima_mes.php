@@ -197,11 +197,11 @@ $hasta=($_GET['desde']).'-12-31';
           <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastapoliza)"]-1]; ?></th>
           <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
           <td align="right"><?php echo "$".number_format($primaPorMesPC[$i],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($primaPorMes[$i]-$primaPorMesPC[$i],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($primaPorMes[$i]-$primaPorMesPC[$i],2); ?></td>
           <td align="right"><?php echo "$".number_format($primaPorMesCC[$i],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($primaPorMesGCP[$i],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($primaPorMesCC[$i]-$primaPorMesGCP[$i],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($primaPorMesCC[$i]-$primaPorMesGCP[$i],2); ?></td>
           <td><?php echo $cantArray[$i]; ?></td>
         </tr>
         <?php
@@ -359,7 +359,7 @@ $hasta=($_GET['desde']).'-12-31';
             data: [<?php $a=0; for($i=0;$i<=11;$i++)
             {   
                 if (($mes[$a]["Month(f_hastapoliza)"]-1) == $i) {
-                  $dataPrima=$primaPorMes[$a]; 
+                  $dataPrima=$primaPorMesCC[$a]; 
                   if ($a<(sizeof($mes)-1)) {
                     $a++;
                   }
@@ -368,7 +368,7 @@ $hasta=($_GET['desde']).'-12-31';
                 '<?php echo $dataPrima; ?>',
             <?php }?>
           ],
-            label: 'Prima Suscrita',
+            label: 'Comisión Cobrada',
             fill: boundary,
             pointHoverRadius: 30,
             pointHitRadius: 20,
@@ -377,7 +377,7 @@ $hasta=($_GET['desde']).'-12-31';
         },
         options: Chart.helpers.merge(options, {
           title: {
-            text: 'Gráfico Prima Suscrita por Mes',
+            text: 'Comisión Cobrada por Mes',
             fontSize:25,
             display: true
           }

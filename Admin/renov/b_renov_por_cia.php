@@ -145,7 +145,8 @@ $fechaMax= $date->format($format);
                             </select>
                         </div>
                     </div>
-
+                    
+                    <?php if ($permiso!=3) { ?>
                     <div class="form-row">
                       <div class="form-group col-md-12">
                         <label>Asesor:</label>
@@ -166,6 +167,17 @@ $fechaMax= $date->format($format);
                         </select>
                       </div>
                     </div>
+                    <?php }?>
+
+                    <?php if ($permiso==3) { ?>
+                    <div class="form-row" hidden>
+                      <div class="form-group col-md-12">
+                        <select class="form-control selectpicker" name="asesor[]" >
+                            <option value="<?php echo $user[0]['cod_vend'];?>"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <?php }?>
     
     
     

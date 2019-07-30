@@ -14,7 +14,6 @@ if(isset($_SESSION['seudonimo'])) {
     $tipo_cuenta=$_GET["tipo_cuenta"]; 
   }else{$tipo_cuenta='';}
 
-
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
@@ -38,11 +37,10 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
 
+
   $obj= new Trabajo();
-  $cia = $obj->get_distinct_cia_comision2($desde,$hasta,$tipo_cuenta); 
-
-
-  
+  $cia = $obj->get_distinct_cia_comision($desde,$hasta,$tipo_cuenta); 
+ 
 
 ?>
 <!DOCTYPE html>
@@ -86,10 +84,10 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Gráfico Resúmen por Ramo</h1> 
+                    <h1 class="title">Gráfico Resúmen</h1> 
                     <br/>
                     
-                    <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
+                    <a href="../resumen.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
                 </div>
                 <br>
 
@@ -98,163 +96,120 @@ if(isset($_SESSION['seudonimo'])) {
 
                 
                 <center>
-                  <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Gráfico Resúmen por Ramo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
+                <a  class="btn btn-success" onclick="tableToExcel('iddatatable1', 'Resumen')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="60" alt=""></a>
 
                 <table class="table table-hover table-striped table-bordered table-responsive" id="iddatatable1">
                   <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                     <tr>
                       <th>Cía</th>
-                      <th>Ramo</th>
                       <th>Prima Suscrita</th>
                       <th>Prima Cobrada</th>
                       <th>Prima Pendiente</th>
                       <th>Comision Cobrada</th>
-                      <th>GC Pagada</th>
-                      <th>Utilidad</th>
                       <th>% Com</th>
+                      <th>GC Pagada</th>
+                      <th>%GC Prom Asesor</th>
+                      <th>Utilidad</th>
                       <th>Cantidad</th>
                     </tr>
                   </thead>
                   
                   <tbody >
                     <?php
-                    
-                    $totalPrimaSuscritaT=0;
-                    $totalPrimaCobradaT=0;
-                    $totalComisionCobradaT=0;
-                    $totalGCPagadaT=0;
-                    $totalCantidadT=0;
+                    $totalPrimaSuscrita=0;
+                    $totalPrimaCobrada=0;
+                    $totalComisionCobrada=0;
+                    $totalGCPagada=0;
+                    $totalCant=0;
+                    $totalPerGCA=0;
+                    $totalCantPT=0;
                     for ($i=0; $i < sizeof($cia); $i++) { 
 
-                      $obj11= new Trabajo();
-                      $ramo = $obj11->get_distinct_element_ramo3($desde,$hasta,$cia[$i]['nomcia'],$tipo_cuenta); 
+                      $obj6= new Trabajo();
+                      $resumen = $obj6->get_resumen_comision($desde,$hasta,$cia[$i]['id_cia'],$tipo_cuenta);
 
-                        if (sizeof($ramo)==0) {
-                            $cont=1;
-                        } else {
-                            $cont=sizeof($ramo);
-                        }
-
-                      ?>
-                      <tr>
-                        <td rowspan="<?php echo $cont; ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
                       
-                      <?php
 
-                        
-                        
-                      $totalPrimaSuscrita=0;
-                      $totalPrimaCobrada=0;
-                      $totalComisionCobrada=0;
-                      $totalGCPagada=0;
-                      $totalCantidad=0;
-                      for ($a=0; $a < $cont; $a++) { 
-                        
-                        $obj11= new Trabajo();
-                        $resumen = $obj11->get_resumen_por_ramo($desde,$hasta,$cia[$i]['nomcia'],$ramo[$a]['nramo']); 
-                        $prima_suscrita=0;
-                        $prima_cobrada=0;
-                        $comision_cobrada=0;
-                        $gc_pagada=0;
-                        $per_gc=0;
+                      $obj12= new Trabajo();
+                      $resumen_poliza = $obj12->get_resumen_por_cia_de_poliza($desde,$hasta,$cia[$i]['id_cia'],$tipo_cuenta); 
 
-                        $obj12= new Trabajo();
-                        $resumen_cia_ramo = $obj12->get_resumen_de_cia_por_ramo($desde,$hasta,$cia[$i]['nomcia'],$ramo[$a]['nramo']); 
+                      $prima_suscrita=0;
+                      $per_gc_a=0;
+                      $totalCantP=0;
+                      for ($b=0; $b < sizeof($resumen_poliza); $b++) { 
+                        $prima_suscrita=$prima_suscrita+$resumen_poliza[$b]['prima'];
+                        $per_gc_a=$per_gc_a+$resumen_poliza[$b]['per_gc'];
+                        $totalCantP=$totalCantP+1;
+                        $totalCantPT=$totalCantPT+1;
+                      }
+                      
+                      $totalPrimaSuscrita=$totalPrimaSuscrita+$prima_suscrita;
+                      
+                      $prima_cobrada=0;
+                      $comision_cobrada=0;
+                      $gc_pagada=0;
+                      for ($a=0; $a < sizeof($resumen); $a++) { 
 
-                        for ($c=0; $c < sizeof($resumen_cia_ramo); $c++) { 
-                            $totalPrimaSuscrita=$totalPrimaSuscrita+$resumen_cia_ramo[$c]['prima'];
-                            $totalPrimaSuscritaT=$totalPrimaSuscritaT+$resumen_cia_ramo[$c]['prima'];
-                            $prima_suscrita=$prima_suscrita+$resumen_cia_ramo[$c]['prima'];
-                        }
+                        $prima_cobrada=$prima_cobrada+$resumen[$a]['prima_com'];
+                        $comision_cobrada=$comision_cobrada+$resumen[$a]['comision'];
+                        $gc_pagada=$gc_pagada+(($resumen[$a]['per_gc']*$resumen[$a]['comision'])/100);
+                      }
+                      $totalPrimaCobrada=$totalPrimaCobrada+$prima_cobrada;
+                      $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
+                      $totalGCPagada=$totalGCPagada+$gc_pagada;
+                      $totalCant=$totalCant+sizeof($resumen);
+                      $totalPerGCA=$totalPerGCA+$per_gc_a;
 
-                          for ($b=0; $b < sizeof($resumen); $b++) { 
-                  
-                            $prima_cobrada=$prima_cobrada+$resumen[$b]['prima_com'];
-                            $comision_cobrada=$comision_cobrada+$resumen[$b]['comision'];
-                            $gc_pagada=$gc_pagada+(($resumen[$b]['per_gc']*$resumen[$b]['comision'])/100);
-
-                            
-                            $totalPrimaCobrada=$totalPrimaCobrada+$resumen[$b]['prima_com'];
-                            $totalComisionCobrada=$totalComisionCobrada+$resumen[$b]['comision'];
-                            $totalGCPagada=$totalGCPagada+(($resumen[$b]['per_gc']*$resumen[$b]['comision'])/100);
-                            $totalCantidad=$totalCantidad+1;
-
-                            
-                            $totalPrimaCobradaT=$totalPrimaCobradaT+$resumen[$b]['prima_com'];
-                            $totalComisionCobradaT=$totalComisionCobradaT+$resumen[$b]['comision'];
-                            $totalGCPagadaT=$totalGCPagadaT+(($resumen[$b]['per_gc']*$resumen[$b]['comision'])/100);
-                            $totalCantidadT=$totalCantidadT+1;
-
-                            
-                          }
-                          
-                          if ($prima_cobrada==0) {
-                            $per_gc=0;
-                          } else {
-                            $per_gc=(($comision_cobrada*100)/$prima_cobrada);
-                          }
-                        
-                   
+                      if (is_nan($per_gc_a/sizeof($resumen_poliza))) {
+                          //echo "0%";
+                          $prom_gc='0%';
+                      } else {
+                          //echo number_format($per_gc_a/sizeof($resumen_poliza),2)."%";
+                          $prom_gc=number_format($per_gc_a/sizeof($resumen_poliza),2)."%";
+                      }
+                      
                       
                       ?>
-                          <td><?php echo utf8_encode($ramo[$a]['nramo']); ?></td>
+                        <tr>
+                          <td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_suscrita,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_cobrada,2); ?></td>
                           <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($comision_cobrada,2); ?></td>
+                          <td align="center"><?php echo number_format(($comision_cobrada*100)/$prima_cobrada,2)."%"; ?></td>
                           <td align="right"><?php echo "$ ".number_format($gc_pagada,2); ?></td>
+                          <td align="center"><?php echo $prom_gc;?></td>
                           <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
-                          <td align="center"><?php echo number_format($per_gc,2)."%"; ?></td>
-                          <td align="center"><?php echo sizeof($resumen); ?></td>
+                          <td align="center"><?php echo $totalCantP; ?></td>
                       </tr>
                       <?php
-                        }
-                        ?>
-                      <tr style="background-color: #FF7E7E;color: white;font-weight: bold;">
-                        <td colspan="2">Total <?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobrada,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format(($totalPrimaSuscrita-$totalPrimaCobrada),2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalGCPagada,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
-                        <td align="center"><?php if ($totalPrimaCobrada==0) {
-                                                      $por_gcTotal=0;
-                                                    } else {
-                                                      $por_gcTotal=($totalComisionCobrada*100)/$totalPrimaCobrada;
-                                                    }
-                        echo number_format($por_gcTotal,2)."%"; ?></td>
-                        <td align="center"><?php echo $totalCantidad; ?></td>
-                      </tr>
-                    <?php
-                      
-
-                    }
+                    }  
                     ?>
                     <tr style="background-color: #E54848;color:white">
-                        <td colspan="2">Total General</td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscritaT,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobradaT,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format(($totalPrimaSuscritaT-$totalPrimaCobradaT),2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobradaT,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalGCPagadaT,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobradaT-$totalGCPagadaT,2); ?></td>
-                        <td align="center"><?php echo number_format(($totalComisionCobradaT*100)/$totalPrimaCobradaT,2)."%"; ?></td>
-                        <td align="right"><?php echo number_format($totalCantidadT,0); ?></td>
+                        <td >Total General</td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobrada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita-$totalPrimaCobrada,2); ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada,2); ?></td>
+                        <td align="center"><?php echo number_format((($totalComisionCobrada*100)/$totalPrimaCobrada),2)."%"; ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalGCPagada,2); ?></td>
+                        <td align="center"><?php echo number_format($totalPerGCA/$totalCant,2)."%"; ?></td>
+                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
+                        <td align="right"><?php echo number_format($totalCantPT,0); ?></td>
                     </tr>
                   </tbody>
 
                   <tfoot>
                     <tr>
                       <th>Cía</th>
-                      <th>Ramo</th>
                       <th>Prima Suscrita</th>
                       <th>Prima Cobrada</th>
                       <th>Prima Pendiente</th>
                       <th>Comision Cobrada</th>
-                      <th>GC Pagada</th>
-                      <th>Utilidad</th>
                       <th>% Com</th>
+                      <th>GC Pagada</th>
+                      <th>%GC Asesor</th>
+                      <th>Utilidad</th>
                       <th>Cantidad</th>
                     </tr>
                   </tfoot>

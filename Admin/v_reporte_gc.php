@@ -169,7 +169,17 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                             <tr>
-                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo $nombre; ?></td>
+                                <?php 
+                                if ($asesor[0]['act']==0) {
+                                ?>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?php echo $nombre; ?></td>
+                                <?php
+                                }if ($asesor[0]['act']==1) {
+                                ?>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?php echo $nombre; ?></td>
+                                <?php
+                                }
+                                ?>
 
                         <?php
 
@@ -207,11 +217,11 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td style="color: #2B9E34"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td style="color: #E54848"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
@@ -356,7 +366,17 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                             <tr>
-                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($nombre); ?></td>
+                                <?php 
+                                if ($asesor[0]['act']==0) {
+                                ?>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?php echo $nombre; ?></td>
+                                <?php
+                                }if ($asesor[0]['act']==1) {
+                                ?>
+                                <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?php echo $nombre; ?></td>
+                                <?php
+                                }
+                                ?>
 
                         <?php
 
@@ -422,7 +442,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
                                 <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
                                 <td nowrap><?php echo $newFRepC; ?></td>
-                                <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
+                                <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format(($poliza[$i]['comision']*$poliza[$i]['per_gc'])/100,2); ?></td>
                                 <td nowrap align="center"><?php echo number_format($poliza[$i]['per_gc'],0)." %"; ?></td>
                                 <td nowrap align="center">1</td>
                             </tr>

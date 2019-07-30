@@ -48,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
             
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Gráficos de Porcentaje</h1>  
+                    <h1 class="title">Gráficos de Resúmen</h1>  
                 </div>
                 <br>
 
@@ -56,28 +56,20 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
                 
-                <div class="card text-white bg-info mb-3">
-                <a href="Porcentaje/busqueda_ramo.php">
+                <div class="card text-white bg-info mb-6">
+                <a href="resumen/busqueda_resumen_ramo.php" >
                   <div class="card-body">
-                    <h5 class="card-title">Distribución de la Cartera por Ramo</h5>
+                    <h5 class="card-title">Resúmen por Ramo</h5>
                   </div>
                 </a>
                 </div>
                 
                 
                 
-                <div class="card text-white bg-info mb-3">
-                <a href="Porcentaje/busqueda_tipo_poliza.php">
+                <div class="card text-white bg-info mb-6">
+                <a href="resumen/busqueda_resumen.php">
                   <div class="card-body">
-                    <h5 class="card-title">Distribución de la Cartera por Tipo Póliza</h5>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-info mb-3">
-                <a href="Porcentaje/busqueda_cia.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Distribución de la Cartera por CIA</h5>
+                    <h5 class="card-title">Resúmen General</h5>
                   </div>
                 </a>
                 </div>
@@ -86,29 +78,9 @@ if(isset($_SESSION['seudonimo'])) {
 
             </div>
 
-            <div class="card-deck">
+            
 
-                <div class="card text-white bg-info mb-6">
-                <a href="Porcentaje/busqueda_fpago.php">
-                  <div class="card-body">
-                    <h5 class="card-title">Distribución de la Cartera por Forma de Pago</h5>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-info mb-6">
-                <a href="Porcentaje/busqueda_ramo_promedio.php" >
-                  <div class="card-body">
-                    <h5 class="card-title">Prima Promedio por Ramo</h5>
-                  </div>
-                </a>
-                </div>
-
-               
-
-            </div>
-
-
+            
         </div>
 
 

@@ -123,11 +123,11 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-asort($sumatotalRamo , SORT_NUMERIC);
+asort($sumatotalRamoCC , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalRamo as $key=>$value) {
+foreach($sumatotalRamoCC as $key=>$value) {
 
    $x[count($x)] = $key;
 
@@ -217,11 +217,11 @@ foreach($sumatotalRamo as $key=>$value) {
           <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
           <td align="right"><?php echo "$".number_format($sumatotalRamo[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalRamoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalRamoCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($sumatotalRamoGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -327,9 +327,9 @@ foreach($sumatotalRamo as $key=>$value) {
 
           data:[<?php for($i=sizeof($ramo); $i > 0; $i--)
             {  
-                $sumasegurada=($sumatotalRamo[$x[$i]]*100)/$totals;
+                $sumasegurada=($sumatotalRamoCC[$x[$i]]);
                 ?>
-                '<?php echo number_format($sumasegurada,2); ?>',
+                '<?php echo $sumasegurada; ?>',
             <?php }?>
           ],
           //backgroundColor:'green',
@@ -362,7 +362,7 @@ foreach($sumatotalRamo as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Ramo (%)',
+          text:'Comisiones Cobradas por Ramo',
           fontSize:25
         },
         legend:{

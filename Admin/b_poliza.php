@@ -611,6 +611,80 @@ $fechaMax= $date->format($format);
 
                     <?php }if ($permiso==3) {  $cod_asesor_user=$user[0]['cod_vend'];?>
 
+
+
+                    
+                        <center><form class="form-horizontal" action="b_poliza1.php" method="get" style="width: 80%">
+                        <div class="form-row" style="text-align: left;">
+                        
+                        <div class="form-group col-md-6">
+                            <label align="left">Año Vigencia Seguro:</label>
+                            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13">
+                                <option value="">Seleccione Año</option>
+                            <?php
+                                $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
+                                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
+                                {  
+                            ?>
+                                <option value="<?php echo $date;?>"><?php echo $date;?></option>
+                            <?php
+                                $date=$date+1;
+                                } 
+                            ?> 
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Mes Vigencia Seguro:</label>
+                            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
+                                <option value="">Seleccione Mes</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        </div>
+                        
+                        
+
+                        <div class="form-row" style="text-align: left;">
+                        <div class="form-group col-md-12">
+                            <label>Cía:</label>
+                            <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
+                            <?php
+                                for($i=0;$i<sizeof($cia);$i++)
+                                {  
+                            ?>
+                                <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                            <?php
+                                } 
+                            ?> 
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6" hidden>
+                            <label>Asesor:</label>
+                            <select class="form-control selectpicker" name="asesor[]"  data-style="btn-white" >
+                                    <option value="<?php echo $user[0]['cod_vend'];?>">d</option>
+                            </select>
+                        </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success btn-round btn-lg" >Buscar</button>
+
+                    </form></center>
+
+
                     <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                     <center>

@@ -81,7 +81,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Fechas Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
+                <?php if ($permiso==1) { ?>
                 <button  onclick="eliminarDatos('<?php echo $id_rep_com; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <?php }?>
                 </center>
                         
                 <hr>
@@ -123,7 +125,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Comisión</th>
                             <th>% Comisión</th>
                             <th>Asesor - Ejecutivo</th>
+                            <?php if ($permiso==1) { ?>
                             <th></th>
+                            <?php }?>
                         </tr>
                     </thead>
                     <tbody>
@@ -155,7 +159,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <td align="right"><?php echo "$ ".number_format($comision[$i]['comision'],2); ?></td>
                             <td align="center"><?php echo number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
                             <td><?php echo $comision[$i]['cod_vend']; ?></td>
+                            <?php if ($permiso==1) { ?>
                             <td><button  onclick="eliminarComision('<?php echo $comision[$i]['id_comision']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                            <?php }?>
                         </tr>
                         <?php
                         }
@@ -172,7 +178,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <td align="right"><font size=4><?php echo "$ ".number_format($totalCom,2); ?></font></td>
                             <td></td>
                             <td></td>
+                            <?php if ($permiso==1) { ?>
                             <td></td>
+                            <?php }?>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th>N° de Póliza</th>
@@ -182,7 +190,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Comisión</th>
                             <th>% Comisión</th>
                             <th>Asesor - Ejecutivo</th>
+                            <?php if ($permiso==1) { ?>
                             <th></th>
+                            <?php }?>
                         </tr>
                     </tfoot>
                 </table>

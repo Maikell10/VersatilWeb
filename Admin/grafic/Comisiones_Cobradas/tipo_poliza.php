@@ -132,11 +132,11 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-asort($sumatotalTpoliza , SORT_NUMERIC);
+asort($sumatotalTpolizaCC , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalTpoliza as $key=>$value) {
+foreach($sumatotalTpolizaCC as $key=>$value) {
 
    $x[count($x)] = $key;
 
@@ -233,11 +233,11 @@ foreach($sumatotalTpoliza as $key=>$value) {
           <th scope="row"><?php echo utf8_encode($tpolizaArray[$x[$i]]); ?></th>
           <td align="right"><?php echo "$".number_format($sumatotalTpoliza[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalTpolizaPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalTpoliza[$x[$i]]-$sumatotalTpolizaPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalTpoliza[$x[$i]]-$sumatotalTpolizaPC[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalTpolizaCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($sumatotalTpolizaGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalTpolizaCC[$x[$i]]-$sumatotalTpolizaGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalTpolizaCC[$x[$i]]-$sumatotalTpolizaGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -334,9 +334,9 @@ foreach($sumatotalTpoliza as $key=>$value) {
 
           data:[<?php for($i=0;$i<sizeof($tpoliza);$i++)
             {  
-                $sumasegurada=($sumatotalTpoliza[$i]*100)/$totals;
+                $sumasegurada=($sumatotalTpolizaCC[$i]);
                 ?>
-                '<?php echo number_format($sumasegurada,2); ?>',
+                '<?php echo $sumasegurada; ?>',
             <?php }?>
           ],
           //backgroundColor:'green',
@@ -361,7 +361,7 @@ foreach($sumatotalTpoliza as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Tipo de Poliza (%)',
+          text:'Comisión Cobrada por Tipo de Poliza',
           fontSize:25
         },
         legend:{

@@ -127,11 +127,11 @@ if(isset($_SESSION['seudonimo'])) {
     }
 
 
-asort($sumatotalFpago , SORT_NUMERIC);
+asort($sumatotalFpagoCC , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalFpago as $key=>$value) {
+foreach($sumatotalFpagoCC as $key=>$value) {
 
    $x[count($x)] = $key;
 
@@ -225,11 +225,11 @@ foreach($sumatotalFpago as $key=>$value) {
           <th scope="row"><?php echo utf8_encode($fpagoArray[$x[$i]]);?></th>
           <td align="right"><?php echo "$".number_format($sumatotalFpago[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalFpagoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo "$".number_format($sumatotalFpago[$x[$i]]-$sumatotalFpagoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalFpago[$x[$i]]-$sumatotalFpagoPC[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalFpagoCC[$x[$i]],2); ?></td>
           <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
           <td align="right"><?php echo number_format($sumatotalFpagoGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #E54848;color:white"><?php echo number_format($sumatotalFpagoCC[$x[$i]]-$sumatotalFpagoGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalFpagoCC[$x[$i]]-$sumatotalFpagoGCP[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -329,9 +329,9 @@ foreach($sumatotalFpago as $key=>$value) {
 
           data:[<?php for($i=sizeof($fpago); $i > 0; $i--)
             {  
-                $sumasegurada=($sumatotalFpago[$x[$i]]*100)/$totals;
+                $sumasegurada=($sumatotalFpagoCC[$x[$i]]);
                 ?>
-                '<?php echo number_format($sumasegurada,2); ?>',
+                '<?php echo $sumasegurada; ?>',
             <?php }?>
           ],
           //backgroundColor:'green',
@@ -356,7 +356,7 @@ foreach($sumatotalFpago as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Forma de Pago (%)',
+          text:'Comisión Cobrada por Forma de Pago',
           fontSize:25
         },
         legend:{

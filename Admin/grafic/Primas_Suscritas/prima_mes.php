@@ -33,6 +33,8 @@ $hasta=($_GET['desde']).'-12-31';
 
 
   $totals=0;
+  $totalpa=0;
+  $totalr=0;
   $totalCant=0;
 
   $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
@@ -43,6 +45,9 @@ $hasta=($_GET['desde']).'-12-31';
   $ramoArray[sizeof($mes)]=null;
   $cantArray[sizeof($mes)]=null;
   $primaPorMes[sizeof($mes)]=null;
+
+  $primaPorMesPA[sizeof($mes)]=null;
+  $primaPorMesR[sizeof($mes)]=null;
 
 
   for($i=0;$i<sizeof($mes);$i++)
@@ -55,15 +60,29 @@ $hasta=($_GET['desde']).'-12-31';
     
       $cantArray[$i]=sizeof($primaMes);
       $sumasegurada=0;
+      $sumaseguradaPA=0;
+      $sumaseguradaR=0;
       for($a=0;$a<sizeof($primaMes);$a++)
         { 
           $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
+          if ($primaMes[$a]['id_tpoliza']==1) {
+            $sumaseguradaPA=$sumaseguradaPA+$primaMes[$a]['prima'];
+          }
+          if ($primaMes[$a]['id_tpoliza']==2) {
+            $sumaseguradaR=$sumaseguradaR+$primaMes[$a]['prima'];
+          }
 
         } 
         $totals=$totals+$sumasegurada;
+        $totalpa=$totalpa+$sumaseguradaPA;
+        $totalr=$totalr+$sumaseguradaR;
         $totalCant=$totalCant+$cantArray[$i];
         $ramoArray[$i]=$primaMes[0]['cod_ramo'];
         $primaPorMes[$i]=$sumasegurada;
+        $primaPorMesPA[$i]=$sumaseguradaPA;
+        $primaPorMesR[$i]=$sumaseguradaR;
+
+        
     }
 
 
@@ -124,7 +143,9 @@ $hasta=($_GET['desde']).'-12-31';
       <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
           <th>Mes Desde Recibo</th>
-          <th>Prima Suscrita</th>
+          <th>Prima Suscrita Primer Año</th>
+          <th>Prima Suscrita Renovación</th>
+          <th>Prima Suscrita Total</th>
           <th>Cantidad</th>
         </tr>
       </thead>
@@ -132,11 +153,13 @@ $hasta=($_GET['desde']).'-12-31';
         <?php
           
           for ($i=0; $i < sizeof($mes); $i++) { 
-              //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
-
+              
+            
         ?>
         <tr>
           <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_desdepoliza)"]-1]; ?></th>
+          <td align="right"><?php echo "$".number_format($primaPorMesPA[$i],2); ?></td>
+          <td align="right"><?php echo "$".number_format($primaPorMesR[$i],2); ?></td>
           <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
           <td align="right"><?php echo $cantArray[$i]; ?></td>
         </tr>
@@ -147,6 +170,8 @@ $hasta=($_GET['desde']).'-12-31';
       <thead class="thead-dark">
         <tr>
           <th scope="col">TOTAL</th>
+          <th align="right"><?php echo "$".number_format($totalpa,2); ?></th>
+          <th align="right"><?php echo "$".number_format($totalr,2); ?></th>
           <th align="right"><?php echo "$".number_format($totals,2); ?></th>
           <th align="right"><?php echo $totalCant; ?></th>
         </tr>
