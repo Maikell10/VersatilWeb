@@ -120,8 +120,8 @@ if(isset($_SESSION['seudonimo'])) {
                     $archivo='./'.$id_poliza;
                     
    /*                 
-                    
-$ftp_server="190.140.224.69";
+//190.140.224.69                    
+$ftp_server="181.197.87.15";
 $port=21;
 $ftp_usuario="usuario";
 $ftp_pass="20127247";

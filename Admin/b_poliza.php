@@ -59,6 +59,7 @@ $fechaMax= $date->format($format);
   $dest= new Trabajo();
   $dest = $dest->destruir(); 
 
+  $fhoy=date("Y");
 
 ?>
 <!DOCTYPE html>
@@ -133,8 +134,7 @@ $fechaMax= $date->format($format);
                       
                       <div class="form-group col-md-6">
                         <label align="left">Año Vigencia Seguro:</label>
-                        <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13">
-                            <option value="">Seleccione Año</option>
+                        <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                         <?php
                             $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                             for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
@@ -150,8 +150,7 @@ $fechaMax= $date->format($format);
 
                       <div class="form-group col-md-6">
                         <label>Mes Vigencia Seguro:</label>
-                        <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
-                            <option value="">Seleccione Mes</option>
+                        <select class="form-control selectpicker" name="mes[]" id="mes" multiple data-style="btn-white" data-header="Seleccione Mes" data-actions-box="true" data-live-search="true">
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
                             <option value="3">Marzo</option>
@@ -187,8 +186,7 @@ $fechaMax= $date->format($format);
 
                       <div class="form-group col-md-6">
                         <label>Asesor:</label>
-                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-size="12" data-live-search="true">
-                            <option value="">Seleccione el Asesor</option>
+                        <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Asesor" data-size="12" data-actions-box="true" data-live-search="true">
                             <?php
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
@@ -966,66 +964,7 @@ $fechaMax= $date->format($format);
 
     
 
-    <!-- Modal -->
-    <div class="modal fade" id="agregarnuevosdatosmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agrega nueva Póliza</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevo">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigo" name="codigo">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombre" name="nombre">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ci" name="ci">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuenta" name="refcuenta">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar Nuevo</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Editar-->
-    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Póliza</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="frmnuevoU">
-                        <input type="text" class="form-control input-sm" id="idena" name="idena" hidden="">
-                        <label>Código</label>
-                        <input type="text" class="form-control input-sm" id="codigoU" name="codigoU">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-                        <label>C.I o Pasaporte</label>
-                        <input type="text" class="form-control input-sm" id="ciU" name="ciU">
-                        <label>Ref Cuenta</label>
-                        <input type="text" class="form-control input-sm" id="refcuentaU" name="refcuentaU">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-success" id="btnActualizar">Actualizar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
    
@@ -1065,6 +1004,12 @@ $fechaMax= $date->format($format);
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()
         })
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change(); 
+      });
     </script>
     <script language="javascript">
 

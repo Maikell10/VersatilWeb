@@ -200,10 +200,10 @@ if(isset($_SESSION['seudonimo'])) {
                           <td><?php echo utf8_encode($ramo[$a]['nramo']); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_suscrita,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_cobrada,2); ?></td>
-                          <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
+                          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($comision_cobrada,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($gc_pagada,2); ?></td>
-                          <td align="right" style="background-color: #E54848;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
+                          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
                           <td align="center"><?php echo number_format($per_gc,2)."%"; ?></td>
                           <td align="center"><?php echo sizeof($resumen); ?></td>
                       </tr>

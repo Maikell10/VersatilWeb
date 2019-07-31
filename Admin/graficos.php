@@ -98,7 +98,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-6">
                 <a href="grafic/resumen.php" >
                   <div class="card-body">
-                    <center><h5 class="card-title">Resúmen</h5></center>
+                    <center><h5 class="card-title">Resúmenes</h5></center>
                   </div>
                 </a>
                 </div>

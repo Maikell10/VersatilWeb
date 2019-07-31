@@ -16,7 +16,7 @@ if(isset($_SESSION['seudonimo'])) {
     $cod_proyecto=$_POST['cod_proyecto'];
   }
   
-
+  
   
 
   if ($cod_proyecto==1) {
@@ -27,9 +27,6 @@ if(isset($_SESSION['seudonimo'])) {
 
       $u=explode('-', $lProyecto[0]['cod_proyecto']);
   }
-
-
-
 
 ?>
 <!DOCTYPE html>

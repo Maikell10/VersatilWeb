@@ -48,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
             
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Gráficos de Resúmen</h1>  
+                    <h1 class="title">Gráficos de Resúmenes</h1>  
                 </div>
                 <br>
 
@@ -59,7 +59,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-6">
                 <a href="resumen/busqueda_resumen_ramo.php" >
                   <div class="card-body">
-                    <h5 class="card-title">Resúmen por Ramo</h5>
+                    <h5 class="card-title">Resumen por Ramo</h5>
                   </div>
                 </a>
                 </div>
@@ -69,7 +69,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="card text-white bg-info mb-6">
                 <a href="resumen/busqueda_resumen.php">
                   <div class="card-body">
-                    <h5 class="card-title">Resúmen General</h5>
+                    <h5 class="card-title">Resumen General</h5>
                   </div>
                 </a>
                 </div>

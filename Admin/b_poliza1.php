@@ -10,6 +10,15 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
+
+  if (isset($_GET["anio"])!=null) {
+    $anio=$_GET["anio"]; 
+  }else{$anio='';}
+
+  if (isset($_GET["mes"])!=null) {
+    $mes=$_GET["mes"]; 
+  }else{$mes='';}
+
   if (isset($_GET["cia"])!=null) {
     $cia=$_GET["cia"]; 
   }else{$cia='';}
@@ -20,39 +29,14 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-  $mes = $_GET['mes'];
-  $desde=$_GET['anio']."-".$_GET['mes']."-01";
-  $hasta=$_GET['anio']."-".$_GET['mes']."-31";
-
-  if ($mes==null) {
-      $mesD=01;
-      $mesH=12;
-      $desde=$_GET['anio']."-".$mesD."-01";
-      $hasta=$_GET['anio']."-".$mesH."-31";
-  }
-
-
-  $anio = $_GET['anio'];
-  if ($anio==null) {
-    $obj11= new Trabajo();
-    $fechaMin = $obj11->get_fecha_min('f_hastapoliza','poliza'); 
-    $desde=$fechaMin[0]['MIN(f_hastapoliza)'];
-  
-    $obj12= new Trabajo();
-    $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
-    $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
-  }
-  
-  
-
   $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_total_by_filtro($desde,$hasta,$cia,$asesor); 
+  $poliza = $obj1->get_poliza_total_by_filtro($mes,$anio,$cia,$asesor); 
 
   $obj2= new Trabajo();
-  $poliza1 = $obj2->get_poliza_total_by_filtro_enp($desde,$hasta,$cia,$asesor); 
+  $poliza1 = $obj2->get_poliza_total_by_filtro_enp($mes,$anio,$cia,$asesor); 
 
   $obj3= new Trabajo();
-  $poliza2 = $obj3->get_poliza_total_by_filtro_enr($desde,$hasta,$cia,$asesor); 
+  $poliza2 = $obj3->get_poliza_total_by_filtro_enr($mes,$anio,$cia,$asesor); 
 
 
   $totalPrimaC=0;
@@ -115,7 +99,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
+                            <?php if ($permiso!=3) { ?>
                             <th>Nombre Asesor</th>
+                            <?php }?>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
@@ -173,8 +159,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                
+                                <?php if ($permiso!=3) { ?>
                                 <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
+                                <?php }?>
                                 <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
@@ -232,8 +219,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                
+                                <?php if ($permiso!=3) { ?>
                                 <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
+                                <?php }?>
                                 <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
@@ -291,8 +279,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             
-                                
+                                <?php if ($permiso!=3) { ?>    
                                 <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
+                                <?php }?>
                                 <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
@@ -311,7 +300,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden>f_poliza</th>
                             <th hidden>id</th>
                             <th>N° Póliza</th>
+                            <?php if ($permiso!=3) { ?> 
                             <th>Nombre Asesor</th>
+                            <?php }?>
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
