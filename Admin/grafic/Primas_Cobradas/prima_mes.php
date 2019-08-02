@@ -40,7 +40,6 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $ramoArray[sizeof($mes)]=null;
-  $cantArray[sizeof($mes)]=null;
   $primaPorMes[sizeof($mes)]=null;
   $primaCobradaPorMes1=0;
   $primaCobradaPorMes2=0;
@@ -54,6 +53,11 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes10=0;
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
+
+  $obj4= new Trabajo();
+  $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($ramo,$desdeI,$hastaI,$cia,$tipo_cuenta);
+
+  $totalCant=sizeof($cant_p);
   
 
 
@@ -133,7 +137,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <tbody>
                   <?php
                     
-
+                    $cantidad[sizeof(12)]=null;
                     for ($i=0; $i < 12; $i++) { 
                       if ($mes[$i]["Month(f_desdepoliza)"]<10) {
                         $desde=$_GET['desde']."-0".$mes[$i]["Month(f_desdepoliza)"]."-01";
@@ -150,10 +154,7 @@ if(isset($_SESSION['seudonimo'])) {
                       $primaMes = $obj2->get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$mesB,$tipo_cuenta); 
 
                      
-                      $obj4= new Trabajo();
-                      $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$tipo_cuenta);
-                    
-                      $cantArray[$i]=sizeof($cant_p);
+                      
                       $sumasegurada=0;
                       $prima_pagada1=0;
                       $prima_pagada2=0;
@@ -226,7 +227,6 @@ if(isset($_SESSION['seudonimo'])) {
                         } 
                       
                         $totals=$totals+$sumasegurada;
-                        $totalCant=$totalCant+$cantP;
                         $ramoArray[$i]=$primaMes[0]['cod_ramo'];
                         $primaPorMes[$i]=$sumasegurada;
                         $primaCobradaPorMes1=$primaCobradaPorMes1+$prima_pagada1;

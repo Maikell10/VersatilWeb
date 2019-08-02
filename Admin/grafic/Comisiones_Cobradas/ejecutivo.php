@@ -108,7 +108,6 @@ if(isset($_SESSION['seudonimo'])) {
             //$totalPrimaCobrada=$totalPrimaCobrada+$prima_cobrada;
             $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
             $totalGCPagada=$totalGCPagada+$gc_pagada;
-            $totalCant=$totalCant+sizeof($resumen);
 
             if ($prima_cobrada==0) {
             $per_gc=0;
@@ -117,10 +116,11 @@ if(isset($_SESSION['seudonimo'])) {
             }
 
 
-      $cantArray[$i]=sizeof($ejecutivoPoliza);
       $sumasegurada=0;
       $obj111= new Trabajo();
       $resumen_poliza = $obj111->get_resumen_por_asesor_en_poliza($desde,$hasta,$ejecutivo[$i]['cod_vend'],$cia,$ramo,$tipo_cuenta);
+      $cantArray[$i]=sizeof($resumen_poliza);
+      $totalCant=$totalCant+sizeof($resumen_poliza);
       for($a=0;$a<sizeof($resumen_poliza);$a++)
         { 
           $sumasegurada=$sumasegurada+$resumen_poliza[$a]['prima'];
@@ -131,7 +131,6 @@ if(isset($_SESSION['seudonimo'])) {
         $totalcc=$totalcc+$comision_cobrada;
         $totalgcp=$totalgcp+$gc_pagada;
         $totalcantt=$totalcantt+sizeof($resumen);
-        $totalCant=$totalCant+$cantArray[$i];
         $sumatotalEjecutivo[$i]=$sumasegurada;
         $sumatotalEjecutivoPC[$i]=$prima_cobrada;
         $sumatotalEjecutivoCC[$i]=$comision_cobrada;
@@ -269,7 +268,7 @@ foreach($sumatotalEjecutivoCC as $key=>$value) {
           <th align="right"><?php echo "$".number_format($totalgcp,2); ?></th>
           <th align="right"><?php echo "$".number_format($totalcc-$totalgcp,2); ?></th>
 
-          <th scope="col"><?php echo $totalcantt; ?></th>
+          <th scope="col"><?php echo $totalCant; ?></th>
         </tr>
       </thead>
 

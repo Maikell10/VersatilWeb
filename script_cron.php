@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+    
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   
@@ -43,14 +43,14 @@
 
 
   $obj1= new Trabajo();
-  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_ac($desde,$hasta,$cia,$asesor); 
+  $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_ac_correo($desde,$hasta,$cia,$asesor); 
 
     $fhoy=date("Y-m-d");
 
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
     $from = "info@versatilseguros.com";
-    $to = "maikell.ods10@gmail.com";
+    $to = "maikell.ods10@gmail.com, pty.versatil@gmail.com";
     $subject = "Polizas Proximas a Vencer";
     
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -93,7 +93,7 @@
                             
     
                             $obj2= new Trabajo();
-                            $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                            $poliza = $obj2->get_poliza_total_by_filtro_renov_ac_correo($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
                             
                             
                             
@@ -158,7 +158,6 @@
                                 <th>F Hasta Seguro</th>
                                 <th>Nombre Titular</th>
                                 <th>Ramo</th>
-                                <th>Asesor</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -226,7 +225,7 @@
                             
     
                             $obj2= new Trabajo();
-                            $poliza = $obj2->get_poliza_total_by_filtro_renov_ac($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
+                            $poliza = $obj2->get_poliza_total_by_filtro_renov_ac_correo($desde,$hasta,$distinct_c[$a]['nomcia'],$asesor); 
                             
                             
             ?>                

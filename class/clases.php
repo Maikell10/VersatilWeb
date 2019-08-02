@@ -1651,6 +1651,47 @@ class Trabajo extends Conectar{
 			}
 	}
 
+
+	public function get_poliza_total_by_filtro_renov_distinct_ac_correo($f_desde,$f_hasta,$cia,$asesor)
+		{
+
+		
+		$sql="SELECT DISTINCT nomcia FROM 
+					poliza
+					INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					drecibo.idtitu = titular.id_titular AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.f_hastapoliza >= '$f_desde' AND
+					poliza.f_hastapoliza <= '$f_hasta'
+					ORDER BY nomcia ASC";
+		
+		
+
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					echo "No hay registros";
+					  header("Location: b_renov_g.php?m=2");
+					  exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}
+
 	public function get_poliza_total_by_filtro_renov_a($f_desde,$f_hasta,$cia,$asesor)
 			{
 			if ($cia!='') {
@@ -1865,6 +1906,45 @@ class Trabajo extends Conectar{
 			}
 	}	
 
+
+
+	public function get_poliza_total_by_filtro_renov_ac_correo($f_desde,$f_hasta,$cia,$asesor)
+		{
+
+		$sql="SELECT *  FROM 
+					poliza
+					INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo
+					WHERE 
+					poliza.id_poliza = drecibo.idrecibo AND
+					poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+					drecibo.idtitu = titular.id_titular AND
+					poliza.id_cia = dcia.idcia AND
+					poliza.id_cod_ramo = dramo.cod_ramo AND
+					poliza.f_hastapoliza >= '$f_desde' AND
+					poliza.f_hastapoliza <= '$f_hasta' AND
+					nomcia  = '$cia'
+					ORDER BY poliza.f_hastapoliza ASC";
+
+		$res=mysqli_query(Conectar::con(),$sql);
+		
+		$filas=mysqli_num_rows($res); 
+		if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					  //echo "No hay registros";
+					  //header("Location: renov_g.php?m=2");
+					  //exit();
+				  }else
+					{
+						   while($reg=mysqli_fetch_assoc($res)) {
+							   $this->t[]=$reg;
+						  }
+						  return $this->t;
+					}
+			}
+	}	
 
 
 
@@ -4115,7 +4195,7 @@ class Trabajo extends Conectar{
 					   $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
    
 					   $sql="SELECT DISTINCT nomcia FROM poliza, dcia, dramo, comision, rep_com WHERE 
-								   rep_com.id_cia=dcia.idcia AND
+								   poliza.id_cia=dcia.idcia AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
 								   poliza.id_cod_ramo=dramo.cod_ramo AND
 								   poliza.id_poliza=comision.id_poliza AND 
@@ -4126,7 +4206,7 @@ class Trabajo extends Conectar{
 				   }
 				   if ($ramo=='' && $tipo_cuenta=='') {
 					   $sql="SELECT DISTINCT nomcia FROM poliza, dcia, dramo, comision, rep_com WHERE 
-								   rep_com.id_cia=dcia.idcia AND
+								   poliza.id_cia=dcia.idcia AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
 								   poliza.id_cod_ramo=dramo.cod_ramo AND
 								   poliza.id_poliza=comision.id_poliza AND 
@@ -4139,7 +4219,7 @@ class Trabajo extends Conectar{
 					   $tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) ."')";
    
 					   $sql="SELECT DISTINCT nomcia FROM poliza, dcia, dramo, comision, rep_com WHERE 
-								   rep_com.id_cia=dcia.idcia AND
+								   poliza.id_cia=dcia.idcia AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
 								   poliza.id_cod_ramo=dramo.cod_ramo AND
 								   poliza.id_poliza=comision.id_poliza AND 
@@ -4153,7 +4233,7 @@ class Trabajo extends Conectar{
 					   $ramoIn = "('" . implode("','", $ramo) ."')";
    
 					   $sql="SELECT DISTINCT nomcia FROM poliza, dcia, dramo, comision, rep_com WHERE 
-								   rep_com.id_cia=dcia.idcia AND
+								   poliza.id_cia=dcia.idcia AND
 								   rep_com.id_rep_com=comision.id_rep_com AND
 								   poliza.id_cod_ramo=dramo.cod_ramo AND
 								   poliza.id_poliza=comision.id_poliza AND 
@@ -5753,9 +5833,11 @@ class Trabajo extends Conectar{
 								ORDER BY comision.cod_vend ASC";
 				}//1
 				if ($cia=='' && $tipo_cuenta=='' && $ramo=='') {
-					$sql="SELECT DISTINCT cod_vend FROM poliza INNER JOIN comision
-					WHERE 
-					poliza.id_poliza=comision.id_poliza AND
+					$sql="SELECT DISTINCT cod_vend FROM comision, poliza, drecibo, dcia, dramo WHERE 
+							poliza.id_poliza = drecibo.idrecibo AND
+							poliza.id_cia=dcia.idcia AND
+							poliza.id_poliza=comision.id_poliza AND 
+							poliza.id_cod_ramo=dramo.cod_ramo AND
 							f_hastapoliza >= '$desde' AND
 							f_hastapoliza <= '$hasta'  
 							ORDER BY comision.cod_vend ASC";

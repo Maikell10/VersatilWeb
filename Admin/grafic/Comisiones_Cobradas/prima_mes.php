@@ -67,7 +67,7 @@ $hasta=($_GET['desde']).'-12-31';
       $obj2= new Trabajo();
       $primaMes = $obj2->get_poliza_grafp_2_pc($ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
-      $cantArray[$i]=sizeof($primaMes);
+      
       $sumasegurada=0;
       $prima_cobrada=0;
       $comision_cobrada=0;
@@ -85,7 +85,7 @@ $hasta=($_GET['desde']).'-12-31';
 
         $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
         $totalGCPagada=$totalGCPagada+$gc_pagada;
-        $totalCant=$totalCant+sizeof($primaMes);
+        
 
         if ($prima_cobrada==0) {
         $per_gc=0;
@@ -96,6 +96,8 @@ $hasta=($_GET['desde']).'-12-31';
         $sumasegurada=0;
         $obj1111= new Trabajo();
         $resumen_poliza = $obj1111->get_resumen_por_mes_en_poliza($desde,$hasta,$mes[$i]["Month(f_hastapoliza)"]);
+        $cantArray[$i]=sizeof($resumen_poliza);
+        $totalCant=$totalCant+sizeof($resumen_poliza);
         for($f=0;$f<sizeof($resumen_poliza);$f++)
         { 
 

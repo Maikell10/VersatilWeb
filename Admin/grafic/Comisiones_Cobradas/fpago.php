@@ -76,7 +76,6 @@ if(isset($_SESSION['seudonimo'])) {
       $obj2= new Trabajo();
       $fpagoPoliza = $obj2->get_poliza_graf_4_pc($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
     
-      $cantArray[$i]=sizeof($fpagoPoliza);
       $sumasegurada=0;
       $prima_cobrada=0;
       $comision_cobrada=0;
@@ -96,7 +95,6 @@ if(isset($_SESSION['seudonimo'])) {
 
         $totalComisionCobrada=$totalComisionCobrada+$comision_cobrada;
         $totalGCPagada=$totalGCPagada+$gc_pagada;
-        $totalCant=$totalCant+sizeof($fpagoPoliza);
 
         if ($prima_cobrada==0) {
         $per_gc=0;
@@ -107,6 +105,8 @@ if(isset($_SESSION['seudonimo'])) {
         $sumasegurada=0;
         $obj1111= new Trabajo();
         $resumen_poliza = $obj1111->get_resumen_por_fpago_en_poliza($desde,$hasta,$fpago[$i]['fpago']);
+        $cantArray[$i]=sizeof($resumen_poliza);
+        $totalCant=$totalCant+sizeof($resumen_poliza);
         for($f=0;$f<sizeof($resumen_poliza);$f++)
         { 
 

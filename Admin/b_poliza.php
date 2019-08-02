@@ -617,8 +617,7 @@ $fechaMax= $date->format($format);
                         
                         <div class="form-group col-md-6">
                             <label align="left">Año Vigencia Seguro:</label>
-                            <select class="form-control selectpicker" name="anio" id="anio" data-style="btn-white" data-size="13">
-                                <option value="">Seleccione Año</option>
+                            <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                             <?php
                                 $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
                                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
@@ -634,8 +633,7 @@ $fechaMax= $date->format($format);
 
                         <div class="form-group col-md-6">
                             <label>Mes Vigencia Seguro:</label>
-                            <select class="form-control selectpicker" name="mes" id="mes" data-style="btn-white">
-                                <option value="">Seleccione Mes</option>
+                            <select class="form-control selectpicker" name="mes[]" id="mes" multiple data-style="btn-white" data-header="Seleccione Mes" data-actions-box="true" data-live-search="true">
                                 <option value="1">Enero</option>
                                 <option value="2">Febrero</option>
                                 <option value="3">Marzo</option>

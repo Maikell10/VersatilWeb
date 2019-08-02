@@ -1763,7 +1763,7 @@ pre code {
 
 
 
-@media (max-width: 1538px) {
+@media (max-width: 1500px) {
   .table-responsive {
     display: block;
     width: 100%;
@@ -1772,6 +1772,19 @@ pre code {
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   .table-responsive.table-bordered {
+    border: 0;
+  }
+}
+
+@media (max-width: 1538px) {
+  .table-responsive1 {
+    display: block;
+    width: 100%;
+    margin-left: 10px;
+    overflow-x: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  .table-responsive1.table-bordered {
     border: 0;
   }
 }
