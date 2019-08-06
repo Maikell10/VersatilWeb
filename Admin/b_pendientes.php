@@ -247,7 +247,7 @@ if(isset($_SESSION['seudonimo'])) {
         $( "#iddatatable tbody tr" ).click(function() {
             var customerId = $(this).find("td").eq(1).html();   
 
-            window.location.href = "v_poliza.php?id_poliza="+customerId;
+            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
         });
 
     </script>

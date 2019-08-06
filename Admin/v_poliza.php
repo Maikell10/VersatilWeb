@@ -555,12 +555,14 @@ if ( (!$con_id) || (!$lr) ) {
                             </tr>
                             <?php if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) { ?>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                <th colspan="2">Cía Preferencial</th>
-                                <th colspan="2">% GC Preferencial del Asesor por Cía</th>
+                                <th>Cía Preferencial</th>
+                                <th colspan="2">% GC Base Asesor</th>
+                                <th>% GC Preferencial</th>
                             </tr>
                             <tr >
-                                <td colspan="2"><?php echo 'Sí' ?></td>
-                                <td colspan="2"><?php echo $cia_pref[0]['per_gc_sum']." %"; ?></td>
+                                <td><?php echo 'Sí' ?></td>
+                                <td colspan="2"><?php echo $poliza[0]['nopre1']." %"; ?></td>
+                                <td><?php echo $cia_pref[0]['per_gc_sum']." %"; ?></td>
                             </tr>
                             <?php } ?>
                     </tbody>

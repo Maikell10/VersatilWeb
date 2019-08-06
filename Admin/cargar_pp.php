@@ -51,17 +51,20 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $ob2->get_element('dcia','nomcia'); 
 
   $ob3= new Trabajo();
-  $asesor = $ob3->get_element('ena','idena'); 
+  $asesor = $ob3->get_element('ena','idnom'); 
 
   $obj31= new Trabajo();
-  $liderp = $obj31->get_element('enp','id_enp'); 
+  $liderp = $obj31->get_element('enp','nombre'); 
 
   $obj32= new Trabajo();
-  $referidor = $obj32->get_element('enr','id_enr'); 
+  $referidor = $obj32->get_element('enr','nombre'); 
 
 
   $obj4= new Trabajo();
   $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $ob10= new Trabajo();
+  $vehiculo = $ob10->get_element_by_id('dveh','idveh',$poliza[0]['id_poliza']);
 
 
 ?>
@@ -364,11 +367,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="placa" name="placa"></td>
-                                    <td><input type="text" class="form-control" id="marca" name="marca"></td>
-                                    <td><input type="text" class="form-control" id="modelo" name="modelo"></td>
-                                    <td><input type="text" class="form-control" id="tipo" name="tipo"></td>
-                                    <td><input type="text" class="form-control" id="anio" name="anio" placeholder="2019"></td>
+                                    <td><input type="text" class="form-control" id="placa" name="placa" value="<?php echo $vehiculo[0]['placa']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="marca" name="marca" value="<?php echo $vehiculo[0]['marca']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="modelo" name="modelo" value="<?php echo $vehiculo[0]['mveh']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $vehiculo[0]['tveh']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="anio" name="anio" value="<?php echo $vehiculo[0]['f_veh']; ?>"></td>
                                 </tr>
                                 <!--<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                     <th>Año</th>
@@ -405,18 +408,18 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tbody >
                         <tr style="background-color: white">
-                            <td style="text-align:center"><select class="custom-select" id="asesor" name="asesor" required>
+                            <td style="text-align:center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
                                     <?php
                                         for($i=0;$i<sizeof($asesor);$i++)
                                         {  
                                     ?>
-                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
                                     <?php }for($i=0;$i<sizeof($liderp);$i++)
                                         { ?> 
-                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
                                     <?php } for($i=0;$i<sizeof($referidor);$i++)
                                         {?>
-                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
                                     <?php } ?>
                                 </select>
                             </td>
@@ -518,6 +521,9 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
 
 
     <!-- Modal -->
@@ -698,6 +704,13 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script type="text/javascript">
         $(document).ready(function(){
+            
+            $('#ramo').val($('#ramo_e').val());
+            if ($('#ramo').val()==2 || $('#ramo').val()==25) {
+                $('#tablaveh').removeAttr('hidden');
+            }else{
+                $('#tablaveh').attr('hidden',true);
+            }
 
             $("#tipo_poliza").val(1);
             $("#f_pago").val(1);

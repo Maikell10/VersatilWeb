@@ -289,11 +289,13 @@ if(isset($_SESSION['seudonimo'])) {
                                             //$per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
                                 ?>
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
-                                    <th nowrap colspan="3">Cía Preferencial</th>
+                                    <th nowrap >Cía Preferencial</th>
+                                    <th colspan="2">% GC Base Asesor</th>
                                     <th nowrap colspan="2">% GC Preferencial del Asesor por Cía</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo 'Sí';?>"></td>
+                                    <td><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo 'Sí';?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $per_gc-$cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                 </tr>
                                 <?php   

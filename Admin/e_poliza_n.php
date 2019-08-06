@@ -127,6 +127,9 @@ if(isset($_SESSION['seudonimo'])) {
     $originalHastaR = $_POST['hasta_recibo'];
     $newHastaR = date("d/m/Y", strtotime($originalHastaR));
 
+    $originalDesdePc = $_POST['desdeP'];
+    $newDesdePc = date("Y/m/d", strtotime($originalDesdePc));
+
 
     if ($sumaA=="") {
         $sumaA=0;
@@ -167,6 +170,13 @@ if(isset($_SESSION['seudonimo'])) {
     $color='-';
     $serial='-';
     $categoria='-';
+
+
+    $obj77= new Trabajo();
+    $cia_pref = $obj77->get_per_gc_cia_pref($newDesdePc,$cia,$u[0]); 
+    if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) {
+         $per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
+    }
 
 
 ?>
@@ -279,6 +289,24 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" name="hasta_recibo" readonly="readonly" value="<?php echo $newHastaR;?>"></td>
                                     <td><input type="text" class="form-control" name="z_produc" readonly="readonly" value="<?php echo $z_produc;?>"></td>
                                 </tr>
+
+
+                                <?php   if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) {
+                                            //$per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
+                                ?>
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th nowrap >Cía Preferencial</th>
+                                    <th colspan="2">% GC Base Asesor</th>
+                                    <th nowrap colspan="2">% GC Preferencial del Asesor por Cía</th>
+                                </tr>
+                                <tr >
+                                    <td><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo 'Sí';?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $per_gc-$cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                </tr>
+                                <?php   
+                                        }
+                                ?>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
                                     <th nowrap colspan="3">Asesor</th>
