@@ -99,6 +99,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
+                <?php if ($permiso!=3) {?>
                 <div class="card text-white bg-info mb-3">
                 <a href="Comisiones_Cobradas/busqueda_ejecutivo.php">
                   <div class="card-body">
@@ -106,6 +107,7 @@ if(isset($_SESSION['seudonimo'])) {
                   </div>
                 </a>
                 </div>
+                <?php }?>
 
             </div>
 

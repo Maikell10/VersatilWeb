@@ -52,9 +52,22 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
 
- 
+//----------------------------------------------------------------------------
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$asesor_u = $user[0]['cod_vend'];
+$permiso = $user[0]['id_permiso'];
+//---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
   $obj12= new Trabajo();
   $tipo_poliza = $obj12->get_distinct_tipo_poliza_prima_c($_GET['anio'],$ramo,$cia,$tipo_cuenta); 
+}
+if ($permiso==3) { 
+  $obj12= new Trabajo();
+  $tipo_poliza = $obj12->get_distinct_tipo_poliza_prima_c_by_user($_GET['anio'],$ramo,$cia,$tipo_cuenta,$asesor_u); 
+}
 
   $totalPArray[sizeof($tipo_poliza)]=null;
   $totalPC=0;
@@ -77,13 +90,22 @@ if(isset($_SESSION['seudonimo'])) {
 
   for ($i=0; $i < sizeof($tipo_poliza); $i++) { 
 
-                        
-    $obj2= new Trabajo();
-    $primaMes = $obj2->get_poliza_c_cobrada_tipo_poliza($tipo_poliza[$i]['tipo_poliza'],$cia,$ramo,$_GET['anio'],$tipo_cuenta); 
+    if ($permiso!=3) {                    
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_c_cobrada_tipo_poliza($tipo_poliza[$i]['tipo_poliza'],$cia,$ramo,$_GET['anio'],$tipo_cuenta); 
 
 
-    $obj22= new Trabajo();
-    $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_tpoliza($ramo,$cia,$_GET['anio'],$tipo_cuenta,$tipo_poliza[$i]['tipo_poliza']); 
+      $obj22= new Trabajo();
+      $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_tpoliza($ramo,$cia,$_GET['anio'],$tipo_cuenta,$tipo_poliza[$i]['tipo_poliza']); 
+    }
+    if ($permiso==3) { 
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_c_cobrada_tipo_poliza_by_user($tipo_poliza[$i]['tipo_poliza'],$cia,$ramo,$_GET['anio'],$tipo_cuenta,$asesor_u); 
+
+
+      $obj22= new Trabajo();
+      $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_tpoliza_by_user($ramo,$cia,$_GET['anio'],$tipo_cuenta,$tipo_poliza[$i]['tipo_poliza'],$asesor_u); 
+    }
 
     $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 

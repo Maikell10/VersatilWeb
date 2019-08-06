@@ -43,6 +43,15 @@ if(isset($_SESSION['seudonimo'])) {
   $obj1= new Trabajo();
   $distinct_c = $obj1->get_poliza_total_by_filtro_renov_distinct_c($desde,$hasta,$asesor); 
 
+  $obj11= new Trabajo();
+  $asesor_b = $obj11->get_asesor_por_cod($asesor); 
+
+  $asesorArray='';
+  for ($i=0; $i < sizeof($asesor_b) ; $i++) { 
+    $asesorArray.=$asesor_b[$i]['nombre'].", ";
+  }
+  $asesorArray;
+  $myString = substr($asesorArray, 0, -2);
 
 ?>
 <!DOCTYPE html>
@@ -79,7 +88,7 @@ if(isset($_SESSION['seudonimo'])) {
  
  
         <div class="section">
-            <div class="container">
+            <div class="container-fluid">
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 
                 <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
@@ -92,9 +101,9 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <?php
                         if ($asesor=='') {
-                        } else { $asesorIn = "" . implode(",", $asesor) ."";
+                        } else {
                     ?>
-                    <h2>Asesor: <font style="font-weight:bold"><?php echo $asesorIn; ?></font></h2>
+                    <h2>Asesor: <font style="font-weight:bold"><?php echo $myString; ?></font></h2>
                     <?php
                         }
                     ?>

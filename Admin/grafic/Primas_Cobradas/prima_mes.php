@@ -37,8 +37,6 @@ if(isset($_SESSION['seudonimo'])) {
   $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
 
-
-
   $ramoArray[sizeof($mes)]=null;
   $primaPorMes[sizeof($mes)]=null;
   $primaCobradaPorMes1=0;
@@ -54,8 +52,22 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
 
+//----------------------------------------------------------------------------
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$asesor_u = $user[0]['cod_vend'];
+$permiso = $user[0]['id_permiso'];
+//---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
   $obj4= new Trabajo();
   $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn($ramo,$desdeI,$hastaI,$cia,$tipo_cuenta);
+}
+if ($permiso==3) { 
+  $obj4= new Trabajo();
+  $cant_p = $obj4->get_distinct_poliza_c_cobrada_bn_by_user($ramo,$desdeI,$hastaI,$cia,$tipo_cuenta,$asesor_u);
+}
 
 
   $sumasegurada[sizeof(12)]=null;
@@ -86,9 +98,14 @@ if(isset($_SESSION['seudonimo'])) {
           
           $mesB=$i+1;
           
-
+        if ($permiso!=3) { 
           $obj2= new Trabajo();
           $primaMes = $obj2->get_poliza_c_cobrada_bn($ramo,$desde,$hasta,$cia,$mesB,$tipo_cuenta); 
+        }
+        if ($permiso==3) { 
+          $obj2= new Trabajo();
+          $primaMes = $obj2->get_poliza_c_cobrada_bn_by_user($ramo,$desde,$hasta,$cia,$mesB,$tipo_cuenta,$asesor_u); 
+        }
 
           
           

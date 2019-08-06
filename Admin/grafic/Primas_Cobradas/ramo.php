@@ -40,6 +40,16 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
 
+//----------------------------------------------------------------------------
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$asesor_u = $user[0]['cod_vend'];
+$permiso = $user[0]['id_permiso'];
+//---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
+
   $obj12= new Trabajo();
   $ramo = $obj12->get_distinct_ramo_prima_c($_GET['anio'],$cia,$tipo_cuenta); 
 
@@ -180,7 +190,149 @@ if(isset($_SESSION['seudonimo'])) {
     
           $totalPArray[$i]=$totalP[$i];
       }
-                      
+} 
+if ($permiso==3) { 
+  $obj12= new Trabajo();
+  $ramo = $obj12->get_distinct_ramo_prima_c_by_user($_GET['anio'],$cia,$tipo_cuenta,$asesor_u); 
+
+  $totalPArray[sizeof($ramo)]=null;
+  $ramoArray[sizeof($ramo)]=null;
+
+
+  $sumasegurada[sizeof($ramo)]=null;
+  $p1[sizeof($ramo)]=null;
+  $p2[sizeof($ramo)]=null;
+  $p3[sizeof($ramo)]=null;
+  $p4[sizeof($ramo)]=null;
+  $p5[sizeof($ramo)]=null;
+  $p6[sizeof($ramo)]=null;
+  $p7[sizeof($ramo)]=null;
+  $p8[sizeof($ramo)]=null;
+  $p9[sizeof($ramo)]=null;
+  $p10[sizeof($ramo)]=null;
+  $p11[sizeof($ramo)]=null;
+  $p12[sizeof($ramo)]=null;
+  $totalP[sizeof($ramo)]=null;
+  $cantidad[sizeof($ramo)]=null;
+
+      for ($i=0; $i < sizeof($ramo); $i++) { 
+          
+        $obj2= new Trabajo();
+        $primaMes = $obj2->get_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'],$cia,$_GET['anio'],$tipo_cuenta,$asesor_u); 
+
+        $obj22= new Trabajo();
+        $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_ramo_by_user($ramo[$i]['nramo'],$cia,$_GET['anio'],$tipo_cuenta,$asesor_u); 
+
+        $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+        
+
+        $sumasegurada=0;
+        $prima_pagada1=0;
+        $prima_pagada2=0;
+        $prima_pagada3=0;
+        $prima_pagada4=0;
+        $prima_pagada5=0;
+        $prima_pagada6=0;
+        $prima_pagada7=0;
+        $prima_pagada8=0;
+        $prima_pagada9=0;
+        $prima_pagada10=0;
+        $prima_pagada11=0;
+        $prima_pagada12=0;
+
+        $cantP=0;
+        
+        for($a=0;$a<sizeof($primaMes);$a++)
+          { 
+            $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
+          
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-01-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-01-31') )  {
+              $prima_pagada1=$prima_pagada1+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-02-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-02-29') )  {
+              $prima_pagada2=$prima_pagada2+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-03-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-03-31'))  {
+              $prima_pagada3=$prima_pagada3+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-04-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-04-31'))  {
+              $prima_pagada4=$prima_pagada4+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-05-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-05-31'))  {
+              $prima_pagada5=$prima_pagada5+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-06-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-06-31'))  {
+              $prima_pagada6=$prima_pagada6+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-07-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-07-31'))  {
+              $prima_pagada7=$prima_pagada7+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-08-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-08-31'))  {
+              $prima_pagada8=$prima_pagada8+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-09-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-09-31'))  {
+              $prima_pagada9=$prima_pagada9+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-10-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-10-31'))  {
+              $prima_pagada10=$prima_pagada10+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-11-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-11-31'))  {
+              $prima_pagada11=$prima_pagada11+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+            if ( ($primaMes[$a]['f_pago_prima'] >= $_GET['anio'].'-12-01') && ($primaMes[$a]['f_pago_prima'] <= $_GET['anio'].'-12-31'))  {
+              $prima_pagada12=$prima_pagada12+$primaMes[$a]['prima_com'];
+              $cantP=$cantP+1;
+            }
+          } 
+          
+          
+          $totalCant=$totalCant+$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+          $primaCobradaPorMes1=$primaCobradaPorMes1+$prima_pagada1;
+          $primaCobradaPorMes2=$primaCobradaPorMes2+$prima_pagada2;
+          $primaCobradaPorMes3=$primaCobradaPorMes3+$prima_pagada3;
+          $primaCobradaPorMes4=$primaCobradaPorMes4+$prima_pagada4;
+          $primaCobradaPorMes5=$primaCobradaPorMes5+$prima_pagada5;
+          $primaCobradaPorMes6=$primaCobradaPorMes6+$prima_pagada6;
+          $primaCobradaPorMes7=$primaCobradaPorMes7+$prima_pagada7;
+          $primaCobradaPorMes8=$primaCobradaPorMes8+$prima_pagada8;
+          $primaCobradaPorMes9=$primaCobradaPorMes9+$prima_pagada9;
+          $primaCobradaPorMes10=$primaCobradaPorMes10+$prima_pagada10;
+          $primaCobradaPorMes11=$primaCobradaPorMes11+$prima_pagada11;
+          $primaCobradaPorMes12=$primaCobradaPorMes12+$prima_pagada12;
+
+          $p1[$i]=$prima_pagada1;
+          $p2[$i]=$prima_pagada2;
+          $p3[$i]=$prima_pagada3;
+          $p4[$i]=$prima_pagada4;
+          $p5[$i]=$prima_pagada5;
+          $p6[$i]=$prima_pagada6;
+          $p7[$i]=$prima_pagada7;
+          $p8[$i]=$prima_pagada8;
+          $p9[$i]=$prima_pagada9;
+          $p10[$i]=$prima_pagada10;
+          $p11[$i]=$prima_pagada11;
+          $p12[$i]=$prima_pagada12;
+          $cantidad[$i]=$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
+          $ramoArray[$i]=$ramo[$i]['nramo'];
+
+          $totalP[$i]=$prima_pagada1+$prima_pagada2+$prima_pagada3+$prima_pagada4+$prima_pagada5+$prima_pagada6+$prima_pagada7+$prima_pagada8+$prima_pagada9+$prima_pagada10+$prima_pagada11+$prima_pagada12;
+
+          $totalPC=$totalPC+$totalP[$i];
+    
+          $totalPArray[$i]=$totalP[$i];
+      }    
+}                
 
 
   asort($totalP , SORT_NUMERIC);

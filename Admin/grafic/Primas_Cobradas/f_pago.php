@@ -22,6 +22,14 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+//----------------------------------------------------------------------------
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$asesor_u = $user[0]['cod_vend'];
+$permiso = $user[0]['id_permiso'];
+//---------------------------------------------------------------------------
+
 
   $obj1= new Trabajo();
   $mes = $obj1->get_mes_prima_BN(); 
@@ -52,9 +60,14 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
 
- 
-  $obj12= new Trabajo();
-  $f_pago = $obj12->get_distinct_f_pago_prima_c($_GET['anio'],$ramo,$cia,$tipo_cuenta); 
+  if ($permiso!=3) { 
+    $obj12= new Trabajo();
+    $f_pago = $obj12->get_distinct_f_pago_prima_c($_GET['anio'],$ramo,$cia,$tipo_cuenta); 
+  }
+  if ($permiso==3) { 
+    $obj12= new Trabajo();
+    $f_pago = $obj12->get_distinct_f_pago_prima_c_by_user($_GET['anio'],$ramo,$cia,$tipo_cuenta,$asesor_u); 
+  }
 
   $totalPArray[sizeof($f_pago)]=null;
   $totalPC=0;
@@ -78,13 +91,22 @@ if(isset($_SESSION['seudonimo'])) {
 
   for ($i=0; $i < sizeof($f_pago); $i++) { 
 
-                        
-    $obj2= new Trabajo();
-    $primaMes = $obj2->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'],$cia,$ramo,$_GET['anio'],$tipo_cuenta); 
+    if ($permiso!=3) {                    
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_c_cobrada_f_pago($f_pago[$i]['fpago'],$cia,$ramo,$_GET['anio'],$tipo_cuenta); 
 
 
-    $obj22= new Trabajo();
-    $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_fpago($ramo,$cia,$_GET['anio'],$tipo_cuenta,$f_pago[$i]['fpago']); 
+      $obj22= new Trabajo();
+      $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_fpago($ramo,$cia,$_GET['anio'],$tipo_cuenta,$f_pago[$i]['fpago']); 
+    }
+    if ($permiso==3) {
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_c_cobrada_f_pago_by_user($f_pago[$i]['fpago'],$cia,$ramo,$_GET['anio'],$tipo_cuenta,$asesor_u); 
+
+
+      $obj22= new Trabajo();
+      $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_fpago_by_user($ramo,$cia,$_GET['anio'],$tipo_cuenta,$f_pago[$i]['fpago'],$asesor_u); 
+    } 
 
     $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 

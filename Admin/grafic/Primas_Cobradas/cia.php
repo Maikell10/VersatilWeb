@@ -18,6 +18,14 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
+
 
   $obj1= new Trabajo();
   $mes = $obj1->get_mes_prima_BN(); 
@@ -48,9 +56,15 @@ if(isset($_SESSION['seudonimo'])) {
   $primaCobradaPorMes11=0;
   $primaCobradaPorMes12=0;
 
+if ($permiso!=3) { 
   $obj12= new Trabajo();
   $cia = $obj12->get_distinct_cia_prima_c($_GET['anio'],$ramo,$tipo_cuenta); 
-  
+}
+if ($permiso==3) { 
+  $obj12= new Trabajo();
+  $cia = $obj12->get_distinct_cia_prima_c_by_user($_GET['anio'],$ramo,$tipo_cuenta,$asesor_u); 
+}
+
   $totalPArray[sizeof($cia)]=null;
   $totalPC=0;
 
@@ -72,13 +86,22 @@ if(isset($_SESSION['seudonimo'])) {
 
   for ($i=0; $i < sizeof($cia); $i++) { 
 
-                        
+    if ($permiso!=3) {                     
     $obj2= new Trabajo();
     $primaMes = $obj2->get_poliza_c_cobrada_cia($cia[$i]['nomcia'],$ramo,$_GET['anio'],$tipo_cuenta); 
 
 
     $obj22= new Trabajo();
     $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_cia($ramo,$cia[$i]['nomcia'],$_GET['anio'],$tipo_cuenta); 
+    }
+    if ($permiso==3) { 
+    $obj2= new Trabajo();
+    $primaMes = $obj2->get_poliza_c_cobrada_cia_by_user($cia[$i]['nomcia'],$ramo,$_GET['anio'],$tipo_cuenta,$asesor_u); 
+
+
+    $obj22= new Trabajo();
+    $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_cia_by_user($ramo,$cia[$i]['nomcia'],$_GET['anio'],$tipo_cuenta,$asesor_u); 
+    }
 
     $cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
 

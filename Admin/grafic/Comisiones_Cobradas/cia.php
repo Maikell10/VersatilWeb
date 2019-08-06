@@ -22,6 +22,14 @@ if(isset($_SESSION['seudonimo'])) {
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
   $hasta=$_GET['anio']."-".$_GET['mes']."-31";
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+  
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
+
   if ($mes==null) {
       $mesD=01;
       $mesH=12;
@@ -41,9 +49,14 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
 
-
-  $obj1= new Trabajo();
-  $cia = $obj1->get_distinct_element_cia_pc($desde,$hasta,$ramo,$tipo_cuenta); 
+  if ($permiso!=3) { 
+    $obj1= new Trabajo();
+    $cia = $obj1->get_distinct_element_cia_pc($desde,$hasta,$ramo,$tipo_cuenta); 
+  }
+  if ($permiso==3) {
+    $obj1= new Trabajo();
+    $cia = $obj1->get_distinct_element_cia_pc_by_user($desde,$hasta,$ramo,$tipo_cuenta,$asesor_u); 
+  }
 
   $totals=0;
   $totalpc=0;
@@ -69,8 +82,14 @@ if(isset($_SESSION['seudonimo'])) {
   for($i=0;$i<sizeof($cia);$i++)
     {  
 
-      $obj2= new Trabajo();
-      $ciaPoliza = $obj2->get_poliza_graf_3_pc($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta); 
+      if ($permiso!=3) {
+        $obj2= new Trabajo();
+        $ciaPoliza = $obj2->get_poliza_graf_3_pc($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta); 
+      }
+      if ($permiso==3) {
+        $obj2= new Trabajo();
+        $ciaPoliza = $obj2->get_poliza_graf_3_pc_by_user($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta,$asesor_u); 
+      }
     
       
       $sumasegurada=0;
@@ -98,8 +117,16 @@ if(isset($_SESSION['seudonimo'])) {
         }
         
         $sumasegurada=0;
-        $obj1111= new Trabajo();
-        $resumen_poliza = $obj1111->get_resumen_por_cia_en_poliza($desde,$hasta,$cia[$i]['nomcia']);
+
+        if ($permiso!=3) {
+          $obj1111= new Trabajo();
+          $resumen_poliza = $obj1111->get_resumen_por_cia_en_poliza($desde,$hasta,$cia[$i]['nomcia']);
+        }
+        if ($permiso==3) {
+          $obj1111= new Trabajo();
+          $resumen_poliza = $obj1111->get_resumen_por_cia_en_poliza_by_user($desde,$hasta,$cia[$i]['nomcia'],$asesor_u);
+        }
+
         $cantArray[$i]=sizeof($resumen_poliza);
         $totalCant=$totalCant+sizeof($resumen_poliza);
         for($f=0;$f<sizeof($resumen_poliza);$f++)

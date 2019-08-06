@@ -13,12 +13,18 @@ if(isset($_SESSION['seudonimo'])) {
 
   $busq = $_GET['busq'];
   
-
+ //----------------------------------------------------------------------------
+ $obj11= new Trabajo();
+ $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+ 
+ $asesor_u = $user[0]['cod_vend'];
+ $permiso = $user[0]['id_permiso'];
+ //---------------------------------------------------------------------------
   
   
 
   $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_by_busq($busq); 
+  $poliza = $obj1->get_poliza_by_busq($busq,$asesor_u); 
 
 
 

@@ -22,17 +22,20 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+  
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
 
 
 $mesA=$_GET['mes']+01;
 $numeroConCeros = str_pad($mesA, 2, "0", STR_PAD_LEFT);
 
-
 $desde=$_GET['desde'].'-'.$numeroConCeros.'-01';
 $hasta=$_GET['desde'].'-'.$numeroConCeros.'-31';
-
-
-
 
 #separas la fecha en subcadenas y asignarlas a variables
 #relacionadas en contenido, por ejemplo dia, mes y anio.
@@ -51,22 +54,15 @@ $semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));
 
 //echo $semana;  
 
-
-
-
+if ($permiso!=3) { 
 
   $obj1= new Trabajo();
   $dia_mes = $obj1->get_dia_mes_prima($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
-
-
 
   $totals=0;
   $totalCant=0;
 
   $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
-
-
-
 
   $ramoArray[sizeof($dia_mes)]=null;
   $cantArray[sizeof($dia_mes)]=null;
@@ -102,13 +98,54 @@ $semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));
         $primaPorMes[$i]=$sumasegurada;
 
     }
+}
+if ($permiso==3) {
+  $obj1= new Trabajo();
+  $dia_mes = $obj1->get_dia_mes_prima_by_user($desde,$hasta,$cia,$ramo,$tipo_cuenta,$asesor_u); 
 
+  $totals=0;
+  $totalCant=0;
+
+  $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+
+  $ramoArray[sizeof($dia_mes)]=null;
+  $cantArray[sizeof($dia_mes)]=null;
+  $primaPorMes[sizeof($dia_mes)]=null;
+
+  
+
+  for($i=0;$i<sizeof($dia_mes);$i++)
+    {  
+      $dia=$dia_mes[$i]['f_desdepoliza'];
+
+      $dia1   = substr($dia,8,2);
+      $mes1 = substr($dia,5,2);
+      $anio1 = substr($dia,0,4); 
+
+
+      $semana = date('W',  mktime(0,0,0,$mes1,$dia1,$anio1));  
+
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_graf_p3_by_user($ramo,$dia,$cia,$tipo_cuenta,$asesor_u); 
+    
+      
+      $sumasegurada=0;
+      for($a=0;$a<sizeof($primaMes);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
+
+        } 
+        $cantArray[$i]=sizeof($primaMes);
+        $totals=$totals+$sumasegurada;
+        $totalCant=$totalCant+$cantArray[$i];
+        $semanaMesArray[$i]=$semana;
+        $primaPorMes[$i]=$sumasegurada;
+
+    }
+}
 
 
 $semSinDuplicado=array_values(array_unique($semanaMesArray));
-
-
-
 
 
     for ($i=0; $i < sizeof($semSinDuplicado); $i++) { 

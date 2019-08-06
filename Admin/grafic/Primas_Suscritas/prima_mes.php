@@ -22,15 +22,19 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+  
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
 
-$desde=$_GET['desde'].'-01-01';
-$hasta=($_GET['desde']).'-12-31';
+  $desde=$_GET['desde'].'-01-01';
+  $hasta=($_GET['desde']).'-12-31';
 
   $obj1= new Trabajo();
   $mes = $obj1->get_mes_prima($desde,$hasta,$cia,$ramo,$tipo_cuenta,'1'); 
-
-
-
 
   $totals=0;
   $totalpa=0;
@@ -39,9 +43,6 @@ $hasta=($_GET['desde']).'-12-31';
 
   $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 
-
-
-
   $ramoArray[sizeof($mes)]=null;
   $cantArray[sizeof($mes)]=null;
   $primaPorMes[sizeof($mes)]=null;
@@ -49,6 +50,7 @@ $hasta=($_GET['desde']).'-12-31';
   $primaPorMesPA[sizeof($mes)]=null;
   $primaPorMesR[sizeof($mes)]=null;
 
+if ($permiso!=3) { 
 
   for($i=0;$i<sizeof($mes);$i++)
     {  
@@ -84,7 +86,43 @@ $hasta=($_GET['desde']).'-12-31';
 
         
     }
+}
+if ($permiso==3) {
+  for($i=0;$i<sizeof($mes);$i++)
+    {  
+      $desde=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-01";
+      $hasta=$_GET['desde']."-".$mes[$i]["Month(f_desdepoliza)"]."-31";
 
+      $obj2= new Trabajo();
+      $primaMes = $obj2->get_poliza_grafp_2_by_user($ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor_u); 
+    
+      $cantArray[$i]=sizeof($primaMes);
+      $sumasegurada=0;
+      $sumaseguradaPA=0;
+      $sumaseguradaR=0;
+      for($a=0;$a<sizeof($primaMes);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
+          if ($primaMes[$a]['id_tpoliza']==1) {
+            $sumaseguradaPA=$sumaseguradaPA+$primaMes[$a]['prima'];
+          }
+          if ($primaMes[$a]['id_tpoliza']==2) {
+            $sumaseguradaR=$sumaseguradaR+$primaMes[$a]['prima'];
+          }
+
+        } 
+        $totals=$totals+$sumasegurada;
+        $totalpa=$totalpa+$sumaseguradaPA;
+        $totalr=$totalr+$sumaseguradaR;
+        $totalCant=$totalCant+$cantArray[$i];
+        $ramoArray[$i]=$primaMes[0]['cod_ramo'];
+        $primaPorMes[$i]=$sumasegurada;
+        $primaPorMesPA[$i]=$sumaseguradaPA;
+        $primaPorMesR[$i]=$sumaseguradaR;
+
+        
+    }
+}
 
 ?>
 <!DOCTYPE html>

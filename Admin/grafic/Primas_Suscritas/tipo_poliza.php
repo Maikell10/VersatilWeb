@@ -46,6 +46,16 @@ if(isset($_SESSION['seudonimo'])) {
     $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
   }
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
+
 
   $obj1= new Trabajo();
   $tpoliza = $obj1->get_distinct_element_tpoliza($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
@@ -56,6 +66,7 @@ if(isset($_SESSION['seudonimo'])) {
   $tpolizaArray[sizeof($tpoliza)]=null;
   $sumatotalTpoliza[sizeof($tpoliza)]=null;
   $cantArray[sizeof($tpoliza)]=null;
+
 
 
   for($i=0;$i<sizeof($tpoliza);$i++)
@@ -76,6 +87,38 @@ if(isset($_SESSION['seudonimo'])) {
         $sumatotalTpoliza[$i]=$sumasegurada;
         $tpolizaArray[$i]=$tpoliza[$i]['tipo_poliza'];
     }
+}
+if ($permiso==3) {
+  $obj1= new Trabajo();
+  $tpoliza = $obj1->get_distinct_element_tpoliza_by_user($desde,$hasta,$cia,$ramo,$tipo_cuenta,$asesor_u); 
+
+  $totals=0;
+  $totalCant=0;
+
+  $tpolizaArray[sizeof($tpoliza)]=null;
+  $sumatotalTpoliza[sizeof($tpoliza)]=null;
+  $cantArray[sizeof($tpoliza)]=null;
+
+
+  for($i=0;$i<sizeof($tpoliza);$i++)
+    {  
+
+      $obj2= new Trabajo();
+      $tpolizaPoliza = $obj2->get_poliza_graf_2_by_user($tpoliza[$i]['tipo_poliza'],$ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor_u); 
+    
+      $cantArray[$i]=sizeof($tpolizaPoliza);
+      $sumasegurada=0;
+      for($a=0;$a<sizeof($tpolizaPoliza);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$tpolizaPoliza[$a]['prima'];
+
+        } 
+        $totals=$totals+$sumasegurada;
+        $totalCant=$totalCant+$cantArray[$i];
+        $sumatotalTpoliza[$i]=$sumasegurada;
+        $tpolizaArray[$i]=$tpoliza[$i]['tipo_poliza'];
+    }
+}
 
 
 asort($sumatotalTpoliza , SORT_NUMERIC);
@@ -87,11 +130,6 @@ foreach($sumatotalTpoliza as $key=>$value) {
    $x[count($x)] = $key;
 
 }
-
-
-  //isset($_POST["ramo"]);
-  //onchange = "this.form.submit()"
-
 
 ?>
 <!DOCTYPE html>

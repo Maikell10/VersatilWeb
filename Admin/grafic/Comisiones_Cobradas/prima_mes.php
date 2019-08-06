@@ -22,6 +22,14 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+//----------------------------------------------------------------------------
+$obj11= new Trabajo();
+$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+$asesor_u = $user[0]['cod_vend'];
+$permiso = $user[0]['id_permiso'];
+//---------------------------------------------------------------------------
+
 
 $desde=$_GET['desde'].'-01-01';
 $hasta=($_GET['desde']).'-12-31';
@@ -64,8 +72,14 @@ $hasta=($_GET['desde']).'-12-31';
       $desde=$_GET['desde']."-".$mes[$i]["Month(f_hastapoliza)"]."-01";
       $hasta=$_GET['desde']."-".$mes[$i]["Month(f_hastapoliza)"]."-31";
 
-      $obj2= new Trabajo();
-      $primaMes = $obj2->get_poliza_grafp_2_pc($ramo,$desde,$hasta,$cia,$tipo_cuenta); 
+      if ($permiso!=3) { 
+        $obj2= new Trabajo();
+        $primaMes = $obj2->get_poliza_grafp_2_pc($ramo,$desde,$hasta,$cia,$tipo_cuenta); 
+      }
+      if ($permiso==3) {
+        $obj2= new Trabajo();
+        $primaMes = $obj2->get_poliza_grafp_2_pc_by_user($ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor_u); 
+      }
     
       
       $sumasegurada=0;
@@ -94,8 +108,16 @@ $hasta=($_GET['desde']).'-12-31';
         }
         
         $sumasegurada=0;
-        $obj1111= new Trabajo();
-        $resumen_poliza = $obj1111->get_resumen_por_mes_en_poliza($desde,$hasta,$mes[$i]["Month(f_hastapoliza)"]);
+
+        if ($permiso!=3) { 
+          $obj1111= new Trabajo();
+          $resumen_poliza = $obj1111->get_resumen_por_mes_en_poliza($desde,$hasta,$mes[$i]["Month(f_hastapoliza)"]);
+        }
+        if ($permiso==3) {
+          $obj1111= new Trabajo();
+          $resumen_poliza = $obj1111->get_resumen_por_mes_en_poliza_by_user($desde,$hasta,$mes[$i]["Month(f_hastapoliza)"],$asesor_u);
+        }
+
         $cantArray[$i]=sizeof($resumen_poliza);
         $totalCant=$totalCant+sizeof($resumen_poliza);
         for($f=0;$f<sizeof($resumen_poliza);$f++)

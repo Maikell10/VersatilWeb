@@ -18,6 +18,15 @@ if(isset($_SESSION['seudonimo'])) {
     $ramo=$_GET["ramo"]; 
   }else{$ramo='';}
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+  
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
 
   $mes = $_GET['mes'];
   $desde=$_GET['anio']."-".$_GET['mes']."-01";
@@ -72,6 +81,62 @@ if(isset($_SESSION['seudonimo'])) {
         $sumatotalCia[$i]=$sumasegurada;
         $ciaArray[$i]=$cia[$i]['nomcia'];
     }
+}
+if ($permiso==3) {
+  $mes = $_GET['mes'];
+  $desde=$_GET['anio']."-".$_GET['mes']."-01";
+  $hasta=$_GET['anio']."-".$_GET['mes']."-31";
+
+  if ($mes==null) {
+      $mesD=01;
+      $mesH=12;
+      $desde=$_GET['anio']."-".$mesD."-01";
+      $hasta=$_GET['anio']."-".$mesH."-31";
+  }
+
+
+  $anio = $_GET['anio'];
+  if ($anio==null) {
+    $obj11= new Trabajo();
+    $fechaMin = $obj11->get_fecha_min('f_hastapoliza','poliza'); 
+    $desde=$fechaMin[0]['MIN(f_hastapoliza)'];
+  
+    $obj12= new Trabajo();
+    $fechaMax = $obj12->get_fecha_max('f_hastapoliza','poliza'); 
+    $hasta=$fechaMax[0]['MAX(f_hastapoliza)'];
+  }
+
+
+  $obj1= new Trabajo();
+  $cia = $obj1->get_distinct_element_cia_by_user($desde,$hasta,$ramo,$tipo_cuenta,$asesor_u); 
+
+  $totals=0;
+  $totalCant=0;
+
+  $ciaArray[sizeof($cia)]=null;
+  $sumatotalCia[sizeof($cia)]=null;
+  $cantArray[sizeof($cia)]=null;
+
+
+  for($i=0;$i<sizeof($cia);$i++)
+    {  
+
+      $obj2= new Trabajo();
+      $ciaPoliza = $obj2->get_poliza_graf_3_by_user($cia[$i]['nomcia'],$ramo,$desde,$hasta,$tipo_cuenta,$asesor_u); 
+    
+      $cantArray[$i]=sizeof($ciaPoliza);
+      $sumasegurada=0;
+      for($a=0;$a<sizeof($ciaPoliza);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$ciaPoliza[$a]['prima'];
+
+        } 
+        $totals=$totals+$sumasegurada;
+        $totalCant=$totalCant+$cantArray[$i];
+        $sumatotalCia[$i]=$sumasegurada;
+        $ciaArray[$i]=$cia[$i]['nomcia'];
+    }
+}
 
 asort($sumatotalCia , SORT_NUMERIC);
 
@@ -82,10 +147,6 @@ foreach($sumatotalCia as $key=>$value) {
    $x[count($x)] = $key;
 
 }
-  //isset($_POST["ramo"]);
-  //onchange = "this.form.submit()"
-
-
 
 ?>
 <!DOCTYPE html>

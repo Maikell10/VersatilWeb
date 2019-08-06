@@ -57,6 +57,16 @@ if(isset($_SESSION['seudonimo'])) {
   $sumatotalFpago[sizeof($fpago)]=null;
   $cantArray[sizeof($fpago)]=null;
 
+  //----------------------------------------------------------------------------
+  $obj11= new Trabajo();
+  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+
+  $asesor_u = $user[0]['cod_vend'];
+  $permiso = $user[0]['id_permiso'];
+  //---------------------------------------------------------------------------
+
+if ($permiso!=3) { 
+
 
   for($i=0;$i<sizeof($fpago);$i++)
     {  
@@ -76,7 +86,27 @@ if(isset($_SESSION['seudonimo'])) {
         $sumatotalFpago[$i]=$sumasegurada;
         $fpagoArray[$i]=$fpago[$i]['fpago'];
     }
+}
+if ($permiso==3) {
+  for($i=0;$i<sizeof($fpago);$i++)
+    {  
 
+      $obj2= new Trabajo();
+      $fpagoPoliza = $obj2->get_poliza_graf_4_by_user($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor_u); 
+    
+      $cantArray[$i]=sizeof($fpagoPoliza);
+      $sumasegurada=0;
+      for($a=0;$a<sizeof($fpagoPoliza);$a++)
+        { 
+          $sumasegurada=$sumasegurada+$fpagoPoliza[$a]['prima'];
+
+        } 
+        $totals=$totals+$sumasegurada;
+        $totalCant=$totalCant+$cantArray[$i];
+        $sumatotalFpago[$i]=$sumasegurada;
+        $fpagoArray[$i]=$fpago[$i]['fpago'];
+    }
+}
 
 asort($sumatotalFpago , SORT_NUMERIC);
 
@@ -87,10 +117,6 @@ foreach($sumatotalFpago as $key=>$value) {
    $x[count($x)] = $key;
 
 }
-
-
-  //isset($_POST["ramo"]);
-  //onchange = "this.form.submit()"
 
 
 ?>

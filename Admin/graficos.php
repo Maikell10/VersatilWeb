@@ -95,6 +95,7 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
+                <?php if ($permiso!=3) {?>
                 <div class="card text-white bg-info mb-6">
                 <a href="grafic/resumen.php" >
                   <div class="card-body">
@@ -102,6 +103,7 @@ if(isset($_SESSION['seudonimo'])) {
                   </div>
                 </a>
                 </div>
+                <?php }?>
 
 
             </div>
