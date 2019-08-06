@@ -60,7 +60,7 @@ $totalCom=0;
 	                <td><?php echo $f_hasta_rep; ?></td>
                     <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
 	                <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
-					<td nowrap><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
+					<td nowrap><?php echo ($cia[0]['nomcia']); ?></td>
 					<td><?php echo $f_pago_gc; ?></td>
 				</tr>
 				<?php

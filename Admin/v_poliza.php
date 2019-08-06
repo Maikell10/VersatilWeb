@@ -271,7 +271,7 @@ if ( (!$con_id) || (!$lr) ) {
                     <tbody >
                             <tr >
                                 <td><?php echo utf8_encode($poliza[0]['nramo']); ?></td>
-                                <td><?php echo utf8_encode($poliza[0]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[0]['nomcia']); ?></td>
                                 <td><?php echo $currency.number_format($poliza[0]['sumaasegurada'],2); ?></td>
                                 <td><?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
                                 <td><?php echo $poliza[0]['fpago']; ?></td>
@@ -490,7 +490,7 @@ if ( (!$con_id) || (!$lr) ) {
                     <table class="table table-hover table-striped table-bordered" id="idtablaveh" >
                         <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <tr>
-                                <th>Placa *</th>
+                                <th>Placa</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th>Tipo</th>

@@ -137,7 +137,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                       ?>
                       <tr>
-                        <td rowspan="<?php echo $cont; ?>" style="background-color: #D9D9D9"><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+                        <td rowspan="<?php echo $cont; ?>" style="background-color: #D9D9D9"><?php echo ($cia[$i]['nomcia']); ?></td>
                       
                       <?php
 
@@ -211,7 +211,7 @@ if(isset($_SESSION['seudonimo'])) {
                         }
                         ?>
                       <tr style="background-color: #FF7E7E;color: white;font-weight: bold;">
-                        <td colspan="2">Total <?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+                        <td colspan="2">Total <?php echo ($cia[$i]['nomcia']); ?></td>
                         <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita,2); ?></td>
                         <td align="right"><?php echo "$ ".number_format($totalPrimaCobrada,2); ?></td>
                         <td align="right"><?php echo "$ ".number_format(($totalPrimaSuscrita-$totalPrimaCobrada),2); ?></td>

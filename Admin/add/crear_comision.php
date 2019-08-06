@@ -73,7 +73,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     for($i=0;$i<sizeof($cia);$i++)
                                       {  
                                   ?>
-                                      <option value="<?php echo 'cant_poliza.php?cia='.$cia[$i]["idcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                                      <option value="<?php echo 'cant_poliza.php?cia='.$cia[$i]["idcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
                                   <?php } ?> 
                             </select>
                       </div>

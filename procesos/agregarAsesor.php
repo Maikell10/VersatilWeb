@@ -24,7 +24,8 @@ if(isset($_SESSION['seudonimo'])) {
 		$_POST['cel'],
         $_POST['obs'],
         $_POST['gc'],
-        $_POST['viajes']
+        $_POST['viajes'],
+        $_POST['gc']
 				);
 
 	echo $obj->agregarAsesor($datos);

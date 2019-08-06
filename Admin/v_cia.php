@@ -56,8 +56,8 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cía: <?php echo utf8_encode($cia[0]['nomcia']); ?></h1>  
-                    <h2 class="title">Rif: <?php echo $cia[0]['rif']; ?></h2>  
+                    <h1 class="title">Cía: <?php echo ($cia[0]['nomcia']); ?></h1>  
+                    <h2 class="title">RUC/Rif: <?php echo $cia[0]['rif']; ?></h2>  
                 </div>
 
 
@@ -68,12 +68,12 @@ if(isset($_SESSION['seudonimo'])) {
                     <thead>
 						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
 							<th>Nombre Compañía</th>
-                            <th>Rif</th>
+                            <th>RUC/Rif</th>
 						</tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td ><?php echo utf8_encode($cia[0]['nomcia']); ?></td>
+                            <td ><?php echo ($cia[0]['nomcia']); ?></td>
                             <td ><?php echo $cia[0]['rif']; ?></td>
                         </tr>
                     </tbody>
@@ -101,7 +101,7 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
                         <tr>
                             <td ><?php echo $contacto_cia[$i]['nombre']; ?></td>
-                            <td ><?php echo utf8_encode($contacto_cia[$i]['cargo']); ?></td>
+                            <td ><?php echo $contacto_cia[$i]['cargo']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['tel']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['cel']; ?></td>
                             <td ><?php echo $contacto_cia[$i]['email']; ?></td>

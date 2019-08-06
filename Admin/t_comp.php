@@ -67,7 +67,7 @@ $permiso = $user[0]['id_permiso'];
 				
 				?>
 				<tr style="cursor:pointer">
-					<td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+					<td><?php echo ($cia[$i]['nomcia']); ?></td>
 					<td hidden><?php echo $cia[$i]['idcia']; ?></td>
 	                <td><?php if ($desde_pref[0]['f_desde_pref']==0) {
 						echo "No";

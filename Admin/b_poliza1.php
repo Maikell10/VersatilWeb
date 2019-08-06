@@ -162,7 +162,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <?php if ($permiso!=3) { ?>
                                 <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
                                 <?php }?>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -222,7 +222,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <?php if ($permiso!=3) { ?>
                                 <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
                                 <?php }?>
-                                <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
@@ -282,7 +282,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <?php if ($permiso!=3) { ?>    
                                 <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
                                 <?php }?>
-                                <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
@@ -377,7 +377,7 @@ if(isset($_SESSION['seudonimo'])) {
                             }
                             ?>
                                 <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -427,7 +427,7 @@ if(isset($_SESSION['seudonimo'])) {
                             
                                 
                                 <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
-                                <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
@@ -475,7 +475,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                                 <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
-                                <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
                                 <td><?php echo $newDesde; ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>

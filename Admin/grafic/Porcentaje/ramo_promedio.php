@@ -158,7 +158,7 @@ foreach($sumatotalRamoProm as $key=>$value) {
 
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
+          <th scope="row"><?php echo ($ramoArray[$x[$i]]); ?></th>
           <td><?php echo "$".number_format(($sumatotalRamo[$x[$i]])/$cantArray[$x[$i]],2); ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
@@ -239,7 +239,7 @@ foreach($sumatotalRamoProm as $key=>$value) {
       type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:[<?php for($i=sizeof($ramo); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ramoArray[$x[$i]]); ?>',
+        '<?php echo ($ramoArray[$x[$i]]); ?>',
 
                 <?php }?>],
 

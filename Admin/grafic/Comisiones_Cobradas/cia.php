@@ -216,7 +216,7 @@ foreach($sumatotalCiaCC as $key=>$value) {
 
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ciaArray[$x[$i]]); ?></th>
+          <th scope="row"><?php echo ($ciaArray[$x[$i]]); ?></th>
           <td align="right"><?php echo "$".number_format($sumatotalCia[$x[$i]],2); ?></td>
           <td align="right"><?php echo "$".number_format($sumatotalCiaPC[$x[$i]],2); ?></td>
           <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalCia[$x[$i]]-$sumatotalCiaPC[$x[$i]],2); ?></td>
@@ -313,7 +313,7 @@ foreach($sumatotalCiaCC as $key=>$value) {
       type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:[<?php for($i=sizeof($cia); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ciaArray[$x[$i]]); ?>',
+        '<?php echo ($ciaArray[$x[$i]]); ?>',
 
                 <?php }?>],
 

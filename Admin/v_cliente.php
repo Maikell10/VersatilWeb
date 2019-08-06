@@ -101,10 +101,9 @@ if(isset($_SESSION['seudonimo'])) {
 							<th>Ramo</th>
                             <th>Cía</th>
                             <th>Nombre Asesor</th>
-			                <th>Fecha Desde Rec</th>
-			                <th>Fecha Hasta Rec</th>
-                            <th>N° de Recibo</th>
-                            <th>Prima</th>
+			                <th>Fecha Desde Póliza</th>
+			                <th>Fecha Hasta Póliza</th>
+                            <th>Prima Suscrita</th>
                             <th>Info</th>
 						</tr>
                     </thead>
@@ -116,20 +115,19 @@ if(isset($_SESSION['seudonimo'])) {
                                     $currency="$ ";
                                 }else{$currency="Bs ";}
 
-                            $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desderecibo"]));
-                            $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastarecibo"]));
+                            $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
+                            $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
 
                             ?>
 							<tr>
 				                <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
 				                <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
-                                <td ><?php echo utf8_encode($cliente[$i]['nomcia']); ?></td>
+                                <td ><?php echo ($cliente[$i]['nomcia']); ?></td>
                                 <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
                                 <td nowrap><?php echo $newDesde; ?></td>
                                 <td nowrap><?php echo $newHasta; ?></td>
-                                <td ><?php echo $cliente[$i]['cod_recibo']; ?></td>
                                 <td nowrap><?php echo $currency.number_format($cliente[$i]['prima'],2); ?></td>
-                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" ><i class="fa fa-info" aria-hidden="true" ></i></a></td>
+                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true"></i></a></td>
 							</tr>
 							<?php
                             }
@@ -151,10 +149,9 @@ if(isset($_SESSION['seudonimo'])) {
                                 <th>Ramo</th>
                                 <th>Cía</th>
                                 <th>Nombre Asesor</th>
-                                <th>Fecha Desde Rec</th>
-                                <th>Fecha Hasta Rec</th>
-                                <th>N° de Recibo</th>
-                                <th>Prima</th>
+                                <th>Fecha Desde Póliza</th>
+                                <th>Fecha Hasta Póliza</th>
+                                <th>Prima Suscrita</th>
                                 <th>Info</th>
                             </tr>
                         <?php
@@ -164,19 +161,18 @@ if(isset($_SESSION['seudonimo'])) {
                                     $currency="$ ";
                                 }else{$currency="Bs ";}
 
-                            $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desderecibo"]));
-                            $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastarecibo"]));
+                            $newDesde = date("d-m-Y", strtotime($cliente[$i]["f_desdepoliza"]));
+                            $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                             ?>
                             <tr>
                                 <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
                                 <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
-                                <td ><?php echo utf8_encode($cliente[$i]['nomcia']); ?></td>
+                                <td ><?php echo ($cliente[$i]['nomcia']); ?></td>
                                 <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
                                 <td nowrap><?php echo $newDesde; ?></td>
                                 <td nowrap><?php echo $newHasta; ?></td>
-                                <td ><?php echo $cliente[$i]['cod_recibo']; ?></td>
                                 <td nowrap><?php echo $currency.number_format($cliente[$i]['prima'],2); ?></td>
-                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" ><i class="fa fa-info" aria-hidden="true" ></i></a></td>
+                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true" ></i></a></td>
                             </tr>
                             <?php
                                 }
@@ -227,7 +223,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <tr >
                                 <td><?php echo $datos_c[0]['cell']; ?></td>
                                 <td><?php echo $datos_c[0]['telf']; ?></td>
-                                <td colspan="2"><?php echo $datos_c[0]['email']; ?></td>
+                                <td colspan="2"><a href=mailto:<?php echo $datos_c[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?php echo $datos_c[0]['email']; ?></a></td>
                             </tr>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <th colspan="4">Dirección</th>
@@ -238,6 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </tbody>
                 </table>
                 </div>
+                
 
               
                 

@@ -116,7 +116,7 @@ if(isset($_SESSION['seudonimo'])) {
                 for($i=0;$i<sizeof($ramo);$i++)
                   {  
               ?>
-                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo ($ramo[$i]["nramo"]);?></option>
               <?php
                 } 
               ?> 

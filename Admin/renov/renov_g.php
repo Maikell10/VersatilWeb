@@ -194,12 +194,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>  
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
@@ -323,12 +323,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>  
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }

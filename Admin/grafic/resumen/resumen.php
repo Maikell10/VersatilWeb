@@ -171,7 +171,7 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       ?>
                         <tr>
-                          <td><?php echo utf8_encode($cia[$i]['nomcia']); ?></td>
+                          <td><?php echo ($cia[$i]['nomcia']); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_suscrita,2); ?></td>
                           <td align="right"><?php echo "$ ".number_format($prima_cobrada,2); ?></td>
                           <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>

@@ -372,7 +372,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Placa *</th>
+                                    <th>Placa</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>Tipo</th>
@@ -452,7 +452,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody >
                         <tr style="background-color:white">
-                            <td><input type="text" class="form-control validanumericos2" id="obs_p" name="obs_p" value="<?php echo $poliza[0]['obs_p']; ?>" required></td>
+                            <td><input type="text" class="form-control validanumericos2" id="obs_p" name="obs_p" value="<?php echo $poliza[0]['obs_p']; ?>"></td>
                         </tr>
                     </tbody>
                 </table>

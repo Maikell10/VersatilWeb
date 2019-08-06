@@ -106,7 +106,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Nombre de Cía *</th>
-                                    <th>RIF</th>
+                                    <th>RUC/RIF</th>
                                 </tr>
                             </thead>
 

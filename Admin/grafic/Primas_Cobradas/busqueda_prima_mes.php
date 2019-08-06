@@ -139,7 +139,7 @@ $fhoy=date("Y");
                 for($i=0;$i<sizeof($cia);$i++)
                   {  
               ?>
-                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                  <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
               <?php
                 } 
               ?> 

@@ -90,7 +90,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
                 </div>
 
-
+                
 
                 <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="" >
@@ -106,7 +106,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <td ><?php echo $asesor[0]['id']; ?></td>
                             <td ><?php echo utf8_encode($nombre); ?></td>
-                            <td ><?php echo $asesor[0]['email']; ?></td>
+                            <td><a href=mailto:<?php echo $asesor[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?php echo $asesor[0]['email']; ?></a></td>
                             <td><?php echo $asesor[0]['cel']; ?></td>
                         </tr>
 

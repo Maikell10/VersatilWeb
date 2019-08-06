@@ -145,7 +145,7 @@ if(isset($_SESSION['seudonimo'])) {
           } 
           
           
-          $totalCant=$totalCant+$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];;
+          $totalCant=$totalCant+$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
           $primaCobradaPorMes1=$primaCobradaPorMes1+$prima_pagada1;
           $primaCobradaPorMes2=$primaCobradaPorMes2+$prima_pagada2;
           $primaCobradaPorMes3=$primaCobradaPorMes3+$prima_pagada3;
@@ -171,7 +171,7 @@ if(isset($_SESSION['seudonimo'])) {
           $p10[$i]=$prima_pagada10;
           $p11[$i]=$prima_pagada11;
           $p12[$i]=$prima_pagada12;
-          $cantidad[$i]=$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];;
+          $cantidad[$i]=$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
           $ramoArray[$i]=$ramo[$i]['nramo'];
 
           $totalP[$i]=$prima_pagada1+$prima_pagada2+$prima_pagada3+$prima_pagada4+$prima_pagada5+$prima_pagada6+$prima_pagada7+$prima_pagada8+$prima_pagada9+$prima_pagada10+$prima_pagada11+$prima_pagada12;
@@ -247,7 +247,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
               <center>
-              <div class="table-responsive">
+              <div class="table-responsive1">
               <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel" style="font-size:14px; margin:0 auto;width: auto;">
                 <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                   <tr>

@@ -177,7 +177,7 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($cia);$i++)
                             {  
                         ?>
-                            <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                            <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
                         <?php
                             } 
                         ?> 
@@ -278,7 +278,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
-                                    <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -329,7 +329,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
-                                    <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
@@ -380,7 +380,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
-                                    <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
@@ -473,7 +473,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
-                                    <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -520,7 +520,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
-                                    <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
@@ -567,7 +567,7 @@ $fechaMax= $date->format($format);
                                 
                                     
                                     <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
-                                    <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                    <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
                                     <td><?php echo $newDesde; ?></td>
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
@@ -660,7 +660,7 @@ $fechaMax= $date->format($format);
                                 for($i=0;$i<sizeof($cia);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                                <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
                             <?php
                                 } 
                             ?> 
@@ -747,7 +747,7 @@ $fechaMax= $date->format($format);
                                     
                                         
                                         <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
-                                        <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                        <td><?php echo ($poliza[$i]['nomcia']); ?></td>
                                         <td><?php echo $newDesde; ?></td>
                                         <td><?php echo $newHasta; ?></td>
                                         <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
@@ -800,7 +800,7 @@ $fechaMax= $date->format($format);
                                     
                                         
                                         <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
-                                        <td><?php echo utf8_encode($poliza1[$i]['nomcia']); ?></td>
+                                        <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
                                         <td><?php echo $newDesde; ?></td>
                                         <td><?php echo $newHasta; ?></td>
                                         <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
@@ -853,7 +853,7 @@ $fechaMax= $date->format($format);
                                     
                                         
                                         <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
-                                        <td><?php echo utf8_encode($poliza2[$i]['nomcia']); ?></td>
+                                        <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
                                         <td><?php echo $newDesde; ?></td>
                                         <td><?php echo $newHasta; ?></td>
                                         <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>

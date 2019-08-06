@@ -59,7 +59,7 @@ $totalCom=0;
 				
 				?>
 				<tr style="cursor: pointer">
-					<td><?php echo utf8_encode($cia1[0]['nomcia']); ?></td>
+					<td><?php echo ($cia1[0]['nomcia']); ?></td>
 					<td hidden=""><?php echo $asesor[$i]['idena']; ?></td>
 	                <td><?php echo number_format($primap,2); ?></td>
 	                <td><?php echo number_format($prima,2); ?></td>

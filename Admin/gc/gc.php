@@ -296,7 +296,7 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td><?php echo utf8_encode($nombretitu); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>
                                 <td align="center"><?php echo number_format(($poliza[$i]['comision']*100)/$poliza[$i]['prima_com'],0)." %"; ?></td>
@@ -503,7 +503,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 
                                 <td nowrap><?php echo $newFHasta; ?></td>
                                 <td><?php echo utf8_encode($nombretitu); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['prima_com'],2); ?></td>
                                 <td nowrap><?php echo $newFPagoP; ?></td>
                                 <td align="right"><?php echo "$ ".number_format($poliza[$i]['comision'],2); ?></td>

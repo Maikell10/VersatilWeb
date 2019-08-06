@@ -177,7 +177,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($cia);$i++)
                                                     {  
                                                 ?>
-                                                    <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                                                    <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
                                                 <?php } ?> 
                                         </select>
                                     </td>
@@ -324,7 +324,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <table class="table table-hover table-striped table-bordered" id="idtablaveh" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
-                                    <th>Placa *</th>
+                                    <th>Placa</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>Tipo</th>

@@ -220,7 +220,7 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $newHasta; ?></td>
@@ -329,7 +329,7 @@ if(isset($_SESSION['seudonimo'])) {
                             ?>
                             
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
                                 <td nowrap><?php echo utf8_encode($poliza[$i]['nramo']); ?></td>
                                 <td><?php echo $newHasta; ?></td>
                                 <td><?php echo $newHasta; ?></td>
