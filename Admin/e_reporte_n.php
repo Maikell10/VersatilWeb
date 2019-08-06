@@ -18,6 +18,8 @@ if(isset($_SESSION['seudonimo'])) {
 	$id_rep_com=$_POST['id_rep_com'];
     $f_rep=$_POST['f_rep'];
     $f_pago=$_POST['f_pago'];
+    $primat_com=$_POST['primat_com'];
+    $comt=$_POST['comt'];
     
 
 	
@@ -79,6 +81,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr>
                                     <th >Fecha Hasta Reporte</th>
                                     <th >Fecha Pago GC</th>
+                                    <th >Prima Sujeta a Comisión Total</th>
+                                    <th >Comisión Total</th>
                                     <th hidden>id reporte</th>
                                 </tr>
                             </thead>
@@ -88,6 +92,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr >
                                     <td><input type="text" class="form-control" name="f_rep" readonly="readonly" value="<?php echo $f_rep;?>"></td>
                                     <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?php echo $f_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="primat_com" readonly="readonly" value="<?php echo number_format($primat_com,2);?>"></td>
+                                    <td><input type="text" class="form-control" name="comt" readonly="readonly" value="<?php echo number_format($comt,2);?>"></td>
                                     <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?php echo $id_rep_com;?>"></td>
                                 </tr>
                                
@@ -103,7 +109,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_reporte_nn.php?id_rep_com=<?php echo $id_rep_com;?>&f_rep=<?php echo $f_rep;?>&f_pago=<?php echo $f_pago;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_reporte_nn.php?id_rep_com=<?php echo $id_rep_com;?>&f_rep=<?php echo $f_rep;?>&f_pago=<?php echo $f_pago;?>&primat_com=<?php echo $primat_com;?>&comt=<?php echo $comt;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

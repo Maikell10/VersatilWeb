@@ -51,6 +51,10 @@ if(isset($_SESSION['seudonimo'])) {
   $originalCreacion = $poliza[0]['f_poliza'];
   $newCreacion = date("d/m/Y", strtotime($originalCreacion));
 
+    $obj77= new Trabajo();
+    $cia_pref = $obj77->get_per_gc_cia_pref($poliza[0]['f_desdepoliza'],$poliza[0]['id_cia'],$poliza[0]['codvend']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -549,6 +553,16 @@ if ( (!$con_id) || (!$lr) ) {
                                 ?></td>
                                 <td><?php echo $poliza[0]['per_gc']." %"; ?></td>
                             </tr>
+                            <?php if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) { ?>
+                            <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <th colspan="2">Cía Preferencial</th>
+                                <th colspan="2">% GC Preferencial del Asesor por Cía</th>
+                            </tr>
+                            <tr >
+                                <td colspan="2"><?php echo 'Sí' ?></td>
+                                <td colspan="2"><?php echo $cia_pref[0]['per_gc_sum']." %"; ?></td>
+                            </tr>
+                            <?php } ?>
                     </tbody>
                 </table>
                 </div>

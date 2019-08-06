@@ -16,17 +16,18 @@ if(isset($_SESSION['seudonimo'])) {
   $obj2= new Trabajo();
   $cia = $obj2->get_element('dcia','nomcia'); 
 
-  $obj3= new Trabajo();
-  $asesor = $obj3->get_element('ena','idena'); 
-
   $obj4= new Trabajo();
   $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
 
+  $obj3= new Trabajo();
+  $asesor = $obj3->get_element('ena','idnom'); 
+
   $obj31= new Trabajo();
-  $liderp = $obj31->get_element('enp','id_enp'); 
+  $liderp = $obj31->get_element('enp','nombre'); 
 
   $obj32= new Trabajo();
-  $referidor = $obj32->get_element('enr','id_enr'); 
+  $referidor = $obj32->get_element('enr','nombre'); 
+
 
 
 
@@ -369,19 +370,19 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td align="center"><select class="custom-select" id="asesor" name="asesor" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
+                                    <td align="center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista" data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
                                             <option value="">Seleccione el Asesor</option>
                                               <?php
                                                 for($i=0;$i<sizeof($asesor);$i++)
                                                   {  
                                               ?>
-                                                  <option value="<?php echo utf8_encode($asesor[$i]["cod"]."=".$asesor[$i]["idnom"]);?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                                  <option value="<?php echo utf8_encode($asesor[$i]["cod"]."=".$asesor[$i]["idnom"]);?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
                                               <?php }for($i=0;$i<sizeof($liderp);$i++)
                                                   { ?> 
-                                                  <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                                  <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
                                               <?php } for($i=0;$i<sizeof($referidor);$i++)
                                                   {?>
-                                                  <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                                  <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
                                               <?php } ?>
                                         </select>
                                     </td>
@@ -475,6 +476,9 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../../js/bootstrap-select.js"></script>
 
       
 
@@ -1153,6 +1157,7 @@ if(isset($_SESSION['seudonimo'])) {
                             $('#a_tomador').val(datos[0]['apellido_t']);
 
                             $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                            $('#asesor').change();  
                             console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
                             $('#existeT').text("");
@@ -1237,6 +1242,7 @@ if(isset($_SESSION['seudonimo'])) {
                             $('#a_tomador').val(datos[0]['apellido_t']);
 
                             $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                            $('#asesor').change();  
                             console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
                             $('#existeT').text("");

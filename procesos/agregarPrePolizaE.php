@@ -72,7 +72,7 @@ if(isset($_SESSION['seudonimo'])) {
         $f_hasta_n,
         $poliza[0]['tcobertura'],
         $poliza[0]['currency'],
-        $poliza[0]['id_tpoliza'],
+        2,
         $poliza[0]['sumaasegurada'],
         $poliza[0]['codvend'],
         $poliza[0]['id_cod_ramo'],

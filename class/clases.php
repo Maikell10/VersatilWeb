@@ -2882,7 +2882,7 @@ class Trabajo extends Conectar{
 									WHERE 
 									f_hasta_pref >= '$f_desde' AND
 									f_desde_pref <= '$f_desde'AND
-                  id_cia = $id_cia AND
+                  					id_cia = $id_cia AND
 									cod_vend = '$cod'
 									ORDER BY id_cia_pref DESC";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -15633,11 +15633,13 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 	}
 
 
-	public function editarRepCom($id_rep_com,$f_rep_1,$f_pago_1){
+	public function editarRepCom($id_rep_com,$f_rep_1,$f_pago_1,$primat_com,$comt){
 
 
 		$sql="UPDATE rep_com set 	f_hasta_rep='$f_rep_1',
-								 	f_pago_gc='$f_pago_1'
+								 	f_pago_gc='$f_pago_1',
+									primat_com='$primat_com',
+									comt='$comt'
 
 					where id_rep_com= '$id_rep_com'";
 		return mysqli_query(Conectar::con(),$sql);

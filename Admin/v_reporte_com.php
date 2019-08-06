@@ -77,12 +77,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <center>
 
-                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-tooltip="tooltip" data-placement="top" title="Añadir" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-toggle="tooltip" data-placement="top" title="Añadir Comisión" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
 
-                <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Fechas Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-toggle="tooltip" data-placement="top" title="Editar Fechas y Montos Totales" class="btn btn-success btn-lg text-center">Editar Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
                 <?php if ($permiso==1) { ?>
-                <button  onclick="eliminarDatos('<?php echo $id_rep_com; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button  onclick="eliminarDatos('<?php echo $id_rep_com; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 <?php }?>
                 </center>
                         
@@ -99,6 +99,8 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <th >Fecha Hasta Reporte</th>
                             <th >Fecha Pago GC</th>
+                            <th >Prima Sujeta a Comisión Total</th>
+                            <th >Comisión Total</th>
                             <th hidden>id reporte</th>
                             <th hidden>cia</th>
                             <th hidden>cant_poliza</th>
@@ -108,6 +110,8 @@ if(isset($_SESSION['seudonimo'])) {
                         <tr>
                             <td ><?php echo $f_hasta_rep; ?></td>
                             <td ><?php echo $f_pago_gc; ?></td>
+                            <td ><?php echo number_format($rep_com[0]['primat_com'],2); ?></td>
+                            <td ><?php echo number_format($rep_com[0]['comt'],2); ?></td>
                         </tr>
                     </tbody>
                 </table>

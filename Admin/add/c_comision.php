@@ -395,7 +395,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 </tr>
                             </thead>
                                 <tr style="background-color:white">
-                                    <td><input type="text" class="form-control" id="num_polizaE" name="num_polizaE" readonly></td>
+                                    <td><input type="text" class="form-control" id="num_polizaE" name="num_polizaE"></td>
                                     <td><input type="text" class="form-control" id="aseguradoE" name="aseguradoE" readonly></td>
                                     <td><div class="input-group date">
                                             <input type="text" class="form-control" id="f_desde_se" name="f_desde_se" required readonly> 

@@ -16,11 +16,14 @@ if(isset($_SESSION['seudonimo'])) {
 	
     $f_rep_1 = date("Y-m-d", strtotime($_GET['f_rep']));
     $f_pago_1 = date("Y-m-d", strtotime($_GET['f_pago']));
+
+    $primat_com=$_GET['primat_com'];
+    $comt=$_GET['comt'];
 	
 
 	
 	$obj1= new Trabajo();
-    $rep_com = $obj1->editarRepCom($id_rep_com,$f_rep_1,$f_pago_1); 
+    $rep_com = $obj1->editarRepCom($id_rep_com,$f_rep_1,$f_pago_1,$primat_com,$comt); 
 
      
 

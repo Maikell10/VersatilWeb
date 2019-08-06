@@ -90,6 +90,8 @@ if(isset($_SESSION['seudonimo'])) {
 						<tr>
                             <th >Fecha Hasta Reporte</th>
                             <th >Fecha Pago GC</th>
+                            <th >Prima Sujeta a Comisión Total</th>
+                            <th >Comisión Total</th>
                             <th hidden>id reporte</th>
 						</tr>
 					</thead>
@@ -102,6 +104,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <td><div class="input-group date">
                                 <input type="text" class="form-control" id="f_pago" name="f_pago"  value="<?php echo $f_pago_gc; ?>">
                             </div></td>
+                            <td><input type="text" class="form-control validanumericos" name="primat_com" value="<?php echo $rep_com[0]['primat_com']; ?>" ></td>
+                            <td><input type="text" class="form-control validanumericos1" name="comt" value="<?php echo $rep_com[0]['comt']; ?>" ></td>
                             <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?php echo $id_rep_com; ?>" ></td>
                         </tr>
                     </tbody>
@@ -281,6 +285,24 @@ if(isset($_SESSION['seudonimo'])) {
     function mayus(e) {
         e.value = e.value.toUpperCase();
     }   
+
+    onload = function(){ 
+        var ele = document.querySelectorAll('.validanumericos')[0];
+        var ele1 = document.querySelectorAll('.validanumericos1')[0];
+
+        ele.onkeypress = function(e) {
+            if(isNaN(this.value+String.fromCharCode(e.charCode)))
+            return false;
+        }
+        ele1.onkeypress = function(e1) {
+            if(isNaN(this.value+String.fromCharCode(e1.charCode)))
+            return false;
+        }
+        ele1.onpaste = function(e1){
+            e1.preventDefault();
+        }
+        
+    }
 
 function Exportar(table, name){
     var uri = 'data:application/vnd.ms-excel;base64,'

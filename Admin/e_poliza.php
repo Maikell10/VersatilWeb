@@ -51,13 +51,13 @@ if(isset($_SESSION['seudonimo'])) {
   $cia = $ob2->get_element('dcia','nomcia'); 
 
   $ob3= new Trabajo();
-  $asesor = $ob3->get_element('ena','idena'); 
+  $asesor = $ob3->get_element('ena','idnom'); 
 
   $obj31= new Trabajo();
-  $liderp = $obj31->get_element('enp','id_enp'); 
+  $liderp = $obj31->get_element('enp','nombre'); 
 
   $obj32= new Trabajo();
-  $referidor = $obj32->get_element('enr','id_enr'); 
+  $referidor = $obj32->get_element('enr','nombre'); 
 
   $obj4= new Trabajo();
   $usuario = $obj4->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
@@ -421,18 +421,18 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tbody >
                         <tr style="background-color: white">
-                            <td style="text-align:center"><select class="custom-select" id="asesor" name="asesor" required>
+                            <td style="text-align:center"><select class="form-control selectpicker" id="asesor" name="asesor" required data-style="btn-white" data-header="Seleccione Cía" data-actions-box="true" data-live-search="true">
                                     <?php
                                         for($i=0;$i<sizeof($asesor);$i++)
                                         {  
                                     ?>
-                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
                                     <?php }for($i=0;$i<sizeof($liderp);$i++)
                                         { ?> 
-                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
                                     <?php } for($i=0;$i<sizeof($referidor);$i++)
                                         {?>
-                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
                                     <?php } ?>
 
                                     <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?php echo $poliza[0]['cod']."=".$nombre_a; ?>"></td>
@@ -535,7 +535,8 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
 
-    
+    <!-- Bootstrap Select JavaScript -->
+    <script src="../js/bootstrap-select.js"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="agregarnuevotitular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -746,6 +747,7 @@ if(isset($_SESSION['seudonimo'])) {
             $('#tipo').val($('#tipo_h').val());
             $('#anio').val($('#anio_h').val());
             $('#asesor').val($('#asesor_h').val());
+            $('#asesor').change();  
 
             $('#currency').val($('#currency_h').val());
             $('#sumaA').val($('#sumaA_h').val());
