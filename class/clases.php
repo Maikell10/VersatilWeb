@@ -47,9 +47,29 @@ class Trabajo extends Conectar{
 	              			return $this->t;
 						}
 				}
-
+			}
+			
+		public function get_element_desc($tabla,$campo)
+		    {
+		      	$sql="SELECT * FROM $tabla ORDER BY $campo DESC";
+				$res=mysqli_query(Conectar::con(),$sql);
 				
-		       }
+				if (!$res) {
+				    //No hay registros
+				}else{
+					$filas=mysqli_num_rows($res); 
+					if ($filas == 0) { 
+				      	//header("Location: incorrecto.php?m=2");
+				      	exit();
+			      	}else
+		            	{
+		               		while($reg=mysqli_fetch_assoc($res)) {
+		               			$this->t[]=$reg;
+		              		}
+	              			return $this->t;
+						}
+				}
+		    }
 
 
 

@@ -101,8 +101,13 @@ if(isset($_SESSION['seudonimo'])) {
   	$tipo_poliza_print="";
   	if ($tipo_poliza==1) {
   		$tipo_poliza_print="Primer Año";
-  	}
+      }
+      
 
+    $obj111= new Trabajo();
+  	$ultima_poliza = $obj111->get_last_element('poliza','id_poliza'); 
+
+    $u_p=$ultima_poliza[0]['id_poliza'];
 
 ?>
 <!DOCTYPE html>
@@ -206,15 +211,15 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script>
 
-
-	  alertify.confirm('Póliza Cargada con Exito!', '¿Desea Cargar una nueva Póliza?', 
+        alertify.confirm('Desea Cargar la Póliza en PDF?', '¿Desea Cargar la Póliza en PDF?', 
 	  	function(){ 
-	  		window.location.replace("crear_poliza.php?cond=1");
+            window.location.replace("subir_pdf.php?id_poliza=<?php echo $u_p;?>");
 	  		alertify.success('Ok') 
 	  	}, 
 	  	function(){ 
-	  		window.location.replace("../sesionadmin.php");
-	  		alertify.error('Cancel')
+
+            window.location.replace("poliza_nn.php");  
+	  		alertify.error('No realizó carga en pdf')
 	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); 
 
 	

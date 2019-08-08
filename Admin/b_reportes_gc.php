@@ -97,7 +97,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <tbody >
                         <?php
                         $obj1= new Trabajo();
-                        $gc_h = $obj1->get_element('gc_h','f_hoy_h'); 
+                        $gc_h = $obj1->get_element_desc('gc_h','f_hoy_h'); 
 
                         for ($i=0; $i < sizeof($gc_h); $i++) { 
 

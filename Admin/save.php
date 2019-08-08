@@ -61,8 +61,14 @@ if ( (!$con_id) || (!$lr) ) {
 	*/
 }
 
-$url = "v_poliza.php?id_poliza=$poliza&m=2";
-header("Location: ".$url);
+if ($_POST['cond']==1) {
+	$url = "add/poliza_nn.php";
+	header("Location: ".$url);
+}else {
+	$url = "v_poliza.php?id_poliza=$poliza&m=2";
+	header("Location: ".$url);
+}
+
 
 
 ?>
