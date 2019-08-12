@@ -135,6 +135,21 @@ if(isset($_SESSION['seudonimo'])) {
                                 <option value="1">Activo</option>
                             </select></td>
                         </tr>
+
+                        <?php
+                        if ($asesor[0]['nopre1']!=null) {
+                        ?>
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th colspan="2">%GC</th>
+                            <th colspan="2">%GC Viajes</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" class="form-control validanumericos" name="nopre1" required value="<?php echo $asesor[0]['nopre1']; ?>"></td>
+                            <td colspan="2"><input type="text" class="form-control validanumericos1" name="gc_viajes" required value="<?php echo $asesor[0]['gc_viajes']; ?>"></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
 					</tbody>
 				</table>
                 </div>
@@ -233,6 +248,26 @@ if(isset($_SESSION['seudonimo'])) {
         document.getElementById("act").value = "<?php echo $asesor[0]['act'];?>";
         
     });
+
+    onload = function(){ 
+          var ele = document.querySelectorAll('.validanumericos')[0];
+          var ele1 = document.querySelectorAll('.validanumericos1')[0];
+
+          ele.onkeypress = function(e) {
+             if(isNaN(this.value+String.fromCharCode(e.charCode)))
+                return false;
+          }
+          ele.onpaste = function(e){
+             e.preventDefault();
+          }
+          ele1.onkeypress = function(e1) {
+             if(isNaN(this.value+String.fromCharCode(e1.charCode)))
+                return false;
+          }
+          ele1.onpaste = function(e1){
+             e1.preventDefault();
+          }
+        }
 
 
     function mayus(e) {

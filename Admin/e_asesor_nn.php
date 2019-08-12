@@ -25,13 +25,21 @@ if(isset($_SESSION['seudonimo'])) {
     $obs=$_GET['obs'];
     $act=$_GET['act'];
 	
-	
+    $nopre1=$_GET['nopre1'];
+    $gc_viajes=$_GET['gc_viajes'];
 	
 
+    if ($nopre1!=null) {
+        $obj1= new Trabajo();
+        $asesor = $obj1->editarAsesorA($id_asesor,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$nopre1,$gc_viajes); 
+    }
 
+    if ($nopre1==null) {
+        $obj1= new Trabajo();
+        $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act); 
+    }
 	
-	$obj1= new Trabajo();
-    $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act); 
+	
 
       
 

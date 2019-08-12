@@ -133,6 +133,23 @@ if(isset($_SESSION['seudonimo'])) {
                                         }
                             echo $estatus; ?></td>
                         </tr>
+                        
+                        <?php
+                        if ($asesor[0]['nopre1']!=null) {
+                            
+                        
+                        ?>
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th colspan="2">%GC</th>
+                            <th colspan="2">%GC Viajes</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><?php echo $asesor[0]['nopre1']." %"; ?></td>
+                            <td colspan="2"><?php echo $asesor[0]['gc_viajes']." %"; ?></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
 
                     </tbody>
                 </table>

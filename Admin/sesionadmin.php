@@ -151,7 +151,7 @@ if(isset($_SESSION['seudonimo'])) {
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
+    <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
     <script>
         $(document).ready(function() {
             materialKitDemo.initFormExtendedDatetimepickers();

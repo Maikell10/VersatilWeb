@@ -15715,6 +15715,24 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 		
 	}
 
+	public function editarAsesorA($id_asesor,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$nopre1,$gc_viajes){
+
+			$sql="UPDATE ena set 	id='$id',
+								 	idnom='$nombre',
+									cel='$cel',
+								 	email='$email',
+									banco='$banco',
+									tipo_cuenta='$tipo_cuenta',
+									num_cuenta='$num_cuenta',
+									obs='$obs',
+									act='$act',
+									nopre1='$nopre1',
+									gc_viajes='$gc_viajes'
+
+					where idena= '$id_asesor'";
+			return mysqli_query(Conectar::con(),$sql);	
+	}
+
 
 	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor){
 

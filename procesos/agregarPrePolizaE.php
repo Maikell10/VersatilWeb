@@ -33,7 +33,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obj3= new Trabajo();
     $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
-    $u_id_p=($ultimo_id_p[0]['id_poliza']+1);
+    $u_id_p=($ultimo_id_p[0]['id_poliza'])+1;
 
     $obj4= new Trabajo();
     $asegurado = $obj4->agregarAsegurado($nombre_t,$u_id_p);
