@@ -2778,9 +2778,8 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc >= '$f_desde' AND
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
-							nomcia LIKE '%$cia%' AND
               not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY rep_com.f_pago_gc ASC";
+							ORDER BY titular.nombre_t ASC";
 				}
 				
 			$res=mysqli_query(Conectar::con(),$sql);
@@ -14709,7 +14708,8 @@ class Trabajo extends Conectar{
                             poliza.id_titular=titular.id_titular AND
                             rep_com.id_rep_com=comision.id_rep_com AND
 							gc_h.id_gc_h = '$id_gc_h' AND
-                            cod_vend = '$cod_vend' ";
+							cod_vend = '$cod_vend' 
+							ORDER BY titular.nombre_t ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
 				
 				if (!$res) {

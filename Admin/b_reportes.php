@@ -27,6 +27,8 @@ if(isset($_SESSION['seudonimo'])) {
   $obj55= new Trabajo();
   $fechaMaxRep = $obj55->get_fecha_max('f_pago_gc','rep_com'); 
 
+  $fhoy=date("Y");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,6 +215,12 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../js/bootstrap-select.js"></script>
 
 
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').change(); 
+      });
+    </script>
     <script type="text/javascript">
         $(document).ready(function(){
             $('#btnAgregarnuevo').click(function(){

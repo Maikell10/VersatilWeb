@@ -46,7 +46,8 @@ if (!$mi_pdf) {
 }
 header('Content-type: application/pdf');
 fpassthru($mi_pdf); // Esto hace la magia
-fclose ("polizas/".$id_poliza);
+//fclose ("polizas/".$id_poliza);
+fclose ($mi_pdf);
 
 unlink("polizas/".$id_poliza);
 exit;

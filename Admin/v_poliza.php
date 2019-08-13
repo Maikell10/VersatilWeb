@@ -715,6 +715,9 @@ if ( (!$con_id) || (!$lr) ) {
                     <h5 class="modal-title" id="exampleModalLabel">Ramo: <?php echo utf8_encode($poliza[0]['nramo']); ?></h5>
                     <hr>
 
+                    <h5 class="modal-title" id="exampleModalLabel">Observaciones: <?php echo $poliza[0]['obs']; ?></h5>
+                    <hr>
+
                     <form id="frmnuevoP">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
