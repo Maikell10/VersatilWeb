@@ -224,8 +224,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             
                 
-                <form class="form-horizontal" id="frmnuevo" >
-                    <div class="form-row">     
+                <form class="form-horizontal" id="frmnuevo" >  
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                             <thead style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -376,7 +375,6 @@ if(isset($_SESSION['seudonimo'])) {
                             </tbody>
                         </table>
                         </div> 
-                    </div>
 
 
 
