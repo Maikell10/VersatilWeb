@@ -11,7 +11,7 @@ Clone or Download and use versatil.sdb.sql for database in MySql
 
 ## Views
 
-Index page after the Login
+Index page after the Log in
 
 ![alt text](assets/img/index.jpg)
 
