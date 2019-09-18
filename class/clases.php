@@ -2747,11 +2747,11 @@ class Trabajo extends Conectar{
 					// create sql part for IN condition by imploding comma after each id
 					$ciaIn = "('" . implode("','", $cia) ."')";
 
-					$sql="SELECT drecibo.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision, nramo FROM comision 
+					$sql="SELECT poliza.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision, nramo FROM comision 
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							drecibo.idtitu = titular.id_titular AND
+							poliza.idtitu = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND
@@ -2761,16 +2761,16 @@ class Trabajo extends Conectar{
 							poliza.codvend = '$asesor' AND 
 							nomcia IN ".$ciaIn." AND
               not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY rep_com.f_pago_gc ASC";
+							ORDER BY poliza.cod_poliza ASC";
 				}
 
 				if ($cia=='') {
-					$sql="SELECT drecibo.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision, nramo
+					$sql="SELECT poliza.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima, f_hasta_rep, id_comision, nramo
 							FROM comision 
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							drecibo.idtitu = titular.id_titular AND
+							poliza.idtitu = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND
@@ -2779,7 +2779,7 @@ class Trabajo extends Conectar{
 							rep_com.f_pago_gc <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
               not exists (select 1 from gc_h_comision where gc_h_comision.id_comision = comision.id_comision)
-							ORDER BY titular.nombre_t ASC";
+							ORDER BY poliza.cod_poliza ASC";
 				}
 				
 			$res=mysqli_query(Conectar::con(),$sql);
@@ -14709,7 +14709,7 @@ class Trabajo extends Conectar{
                             rep_com.id_rep_com=comision.id_rep_com AND
 							gc_h.id_gc_h = '$id_gc_h' AND
 							cod_vend = '$cod_vend' 
-							ORDER BY titular.nombre_t ASC";
+							ORDER BY poliza.cod_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
 				
 				if (!$res) {

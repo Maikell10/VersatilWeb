@@ -1194,6 +1194,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
+
+
+
+
+
             $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
@@ -1201,6 +1206,20 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 success:function(r){
                     datos=jQuery.parseJSON(r);
                     console.log(datos);
+                    console.log('ok');
+                }
+            });
+
+
+
+            $.ajax({
+                type:"POST",
+                data:"num_poliza=" + num_poliza.value,        
+                url:"validarpoliza_e.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    //console.log(datos);
+                
 
 
                     if (datos == null) {
