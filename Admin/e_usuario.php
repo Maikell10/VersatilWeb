@@ -108,17 +108,22 @@ if(isset($_SESSION['seudonimo'])) {
                             <td hidden><input type="text" class="form-control" name="id_usuario" value="<?php echo $id_usuario; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                            <th colspan="2">Seudónimo</th>
+                            <th>Seudónimo</th>
                             <th>Clave</th>
                             <th>Permiso</th>
+                            <th>Activo</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td colspan="2"><input type="text" class="form-control" name="seudonimo" required  value="<?php echo $usuario[0]['seudonimo']; ?>"></td>
+                            <td><input type="text" class="form-control" name="seudonimo" required  value="<?php echo $usuario[0]['seudonimo']; ?>"></td>
                             <td><input type="text" class="form-control" name="clave" value="<?php echo $usuario[0]['clave_usuario']; ?>"></td>
                             <td><select name="id_permiso" id="id_permiso" class="custom-select">
                                 <option value="1">Administrador</option>
                                 <option value="2">Usuario</option>
                                 <option value="3">Asesor</option>
+                            </select></td>
+                            <td><select name="activo" id="activo" class="custom-select">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
                             </select></td>
                         </tr>
 					</tbody>
@@ -250,6 +255,8 @@ if(isset($_SESSION['seudonimo'])) {
             document.getElementById("zprod").value = "<?php echo $usuario[0]['z_produccion'];?>";
 
             document.getElementById("id_permiso").value = "<?php echo $usuario[0]['id_permiso'];?>";
+
+            document.getElementById("activo").value = "<?php echo $usuario[0]['activo'];?>";
 
             $('#asesor').val('<?php echo $usuario[0]['cod_vend'];?>'); 
             $('#asesor').change(); 

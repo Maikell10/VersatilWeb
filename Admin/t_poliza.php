@@ -42,7 +42,8 @@ $poliza = $obj1->get_poliza_total();
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                <th nowrap>Nombre Titular</th>
+				<th nowrap>Nombre Titular</th>
+				<th>PDF</th>
 			</tr>
 		</thead>
 		
@@ -100,7 +101,8 @@ $poliza = $obj1->get_poliza_total();
 	                <td><?php echo $newDesde; ?></td>
 	                <td><?php echo $newHasta; ?></td>
 	                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-	                <td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+					<td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+					<td><?php echo 'si'; ?></td>
 				</tr>
 				<?php
 				//}
@@ -119,7 +121,8 @@ $poliza = $obj1->get_poliza_total();
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
                 <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
-                <th>Nombre Titular</th>
+				<th>Nombre Titular</th>
+				<th>PDF</th>
 			</tr>
 		</tfoot>
 	</table>

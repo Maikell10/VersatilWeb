@@ -13,8 +13,13 @@ session_start();
 			{
 				$_SESSION['seudonimo'] = $user;
 				echo "Sesión exitosa";	
-				$permiso = $datos[0]['id_permiso'];					
+				$permiso = $datos[0]['id_permiso'];	
+				if ($datos[0]['activo']==0) {
+					header("Location: login.php?m=3");
+					exit();
+				}				
 			}
+			
 			else {
 						header("Location: incorrecto.php?m=1");
 						exit();

@@ -88,9 +88,10 @@ if(isset($_SESSION['seudonimo'])) {
                 <table class="table table-hover table-striped table-bordered" id="" >
                     <thead>
 						<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-							<th colspan="2">Seudónimo</th>
+							<th>Seudónimo</th>
                             <th>Clave</th>
                             <th>Permiso</th>
+                            <th>Activo</th>
 						</tr>
                     </thead>
                     <tbody>
@@ -104,12 +105,19 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($usuario[0]['id_permiso']==3) {
                                 $permiso='Asesor';
                             }
+
+                            if ($usuario[0]['activo']==0) {
+                                $estado='Inactivo';
+                            }else {
+                                $estado='Activo';
+                            }
                            
                         ?>
                         <tr>
-                            <td colspan="2"><?php echo $usuario[0]['seudonimo']; ?></td>
+                            <td><?php echo $usuario[0]['seudonimo']; ?></td>
                             <td ><?php echo $usuario[0]['clave_usuario']; ?></td>
                             <td ><?php echo $permiso; ?></td>
+                            <td ><?php echo $estado; ?></td>
                         </tr>
                     </tbody>
                 </table>

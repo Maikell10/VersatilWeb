@@ -25,6 +25,8 @@ if(isset($_SESSION['seudonimo'])) {
 	$clave=$_POST['clave'];
     $id_permiso=$_POST['id_permiso'];
 
+    $activo=$_POST['activo'];
+
     $asesor=$_POST['asesor'];
 
     if ($id_permiso == '3') {
@@ -121,9 +123,10 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
-                                    <th colspan="2">Seudónimo</th>
+                                    <th>Seudónimo</th>
                                     <th>Clave</th>
                                     <th>Permiso</th>
+                                    <th>Activo</th>
                                 </tr>
                                 <?php
                                     if ($id_permiso==1) {
@@ -135,11 +138,18 @@ if(isset($_SESSION['seudonimo'])) {
                                     if ($id_permiso==3) {
                                         $permiso='Asesor';
                                     }
+
+                                    if ($activo==0) {
+                                        $estado='Inactivo';
+                                    }else {
+                                        $estado='Activo';
+                                    }
                                 ?>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" name="seudonimo" readonly="readonly" value="<?php echo $seudonimo;?>"></td>
+                                    <td><input type="text" class="form-control" name="seudonimo" readonly="readonly" value="<?php echo $seudonimo;?>"></td>
                                     <td><input type="text" class="form-control" name="clave" readonly="readonly" value="<?php echo $clave;?>"></td>
                                     <td><input type="text" class="form-control" name="permiso" readonly="readonly" value="<?php echo $permiso;?>"></td>
+                                    <td><input type="text" class="form-control" name="activo" readonly="readonly" value="<?php echo $estado;?>"></td>
                                 </tr>
 
                                 <?php if ($id_permiso == '3') {   
@@ -166,7 +176,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?php echo $id_usuario;?>&nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&zprod=<?php echo $zprod;?>&seudonimo=<?php echo $seudonimo;?>&clave=<?php echo $clave;?>&id_permiso=<?php echo $id_permiso;?>&asesor=<?php echo $asesor;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?php echo $id_usuario;?>&nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&zprod=<?php echo $zprod;?>&seudonimo=<?php echo $seudonimo;?>&clave=<?php echo $clave;?>&id_permiso=<?php echo $id_permiso;?>&asesor=<?php echo $asesor;?>&activo=<?php echo $activo;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

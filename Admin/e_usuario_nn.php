@@ -24,6 +24,9 @@ if(isset($_SESSION['seudonimo'])) {
 	$clave=$_GET['clave'];
     $id_permiso=$_GET['id_permiso'];
 
+    $activo=$_GET['activo'];
+
+
     $asesor=$_GET['asesor'];
   
 
@@ -34,7 +37,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-    $usuario = $obj1->editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor); 
+    $usuario = $obj1->editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor,$activo); 
 
      
 

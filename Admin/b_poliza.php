@@ -210,15 +210,16 @@ $fechaMax= $date->format($format);
                       <button type="submit" class="btn btn-success btn-round btn-lg" >Buscar</button>
 
                 </form></center>
+            </div>
 
-
+            <div class="container-fluid">
                 
 
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <center>
                 <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+                    <table class="table table-hover table-striped table-bordered text-left" id="iddatatable">
                         <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <tr>
                                 <th hidden>f_poliza</th>
@@ -230,6 +231,7 @@ $fechaMax= $date->format($format);
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th nowrap>Nombre Titular</th>
+                                <th>PDF</th>
                             </tr>
                         </thead>
                         
@@ -286,6 +288,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -337,6 +350,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -388,6 +412,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -407,6 +442,7 @@ $fechaMax= $date->format($format);
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
                                 <th>Nombre Titular</th>
+                                <th>PDF</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -433,6 +469,7 @@ $fechaMax= $date->format($format);
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
                                 <th nowrap>Nombre Titular</th>
+                                <th>PDF</th>
                             </tr>
                         </thead>
                         
@@ -481,6 +518,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -528,6 +576,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -575,6 +634,17 @@ $fechaMax= $date->format($format);
                                     <td><?php echo $newHasta; ?></td>
                                     <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
+                                    <td>
+                                        <?php 
+                                            if ($poliza[$i]['pdf']==1) {
+                                        ?>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <?php 
+                                            } else {
+                                                echo 'No';
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <?php
                                 //}
@@ -592,6 +662,7 @@ $fechaMax= $date->format($format);
                                 <th>F Hasta Seguro</th>
                                 <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
                                 <th>Nombre Titular</th>
+                                <th>PDF</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -1000,6 +1071,8 @@ $fechaMax= $date->format($format);
             var customerId = $(this).find("td").eq(1).html();   
 
             window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
+            
+            
         });
 
         $(function () {

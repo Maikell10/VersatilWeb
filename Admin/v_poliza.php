@@ -160,7 +160,7 @@ if ( (!$con_id) || (!$lr) ) {
                     <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                     <br>
                 <?php
-                    }else {
+                    }
                 ?>
                     <form class="form-horizontal" action="save.php" method="post" enctype="multipart/form-data" >
                     <center>
@@ -171,11 +171,13 @@ if ( (!$con_id) || (!$lr) ) {
                         </center>
                     </form>
                 <?php
-                    }
+                    
             ftp_close($con_id);
     }
 
-}*/
+}
+                    
+            */
                     
                 ?>
 
@@ -216,7 +218,7 @@ if ( (!$con_id) || (!$lr) ) {
                     ?>
                     <h3 class="title">Asesor: <?php echo utf8_encode($asesorr); ?></h3> 
                 </div>
-
+                
 
                 <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
@@ -581,12 +583,19 @@ if ( (!$con_id) || (!$lr) ) {
                         <tr>
                             <th>Nombre Usuario</th>
                             <th>Fecha Creación</th>
+                            <th>Fecha y Hora Creación</th>
                         </tr>
                     </thead>
                     <tbody >
                             <tr >
+                                <?php 
+                                    $originalDesdeP = $poliza[0]['created_at'];
+                                    $newCreated = date("d/m/Y", strtotime($originalDesdeP));
+                                    $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
+                                ?>
                                 <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
                                 <td><?php echo $newCreacion; ?></td>
+                                <td><?php echo $newCreated." ".$newCreatedH; ?></td>
                             </tr>
                     </tbody>
                 </table>

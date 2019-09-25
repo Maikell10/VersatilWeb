@@ -8,8 +8,10 @@ if(isset($_SESSION['seudonimo'])) {
         header("Location: login.php");
         exit();
       }
-      
-      
+
+require_once("../class/clases.php");
+
+
 $poliza=$_POST['id_poliza'];
 $id_poliza=$_POST['id_poliza'].".pdf";
 $nombre=$id_poliza;
@@ -38,6 +40,9 @@ if ( (!$con_id) || (!$lr) ) {
 		# Subimos el fichero
 		if(@ftp_put($con_id,$nombre,$_FILES["archivo"]["tmp_name"],FTP_BINARY))
 			{//echo "Fichero subido correctamente";
+				$poliza;
+				$obj1= new Trabajo();
+  				$pdf_update = $obj1->update_poliza_pdf($poliza); 
 			}
 		else{
 			//echo "No ha sido posible subir el fichero";
@@ -60,6 +65,9 @@ if ( (!$con_id) || (!$lr) ) {
 	}
 	*/
 }
+
+
+
 
 if ($_POST['cond']==1) {
 	$url = "add/poliza_nn.php";

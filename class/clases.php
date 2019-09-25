@@ -121,26 +121,49 @@ class Trabajo extends Conectar{
 
 
 	public function get_last_element($tabla,$campo)
-		    {
-		      	$sql="SELECT * FROM $tabla ORDER BY $campo DESC";
-				$res=mysqli_query(Conectar::con(),$sql);
-				
-				if (!$res) {
-				    //No hay registros
-				}else{
-					$filas=mysqli_num_rows($res); 
-					if ($filas == 0) { 
-				      	//header("Location: incorrecto.php?m=2");
-				      	exit();
-			      	}else
-		            	{
-		               		while($reg=mysqli_fetch_assoc($res)) {
-		               			$this->t[]=$reg;
-		              		}
-	              			return $this->t;
+		{
+			$sql="SELECT * FROM $tabla ORDER BY $campo DESC";
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//header("Location: incorrecto.php?m=2");
+					exit();
+				}else
+					{
+						while($reg=mysqli_fetch_assoc($res)) {
+							$this->t[]=$reg;
 						}
-				}
-			   }
+						return $this->t;
+					}
+			}
+		}
+
+	public function update_poliza_pdf($id_poliza)
+		{
+			$sql="UPDATE poliza SET pdf = 1 WHERE id_poliza = $id_poliza;";
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//header("Location: incorrecto.php?m=2");
+					exit();
+				}else
+					{
+						while($reg=mysqli_fetch_assoc($res)) {
+							$this->t[]=$reg;
+						}
+						return $this->t;
+					}
+			}
+		}
+
 			   
 
 
@@ -15505,34 +15528,53 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 				'primat_com' => $ver[4],
 				'comt' => $ver[5]
 				);
-			return $datos;
-
-
-
-			
+			return $datos;	
 		}
 
 	
 	public function obtenSumaReporte($id_rep_com){
 
-			$sql="SELECT SUM(prima_com), SUM(comt) FROM rep_com, comision
-					WHERE 
-					rep_com.id_rep_com=comision.id_rep_com AND
-					comision.id_rep_com= '$id_rep_com'";
+		$sql="SELECT SUM(prima_com), SUM(comt) FROM rep_com, comision
+				WHERE 
+				rep_com.id_rep_com=comision.id_rep_com AND
+				comision.id_rep_com= '$id_rep_com'";
 
-			$result=mysqli_query(Conectar::con(),$sql);
-			$ver=mysqli_fetch_row($result);
-			
-			$datos1=array(
-				'SUM(prima_com)' => $ver[0],
-				'SUM(comt)' => $ver[1]
-				);
-			return $datos1;
+		$result=mysqli_query(Conectar::con(),$sql);
+		$ver=mysqli_fetch_row($result);
+		
+		$datos1=array(
+			'SUM(prima_com)' => $ver[0],
+			'SUM(comt)' => $ver[1]
+			);
+		return $datos1;	
+	}
 
 
+	
+	public function obetnComisiones($id){
 
-			
-		}
+		$sql="SELECT SUM(prima_com), SUM(comision) FROM comision 
+			INNER JOIN rep_com, poliza
+			WHERE 
+			comision.id_rep_com = rep_com.id_rep_com AND
+			poliza.id_poliza = comision.id_poliza AND
+			comision.id_poliza = $id";
+		$result=mysqli_query(Conectar::con(),$sql);
+
+		if (!$result) {
+				//echo "nada";
+		}else{
+			$filas=mysqli_num_rows($result); 
+			if ($filas == 0) { 
+			//no hay registro
+			}else{
+				while($row = mysqli_fetch_assoc($result)){
+					$datos[] = array_map('utf8_encode', $row);
+				}
+				return $datos;	
+			}
+		}		
+	}
 
 
 
@@ -15734,7 +15776,7 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 	}
 
 
-	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor){
+	public function editarUsuario($id_usuario,$nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$id_permiso,$asesor,$activo){
 
 
 		$sql="UPDATE usuarios set 	nombre_usuario='$nombre',
@@ -15744,7 +15786,9 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 									apellido_usuario='$apellido',
 									seudonimo='$seudonimo',
 									z_produccion='$zprod',
-									cod_vend='$asesor'
+									cod_vend='$asesor',
+									activo='$activo'
+
 
 					where id_usuario= '$id_usuario'";
 		return mysqli_query(Conectar::con(),$sql);

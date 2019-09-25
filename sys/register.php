@@ -22,13 +22,15 @@
 </head>
 
 <body class="signup-page ">
-    <nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg bg-info">
+    <nav class="navbar navbar-color-on-scroll fixed-top  navbar-expand-lg bg-info">
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="../index.html"> <img src="../assets/img/logv.png" width="120" /></a>
-            </div>
-            <div class="collapse navbar-collapse">
-               
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -41,34 +43,44 @@
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
                     <div class="card card-signup">
-                        <?php
-                        if ($_GET['m']==1) {
-                        ?>
-                        <h4 class="card-title text-center text-danger">No Posee un Asesor Asociado a la Cédula que ingresó</h4>
-                        <?php
-                        }if ($_GET['m']==2) {
-                        ?>
-                        <h4 class="card-title text-center text-success">Registrado exitosamente, debe esperar un período de 24h para activación</h4>
-                        <?php
-                        }if ($_GET['m']==3) {
-                        ?>
-                        <h4 class="card-title text-center text-danger">Aún no posee usuario activado</h4>
-                        <?php
-                        }
-                        ?>
-                        <h2 class="card-title text-center">Ingrese al Sistema de Versatil Seguros</h2>
+                        <h2 class="card-title text-center">Registrate</h2>
                         <div class="card-body">
                             <div class="row">
                                 
                                 <div class="col-md-6 mx-auto ">
                                     
-                                    <form class="form" method="post" action="sesion.php">
+                                    <form class="form" method="POST" action="register1.php">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">label_important</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">label_important</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Apellido" name="apellido" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="material-icons">label_important</i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Cedula" name="cedula" required>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">face</i>
                                                 </span>
-                                                <input type="text" class="form-control" placeholder="Usuario..." name="campousuario" required>
+                                                <input type="text" class="form-control" placeholder="Seudónimo" name="seudonimo" required>
                                             </div>
                                         </div>
                                         
@@ -77,14 +89,15 @@
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">lock_outline</i>
                                                 </span>
-                                                <input type="password" placeholder="Password..." class="form-control" name="campoclave" required/>
+                                                <input type="password" placeholder="Contraseña" class="form-control" name="password"required>
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-info btn-round">Login</button>
+                                            <button type="submit" class="btn btn-info btn-round">Confirmar</button>
                                         </div>
                                     </form>
-                                    <h4 class="text-center">No tienes una cuenta? <a href="register.php" class="text-danger font-weight-bold">Registrate</a></h4 class="text-center">
+                                    <h6 class="text-center font-weight-bold">Luego de registrarse debe esperar un período de 24h para activación de usuario</h6>
+                                    <h4 class="text-center">Ya tienes una cuenta? <a href="login.php" class="text-danger font-weight-bold"><i class="material-icons">label_important</i>Ingresa</a></h4 class="text-center">
                                 </div>
                             </div>
                         </div>
