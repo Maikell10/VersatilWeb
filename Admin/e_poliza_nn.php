@@ -11,7 +11,7 @@ if(isset($_SESSION['seudonimo'])) {
       
   require_once("../class/clases.php");
 
-
+  
 
     $id_poliza=$_GET['id_poliza'];
     $ob= new Trabajo();
@@ -108,7 +108,14 @@ if(isset($_SESSION['seudonimo'])) {
   	$tipo_poliza_print="";
   	if ($tipo_poliza==1) {
   		$tipo_poliza_print="Primer Año";
-  	}
+    }
+      
+    $campos=$_GET['campos'];
+    if ($campos!='') {
+        $obj1111= new Trabajo();
+  	    $editP = $obj1111->agregarEditP($id_poliza,$campos,$_SESSION['seudonimo']); 
+    }
+    
 
 
 ?>

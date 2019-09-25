@@ -154,7 +154,6 @@ if(isset($_SESSION['seudonimo'])) {
 
 							?>
 							<tr >
-				                <tr >
                                 <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>" readonly></td>
                                 
                                 <td style="background-color:white"><div class="input-group date">
@@ -174,6 +173,12 @@ if(isset($_SESSION['seudonimo'])) {
                                 </td>
                                 <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?php echo $id_poliza; ?>"></td>
                                 <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="<?php echo $poliza[0]['id_tpoliza']; ?>"></td>
+
+                                <!-- Hidden -->
+                                <td hidden><input type="text" class="form-control" id="n_poliza1" name="n_poliza1" value="<?php echo $poliza[0]['cod_poliza']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?php echo $newDesdeP; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?php echo $newHastaP; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?php echo $poliza[0]['id_t_poliza']; ?>"></td>
                             </tr>
 					</tbody>
 				</table>
@@ -217,6 +222,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?php echo utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
                             <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?php echo utf8_encode($poliza[0]['id_cia']); ?>"></td>
+
+                            <td hidden><input type="text" class="form-control" id="t_cuenta1" name="t_cuenta1" value="<?php echo utf8_encode($poliza[0]['t_cuenta']); ?>"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -295,6 +302,10 @@ if(isset($_SESSION['seudonimo'])) {
                                 <td><input type="number" class="form-control validanumericos3" id="n_cuotas" name="n_cuotas" min="1" max="12" required></td>
 
                                 <td hidden><input type="text" class="form-control" id="n_cuotas_h" name="n_cuotas_h" value="<?php echo $poliza[0]['ncuotas']; ?>"></td>
+
+                                <td hidden><input type="text" class="form-control" id="n_recibo1" name="n_recibo1" value="<?php echo $poliza[0]['cod_recibo']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="desde_recibo1" name="desde_recibo1" value="<?php echo $newDesdeR; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="hasta_recibo1" name="hasta_recibo1" value="<?php echo $newHastaR; ?>"></td>
                             </tr>
                     </tbody>
                 </table>

@@ -292,7 +292,7 @@ $fechaMax= $date->format($format);
                                         <?php 
                                             if ($poliza[$i]['pdf']==1) {
                                         ?>
-                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                         <?php 
                                             } else {
                                                 echo 'No';

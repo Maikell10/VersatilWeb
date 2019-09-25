@@ -582,7 +582,6 @@ if ( (!$con_id) || (!$lr) ) {
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
                             <th>Nombre Usuario</th>
-                            <th>Fecha Creación</th>
                             <th>Fecha y Hora Creación</th>
                         </tr>
                     </thead>
@@ -594,13 +593,55 @@ if ( (!$con_id) || (!$lr) ) {
                                     $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
                                 ?>
                                 <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
-                                <td><?php echo $newCreacion; ?></td>
                                 <td><?php echo $newCreated." ".$newCreatedH; ?></td>
                             </tr>
                     </tbody>
                 </table>
                 </div>
 
+
+                <!-- AQUI VA LA TABLA SI LA POLIZA TIENE ALGUNA EDICION -->
+                <?php 
+
+                $obj99= new Trabajo();
+                $poliza_ed = $obj99->get_element_by_id('poliza_ed','id_poliza',$id_poliza); 
+
+                if ($poliza_ed[0]['id_poliza']) {
+                ?>
+                <div class="col-md-auto col-md-offset-2">
+                    <h2 class="title">Ediciones de la Póliza</h2>  
+                </div>
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Seudónimo Usuario</th>
+                            <th>Fecha y Hora de Edición</th>
+                            <th>Campos Editados</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                <?php 
+                    for ($i=0; $i < sizeof($poliza_ed); $i++) { 
+                        $originalDesdeP = $poliza_ed[$i]['created_at'];
+                        $newCreated = date("d/m/Y", strtotime($originalDesdeP));
+                        $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
+                ?>
+                        <tr>
+                            <td><?php echo $poliza_ed[$i]['usuario']; ?></td>
+                            <td><?php echo $newCreated." ".$newCreatedH; ?></td>
+                            <td><?php echo $poliza_ed[$i]['campos_ed']; ?></td>
+                        </tr>
+                <?php 
+                    }
+                ?>
+                    </tbody>
+                </table>
+                </div>
+                <?php 
+                }
+                ?>
 
 
                 <hr>

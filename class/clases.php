@@ -145,23 +145,7 @@ class Trabajo extends Conectar{
 	public function update_poliza_pdf($id_poliza)
 		{
 			$sql="UPDATE poliza SET pdf = 1 WHERE id_poliza = $id_poliza;";
-			$res=mysqli_query(Conectar::con(),$sql);
-			
-			if (!$res) {
-				//No hay registros
-			}else{
-				$filas=mysqli_num_rows($res); 
-				if ($filas == 0) { 
-					//header("Location: incorrecto.php?m=2");
-					exit();
-				}else
-					{
-						while($reg=mysqli_fetch_assoc($res)) {
-							$this->t[]=$reg;
-						}
-						return $this->t;
-					}
-			}
+			return mysqli_query(Conectar::con(),$sql);
 		}
 
 			   
@@ -15162,6 +15146,17 @@ public function agregarUsuario($nombre,$apellido,$ci,$zprod,$seudonimo,$clave,$i
 				'$seudonimo',
 				'$zprod',
 				'$asesor')";
+	return mysqli_query(Conectar::con(),$sql);
+
+}
+
+public function agregarEditP($id_poliza,$campos,$usuario){
+
+
+	$sql="INSERT into poliza_ed (id_poliza,campos_ed,usuario)
+		values ('$id_poliza',
+				'$campos',
+				'$usuario')";
 	return mysqli_query(Conectar::con(),$sql);
 
 }

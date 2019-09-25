@@ -15,7 +15,9 @@ if(isset($_SESSION['seudonimo'])) {
   $permiso = $_SESSION['id_permiso'];
   //----------------------
 
+    
 
+    
 
     $id_poliza=$_POST['id_poliza'];
 	$n_poliza=$_POST['n_poliza'];
@@ -177,6 +179,100 @@ if(isset($_SESSION['seudonimo'])) {
     if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) {
          $per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
     }
+
+
+    $campos='';
+
+    $n_poliza1=$_POST['n_poliza1'];
+    if ($n_poliza1!=$n_poliza) {
+        $campos=$campos.'Nº Poliza. ';
+    }
+    $fdesdeP1=$_POST['desdeP1'];
+    if ($fdesdeP1!=$fdesdeP) {
+        $campos=$campos.'Fecha Desde Seguro. ';
+    }
+    $fhastaP1=$_POST['hastaP1'];
+    if ($fhastaP1!=$fhastaP) {
+        $campos=$campos.'Fecha Hasta Seguro. ';
+    }
+    $tipo_poliza1=$_POST['tipo_poliza1'];
+    if ($tipo_poliza1!=$tipo_poliza) {
+        $campos=$campos.'Tipo de Poliza. ';
+    }
+    $ramo_e=$_POST['ramo_e'];
+    if ($ramo_e!=$ramo) {
+        $campos=$campos.'Ramo. ';
+    }
+    $cia_e=$_POST['cia_e'];
+    if ($cia_e!=$cia) {
+        $campos=$campos.'Cia. ';
+    }
+    $t_cuenta1=$_POST['t_cuenta1'];
+    if ($t_cuenta1!=$_POST['t_cuenta']) {
+        $campos=$campos.'Tipo de Cuenta. ';
+    }
+    $currency_h=$_POST['currency_h'];
+    if ($currency_h!=$_POST['currency']) {
+        $campos=$campos.'Moneda. ';
+    }
+    $sumaA_h=$_POST['sumaA_h'];
+    if ($sumaA_h!=$_POST['sumaA']) {
+        $campos=$campos.'Suma Asegurada. ';
+    }
+    $prima_h=$_POST['prima_h'];
+    if ($prima_h!=$_POST['prima']) {
+        $campos=$campos.'Prima Total sin Impuesto. ';
+    }
+    $f_pago_h=$_POST['f_pago_h'];
+    if ($f_pago_h!=$_POST['f_pago']) {
+        $campos=$campos.'Forma de Pago. ';
+    }
+    $n_recibo1=$_POST['n_recibo1'];
+    if ($n_recibo1!=$_POST['n_recibo']) {
+        $campos=$campos.'Nº de Recibo. ';
+    }
+    $desde_recibo1=$_POST['desde_recibo1'];
+    if ($desde_recibo1!=$_POST['desde_recibo']) {
+        $campos=$campos.'Fecha Desde Recibo. ';
+    }
+    $hasta_recibo1=$_POST['hasta_recibo1'];
+    if ($hasta_recibo1!=$_POST['hasta_recibo']) {
+        $campos=$campos.'Fecha Hasta Recibo. ';
+    }
+    $ci_t=$_POST['ci_t'];
+    if ($ci_t!=$_POST['titular']) {
+        $campos=$campos.'Titular. ';
+    }
+    $ci_tom=$_POST['ci_tom'];
+    if ($ci_tom!=$_POST['tomador']) {
+        $campos=$campos.'Tomador. ';
+    }
+    $placa_h=$_POST['placa_h'];
+    if ($placa_h!=$_POST['placa']) {
+        $campos=$campos.'Placa Vehiculo. ';
+    }
+    $marca_h=$_POST['marca_h'];
+    if ($marca_h!=$_POST['marca']) {
+        $campos=$campos.'Marca Vehiculo. ';
+    }
+    $modelo_h=$_POST['modelo_h'];
+    if ($modelo_h!=$_POST['modelo']) {
+        $campos=$campos.'Modelo Vehiculo. ';
+    }
+    $tipo_h=$_POST['tipo_h'];
+    if ($tipo_h!=$_POST['tipo']) {
+        $campos=$campos.'Tipo Vehiculo. ';
+    }
+    $anio_h=$_POST['anio_h'];
+    if ($anio_h!=$_POST['anio']) {
+        $campos=$campos.'Año Vehiculo. ';
+    }
+    $asesor_h=$_POST['asesor_h'];
+    if ($asesor_h!=$_POST['asesor']) {
+        $campos=$campos.'Asesor. ';
+    }
+    
+    //echo $campos;
 
 
 ?>
@@ -386,7 +482,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_poliza_nn.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_poliza_nn.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>
