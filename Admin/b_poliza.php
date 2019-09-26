@@ -12,14 +12,14 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_hastapoliza','poliza'); 
+  $fechaMin = $obj2->get_fecha_min('f_desdepoliza','poliza'); 
 
 
   $obj3= new Trabajo();
-  $fechaMax = $obj3->get_fecha_max('f_hastapoliza','poliza');
+  $fechaMax = $obj3->get_fecha_max('f_desdepoliza','poliza');
 
   //FECHA MAYORES A 2024
-$dateString = $fechaMax[0]["MAX(f_hastapoliza)"];
+$dateString = $fechaMax[0]["MAX(f_desdepoliza)"];
 // Parse a textual date/datetime into a Unix timestamp
 $date = new DateTime($dateString);
 $format = 'Y';
@@ -136,11 +136,11 @@ $fechaMax= $date->format($format);
                     <div class="form-row" style="text-align: left;">
                       
                       <div class="form-group col-md-6">
-                        <label align="left">Año Vigencia Seguro:</label>
+                        <label align="left">Año Vigencia Desde Seguro:</label>
                         <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                         <?php
-                            $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                            for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
+                            $date=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"]));
+                            for($i=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"])); $i <= $fechaMax; $i++)
                             {  
                         ?>
                             <option value="<?php echo $date;?>"><?php echo $date;?></option>
@@ -152,7 +152,7 @@ $fechaMax= $date->format($format);
                       </div>
 
                       <div class="form-group col-md-6">
-                        <label>Mes Vigencia Seguro:</label>
+                        <label>Mes Vigencia Desde Seguro:</label>
                         <select class="form-control selectpicker" name="mes[]" id="mes" multiple data-style="btn-white" data-header="Seleccione Mes" data-actions-box="true" data-live-search="true">
                             <option value="1">Enero</option>
                             <option value="2">Febrero</option>
@@ -230,7 +230,7 @@ $fechaMax= $date->format($format);
                                 <th>F Desde Seguro</th>
                                 <th>F Hasta Seguro</th>
                                 <th style="background-color: #E54848;">Prima Suscrita</th>
-                                <th nowrap>Nombre Titular</th>
+                                <th >Nombre Titular</th>
                                 <th>PDF</th>
                             </tr>
                         </thead>
@@ -294,9 +294,7 @@ $fechaMax= $date->format($format);
                                         ?>
                                         <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                         <?php 
-                                            } else {
-                                                echo 'No';
-                                            }
+                                            } else {}
                                         ?>
                                     </td>
                                 </tr>
@@ -693,8 +691,8 @@ $fechaMax= $date->format($format);
                             <label align="left">Año Vigencia Seguro:</label>
                             <select class="form-control selectpicker" name="anio[]" id="anio" multiple data-style="btn-white" data-size="13" data-header="Seleccione Año" data-actions-box="true" data-live-search="true">
                             <?php
-                                $date=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"]));
-                                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= $fechaMax; $i++)
+                                $date=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"]));
+                                for($i=date('Y', strtotime($fechaMin[0]["MIN(f_desdepoliza)"])); $i <= $fechaMax; $i++)
                                 {  
                             ?>
                                 <option value="<?php echo $date;?>"><?php echo $date;?></option>

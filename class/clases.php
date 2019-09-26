@@ -962,8 +962,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = ena.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn AND
 						dcia.nomcia IN ".$ciaIn." AND
 						codvend  IN ".$asesorIn."  ";
 			}//1
@@ -977,7 +977,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = ena.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio  ";
+						YEAR(poliza.f_desdepoliza) IN $anio  ";
 			}//2
 			if ($cia!='' && $asesor=='' && $mes=='') {
 
@@ -993,7 +993,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = ena.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						nomcia IN ".$ciaIn." ";
 			}//3
 			if ($cia=='' && $asesor!='' && $mes=='') {
@@ -1010,7 +1010,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = ena.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						codvend  IN ".$asesorIn." ";
 			}//4
 			if ($cia=='' && $asesor=='' && $mes!='') {
@@ -1027,8 +1027,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = ena.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn  ";
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn  ";
 			}//5
 			if ($cia!='' && $asesor!='' && $mes=='') {
 				// create sql part for IN condition by imploding comma after each id
@@ -1046,7 +1046,7 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = ena.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
 							nomcia IN ".$ciaIn." AND
 							codvend  IN ".$asesorIn." ";
 			}//6
@@ -1066,8 +1066,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = ena.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							codvend  IN ".$asesorIn." ";
 			}//7
 			if ($cia!='' && $asesor=='' && $mes!='') {
@@ -1086,8 +1086,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = ena.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							nomcia IN ".$ciaIn." ";
 			}//8
 
@@ -1142,8 +1142,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enr.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn AND
 						dcia.nomcia IN ".$ciaIn." AND
 						codvend  IN ".$asesorIn."  ";
 			}//1
@@ -1157,7 +1157,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enr.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio  ";
+						YEAR(poliza.f_desdepoliza) IN $anio  ";
 			}//2
 			if ($cia!='' && $asesor=='' && $mes=='') {
 
@@ -1173,7 +1173,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enr.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						nomcia IN ".$ciaIn." ";
 			}//3
 			if ($cia=='' && $asesor!='' && $mes=='') {
@@ -1190,7 +1190,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enr.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						codvend  IN ".$asesorIn." ";
 			}//4
 			if ($cia=='' && $asesor=='' && $mes!='') {
@@ -1207,8 +1207,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enr.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn  ";
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn  ";
 			}//5
 			if ($cia!='' && $asesor!='' && $mes=='') {
 				// create sql part for IN condition by imploding comma after each id
@@ -1226,7 +1226,7 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enr.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
 							nomcia IN ".$ciaIn." AND
 							codvend  IN ".$asesorIn." ";
 			}//6
@@ -1246,8 +1246,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enr.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							codvend  IN ".$asesorIn." ";
 			}//7
 			if ($cia!='' && $asesor=='' && $mes!='') {
@@ -1266,8 +1266,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enr.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							nomcia IN ".$ciaIn." ";
 			}//8
 			$res=mysqli_query(Conectar::con(),$sql);
@@ -1321,8 +1321,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn AND
 						dcia.nomcia IN ".$ciaIn." AND
 						codvend  IN ".$asesorIn."  ";
 			}//1
@@ -1336,7 +1336,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio  ";
+						YEAR(poliza.f_desdepoliza) IN $anio  ";
 			}//2
 			if ($cia!='' && $asesor=='' && $mes=='') {
 
@@ -1352,7 +1352,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						nomcia IN ".$ciaIn." ";
 			}//3
 			if ($cia=='' && $asesor!='' && $mes=='') {
@@ -1369,7 +1369,7 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
+						YEAR(poliza.f_desdepoliza) IN $anio AND
 						codvend  IN ".$asesorIn." ";
 			}//4
 			if ($cia=='' && $asesor=='' && $mes!='') {
@@ -1386,8 +1386,8 @@ class Trabajo extends Conectar{
 						poliza.id_titular = titular.id_titular AND
 						poliza.id_cia = dcia.idcia AND
 						poliza.codvend = enp.cod AND
-						YEAR(poliza.f_hastapoliza) IN $anio AND
-						MONTH(poliza.f_hastapoliza) IN $mesIn  ";
+						YEAR(poliza.f_desdepoliza) IN $anio AND
+						MONTH(poliza.f_desdepoliza) IN $mesIn  ";
 			}//5
 			if ($cia!='' && $asesor!='' && $mes=='') {
 				// create sql part for IN condition by imploding comma after each id
@@ -1405,7 +1405,7 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enp.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
 							nomcia IN ".$ciaIn." AND
 							codvend  IN ".$asesorIn." ";
 			}//6
@@ -1425,8 +1425,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enp.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							codvend  IN ".$asesorIn." ";
 			}//7
 			if ($cia!='' && $asesor=='' && $mes!='') {
@@ -1445,8 +1445,8 @@ class Trabajo extends Conectar{
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.codvend = enp.cod AND
-							YEAR(poliza.f_hastapoliza) IN $anio AND
-							MONTH(poliza.f_hastapoliza) IN $mesIn AND
+							YEAR(poliza.f_desdepoliza) IN $anio AND
+							MONTH(poliza.f_desdepoliza) IN $mesIn AND
 							nomcia IN ".$ciaIn." ";
 			}//8
 			$res=mysqli_query(Conectar::con(),$sql);
