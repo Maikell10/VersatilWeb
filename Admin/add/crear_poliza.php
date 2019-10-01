@@ -923,8 +923,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-        function validarPoliza(num_poliza){ 
-            $.ajax({
+        async function validarPoliza(num_poliza){ 
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,
                 url:"validarpoliza.php?num_poliza=" + num_poliza.value,
@@ -1062,7 +1062,7 @@ if(isset($_SESSION['seudonimo'])) {
                         $('#n_tomador').val("");
                         $('#a_tomador').val("");
 
-                       $('#asesor option:first').prop('selected',true);
+                        $('#asesor option:first').prop('selected',true);
 
                         $('#existeT').text("");
                         $('#no_existeT').text("");
@@ -1087,88 +1087,178 @@ if(isset($_SESSION['seudonimo'])) {
                     else if(datos[0]['id_cod_ramo']==2 || datos[0]['id_cod_ramo']==25){
                         alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
                         function(){ 
-                            alertify.success('Proceda a Renovar la Póliza');
-                            $('#titular').val(datos[0]['ci']);
-                            $('#titular').removeAttr('onblur');
-                            $('#titular').attr("readonly",true);
-                            $('#n_titular').val(datos[0]['nombre_t']);
-                            $('#a_titular').val(datos[0]['apellido_t']);
-                
-                            $("#tipo_poliza").val(2);
-                            $("#ramo").val(datos[0]['id_cod_ramo']);
-                            $('#ramo').css('pointer-events','none');
-                            $("#ramo").css('background-color', '#e6e6e6');
-                            $("#cia").val(datos[0]['id_cia']);
-                            $('#cia').css('pointer-events','none');
-                            $("#cia").css('background-color', '#e6e6e6');
-                            $("#t_cuenta").val(datos[0]['t_cuenta']);
-                            $('#t_cuenta').css('pointer-events','none');
-                            $("#t_cuenta").css('background-color', '#e6e6e6');
-                            var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
-                            $("#emisionP").val(emisionP);
-                            //$("#emisionP1").val(datos[0]['f_emi']);
-                            //$('#emisionP').attr("disabled",true);
-                            $('#desdeP').val(datos[0]['f_desdepoliza']);
-                            $('#hastaP').val(datos[0]['f_hastapoliza']);
-                            
+                            alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
+                            function(evt, value) {
+                                alertify.notify('Nuevo Nº de Póliza es: ' + value);
+                                alertify.success('Proceda a Renovar la Póliza');
+                                $('#n_poliza').val(value);
+                                $('#titular').val(datos[0]['ci']);
+                                $('#titular').removeAttr('onblur');
+                                $('#titular').attr("readonly",true);
+                                $('#n_titular').val(datos[0]['nombre_t']);
+                                $('#a_titular').val(datos[0]['apellido_t']);
+                    
+                                $("#tipo_poliza").val(2);
+                                $("#ramo").val(datos[0]['id_cod_ramo']);
+                                $('#ramo').css('pointer-events','none');
+                                $("#ramo").css('background-color', '#e6e6e6');
+                                $("#cia").val(datos[0]['id_cia']);
+                                $('#cia').css('pointer-events','none');
+                                $("#cia").css('background-color', '#e6e6e6');
+                                $("#t_cuenta").val(datos[0]['t_cuenta']);
+                                $('#t_cuenta').css('pointer-events','none');
+                                $("#t_cuenta").css('background-color', '#e6e6e6');
+                                var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
+                                $("#emisionP").val(emisionP);
+                                //$("#emisionP1").val(datos[0]['f_emi']);
+                                //$('#emisionP').attr("disabled",true);
+                                $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                
 
-                            var mydate = new Date($('#desdeP').val());
-                            $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                                var mydate = new Date($('#desdeP').val());
+                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
 
-                            var mydate1 = new Date($('#hastaP').val());
-                            $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+                                var mydate1 = new Date($('#hastaP').val());
+                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
 
-                            
-                            var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                            $('#desdeP').val(desdeP);
-                            $('#hastaP').val(hastaP);
-                            $( "#emisionP" ).datepicker( "setDate", emisionP );
-                            $( "#desdeP" ).datepicker( "setDate", desdeP );
-                            $( "#hastaP" ).datepicker( "setDate", hastaP );
-
-
-                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
-                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
-
-                            $('#placa').val(datos[0]['placa']);
-                            $('#tipo').val(datos[0]['tveh']);
-                            $('#marca').val(datos[0]['marca']);
-                            $('#modelo').val(datos[0]['mveh']);
-                            $('#anio').val(datos[0]['f_veh']);
-                            $('#serial').val(datos[0]['serial']);
-                            $('#color').val(datos[0]['cveh']);
-                            $('#categoria').val(datos[0]['catveh']);
-
-                            $('#t_cobertura').val(datos[0]['tcobertura']);
-                            $('#t_cobertura').attr("readonly",true);
-                            $("#currency").val(datos[0]['currency']);
-                            $('#currency').css('pointer-events','none');
-                            $("#currency").css('background-color', '#e6e6e6');
+                                
+                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                $('#desdeP').val(desdeP);
+                                $('#hastaP').val(hastaP);
+                                $( "#emisionP" ).datepicker( "setDate", emisionP );
+                                $( "#desdeP" ).datepicker( "setDate", desdeP );
+                                $( "#hastaP" ).datepicker( "setDate", hastaP );
 
 
-                            $('#existeP').text("Existe Póliza");
-                            $('#no_existeP').text("");
+                                $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                                $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
-                            $('#id_new_titular').val("");
+                                $('#placa').val(datos[0]['placa']);
+                                $('#tipo').val(datos[0]['tveh']);
+                                $('#marca').val(datos[0]['marca']);
+                                $('#modelo').val(datos[0]['mveh']);
+                                $('#anio').val(datos[0]['f_veh']);
+                                $('#serial').val(datos[0]['serial']);
+                                $('#color').val(datos[0]['cveh']);
+                                $('#categoria').val(datos[0]['catveh']);
 
-                            $('#tomador').val(titular.value);
-                            $('#n_tomador').val(datos[0]['nombre_t']);
-                            $('#a_tomador').val(datos[0]['apellido_t']);
+                                $('#t_cobertura').val(datos[0]['tcobertura']);
+                                $('#t_cobertura').attr("readonly",true);
+                                $("#currency").val(datos[0]['currency']);
+                                $('#currency').css('pointer-events','none');
+                                $("#currency").css('background-color', '#e6e6e6');
 
-                            $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
-                            $('#asesor').change();  
-                            console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
-                            $('#existeT').text("");
-                            $('#no_existeT').text("");
-                            $('#existeTom').text("");
-                            $('#no_existeTom').text("");
+                                $('#existeP').text("Existe Póliza");
+                                $('#no_existeP').text("");
 
-                            $('#tablatomador').removeAttr('hidden');
-                            $("#tomador").css('color', 'red');
+                                $('#id_new_titular').val("");
 
-                            $('#tablaveh').removeAttr('hidden');
+                                $('#tomador').val(titular.value);
+                                $('#n_tomador').val(datos[0]['nombre_t']);
+                                $('#a_tomador').val(datos[0]['apellido_t']);
+
+                                $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                                $('#asesor').change();  
+                                console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
+
+                                $('#existeT').text("");
+                                $('#no_existeT').text("");
+                                $('#existeTom').text("");
+                                $('#no_existeTom').text("");
+
+                                $('#tablatomador').removeAttr('hidden');
+                                $("#tomador").css('color', 'red');
+
+                                $('#tablaveh').removeAttr('hidden');
+                            },
+                            function() {
+                                alertify.notify('No se modificó el Nº de Póliza');
+                                alertify.success('Proceda a Renovar la Póliza');
+                                $('#titular').val(datos[0]['ci']);
+                                $('#titular').removeAttr('onblur');
+                                $('#titular').attr("readonly",true);
+                                $('#n_titular').val(datos[0]['nombre_t']);
+                                $('#a_titular').val(datos[0]['apellido_t']);
+                    
+                                $("#tipo_poliza").val(2);
+                                $("#ramo").val(datos[0]['id_cod_ramo']);
+                                $('#ramo').css('pointer-events','none');
+                                $("#ramo").css('background-color', '#e6e6e6');
+                                $("#cia").val(datos[0]['id_cia']);
+                                $('#cia').css('pointer-events','none');
+                                $("#cia").css('background-color', '#e6e6e6');
+                                $("#t_cuenta").val(datos[0]['t_cuenta']);
+                                $('#t_cuenta').css('pointer-events','none');
+                                $("#t_cuenta").css('background-color', '#e6e6e6');
+                                var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
+                                $("#emisionP").val(emisionP);
+                                //$("#emisionP1").val(datos[0]['f_emi']);
+                                //$('#emisionP').attr("disabled",true);
+                                $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                
+
+                                var mydate = new Date($('#desdeP').val());
+                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+                                var mydate1 = new Date($('#hastaP').val());
+                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+
+                                
+                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                $('#desdeP').val(desdeP);
+                                $('#hastaP').val(hastaP);
+                                $( "#emisionP" ).datepicker( "setDate", emisionP );
+                                $( "#desdeP" ).datepicker( "setDate", desdeP );
+                                $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+                                $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                                $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+                                $('#placa').val(datos[0]['placa']);
+                                $('#tipo').val(datos[0]['tveh']);
+                                $('#marca').val(datos[0]['marca']);
+                                $('#modelo').val(datos[0]['mveh']);
+                                $('#anio').val(datos[0]['f_veh']);
+                                $('#serial').val(datos[0]['serial']);
+                                $('#color').val(datos[0]['cveh']);
+                                $('#categoria').val(datos[0]['catveh']);
+
+                                $('#t_cobertura').val(datos[0]['tcobertura']);
+                                $('#t_cobertura').attr("readonly",true);
+                                $("#currency").val(datos[0]['currency']);
+                                $('#currency').css('pointer-events','none');
+                                $("#currency").css('background-color', '#e6e6e6');
+
+
+                                $('#existeP').text("Existe Póliza");
+                                $('#no_existeP').text("");
+
+                                $('#id_new_titular').val("");
+
+                                $('#tomador').val(titular.value);
+                                $('#n_tomador').val(datos[0]['nombre_t']);
+                                $('#a_tomador').val(datos[0]['apellido_t']);
+
+                                $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                                $('#asesor').change();  
+                                console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
+
+                                $('#existeT').text("");
+                                $('#no_existeT').text("");
+                                $('#existeTom').text("");
+                                $('#no_existeTom').text("");
+
+                                $('#tablatomador').removeAttr('hidden');
+                                $("#tomador").css('color', 'red');
+
+                                $('#tablaveh').removeAttr('hidden');
+                            }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
                         }, 
                         function(){ 
                             window.location.replace("crear_poliza.php");
@@ -1180,88 +1270,178 @@ if(isset($_SESSION['seudonimo'])) {
                     else{
                         alertify.confirm('Existe!', 'La Póliza que introdujo ya Existe ¿Desea Renovarla?', 
                         function(){ 
-                        
-                            $('#titular').val(datos[0]['ci']);
-                            $('#titular').removeAttr('onblur');
-                            $('#titular').attr("readonly",true);
-                            $('#n_titular').val(datos[0]['nombre_t']);
-                            $('#a_titular').val(datos[0]['apellido_t']);
-                
-                            $("#tipo_poliza").val(2);
-                            $("#ramo").val(datos[0]['id_cod_ramo']);
-                            $('#ramo').css('pointer-events','none');
-                            $("#ramo").css('background-color', '#e6e6e6');
-                            $("#cia").val(datos[0]['id_cia']);
-                            $('#cia').css('pointer-events','none');
-                            $("#cia").css('background-color', '#e6e6e6');
-                            $("#t_cuenta").val(datos[0]['t_cuenta']);
-                            $('#t_cuenta').css('pointer-events','none');
-                            $("#t_cuenta").css('background-color', '#e6e6e6');
-                            var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
-                            $("#emisionP").val(emisionP);
-                            //$("#emisionP1").val(datos[0]['f_emi']);
-                            //$('#emisionP').attr("disabled",true);
-                            $('#desdeP').val(datos[0]['f_desdepoliza']);
-                            $('#hastaP').val(datos[0]['f_hastapoliza']);
-                            
+                            alertify.prompt('Desea modificar el Nº de Póliza?', 'Ingrese el Nº de Póliza Nuevo', num_poliza.value,
+                            function(evt, value) {
+                                alertify.notify('Nuevo Nº de Póliza es: ' + value);
+                                alertify.success('Proceda a Renovar la Póliza');
+                                $('#n_poliza').val(value);
+                                $('#titular').val(datos[0]['ci']);
+                                $('#titular').removeAttr('onblur');
+                                $('#titular').attr("readonly",true);
+                                $('#n_titular').val(datos[0]['nombre_t']);
+                                $('#a_titular').val(datos[0]['apellido_t']);
+                    
+                                $("#tipo_poliza").val(2);
+                                $("#ramo").val(datos[0]['id_cod_ramo']);
+                                $('#ramo').css('pointer-events','none');
+                                $("#ramo").css('background-color', '#e6e6e6');
+                                $("#cia").val(datos[0]['id_cia']);
+                                $('#cia').css('pointer-events','none');
+                                $("#cia").css('background-color', '#e6e6e6');
+                                $("#t_cuenta").val(datos[0]['t_cuenta']);
+                                $('#t_cuenta').css('pointer-events','none');
+                                $("#t_cuenta").css('background-color', '#e6e6e6');
+                                var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
+                                $("#emisionP").val(emisionP);
+                                //$("#emisionP1").val(datos[0]['f_emi']);
+                                //$('#emisionP').attr("disabled",true);
+                                $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                
 
-                            var mydate = new Date($('#desdeP').val());
-                            $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                                var mydate = new Date($('#desdeP').val());
+                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
 
-                            var mydate1 = new Date($('#hastaP').val());
-                            $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+                                var mydate1 = new Date($('#hastaP').val());
+                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
 
-                            
-                            var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
-                            var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
-                            $('#desdeP').val(desdeP);
-                            $('#hastaP').val(hastaP);
-                            $( "#emisionP" ).datepicker( "setDate", emisionP );
-                            $( "#desdeP" ).datepicker( "setDate", desdeP );
-                            $( "#hastaP" ).datepicker( "setDate", hastaP );
-
-
-                            $( "#desde_recibo" ).datepicker( "setDate", desdeP );
-                            $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
-
-
-                            $('#t_cobertura').val(datos[0]['tcobertura']);
-                            $('#t_cobertura').attr("readonly",true);
-                            $("#currency").val(datos[0]['currency']);
-                            $('#currency').css('pointer-events','none');
-                            $("#currency").css('background-color', '#e6e6e6');
+                                
+                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                $('#desdeP').val(desdeP);
+                                $('#hastaP').val(hastaP);
+                                $( "#emisionP" ).datepicker( "setDate", emisionP );
+                                $( "#desdeP" ).datepicker( "setDate", desdeP );
+                                $( "#hastaP" ).datepicker( "setDate", hastaP );
 
 
-                            $('#existeP').text("Existe Póliza");
-                            $('#no_existeP').text("");
+                                $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                                $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
 
-                            $('#id_new_titular').val("");
 
-                            $('#tomador').val(titular.value);
-                            $('#n_tomador').val(datos[0]['nombre_t']);
-                            $('#a_tomador').val(datos[0]['apellido_t']);
+                                $('#t_cobertura').val(datos[0]['tcobertura']);
+                                $('#t_cobertura').attr("readonly",true);
+                                $("#currency").val(datos[0]['currency']);
+                                $('#currency').css('pointer-events','none');
+                                $("#currency").css('background-color', '#e6e6e6');
 
-                            $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
-                            $('#asesor').change();  
-                            console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
 
-                            $('#existeT').text("");
-                            $('#no_existeT').text("");
-                            $('#existeTom').text("");
-                            $('#no_existeTom').text("");
+                                $('#existeP').text("Existe Póliza");
+                                $('#no_existeP').text("");
 
-                            $('#tablatomador').removeAttr('hidden');
-                            $("#tomador").css('color', 'red');
-                            
-                            $('#tablaveh').attr('hidden',true);
-                            $('#placa').val('');
-                            $('#tipo').val('');
-                            $('#marca').val('');
-                            $('#modelo').val('');
-                            $('#anio').val('');
-                            $('#serial').val('');
-                            $('#color').val('');
-                            $('#categoria').val('');
+                                $('#id_new_titular').val("");
+
+                                $('#tomador').val(titular.value);
+                                $('#n_tomador').val(datos[0]['nombre_t']);
+                                $('#a_tomador').val(datos[0]['apellido_t']);
+
+                                $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                                $('#asesor').change();  
+                                console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
+
+                                $('#existeT').text("");
+                                $('#no_existeT').text("");
+                                $('#existeTom').text("");
+                                $('#no_existeTom').text("");
+
+                                $('#tablatomador').removeAttr('hidden');
+                                $("#tomador").css('color', 'red');
+                                
+                                $('#tablaveh').attr('hidden',true);
+                                $('#placa').val('');
+                                $('#tipo').val('');
+                                $('#marca').val('');
+                                $('#modelo').val('');
+                                $('#anio').val('');
+                                $('#serial').val('');
+                                $('#color').val('');
+                                $('#categoria').val('');
+                            },
+                            function() {
+                                alertify.notify('No se modificó el Nº de Póliza');
+                                alertify.success('Proceda a Renovar la Póliza');
+                                $('#titular').val(datos[0]['ci']);
+                                $('#titular').removeAttr('onblur');
+                                $('#titular').attr("readonly",true);
+                                $('#n_titular').val(datos[0]['nombre_t']);
+                                $('#a_titular').val(datos[0]['apellido_t']);
+                    
+                                $("#tipo_poliza").val(2);
+                                $("#ramo").val(datos[0]['id_cod_ramo']);
+                                $('#ramo').css('pointer-events','none');
+                                $("#ramo").css('background-color', '#e6e6e6');
+                                $("#cia").val(datos[0]['id_cia']);
+                                $('#cia').css('pointer-events','none');
+                                $("#cia").css('background-color', '#e6e6e6');
+                                $("#t_cuenta").val(datos[0]['t_cuenta']);
+                                $('#t_cuenta').css('pointer-events','none');
+                                $("#t_cuenta").css('background-color', '#e6e6e6');
+                                var emisionP = datos[0]['f_emi'].split('-').reverse().join('-');
+                                $("#emisionP").val(emisionP);
+                                //$("#emisionP1").val(datos[0]['f_emi']);
+                                //$('#emisionP').attr("disabled",true);
+                                $('#desdeP').val(datos[0]['f_desdepoliza']);
+                                $('#hastaP').val(datos[0]['f_hastapoliza']);
+                                
+
+                                var mydate = new Date($('#desdeP').val());
+                                $('#desdeP').val((mydate.getFullYear() + 1) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+
+                                var mydate1 = new Date($('#hastaP').val());
+                                $('#hastaP').val((mydate1.getFullYear() + 1) + '-' + (mydate1.getMonth() + 01) + '-' + (mydate1.getDate()+1) );          
+
+                                
+                                var desdeP = ($('#desdeP').val()).split('-').reverse().join('-');
+                                var hastaP = ($('#hastaP').val()).split('-').reverse().join('-');
+                                $('#desdeP').val(desdeP);
+                                $('#hastaP').val(hastaP);
+                                $( "#emisionP" ).datepicker( "setDate", emisionP );
+                                $( "#desdeP" ).datepicker( "setDate", desdeP );
+                                $( "#hastaP" ).datepicker( "setDate", hastaP );
+
+
+                                $( "#desde_recibo" ).datepicker( "setDate", desdeP );
+                                $( "#hasta_recibo" ).datepicker( "setDate", hastaP );
+
+
+                                $('#t_cobertura').val(datos[0]['tcobertura']);
+                                $('#t_cobertura').attr("readonly",true);
+                                $("#currency").val(datos[0]['currency']);
+                                $('#currency').css('pointer-events','none');
+                                $("#currency").css('background-color', '#e6e6e6');
+
+
+                                $('#existeP').text("Existe Póliza");
+                                $('#no_existeP').text("");
+
+                                $('#id_new_titular').val("");
+
+                                $('#tomador').val(titular.value);
+                                $('#n_tomador').val(datos[0]['nombre_t']);
+                                $('#a_tomador').val(datos[0]['apellido_t']);
+
+                                $("#asesor").val(datos[0]['codvend']+"="+datos[0]['idnom']);
+                                $('#asesor').change();  
+                                console.log(datos[0]['codvend']+"="+datos[0]['idnom']);
+
+                                $('#existeT').text("");
+                                $('#no_existeT').text("");
+                                $('#existeTom').text("");
+                                $('#no_existeTom').text("");
+
+                                $('#tablatomador').removeAttr('hidden');
+                                $("#tomador").css('color', 'red');
+                                
+                                $('#tablaveh').attr('hidden',true);
+                                $('#placa').val('');
+                                $('#tipo').val('');
+                                $('#marca').val('');
+                                $('#modelo').val('');
+                                $('#anio').val('');
+                                $('#serial').val('');
+                                $('#color').val('');
+                                $('#categoria').val('');
+                            }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
                         }, 
                         function(){ 
                             window.location.replace("crear_poliza.php");

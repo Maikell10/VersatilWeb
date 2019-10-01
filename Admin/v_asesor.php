@@ -140,12 +140,16 @@ if(isset($_SESSION['seudonimo'])) {
                         
                         ?>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-							<th colspan="2">%GC</th>
-                            <th colspan="2">%GC Viajes</th>
+                            <th>%GC (Nuevo)</th>
+                            <th>%GC (Renovación)</th>
+                            <th>%GC Viajes (Nuevo)</th>
+                            <th>%GC Viajes (Renovación)</th>
                         </tr>
                         <tr>
-                            <td colspan="2"><?php echo $asesor[0]['nopre1']." %"; ?></td>
-                            <td colspan="2"><?php echo $asesor[0]['gc_viajes']." %"; ?></td>
+                            <td><?php echo $asesor[0]['nopre1']." %"; ?></td>
+                            <td><?php echo $asesor[0]['nopre1_renov']." %"; ?></td>
+                            <td><?php echo $asesor[0]['gc_viajes']." %"; ?></td>
+                            <td><?php echo $asesor[0]['gc_viajes_renov']." %"; ?></td>
                         </tr>
                         <?php
                         }

@@ -48,75 +48,64 @@ if(isset($_SESSION['seudonimo'])) {
 
 
   $obj1= new Trabajo();
-  $fpago = $obj1->get_distinct_element_fpago($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
+  $ejecutivo = $obj1->get_distinct_element_ejecutivo_ps($desde,$hasta,$cia,$ramo,$tipo_cuenta); 
 
   $totals=0;
   $totalCant=0;
 
-  $fpagoArray[sizeof($fpago)]=null;
-  $sumatotalFpago[sizeof($fpago)]=null;
-  $cantArray[sizeof($fpago)]=null;
-
-  //----------------------------------------------------------------------------
-  $obj11= new Trabajo();
-  $user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
-
-  $asesor_u = $user[0]['cod_vend'];
-  $permiso = $user[0]['id_permiso'];
-  //---------------------------------------------------------------------------
-
-if ($permiso!=3) { 
+  $ejecutivoArray[sizeof($ejecutivo)]=null;
+  $sumatotalEjecutivo[sizeof($ejecutivo)]=null;
+  $cantArray[sizeof($ejecutivo)]=null;
 
 
-  for($i=0;$i<sizeof($fpago);$i++)
+  for($i=0;$i<sizeof($ejecutivo);$i++)
     {  
 
       $obj2= new Trabajo();
-      $fpagoPoliza = $obj2->get_poliza_graf_4($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-    
-      $cantArray[$i]=sizeof($fpagoPoliza);
+      $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
+
+      $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom'];
+      //." [ ".$ejecutivoPoliza[0]['cod']." ] "
+      
+      if ($ejecutivoPoliza[0]['idnom']==null) {
+        $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
+        $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre'];
+
+        if ($ejecutivoPoliza[0]['nombre']==null ) {
+            $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
+            $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre'];
+          }
+      }
+
+      
+
+      $cantArray[$i]=sizeof($ejecutivoPoliza);
       $sumasegurada=0;
-      for($a=0;$a<sizeof($fpagoPoliza);$a++)
+      for($a=0;$a<sizeof($ejecutivoPoliza);$a++)
         { 
-          $sumasegurada=$sumasegurada+$fpagoPoliza[$a]['prima'];
+          $sumasegurada=$sumasegurada+$ejecutivoPoliza[$a]['prima'];
 
         } 
         $totals=$totals+$sumasegurada;
         $totalCant=$totalCant+$cantArray[$i];
-        $sumatotalFpago[$i]=$sumasegurada;
-        $fpagoArray[$i]=$fpago[$i]['fpago'];
+        $sumatotalEjecutivo[$i]=$sumasegurada;
+        
     }
-}
-if ($permiso==3) {
-  for($i=0;$i<sizeof($fpago);$i++)
-    {  
 
-      $obj2= new Trabajo();
-      $fpagoPoliza = $obj2->get_poliza_graf_4_by_user($fpago[$i]['fpago'],$ramo,$desde,$hasta,$cia,$tipo_cuenta,$asesor_u); 
-    
-      $cantArray[$i]=sizeof($fpagoPoliza);
-      $sumasegurada=0;
-      for($a=0;$a<sizeof($fpagoPoliza);$a++)
-        { 
-          $sumasegurada=$sumasegurada+$fpagoPoliza[$a]['prima'];
 
-        } 
-        $totals=$totals+$sumasegurada;
-        $totalCant=$totalCant+$cantArray[$i];
-        $sumatotalFpago[$i]=$sumasegurada;
-        $fpagoArray[$i]=$fpago[$i]['fpago'];
-    }
-}
-
-asort($sumatotalFpago , SORT_NUMERIC);
+asort($sumatotalEjecutivo , SORT_NUMERIC);
 
 
 $x = array();
-foreach($sumatotalFpago as $key=>$value) {
+foreach($sumatotalEjecutivo as $key=>$value) {
 
    $x[count($x)] = $key;
 
 }
+
+
+  //isset($_POST["ramo"]);
+  //onchange = "this.form.submit()"
 
 
 ?>
@@ -161,11 +150,11 @@ foreach($sumatotalFpago as $key=>$value) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Primas Suscritas por Forma de Pago</h1> 
+                    <h1 class="title">Distribución de la Cartera por Ejecutivo</h1> 
                     <br/>
                     
-                    <a href="../primas_s.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
-                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Suscritas por Forma de Pago')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
+                    <a href="../porcentaje.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
+                    <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Suscritas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
 
@@ -174,9 +163,9 @@ foreach($sumatotalFpago as $key=>$value) {
     <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
         <tr>
-          <th scope="col">Pago</th>
+          <th scope="col">Ejecutivo Cuenta</th>
           <th scope="col">Prima Suscrita</th>
-          <th scope="col">Prima Pagada</th>
+          <th scope="col">%</th>
           <th scope="col">Cantidad</th>
         </tr>
       </thead>
@@ -184,13 +173,14 @@ foreach($sumatotalFpago as $key=>$value) {
         <?php
           
 
-          for ($i=sizeof($fpago); $i > 0; $i--) { 
+          for ($i=sizeof($ejecutivo); $i > 0; $i--) { 
               //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($fpagoArray[$x[$i]]);?></th>
-          <td align="right"><?php echo "$".number_format($sumatotalFpago[$x[$i]],2); ?></td>
-          <td><?php echo number_format(($sumatotalFpago[$x[$i]]*100)/$totals,2)." %"; ?></td>
+          <th scope="row"><?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>
+          </th>
+          <td align="right"><?php echo "$".number_format($sumatotalEjecutivo[$x[$i]],2); ?></td>
+          <td><?php echo number_format(($sumatotalEjecutivo[$x[$i]]*100)/$totals,2)." %"; ?></td>
           <td><?php echo $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
@@ -255,24 +245,23 @@ foreach($sumatotalFpago as $key=>$value) {
 
     // Global Options
     Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontSize = 12;
     Chart.defaults.global.defaultFontColor = '#777';
 
     let massPopChart = new Chart(myChart, {
       type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        labels:[<?php for($i=sizeof($fpago); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($fpagoArray[$x[$i]]);?>',
+        labels:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--){ ?>
+        '<?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>',
 
                 <?php }?>],
 
         datasets:[{
 
-          data:[<?php for($i=sizeof($fpago); $i > 0; $i--)
+          data:[<?php for($i=sizeof($ejecutivo); $i > 0; $i--)
             {  
-                $sumasegurada=$sumatotalFpago[$x[$i]];
                 ?>
-                '<?php echo $sumasegurada; ?>',
+                '<?php echo number_format(($sumatotalEjecutivo[$x[$i]]*100)/$totals,2); ?>',
             <?php }?>
           ],
           //backgroundColor:'green',
@@ -284,9 +273,53 @@ foreach($sumatotalFpago as $key=>$value) {
             'rgba(153, 102, 255, 0.6)',
             'rgba(255, 159, 64, 0.6)',
             'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
             'red',
             'blue',
-            'yellow'
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)',
+            'rgb(255, 255, 0)',
+            'rgb(0, 0, 204)',
+            'rgb(0, 153, 153)',
+            'rgb(102, 102, 153)',
+            'brown',
+            'purple',
+            'rgb(0, 102, 102)',
+            'rgb(51, 204, 51)',
+            'rgb(255, 80, 80)',
+            'rgb(102, 0, 204)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'yellow',
+            'white',
+            'gray',
+            'rgb(204, 0, 0)',
+            'rgb(204, 0, 204)',
+            'rgb(102, 0, 204)',
+            'rgb(0, 204, 153)',
+            'rgb(204, 204, 0)',
+            'rgb(102, 0, 51)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(53, 57, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgb(255, 153, 204)',
+            'red',
+            'blue',
+            'black',
+            'rgb(204, 0, 153)',
+            'rgb(204, 51, 0)'
           ],
           borderWidth:1,
           borderColor:'#777',
@@ -297,12 +330,12 @@ foreach($sumatotalFpago as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Prima Suscrita por Forma de Pago',
+          text:'Prima Suscrita por Ejecutivo (%)',
           fontSize:25
         },
         legend:{
           display:true,
-          position:'right',
+          position:'bottom',
           labels:{
             fontColor:'#000'
           }

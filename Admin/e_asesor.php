@@ -140,12 +140,16 @@ if(isset($_SESSION['seudonimo'])) {
                         if ($asesor[0]['nopre1']!=null) {
                         ?>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-							<th colspan="2">%GC</th>
-                            <th colspan="2">%GC Viajes</th>
+                            <th>%GC (Nuevo)</th>
+                            <th>%GC (Renovación)</th>
+                            <th>%GC Viajes (Nuevo)</th>
+                            <th>%GC Viajes (Renovación)</th>
                         </tr>
                         <tr>
-                            <td colspan="2"><input type="text" class="form-control validanumericos" name="nopre1" required value="<?php echo $asesor[0]['nopre1']; ?>"></td>
-                            <td colspan="2"><input type="text" class="form-control validanumericos1" name="gc_viajes" required value="<?php echo $asesor[0]['gc_viajes']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos" name="nopre1" required value="<?php echo $asesor[0]['nopre1']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos1" name="nopre1_renov" required value="<?php echo $asesor[0]['nopre1_renov']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos2" name="gc_viajes" required value="<?php echo $asesor[0]['gc_viajes']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos3" name="gc_viajes_renov" required value="<?php echo $asesor[0]['gc_viajes_renov']; ?>"></td>
                         </tr>
                         <?php
                         }
@@ -252,6 +256,8 @@ if(isset($_SESSION['seudonimo'])) {
     onload = function(){ 
           var ele = document.querySelectorAll('.validanumericos')[0];
           var ele1 = document.querySelectorAll('.validanumericos1')[0];
+          var ele2 = document.querySelectorAll('.validanumericos2')[0];
+          var ele3 = document.querySelectorAll('.validanumericos3')[0];
 
           ele.onkeypress = function(e) {
              if(isNaN(this.value+String.fromCharCode(e.charCode)))
@@ -266,6 +272,20 @@ if(isset($_SESSION['seudonimo'])) {
           }
           ele1.onpaste = function(e1){
              e1.preventDefault();
+          }
+          ele2.onkeypress = function(e2) {
+             if(isNaN(this.value+String.fromCharCode(e2.charCode)))
+                return false;
+          }
+          ele2.onpaste = function(e2){
+             e2.preventDefault();
+          }
+          ele3.onkeypress = function(e3) {
+             if(isNaN(this.value+String.fromCharCode(e3.charCode)))
+                return false;
+          }
+          ele3.onpaste = function(e3){
+             e3.preventDefault();
           }
         }
 

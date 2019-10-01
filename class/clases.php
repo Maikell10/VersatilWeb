@@ -2758,7 +2758,7 @@ class Trabajo extends Conectar{
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							poliza.idtitu = titular.id_titular AND
+							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND
@@ -2777,7 +2777,7 @@ class Trabajo extends Conectar{
 							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
 							WHERE poliza.id_poliza = drecibo.idrecibo AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
-							poliza.idtitu = titular.id_titular AND
+							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_poliza = comision.id_poliza AND
@@ -14793,7 +14793,7 @@ class Trabajo extends Conectar{
 
 
 			$sql="INSERT into ena (idnom,cod,id,banco,tipo_cuenta,
-									num_cuenta,email,cel,obs,pre1,gc_viajes,nopre1)
+									num_cuenta,email,cel,obs,nopre1_renov,nopre1,gc_viajes,gc_viajes_renov)
 									values ('$datos[0]',
 											'$datos[1]',
 											'$datos[2]',
@@ -14805,7 +14805,8 @@ class Trabajo extends Conectar{
 											'$datos[8]',
 											'$datos[9]',
 											'$datos[10]',
-											'$datos[11]')";
+											'$datos[11]',
+											'$datos[12]')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -15024,7 +15025,7 @@ class Trabajo extends Conectar{
 											'$datos[1]',
 											'0',
 											'0',
-											'50',
+											'0',
 											'1',
 											'$datos[4]')";
 		return mysqli_query(Conectar::con(),$sql);
@@ -15752,7 +15753,7 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 		
 	}
 
-	public function editarAsesorA($id_asesor,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$nopre1,$gc_viajes){
+	public function editarAsesorA($id_asesor,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$nopre1,$nopre1_renov,$gc_viajes,$gc_viajes_renov){
 
 			$sql="UPDATE ena set 	id='$id',
 								 	idnom='$nombre',
@@ -15764,7 +15765,9 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 									obs='$obs',
 									act='$act',
 									nopre1='$nopre1',
-									gc_viajes='$gc_viajes'
+									nopre1_renov='$nopre1_renov',
+									gc_viajes='$gc_viajes',
+									gc_viajes_renov='$gc_viajes_renov'
 
 					where idena= '$id_asesor'";
 			return mysqli_query(Conectar::con(),$sql);	

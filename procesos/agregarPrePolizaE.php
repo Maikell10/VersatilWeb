@@ -76,7 +76,7 @@ if(isset($_SESSION['seudonimo'])) {
         $poliza[0]['sumaasegurada'],
         $poliza[0]['codvend'],
         $poliza[0]['id_cod_ramo'],
-        $poliza[0]['per_gc'],
+        0,
         $poliza[0]['t_cuenta'],
         $f_hasta);
 

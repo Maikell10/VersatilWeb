@@ -129,12 +129,16 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
 
                                 <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
-                                    <th colspan="3">% GC *</th>
-                                    <th colspan="2">% GC Viajes *</th>
+                                    <th colspan="2">%GC (Nuevo) *</th>
+                                    <th>%GC (Renovación) *</th>
+                                    <th>%GC Viajes (Nuevo) *</th>
+                                    <th>%GC Viajes (Renovación) *</th>
                                 </tr>
                                 <tr style="background-color: white">
-                                    <td colspan="3"><input type="text" class="form-control validanumericos3" id="gc" name="gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
-                                    <td colspan="2"><input type="text" class="form-control validanumericos5" id="viajes" name="viajes" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td colspan="2"><input type="text" class="form-control validanumericos3" id="gc" name="gc" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td><input type="text" class="form-control validanumericos4" id="gc_renov" name="gc_renov" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td><input type="text" class="form-control validanumericos5" id="viajes" name="viajes" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td><input type="text" class="form-control validanumericos6" id="viajes_renov" name="viajes_renov" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -237,6 +241,7 @@ if(isset($_SESSION['seudonimo'])) {
           var ele3 = document.querySelectorAll('.validanumericos3')[0];
           var ele4 = document.querySelectorAll('.validanumericos4')[0];
           var ele5 = document.querySelectorAll('.validanumericos5')[0];
+          var ele6 = document.querySelectorAll('.validanumericos6')[0];
 
           ele.onkeypress = function(e) {
              if(isNaN(this.value+String.fromCharCode(e.charCode)))
@@ -279,6 +284,13 @@ if(isset($_SESSION['seudonimo'])) {
           }
           ele5.onpaste = function(e5){
              e5.preventDefault();
+          }
+          ele6.onkeypress = function(e6) {
+             if(isNaN(this.value+String.fromCharCode(e6.charCode)))
+                return false;
+          }
+          ele6.onpaste = function(e6){
+             e6.preventDefault();
           }
         }
 

@@ -154,7 +154,18 @@ if(isset($_SESSION['seudonimo'])) {
 
 							?>
 							<tr >
+                                <?php 
+                                if ($user[0]['id_permiso']==1) {
+                                ?>
+                                <td style="background-color:white"><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>"></td>
+                                <?php
+                                } else {
+                                ?>
                                 <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>" readonly></td>
+                                <?php
+                                }
+                                ?>
+                                
                                 
                                 <td style="background-color:white"><div class="input-group date">
                                         <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" value="<?php echo $newDesdeP; ?>"> 

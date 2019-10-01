@@ -88,7 +88,7 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
 
-                <div class="card text-white bg-info mb-6">
+                <div class="card text-white bg-info mb-3">
                 <a href="Porcentaje/busqueda_fpago.php">
                   <div class="card-body">
                     <h5 class="card-title">Distribución de la Cartera por Forma de Pago</h5>
@@ -96,7 +96,15 @@ if(isset($_SESSION['seudonimo'])) {
                 </a>
                 </div>
 
-                <div class="card text-white bg-info mb-6">
+                <div class="card text-white bg-info mb-3">
+                <a href="Porcentaje/busqueda_ejecutivo.php">
+                  <div class="card-body">
+                    <h5 class="card-title">Distribución de la Cartera por Ejecutivo</h5>
+                  </div>
+                </a>
+                </div>
+
+                <div class="card text-white bg-info mb-3">
                 <a href="Porcentaje/busqueda_ramo_promedio.php" >
                   <div class="card-body">
                     <h5 class="card-title">Prima Promedio por Ramo</h5>

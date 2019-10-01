@@ -339,7 +339,7 @@ foreach($sumatotalRamo as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Prima Suscrita por Ramo (%)',
+          text:'Grafico de Prima Suscrita por Ramo',
           fontSize:25
         },
         legend:{

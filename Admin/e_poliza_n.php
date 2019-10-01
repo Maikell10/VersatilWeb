@@ -15,9 +15,13 @@ if(isset($_SESSION['seudonimo'])) {
   $permiso = $_SESSION['id_permiso'];
   //----------------------
 
-    
+  // SABER SI TIENE PER_GC (NO ES POLIZA PENDIENTE SI NO EDICION)
+  $obj1= new Trabajo();
+  $get_poliza = $obj1->get_element_by_id('poliza','id_poliza',$_POST['id_poliza']); 
 
-    
+  $por_gc = $get_poliza[0]['per_gc'];
+  //------------------------------------------------------------------
+
 
     $id_poliza=$_POST['id_poliza'];
 	$n_poliza=$_POST['n_poliza'];
@@ -313,6 +317,8 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container" >
+                <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+
                 <center>
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;Previsualizar Edición de la Póliza N° <?php echo $n_poliza;?>

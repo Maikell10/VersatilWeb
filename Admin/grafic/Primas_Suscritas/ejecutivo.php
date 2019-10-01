@@ -64,16 +64,16 @@ if(isset($_SESSION['seudonimo'])) {
       $obj2= new Trabajo();
       $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
 
-      $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
+      $ejecutivoArray[$i]=$ejecutivoPoliza[0]['idnom'];
 
       
       if ($ejecutivoPoliza[0]['idnom']==null) {
         $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-        $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
+        $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre'];
 
         if ($ejecutivoPoliza[0]['nombre']==null ) {
             $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_p($ejecutivo[$i]['codvend'],$ramo,$desde,$hasta,$cia,$tipo_cuenta); 
-            $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre']." [ ".$ejecutivoPoliza[0]['cod']." ] ";
+            $ejecutivoArray[$i]=$ejecutivoPoliza[0]['nombre'];
           }
       }
 
@@ -330,7 +330,7 @@ foreach($sumatotalEjecutivo as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Prima Suscrita por Ejecutivo (%)',
+          text:'Prima Suscrita por Ejecutivo',
           fontSize:25
         },
         legend:{

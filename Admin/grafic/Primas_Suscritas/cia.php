@@ -333,7 +333,7 @@ foreach($sumatotalCia as $key=>$value) {
       options:{
         title:{
           display:true,
-          text:'Grafico de Distribución de la Cartera por Cía (%)',
+          text:'Grafico de Distribución de la Cartera por Cía',
           fontSize:25
         },
         legend:{
