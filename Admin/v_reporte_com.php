@@ -77,7 +77,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <center>
 
-                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-toggle="tooltip" data-placement="top" title="Añadir Comisión" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-toggle="tooltip" data-placement="top" title="Añadir Comisión" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus" aria-hidden="true"></i></a>
 
                 <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-toggle="tooltip" data-placement="top" title="Editar Fechas y Montos Totales" class="btn btn-success btn-lg text-center">Editar Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
@@ -122,6 +122,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <table class="table table-hover table-striped table-bordered" id="iddatatable" >
                     <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                         <tr>
+                            <th hidden>id</th>
                             <th>N° de Póliza</th>
                             <th nowrap>Asegurado</th>
                             <th>Fecha de Pago de la Prima</th>
@@ -155,7 +156,8 @@ if(isset($_SESSION['seudonimo'])) {
                             }
 
                         ?>
-                        <tr>
+                        <tr style="cursor: pointer;">
+                            <td hidden><?php echo $comision[$i]['id_poliza']; ?></td>
                             <td><?php echo $comision[$i]['num_poliza']; ?></td>
                             <td nowrap><?php echo utf8_encode($nombre); ?></td>
                             <td><?php echo $f_pago_prima; ?></td>
@@ -175,6 +177,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                     <tfoot>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <th hidden>id</th>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -187,6 +190,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <?php }?>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <th hidden>id</th>
                             <th>N° de Póliza</th>
                             <th>Asegurado</th>
                             <th>Fecha de Pago de la Prima</th>
@@ -265,6 +269,12 @@ if(isset($_SESSION['seudonimo'])) {
 
     
     <script language="javascript">
+
+        $( "#iddatatable tbody tr" ).dblclick(function() {
+            var customerId = $(this).find("td").eq(0).html();   
+
+            window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
+        });
 
 
         function eliminarDatos(id_rep_com){

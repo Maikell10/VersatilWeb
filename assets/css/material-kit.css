@@ -4863,6 +4863,12 @@ button.close {
   }
 }
 
+@media (min-width: 1000px) {
+  .modal-lg-c {
+    max-width: 1290px;
+  }
+}
+
 .tooltip {
   position: absolute;
   z-index: 1070;
@@ -9808,7 +9814,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
   vertical-align: middle;
   position: relative;
   top: -2px;
-  float: left;
+  /*float: left;*/
   padding-right: 10px;
   display: inline-block;
 }
@@ -10484,7 +10490,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
   vertical-align: middle;
   position: relative;
   top: -2px;
-  float: left;
+  /*float: left;*/
   padding-right: 10px;
   display: inline-block;
 }
@@ -12313,7 +12319,7 @@ textarea {
 .navbar .navbar-toggler .navbar-toggler-icon {
   width: 22px;
   height: 2px;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
   outline: 0;
   display: block;
   border-radius: 1px;

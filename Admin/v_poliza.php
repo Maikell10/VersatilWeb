@@ -572,81 +572,11 @@ if ( (!$con_id) || (!$lr) ) {
                 </div>
 
 
-                <div class="col-md-auto col-md-offset-2">
-                    <h2 class="title">Usuario que Generó la Póliza</h2>  
-                </div>
-
-
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th>Nombre Usuario</th>
-                            <th>Fecha y Hora Creación</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                            <tr >
-                                <?php 
-                                    $originalDesdeP = $poliza[0]['created_at'];
-                                    $newCreated = date("d/m/Y", strtotime($originalDesdeP));
-                                    $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
-                                ?>
-                                <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
-                                <td><?php echo $newCreated." ".$newCreatedH; ?></td>
-                            </tr>
-                    </tbody>
-                </table>
-                </div>
-
-
-                <!-- AQUI VA LA TABLA SI LA POLIZA TIENE ALGUNA EDICION -->
-                <?php 
-
-                $obj99= new Trabajo();
-                $poliza_ed = $obj99->get_element_by_id('poliza_ed','id_poliza',$id_poliza); 
-
-                if ($poliza_ed[0]['id_poliza']) {
-                ?>
-                <div class="col-md-auto col-md-offset-2">
-                    <h2 class="title">Ediciones de la Póliza</h2>  
-                </div>
-
-                <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
-                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                        <tr>
-                            <th>Seudónimo Usuario</th>
-                            <th>Fecha y Hora de Edición</th>
-                            <th>Campos Editados</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                <?php 
-                    for ($i=0; $i < sizeof($poliza_ed); $i++) { 
-                        $originalDesdeP = $poliza_ed[$i]['created_at'];
-                        $newCreated = date("d/m/Y", strtotime($originalDesdeP));
-                        $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
-                ?>
-                        <tr>
-                            <td><?php echo $poliza_ed[$i]['usuario']; ?></td>
-                            <td><?php echo $newCreated." ".$newCreatedH; ?></td>
-                            <td><?php echo $poliza_ed[$i]['campos_ed']; ?></td>
-                        </tr>
-                <?php 
-                    }
-                ?>
-                    </tbody>
-                </table>
-                </div>
-                <?php 
-                }
-                ?>
-
-
                 <hr>
                 <center>
                 <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Pagos" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pagos">Pagos  &nbsp;<i class="fa fa-money" aria-hidden="true"></i></a>
+
+                <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Seguimiento" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#seguimiento">Seguimiento  &nbsp;<i class="fa fa-eye" aria-hidden="true"></i></a>
 
                 <?php 
                     if ($poliza[0]['nombre_t']=='PENDIENTE') {
@@ -734,7 +664,7 @@ if ( (!$con_id) || (!$lr) ) {
 
     
 
-    <!-- Modal -->
+    <!-- Modal PAGOS -->
     <div class="modal fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -769,6 +699,7 @@ if ( (!$con_id) || (!$lr) ) {
                     <hr>
 
                     <form id="frmnuevoP">
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
@@ -818,8 +749,98 @@ if ( (!$con_id) || (!$lr) ) {
                                     <td style="background-color: #F53333;color: white;font-weight: bold"></td>
                                 </tr>
                         </table>
+                    </div>   
                     </form>
                     <h2>Prima Pendiente: <?php echo $currency.number_format($poliza[0]['prima']-$totalprimaC,2); ?></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal SEGUIMIENTO -->
+    <div class="modal fade" id="seguimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Seguimiento de la Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <hr>
+                    <div class="col-md-auto col-md-offset-2">
+                        <h2 class="title">Usuario que Generó la Póliza</h2>  
+                    </div>
+
+
+                    <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
+                        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                            <tr>
+                                <th>Nombre Usuario</th>
+                                <th>Fecha y Hora Creación</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                                <tr >
+                                    <?php 
+                                        $originalDesdeP = $poliza[0]['created_at'];
+                                        $newCreated = date("d/m/Y", strtotime($originalDesdeP));
+                                        $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
+                                    ?>
+                                    <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
+                                    <td><?php echo $newCreated." ".$newCreatedH; ?></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+
+                    <!-- AQUI VA LA TABLA SI LA POLIZA TIENE ALGUNA EDICION -->
+                    <?php 
+
+                    $obj99= new Trabajo();
+                    $poliza_ed = $obj99->get_element_by_id('poliza_ed','id_poliza',$id_poliza); 
+
+                    if ($poliza_ed[0]['id_poliza']) {
+                    ?>
+                    <div class="col-md-auto col-md-offset-2">
+                        <h2 class="title">Ediciones de la Póliza</h2>  
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="iddatatable" style="display: table">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Seudónimo Usuario</th>
+                                    <th>Fecha y Hora de Edición</th>
+                                    <th>Campos Editados</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                        <?php 
+                            for ($i=0; $i < sizeof($poliza_ed); $i++) { 
+                                $originalDesdeP = $poliza_ed[$i]['created_at'];
+                                $newCreated = date("d/m/Y", strtotime($originalDesdeP));
+                                $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
+                        ?>
+                                <tr>
+                                    <td><?php echo $poliza_ed[$i]['usuario']; ?></td>
+                                    <td><?php echo $newCreated." ".$newCreatedH; ?></td>
+                                    <td><?php echo $poliza_ed[$i]['campos_ed']; ?></td>
+                                </tr>
+                        <?php 
+                            }
+                        ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php 
+                    }
+                    ?>
                 </div>
             </div>
         </div>

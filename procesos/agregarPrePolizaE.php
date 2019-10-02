@@ -16,7 +16,8 @@ if(isset($_SESSION['seudonimo'])) {
 
     
 
- 
+    $f_hasta = date("Y-m-d", strtotime($_POST['f_desde_se']));
+    $f_hasta_n = date("Y-m-d", strtotime($_POST['f_hasta_se']));
 
 
     $ob100= new Trabajo();
@@ -26,9 +27,7 @@ if(isset($_SESSION['seudonimo'])) {
     $poliza = $ob1->get_poliza_pre_carga($_POST['idpolizaE']);
     $nombre_t= $poliza[0]['nombre_t'].' - '.$poliza[0]['apellido_t'];
 
-    $f_hasta=$poliza[0]['f_hastapoliza'];
-    $f_hasta_n = strtotime ( '+1 year' , strtotime ( $f_hasta ) ) ;
-    $f_hasta_n = date ( 'Y-m-d' , $f_hasta_n );
+   
 
 
     $obj3= new Trabajo();

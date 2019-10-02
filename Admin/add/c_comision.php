@@ -227,7 +227,9 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         
                     </div>
                     <input style="width:40%" type="button" onclick="deleterow()" class="btn btn-danger borrar" value="Eliminar Última Fila" id="borrar"/>
+                    <br/>
 
+                    <!-- Comentado valores Restantes
                         <?php
                         $primaRestante=$_GET['primat_com']-$totalprimaant;
                             if ($totalprimaant>$_GET['primat_com']) {
@@ -263,7 +265,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <?php 
                             }
                         ?>
-                    
+                    -->
 
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Previsualizar</button>
                 </form>
@@ -398,11 +400,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     <td><input type="text" class="form-control" id="num_polizaE" name="num_polizaE"></td>
                                     <td><input type="text" class="form-control" id="aseguradoE" name="aseguradoE" readonly></td>
                                     <td><div class="input-group date">
-                                            <input type="text" class="form-control" id="f_desde_se" name="f_desde_se" required readonly> 
+                                            <input type="text" class="form-control" id="f_desde_se" name="f_desde_se" required > 
                                         </div>
                                     </td>
                                     <td><div class="input-group date">
-                                            <input type="text" class="form-control" id="f_hasta_se" name="f_hasta_se" required readonly> 
+                                            <input type="text" class="form-control" id="f_hasta_se" name="f_hasta_se" required > 
                                         </div>
                                     </td>
                                     <td hidden><input type="text" class="form-control" id="idciaE" name="idciaE" readonly value="<?php echo $idcia;?>"></td>
@@ -792,10 +794,17 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         $("#f_pago9").datepicker("setDate", $("#f_hasta").val());
 
 
+        $('#f_desde_se').datepicker({
+            format: "dd-mm-yyyy",
+        });
+        $('#f_hasta_se').datepicker({
+            format: "dd-mm-yyyy",
+        });
+
         
 
         
-        function btnPrePolizaE(id_poliza, cod_poliza) {
+        async function btnPrePolizaE(id_poliza, cod_poliza) {
             $('#idpolizaE').val(id_poliza);   
             $('#num_polizaE').val(cod_poliza);    
             
@@ -803,7 +812,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             $('#precargapolizaE').modal({backdrop: 'static', keyboard: false});
             $('#precargapolizaE').modal('show'); 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -824,16 +833,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         var f_hasta = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + (f.getFullYear()+1);
 
                         $('#f_desde_se').val(f_desde); 
+                        $("#f_desde_se").datepicker("setDate", f_desde);
 
                         $('#f_hasta_se').val(f_hasta);  
+                        $("#f_hasta_se").datepicker("setDate", f_hasta);
                         
                     }
                 }   
             });
         }
 
-        function btnPoliza0(id_poliza) {
-            $.ajax({
+        async function btnPoliza0(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -869,8 +880,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza1(id_poliza) {
-            $.ajax({
+        async function btnPoliza1(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -904,8 +915,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza2(id_poliza) {
-            $.ajax({
+        async function btnPoliza2(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -940,8 +951,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         }
 
 
-        function btnPoliza3(id_poliza) {
-            $.ajax({
+        async function btnPoliza3(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -975,8 +986,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza4(id_poliza) {
-            $.ajax({
+        async function btnPoliza4(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1010,8 +1021,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza5(id_poliza) {
-            $.ajax({
+        async function btnPoliza5(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1045,8 +1056,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza6(id_poliza) {
-            $.ajax({
+        async function btnPoliza6(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1080,8 +1091,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza7(id_poliza) {
-            $.ajax({
+        async function btnPoliza7(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1115,8 +1126,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza8(id_poliza) {
-            $.ajax({
+        async function btnPoliza8(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1150,8 +1161,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function btnPoliza9(id_poliza) {
-            $.ajax({
+        async function btnPoliza9(id_poliza) {
+            await $.ajax({
                 type:"POST",
                 data:"id_poliza=" + id_poliza,        
                 url:"validarpoliza_id.php",
@@ -1187,21 +1198,19 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
 
 
-        function validarPoliza0(num_poliza){
+        async function validarPoliza0(num_poliza){
 
             if($("#n_poliza0").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza0").css('background-color', 'red');
@@ -1236,18 +1245,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1259,10 +1261,15 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                            console.log(Math.sign(ppendiente));
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
+                                            
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1272,15 +1279,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
                                             
-                                            //console.log('vencida');
-
                                             var htmlTags = '<tr ondblclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
                                                 '<td nowrap>' + f_desde + '</td>'+
@@ -1288,8 +1293,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza0(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1310,20 +1315,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza1(num_poliza){
+        async function validarPoliza1(num_poliza){
             if($("#n_poliza1").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza1").css('background-color', 'red');
@@ -1358,18 +1361,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1381,10 +1377,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1394,14 +1393,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -1410,8 +1407,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza1(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1432,20 +1429,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza2(num_poliza){
+        async function validarPoliza2(num_poliza){
             if($("#n_poliza2").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza2").css('background-color', 'red');
@@ -1480,18 +1475,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1503,10 +1491,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1516,14 +1507,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
                                             
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -1532,8 +1522,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza2(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1554,19 +1544,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza3(num_poliza){
+        async function validarPoliza3(num_poliza){
             if($("#n_poliza3").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
 
 
                     if (datos == null) {
@@ -1602,18 +1591,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1625,10 +1607,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1638,15 +1623,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
-
                                             var htmlTags = '<tr ondblclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
                                                 '<td nowrap>' + f_desde + '</td>'+
@@ -1654,8 +1636,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza3(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1676,20 +1658,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza4(num_poliza){
+        async function validarPoliza4(num_poliza){
             if($("#n_poliza4").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza4").css('background-color', 'red');
@@ -1724,18 +1704,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1747,10 +1720,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1760,14 +1736,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -1776,8 +1750,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza4(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1798,20 +1772,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza5(num_poliza){
+        async function validarPoliza5(num_poliza){
             if($("#n_poliza5").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza5").css('background-color', 'red');
@@ -1846,18 +1818,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1869,10 +1834,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -1882,15 +1850,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
-
                                             var htmlTags = '<tr ondblclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
                                                 '<td nowrap>' + f_desde + '</td>'+
@@ -1898,8 +1863,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza5(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -1920,19 +1885,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza6(num_poliza){
+        async function validarPoliza6(num_poliza){
             if($("#n_poliza6").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
 
 
                     if (datos == null) {
@@ -1968,18 +1932,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -1991,10 +1948,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -2004,14 +1964,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -2020,8 +1978,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza6(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -2042,19 +2000,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza7(num_poliza){
+        async function validarPoliza7(num_poliza){
             if($("#n_poliza7").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
 
 
                     if (datos == null) {
@@ -2090,18 +2047,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -2113,10 +2063,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -2126,14 +2079,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -2142,8 +2093,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza7(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -2164,20 +2115,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza8(num_poliza){
+        async function validarPoliza8(num_poliza){
             if($("#n_poliza8").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
-
 
                     if (datos == null) {
                             $("#n_poliza8").css('background-color', 'red');
@@ -2212,18 +2161,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -2235,10 +2177,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -2248,15 +2193,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
-
                                             var htmlTags = '<tr ondblclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
                                                 '<td nowrap>' + f_desde + '</td>'+
@@ -2264,8 +2206,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza8(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -2286,19 +2228,18 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             });
         }
 
-        function validarPoliza9(num_poliza){
+        async function validarPoliza9(num_poliza){
             if($("#n_poliza9").val().length < 1) {  
                 alertify.error("Debe escribir en la casilla para realizar la búsqueda");
                 return false;  
             } 
 
-            $.ajax({
+            await $.ajax({
                 type:"POST",
                 data:"num_poliza=" + num_poliza.value,        
                 url:"validarpoliza_e.php",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
-                    //console.log(datos);
 
 
                     if (datos == null) {
@@ -2334,18 +2275,11 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             for (let index = 0; index < datos.length; index++) {
 
                                 $.ajax({
-                                    //console.log(datos[0].id_poliza);
                                     type:"POST",
                                     data:"id_poliza=" + datos[index].id_poliza,        
                                     url:"validar_comisiones_poliza.php",
                                     success:function(r){
                                         datos1=jQuery.parseJSON(r);
-                                        console.log(datos[index].id_poliza);
-                                        console.log(datos1);
-
-                                        
-                                        console.log(datos1[0]['SUM(prima_com)']);
-                                        console.log(datos1[0]['SUM(comision)']);
 
 
                                         var d = new Date();
@@ -2357,10 +2291,13 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         var f = new Date(datos[index]['f_desdepoliza']);
                                         var f_desde = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
 
+                                        var ppendiente = datos[index]['prima']-datos1[0]['SUM(prima_com)'];
+                                        if (Math.sign(ppendiente) == -1) {
+                                            var style = 'color:red'
+                                        }else{var style = 'color:black'}
 
                                         if( (new Date(strDate).getTime() <= new Date(datos[index]['f_hastapoliza']).getTime()))
                                         {
-                                            //console.log('vigente');
                                             var nombre_t=datos[index]['nombre_t'];
 
                                             var htmlTags = '<tr ondblclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
@@ -2370,14 +2307,12 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza'] +')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
 
                                         } else {
-                                            
-                                            //console.log('vencida');
 
                                             var htmlTags = '<tr ondblclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="cursor:pointer">'+
                                                 '<td style="color:red">' + datos[index]['cod_poliza'] + '</td>'+
@@ -2386,8 +2321,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                                 '<td>' + datos[index]['nombre_t']+" "+datos[index]['apellido_t'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['nomcia'] + '</td>'+
                                                 '<td nowrap>' + datos[index]['prima'] + '</td>'+
-                                                '<td nowrap>' + datos1[0]['SUM(prima_com)'] + '</td>'+
-                                                '<td nowrap>' + (datos[index]['prima']-datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap>' + Number(datos1[0]['SUM(prima_com)']).toFixed(2) + '</td>'+
+                                                '<td nowrap style=' + style + '>' + (ppendiente).toFixed(2) + '</td>'+
                                                 '<td nowrap style="color:white"><a onclick="btnPoliza9(' + datos[index]['id_poliza'] +')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Añadir Póliza" class="btn btn-success btn-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a><a onclick="btnPrePolizaE(' + datos[index]['id_poliza'] +',' + datos[index]['cod_poliza']+')" style="color:wwhite" data-tooltip="tooltip" data-placement="top" title="Pre-Cargar Póliza" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a><a href="../v_poliza.php?id_poliza=' + datos[index]['id_poliza'] +'&pagos=1" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Póliza" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></i></a></td>'+
                                             '</tr>';
                                         }
@@ -2681,7 +2616,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
     <!-- Modal Polizas Existentes-->
     <div class="modal fade" id="polizaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg-c" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel">Seleccione la Póliza</h4>
@@ -2689,8 +2624,9 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body m-auto">
                     <form id="frmnuevoP">
+                        <div class="row">
                         <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="tablaPE">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -2709,6 +2645,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             <tbody>
                             </tbody>
                         </table>
+                        </div>
                         </div>
                     </form>
                 </div>
