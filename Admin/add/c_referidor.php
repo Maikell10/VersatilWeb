@@ -99,19 +99,17 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap>Cel *</th>
                                     <th nowrap>Cuenta *</th>
                                     <th nowrap>E-Mail *</th>
-                                    <th nowrap>Pago *</th>
                                 </tr>
                             </thead>
 
                             <tbody >
-                                <tr>
+                                <tr style="background-color: white">
                                     <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $cod_ref;?> "></td>
                                     <td><input type="text" class="form-control validanumericos" name="id_r" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                     <td><input onblur="cargarCuenta(this)" type="text" class="form-control" name="nombre_r" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                     <td><input type="text" class="form-control validanumericos1" name="cel" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                     <td><input type="text" class="form-control" id="cuenta" name="cuenta" readonly="true"></td>
                                     <td><input type="email" class="form-control" id="email" name="email" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com"></td>
-                                    <td><input type="text" class="form-control" name="pago" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
                                 </tr>
 
                                 <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -120,9 +118,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="2">N° Cuenta *</th>
                                     <th></th>
                                     <th>Monto *</th>
-                                    <th>Observaciones</th>
                                 </tr>
-                                <tr>
+                                <tr style="background-color: white">
                                     <td><input type="text" class="form-control" id="banco" name="banco" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                     <td><select class="custom-select" name="tipo_cuenta" required>
                                             <option value="CORRIENTE">CORRIENTE</option>
@@ -138,7 +135,25 @@ if(isset($_SESSION['seudonimo'])) {
                                         </select>
                                     </td>
                                     <td><input type="text" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
-                                    <td><input type="text" class="form-control" id="obs" name="obs" onkeyup="mayus(this);"></td>
+                                </tr>
+
+                                <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                    <th>Forma de Pago</th>
+                                    <th>Frecuencia de Pago</th>
+                                    <th colspan="4">Observaciones</th>
+                                </tr>
+                                <tr style="background-color: white">
+                                    <td><select class="custom-select" name="f_pago" required>
+                                            <option value="EFECTIVO">EFECTIVO</option>
+                                            <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                                        </select>
+                                    </td>
+                                    <td><select class="custom-select" name="pago" required>
+                                            <option value="UNICO">UNICO</option>
+                                            <option value="PORCENTUAL">PORCENTUAL</option>
+                                        </select>
+                                    </td>
+                                    <td colspan="4"><input type="text" class="form-control" id="obs" name="obs" onkeyup="mayus(this);"></td>
                                 </tr>
                             </tbody>
                         </table>

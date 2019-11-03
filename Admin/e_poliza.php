@@ -70,6 +70,8 @@ if(isset($_SESSION['seudonimo'])) {
         $nombre_a=$poliza[0]['nombre'];
     }
 
+   $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -247,6 +249,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Moneda</th>
                             <th>Suma Asegurada</th>
                             <th style="background-color: #E54848;">Prima Total sin Impuesto *</th>
+                            <th>Periocidad de Pago</th>
                             <th>Forma de Pago</th>
                         </tr>
                     </thead>
@@ -267,11 +270,40 @@ if(isset($_SESSION['seudonimo'])) {
                                     <option value="FINANCIADO">FINANCIADO</option>
                                 </select>
                             </td>
+                            <td><select onblur="cargarTarjeta(this)" class="custom-select" name="forma_pago" id="forma_pago" required>
+                                    <option value="1">ACH (CARGO EN CUENTA)</option>
+                                    <option value="2">TARJETA DE CREDITO / DEBITO</option>
+                                    <option value="3">PAGO VOLUNTARIO</option>
+                                </select>
+                            </td>
 
                             <td hidden><input type="text" class="form-control" id="currency_h" name="currency_h" value="<?php echo $poliza[0]['currency']; ?>"></td>
                             <td hidden><input type="text" class="form-control" id="sumaA_h" name="sumaA_h" value="<?php echo $poliza[0]['sumaasegurada']; ?>"></td>
                             <td hidden><input type="text" class="form-control" id="prima_h" name="prima_h" value="<?php echo $poliza[0]['prima']; ?>"></td>
                             <td hidden><input type="text" class="form-control" id="f_pago_h" name="f_pago_h" value="<?php echo $poliza[0]['fpago']; ?>"></td>
+
+                            <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_h" value="<?php echo $poliza[0]['forma_pago']; ?>"></td>
+                        </tr>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;" hidden id="trTarjeta1">
+                            <th>Nº Tarjeta</th>
+                            <th>CVV</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th colspan="2">Nombre Tarjetahabiente</th>
+                        </tr>
+                        <tr style="background-color: white" hidden id="trTarjeta2">
+                            <td><input type="number" step="0.01" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                            <td><div class="input-group date">
+                                <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?php echo $newfechaV; ?>">
+                            </div></td>
+                            <td colspan="2"><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
+
+                            <!-- HIDDEN -->
+                            <td hidden><input type="text" class="form-control" name="n_tarjeta_h" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" name="cvv_h" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" name="fechaV_h" value="<?php echo $newfechaV; ?>"></td>
+                            <td hidden><input type="text" class="form-control" name="titular_tarjeta_h" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
                         </tr>
                         </div>
                     </tbody>
@@ -388,10 +420,10 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-                <div class="form-row" id="tablaveh" hidden="true">      
+                <div id="tablaveh" hidden="true">      
                     <h2 class="text-info"><strong>Datos Vehículo</strong></h2>
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped table-bordered display  nowrap" id="idtablaveh" >
+                        <table class="table table-hover table-striped table-bordered display" id="idtablaveh" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
                                     <th>Placa</th>
@@ -448,13 +480,13 @@ if(isset($_SESSION['seudonimo'])) {
                                         for($i=0;$i<sizeof($asesor);$i++)
                                         {  
                                     ?>
-                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
                                     <?php }for($i=0;$i<sizeof($liderp);$i++)
                                         { ?> 
-                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?> (Proyecto)</option>
                                     <?php } for($i=0;$i<sizeof($referidor);$i++)
                                         {?>
-                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
                                     <?php } ?>
 
                                     <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?php echo $poliza[0]['cod']."=".$nombre_a; ?>"></td>
@@ -753,6 +785,11 @@ if(isset($_SESSION['seudonimo'])) {
                 format: "dd-mm-yyyy"
             });
 
+            $('#fechaV').datepicker({  
+                format: "dd-mm-yyyy"
+            });
+            
+
 
             $("#tipo_poliza").val($('#id_tpoliza').val());
             $('#ramo').val($('#ramo_e').val());
@@ -785,6 +822,15 @@ if(isset($_SESSION['seudonimo'])) {
                 console.log('si esta trabajando');
             }else{
                 $('#tablaveh').attr('hidden',true);
+            }
+
+            $('#forma_pago').val($('#forma_pago_e').val());
+            if ($('#forma_pago').val()==2) {
+                $('#trTarjeta1').removeAttr('hidden');
+                $('#trTarjeta2').removeAttr('hidden');
+            }else{
+                $('#trTarjeta1').attr('hidden',true);
+                $('#trTarjeta2').attr('hidden',true);
             }
 
 
@@ -906,6 +952,25 @@ if(isset($_SESSION['seudonimo'])) {
             
         });
 
+
+            function cargarTarjeta(forma_pago){
+                if (forma_pago.value==2) {
+                    $('#trTarjeta1').removeAttr('hidden');
+                    $('#trTarjeta2').removeAttr('hidden');
+                    $('#n_tarjeta').val('');
+                    $('#cvv').val('');
+                    $('#fechaV').val('');
+                    $('#titular_tarjeta').val('');
+                }else{
+                    $('#trTarjeta1').attr('hidden',true);
+                    $('#trTarjeta2').attr('hidden',true);
+                    $('#n_tarjeta').val('');
+                    $('#cvv').val('');
+                    $('#fechaV').val('');
+                    $('#titular_tarjeta').val('');
+                }
+            }
+
         
             function mayus(e) {
                 e.value = e.value.toUpperCase();
@@ -920,6 +985,7 @@ if(isset($_SESSION['seudonimo'])) {
                 var ele4 = document.querySelectorAll('.validanumericos4')[0];
                 var ele5 = document.querySelectorAll('.validanumericos5')[0];
                 var ele6 = document.querySelectorAll('.validanumericos6')[0];
+                var ele7 = document.querySelectorAll('.validanumericos7')[0];
 
                 ele.onkeypress = function(e) {
                     if(isNaN(this.value+String.fromCharCode(e.charCode)))
@@ -960,6 +1026,13 @@ if(isset($_SESSION['seudonimo'])) {
                 ele6.onkeypress = function(e6) {
                     if(isNaN(this.value+String.fromCharCode(e6.charCode)))
                         return false;
+                }
+                ele7.onkeypress = function(e7) {
+                    if(isNaN(this.value+String.fromCharCode(e7.charCode)))
+                        return false;
+                }
+                ele7.onpaste = function(e7){
+                    e7.preventDefault();
                 }
             }
     </script>

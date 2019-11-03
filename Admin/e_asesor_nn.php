@@ -24,6 +24,10 @@ if(isset($_SESSION['seudonimo'])) {
     $num_cuenta=$_GET['num_cuenta'];
     $obs=$_GET['obs'];
     $act=$_GET['act'];
+
+    $pago=$_GET['pago'];
+    $f_pago=$_GET['f_pago'];
+    $monto=$_GET['monto'];
 	
     $nopre1=$_GET['nopre1'];
     $nopre1_renov=$_GET['nopre1_renov'];
@@ -38,7 +42,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     if ($nopre1==null) {
         $obj1= new Trabajo();
-        $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act); 
+        $asesor = $obj1->editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$pago,$f_pago,$monto); 
     }
 	
 	

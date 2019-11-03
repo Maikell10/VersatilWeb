@@ -121,6 +121,25 @@ if(isset($_SESSION['seudonimo'])) {
                             <td colspan="2"><?php echo $asesor[0]['num_cuenta']; ?></td>
                         </tr>
 
+                        <?php
+                        if ($a==3) {
+                        ?>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Forma de Pago</th>
+                            <th>Frecuencia de Pago</th>
+                            <th colspan="2">Monto</th>
+						</tr>
+                        <tr>
+                            <td ><?php echo $asesor[0]['f_pago']; ?></td>
+                            <td ><?php echo $asesor[0]['pago']; ?></td>
+                            <td colspan="2"><?php echo $asesor[0]['monto']; ?></td>
+                        </tr>
+
+                        <?php
+                        }
+                        ?>
+
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
 							<th colspan="3">Observaciones</th>
                             <th>Estatus</th>

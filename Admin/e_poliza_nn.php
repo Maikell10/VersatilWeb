@@ -41,9 +41,9 @@ if(isset($_SESSION['seudonimo'])) {
 	$titular=$_GET['titular'];
     $tomador=$_GET['tomador'];
     $t_cuenta=$_GET['t_cuenta'];
-    $asesor_ind=$_GET['asesor_ind'];
-    if ($asesor_ind==null) {
-        $asesor_ind=0;
+    $asesor_ind=$_GET['per_gc'];
+    if ($per_gc==null) {
+        $per_gc=0;
     }
 	
 	
@@ -93,11 +93,38 @@ if(isset($_SESSION['seudonimo'])) {
     $obs_p=$_GET['obs_p'];
 
 
+
+    $per_gc_antigo=$poliza_f[0]['per_gc'];
+
+    $campos=$_GET['campos'];
+    if ($per_gc_antigo!=$asesor_ind) {
+        $campos=$campos.'%GC. ';
+    }
+
+
+    $forma_pago=$_GET['forma_pago'];
+    $n_tarjeta=$_GET['n_tarjeta'];
+    $cvv=$_GET['cvv'];
+    $fechaV=$_GET['fechaV'];
+    $fechaVP = date("Y-m-d", strtotime($fechaV));
+    $titular_tarjeta=$_GET['titular_tarjeta'];
+
+
+    //Editar la tarjeta si la forma de pago es por tarjeta
+    if ($forma_pago==2) {
+        $obj44= new Trabajo();
+        $id_tarjeta = $obj44->get_element_by_id('drecibo', 'idrecibo', $id_poliza); 
+
+        $obj4= new Trabajo();
+  	    $tarjeta = $obj4->editarTarjeta($id_tarjeta[0]['id_tarjeta'],$n_tarjeta,$cvv,$fechaVP,$titular_tarjeta); 
+    }
+
+
 	$obj1= new Trabajo();
   	$poliza = $obj1->editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta,$obs_p); 
 
   	$obj= new Trabajo();
-    $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 
+    $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza,$forma_pago,'no'); 
       
     $obj11= new Trabajo();
     $vehiculo = $obj11->editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 
@@ -110,7 +137,7 @@ if(isset($_SESSION['seudonimo'])) {
   		$tipo_poliza_print="Primer Año";
     }
       
-    $campos=$_GET['campos'];
+    //$campos=$_GET['campos'];
     if ($campos!='') {
         $obj1111= new Trabajo();
   	    $editP = $obj1111->agregarEditP($id_poliza,$campos,$_SESSION['seudonimo']); 

@@ -88,12 +88,36 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obs=$_GET['obs'];
 
+
+    $forma_pago=$_GET['forma_pago'];
+    $n_tarjeta=$_GET['n_tarjeta'];
+    $cvv=$_GET['cvv'];
+    $fechaV=$_GET['fechaV'];
+    $fechaVP = date("Y-m-d", strtotime($fechaV));
+    $titular_tarjeta=$_GET['titular_tarjeta'];
+
+    $id_tarjeta =0;
+    
+    if ($forma_pago==2) {
+
+        $obj4= new Trabajo();
+  	    $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta); 
+        
+        $ob10= new Trabajo();
+        $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+
+        $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+    }
+    
+   
+
+
 	
 	$obj1= new Trabajo();
   	$poliza = $obj1->agregarPoliza($n_poliza,$fhoy,$femisionP,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta,$usuario[0]['id_usuario'],$obs); 
 
   	$obj= new Trabajo();
-    $recibo = $obj->agregarRecibo($n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza); 
+    $recibo = $obj->agregarRecibo($n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza, $forma_pago, $id_tarjeta); 
       
     $obj11= new Trabajo();
   	$vehiculo = $obj11->agregarVehiculo($placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 

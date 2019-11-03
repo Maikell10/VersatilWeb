@@ -20,18 +20,22 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj1= new Trabajo();
   $poliza = $obj1->get_poliza_total_by_id($id_poliza); 
+  $as=1;
 
   if ($poliza[0]['id_poliza']==0) {  
     $obj1= new Trabajo();
     $poliza = $obj1->get_poliza_total1_by_id($id_poliza); 
+    $as=2;
   }
   if ($poliza[0]['id_poliza']==0) {  
     $obj1= new Trabajo();
     $poliza = $obj1->get_poliza_total2_by_id($id_poliza); 
+    $as=3;
   }
   if ($poliza[0]['id_poliza']==0) {  
     $obj1= new Trabajo();
     $poliza = $obj1->get_poliza_total3_by_id($id_poliza); 
+    $as=4;
   }
 
   $obj10= new Trabajo();
@@ -51,6 +55,7 @@ if(isset($_SESSION['seudonimo'])) {
   $originalCreacion = $poliza[0]['f_poliza'];
   $newCreacion = date("d/m/Y", strtotime($originalCreacion));
 
+  
     $obj77= new Trabajo();
     $cia_pref = $obj77->get_per_gc_cia_pref($poliza[0]['f_desdepoliza'],$poliza[0]['id_cia'],$poliza[0]['codvend']);
 
@@ -125,7 +130,7 @@ if(isset($_SESSION['seudonimo'])) {
                     
    /*                 
 //190.140.224.69                    
-$ftp_server="181.197.87.15";
+$ftp_server="186.75.241.90";
 $port=21;
 $ftp_usuario="usuario";
 $ftp_pass="20127247";
@@ -240,6 +245,10 @@ if ( (!$con_id) || (!$lr) ) {
                             $originalHastaP = $poliza[0]['f_hastapoliza'];
                             $newHastaP = date("d/m/Y", strtotime($originalHastaP));
 
+                            $newfechaV = date("d/m/Y", strtotime($poliza[0]['fechaV']));
+
+                            
+
                             ?>
                             <tr >
                                 <td><?php echo $poliza[0]['cod_poliza']; ?></td>
@@ -269,7 +278,7 @@ if ( (!$con_id) || (!$lr) ) {
                             <th>Compañía</th>
                             <th>Suma Asegurada</th>
                             <th style="background-color: #E54848;">Prima Suscrita</th>
-                            <th>Forma de Pago</th>
+                            <th>Periocidad de Pago</th>
                             <th>Tipo de Cuenta</th>
                         </tr>
                     </thead>
@@ -291,6 +300,56 @@ if ( (!$con_id) || (!$lr) ) {
                                 ?></td>
                             </tr>
                     </tbody>
+                </table>
+                </div>
+
+                <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" id="iddatatable" >
+
+                    <?php
+                    if ($poliza[0]['forma_pago']==1 || $poliza[0]['forma_pago']==3) {
+                    ?>
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Forma de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr >
+                            <td><?php 
+                            if ($poliza[0]['forma_pago']==1) {
+                                echo "ACH (CARGO EN CUENTA)";
+                            } else {
+                                echo "PAGO VOLUNTARIO";
+                            }
+                            ?></td>
+                        </tr>
+                    </tbody>
+                    <?php
+                    } else {
+                    ?>
+                    <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                        <tr>
+                            <th>Forma de Pago</th>
+                            <th>Nº Tarjeta</th>
+                            <th>CVV</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th>Nombre Tarjetahabiente</th>
+                        </tr>
+                    </thead>
+
+                    <tbody >
+                            <tr >
+                                <td>TARJETA DE CREDITO / DEBITO</td>
+                                <td><?php echo $poliza[0]['n_tarjeta']; ?></td>
+                                <td><?php echo $poliza[0]['cvv']; ?></td>
+                                <td><?php echo $newfechaV; ?></td>
+                                <td><?php echo $poliza[0]['nombre_titular']; ?></td>
+                            </tr>
+                    </tbody>
+                    <?php
+                    }
+                    ?>
                 </table>
                 </div>
 
@@ -553,7 +612,18 @@ if ( (!$con_id) || (!$lr) ) {
                                         echo utf8_encode($poliza[0]['nombre']);
                                     }else{echo utf8_encode($poliza[0]['idnom']);}
                                 ?></td>
-                                <td><?php echo $poliza[0]['per_gc']." %"; ?></td>
+                                <td><?php 
+                                        if ($as==1) {
+                                            echo $poliza[0]['per_gc']." %"; 
+                                        }if ($as==2) {
+                                            echo 'Modulo sin asignar';
+                                        }if ($as==3) {
+                                            echo $poliza[0]['currencyM'].' '.$poliza[0]['monto'];
+                                        }if ($as==4) {
+                                            echo 'Modulo sin asignar';
+                                        }
+                                ?></td>
+                                
                             </tr>
                             <?php if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) { ?>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">

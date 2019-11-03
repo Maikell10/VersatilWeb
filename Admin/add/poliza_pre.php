@@ -28,12 +28,15 @@ if(isset($_SESSION['seudonimo'])) {
 	$tomador=0;
 	
 
-	
+	$ob100= new Trabajo();
+  $usuario = $ob100->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']);
+
+                  
 	$obj1= new Trabajo();
-  	$poliza = $obj1->agregarPoliza($n_poliza,'','','N/A','','',1,1,0,$z_produc,$codasesor,0,$idcia,$titular,$tomador,0); 
+  	$poliza = $obj1->agregarPoliza($n_poliza,'','','N/A','','',1,1,0,$z_produc,$codasesor,0,$idcia,$titular,$tomador,0,1,$usuario[0]['id_usuario'],''); 
 
   	$obj= new Trabajo();
-    $recibo = $obj->agregarRecibo($n_poliza,'','',0,'CONTADO',1,0,$tomador,$titular,$n_poliza); 
+    $recibo = $obj->agregarRecibo($n_poliza,'','',0,'CONTADO',1,0,$tomador,$titular,$n_poliza,1,0); 
     
     $obj2= new Trabajo();
   	$vehiculo = $obj2->agregarVehiculo('-','-','-','-',

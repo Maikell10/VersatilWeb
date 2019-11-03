@@ -341,16 +341,16 @@ if(isset($_SESSION['seudonimo'])) {
                         }
                         ?>
                         <tr class="no-tocar">
-                            <td style="background-color:red;color:white;font-weight: bold" colspan="4">Total General</td>
+                            <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="4">Total General</td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
 
-                            <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
+                            <td nowrap align="center" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
 
-                            <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
+                            <td nowrap align="center" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
                         </tr>
                     </tbody>
 
@@ -547,21 +547,21 @@ if(isset($_SESSION['seudonimo'])) {
                         }
                         ?>
                         <tr>
-                            <td style="background-color:red;color:white;font-weight: bold" colspan="6">Total General</td>
+                            <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="6">Total General</td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"> </td>
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalprimacomT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"> </td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalcomisionT,2); ?></font></td>
 
-                            <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
+                            <td nowrap align="center" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalcomisionT*100)/$totalprimacomT,2)." %"; ?></font></td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"> </td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"> </td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo "$ ".number_format($totalgcT,2); ?></font></td>
 
-                            <td nowrap align="center" style="background-color: red;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
+                            <td nowrap align="center" style="background-color: #2FA4E7;color: white;font-weight: bold"><font size=4><?php echo number_format(($totalgcT*100)/$totalcomisionT,2)." %"; ?></font></td>
 
-                            <td align="right" style="background-color: red;color: white;font-weight: bold"><?php echo $totalpoliza; ?></td>
+                            <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold"><?php echo $totalpoliza; ?></td>
                         </tr>
                     </tbody>
 

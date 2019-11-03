@@ -11,24 +11,24 @@ if(isset($_SESSION['seudonimo'])) {
   require_once("../class/clases.php");
 
 
-  $obj2= new Trabajo();
-  $fechaMin = $obj2->get_fecha_min('f_desdepoliza','poliza'); 
+    $obj2= new Trabajo();
+    $fechaMin = $obj2->get_fecha_min('f_desdepoliza','poliza'); 
 
 
-  $obj3= new Trabajo();
-  $fechaMax = $obj3->get_fecha_max('f_desdepoliza','poliza');
+    $obj3= new Trabajo();
+    $fechaMax = $obj3->get_fecha_max('f_desdepoliza','poliza');
 
-  //FECHA MAYORES A 2024
-$dateString = $fechaMax[0]["MAX(f_desdepoliza)"];
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
-$format = 'Y';
+    //FECHA MAYORES A 2024
+    $dateString = $fechaMax[0]["MAX(f_desdepoliza)"];
+    // Parse a textual date/datetime into a Unix timestamp
+    $date = new DateTime($dateString);
+    $format = 'Y';
 
-// Parse a textual date/datetime into a Unix timestamp
-$date = new DateTime($dateString);
+    // Parse a textual date/datetime into a Unix timestamp
+    $date = new DateTime($dateString);
 
-// Print it
-$fechaMax= $date->format($format);
+    // Print it
+    $fechaMax= $date->format($format);
 
 
 
@@ -212,13 +212,13 @@ $fechaMax= $date->format($format);
                 </form></center>
             </div>
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="tablaP" hidden>
                 
 
                 <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Listado de Pólizas')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../assets/img/excel.png" width="60" alt=""></a></center>
 
                 <center>
-                <div class="table-responsive">
+                <div class="table-responsive" >
                     <table class="table table-hover table-striped table-bordered text-left" id="iddatatable">
                         <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <tr>
@@ -291,6 +291,7 @@ $fechaMax= $date->format($format);
                                     <td>
                                         <?php 
                                             if ($poliza[$i]['pdf']==1) {
+                                                
                                         ?>
                                         <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                         <?php 
@@ -350,13 +351,12 @@ $fechaMax= $date->format($format);
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
                                     <td>
                                         <?php 
-                                            if ($poliza[$i]['pdf']==1) {
+                                            if ($poliza1[$i]['pdf']==1) {
+                                                
                                         ?>
-                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <a href="download.php?id_poliza=<?php echo $poliza1[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                         <?php 
-                                            } else {
-                                                echo 'No';
-                                            }
+                                            } else {}
                                         ?>
                                     </td>
                                 </tr>
@@ -412,13 +412,11 @@ $fechaMax= $date->format($format);
                                     <td nowrap><?php echo utf8_encode($nombre); ?></td>
                                     <td>
                                         <?php 
-                                            if ($poliza[$i]['pdf']==1) {
+                                            if ($poliza2[$i]['pdf']==1) {
                                         ?>
-                                        <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                        <a href="download.php?id_poliza=<?php echo $poliza2[0]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                         <?php 
-                                            } else {
-                                                echo 'No';
-                                            }
+                                            } else {}
                                         ?>
                                     </td>
                                 </tr>
@@ -1045,27 +1043,30 @@ $fechaMax= $date->format($format);
 
         const tablaLoad = document.getElementById("tablaLoad");
         const carga = document.getElementById("carga");
+        //const tablaP = document.getElementById("tablaP");
 
         setTimeout(()=>{
             carga.className = 'd-none';
             tablaLoad.removeAttribute("hidden");
+            //tablaP.removeAttribute("hidden");
         }, 1500);
     </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
             $('#iddatatable').DataTable({
-                scrollX: 300,
+                //scrollX: 300,
                 "order": [[ 0, "desc" ]],
                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             });
+            $('#tablaP').removeAttr('hidden');
         } );
 
         $(function () {
           $('[data-tooltip="tooltip"]').tooltip()
         });
 
-        $( "#iddatatable tbody tr" ).click(function() {
+        $( "#iddatatable tbody tr" ).dblclick(function() {
             var customerId = $(this).find("td").eq(1).html();   
 
             window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');

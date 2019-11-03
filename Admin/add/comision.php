@@ -224,7 +224,7 @@ if(isset($_SESSION['seudonimo'])) {
                             $primaRestante=$primat_comt-$totalPrima;
                             if ($totalPrima>$primat_comt) {
                         ?>  
-                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
+                            <h2 style="color:red">[Error!] La prima sujeta a comisión es superior al total del reporte</h2>
                         <?php      
                             } elseif($totalPrima<$primat_comt) {
                         ?>
@@ -233,7 +233,7 @@ if(isset($_SESSION['seudonimo'])) {
                             }elseif($totalPrima==$primat_comt) {
                                 $primaRestante=0;
                         ?>
-                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
+                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0 de prima sujeta a comisión</h2>
                         <?php 
                             }
                         ?>
@@ -246,12 +246,12 @@ if(isset($_SESSION['seudonimo'])) {
                         <?php      
                             } elseif($totalComision<$comtt) {
                         ?>
-                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
+                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de comisiones</h2>
                         <?php 
                             }elseif($totalComision==$comtt) {
                                 $primaRestante=0;
                         ?>
-                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0</h2>
+                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0 de comisiones</h2>
                         <?php 
                             }
                         ?>
@@ -319,8 +319,29 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
     <script src="../../bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js" charset="UTF-8"></script>
+    
+    <style type="text/css">
+        .alertify .ajs-header {
+            color: black;
+            background-color: #e5e5e5;
+        }
+    </style>
 
     <script language="javascript">
+
+        $(document).ready(function(){
+            $('#btnForm').click(function(e){
+                e.preventDefault();
+                alertify.confirm('Atención!', '¿Está Seguro de Cargar las Comisiones?', 
+                    function(){ 
+                        $('#frmnuevo').submit();
+                    },
+                    function() {
+                        alertify.error('No se ha enviado la comisión');
+                    }).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
+                
+            });
+        });
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

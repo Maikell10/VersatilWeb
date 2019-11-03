@@ -234,6 +234,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Moneda</th>
                             <th>Suma Asegurada</th>
                             <th style="background-color: #E54848;">Prima Total sin Impuesto *</th>
+                            <th>Periocidad de Pago</th>
                             <th>Forma de Pago</th>
                         </tr>
                     </thead>
@@ -254,6 +255,28 @@ if(isset($_SESSION['seudonimo'])) {
                                     <option value="3">FINANCIADO</option>
                                 </select>
                             </td>
+                            <td><select onblur="cargarTarjeta(this)" class="custom-select" name="forma_pago" id="forma_pago" required>
+                                    <option value="1">ACH (CARGO EN CUENTA)</option>
+                                    <option value="2">TARJETA DE CREDITO / DEBITO</option>
+                                    <option value="3">PAGO VOLUNTARIO</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;" hidden id="trTarjeta1">
+                            <th>Nº Tarjeta</th>
+                            <th>CVV</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th colspan="2">Nombre Tarjetahabiente</th>
+                        </tr>
+                        <tr style="background-color: white" hidden id="trTarjeta2">
+                            <td><input type="number" step="0.01" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)"></td>
+                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)"></td>
+                            <td><div class="input-group date">
+                                    <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                </div>
+                            </td>
+                            <td colspan="2"><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" onkeypress="return tabular(event,this)"></td>
                         </tr>
                         </div>
                     </tbody>
@@ -726,6 +749,10 @@ if(isset($_SESSION['seudonimo'])) {
                 format: "dd-mm-yyyy"
             });
 
+            $('#fechaV').datepicker({  
+                format: "dd-mm-yyyy"
+            });
+
             $('#desde_recibo').datepicker({  
                 format: "dd-mm-yyyy"
             });
@@ -862,6 +889,20 @@ if(isset($_SESSION['seudonimo'])) {
 
         });
 
+            function cargarTarjeta(forma_pago){
+                if (forma_pago.value==2) {
+                    $('#trTarjeta1').removeAttr('hidden');
+                    $('#trTarjeta2').removeAttr('hidden');
+                }else{
+                    $('#trTarjeta1').attr('hidden',true);
+                    $('#trTarjeta2').attr('hidden',true);
+                    $('#n_tarjeta').val('');
+                    $('#cvv').val('');
+                    $('#fechaV').val('');
+                    $('#titular_tarjeta').val('');
+                }
+            }
+
             function mayus(e) {
                 e.value = e.value.toUpperCase();
             }
@@ -875,6 +916,7 @@ if(isset($_SESSION['seudonimo'])) {
                 var ele4 = document.querySelectorAll('.validanumericos4')[0];
                 var ele5 = document.querySelectorAll('.validanumericos5')[0];
                 var ele6 = document.querySelectorAll('.validanumericos6')[0];
+                var ele7 = document.querySelectorAll('.validanumericos7')[0];
 
                 ele.onkeypress = function(e) {
                     if(isNaN(this.value+String.fromCharCode(e.charCode)))
@@ -915,6 +957,13 @@ if(isset($_SESSION['seudonimo'])) {
                 ele6.onkeypress = function(e6) {
                     if(isNaN(this.value+String.fromCharCode(e6.charCode)))
                         return false;
+                }
+                ele7.onkeypress = function(e7) {
+                    if(isNaN(this.value+String.fromCharCode(e7.charCode)))
+                        return false;
+                }
+                ele7.onpaste = function(e7){
+                    e7.preventDefault();
                 }
             }
     </script>

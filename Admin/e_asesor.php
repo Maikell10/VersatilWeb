@@ -124,6 +124,32 @@ if(isset($_SESSION['seudonimo'])) {
                             <td><input type="text" class="form-control" name="tipo_cuenta" required value="<?php echo $asesor[0]['tipo_cuenta']; ?>"></td>
                             <td colspan="2"><input type="text" class="form-control" name="num_cuenta" required value="<?php echo $asesor[0]['num_cuenta']; ?>" ></td>
                         </tr>
+
+                        <?php
+                        if ($a==3) {
+                        ?>
+
+                        <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
+							<th>Forma de Pago</th>
+                            <th>Frecuencia de Pago</th>
+                            <th colspan="2">Monto</th>
+						</tr>
+                        <tr style="background-color: white">
+                            <td><select class="custom-select" name="f_pago" id="f_pago">
+                                    <option value="EFECTIVO">EFECTIVO</option>
+                                    <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                            </select></td>
+                            <td><select class="custom-select" name="pago" id="pago">
+                                    <option value="UNICO">UNICO</option>
+                                    <option value="PORCENTUAL">PORCENTUAL</option>
+                            </select></td>
+                            <td colspan="2"><input type="text" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" value="<?php echo $asesor[0]['monto']; ?>"></td>
+                        </tr>
+
+                        <?php
+                        }
+                        ?>
+
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th colspan="3">Observaciones</th>
                             <th>Estatus</th>
@@ -244,12 +270,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-
 <script language="javascript">
 
     $(document).ready(function(){
 
         document.getElementById("act").value = "<?php echo $asesor[0]['act'];?>";
+        document.getElementById("pago").value =  "<?php echo $asesor[0]['pago'];?>";
+        document.getElementById("f_pago").value = "<?php echo $asesor[0]['f_pago'];?>";
         
     });
 

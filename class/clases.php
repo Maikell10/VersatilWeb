@@ -192,6 +192,35 @@ class Trabajo extends Conectar{
 			}
 
 
+	public function get_tarjeta_venc($fhoy)
+		{
+			$sql="SELECT n_tarjeta, cvv, fechaV, nombre_titular, idrecibo 
+				  FROM tarjeta, drecibo
+				  WHERE
+					drecibo.id_tarjeta = tarjeta.id_tarjeta AND
+					tarjeta.id_tarjeta != 0 AND
+					fechaV <= '$fhoy'
+				  ORDER BY fechaV DESC";
+			$res=mysqli_query(Conectar::con(),$sql);
+			
+			if (!$res) {
+				//No hay registros
+			}else{
+				$filas=mysqli_num_rows($res); 
+				if ($filas == 0) { 
+					//header("Location: incorrecto.php?m=2");
+					exit();
+				}else
+					{
+						while($reg=mysqli_fetch_assoc($res)) {
+							$this->t[]=$reg;
+						}
+						return $this->t;
+					}
+			}
+		}
+
+
 
 
 
@@ -239,7 +268,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_ena()
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+							poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							idnom, pdf, nomcia
+				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, ena
                   	WHERE 
@@ -269,7 +303,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_ena_user($cod_asesor_user)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+							poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							idnom, pdf, nomcia
+				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, ena
                   	WHERE 
@@ -301,7 +340,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_enp()
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+							 poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							 nombre, pdf, nomcia
+				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enp
                   	WHERE 
@@ -331,7 +375,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_enp_user($cod_asesor_user)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+							poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							nombre, pdf, nomcia
+					FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enp
                   	WHERE 
@@ -362,7 +411,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_enr()
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+				  			 poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							 poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							 drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							 nombre, pdf, nomcia
+				    FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enr
                   	WHERE 
@@ -392,7 +446,12 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_asesor_enr_user($cod_asesor_user)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT poliza.id_poliza, poliza.cod_poliza, 
+							poliza.f_desdepoliza, poliza.f_hastapoliza, 
+							poliza.currency, poliza.sumaasegurada, poliza.codvend,
+							drecibo.prima, poliza.f_poliza, nombre_t, apellido_t,
+							nombre, pdf, nomcia
+					FROM 
                     poliza
                   	INNER JOIN drecibo, titular, dcia, enr
                   	WHERE 
@@ -457,9 +516,18 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total_by_id($id_poliza)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+				  			 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
+							 codvend, nombre_t, apellido_t, poliza.cod_poliza, idnom, 
+							 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							 fpago, t_cuenta, forma_pago, n_tarjeta, cvv, nombre_titular,
+							 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
+							 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
+							 cell, telf, titular.email, direcc, id, per_gc, nopre1,
+							 nopre1_renov, id_cod_ramo, id_tpoliza, obs, created_at
+					FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena
+                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, tarjeta
                   	WHERE 
                   	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND 
@@ -467,6 +535,7 @@ class Trabajo extends Conectar{
                   	poliza.id_cod_ramo = dramo.cod_ramo AND
                     poliza.id_cia = dcia.idcia AND
                     poliza.codvend = ena.cod AND
+					drecibo.id_tarjeta = tarjeta.id_tarjeta AND
                   	poliza.id_poliza = $id_poliza
                     ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -492,9 +561,18 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total1_by_id($id_poliza)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
+							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
+							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							fpago, t_cuenta, forma_pago, n_tarjeta, cvv, nombre_titular,
+							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
+							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
+							cell, telf, titular.email, direcc, id, per_gc,
+							id_cod_ramo, id_tpoliza, obs, created_at
+					    FROM 
 	                    poliza
-	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp
+	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
 	                  	WHERE 
 	                  	poliza.id_poliza = drecibo.idrecibo AND
 	                  	poliza.id_titular = titular.id_titular AND 
@@ -502,6 +580,7 @@ class Trabajo extends Conectar{
 	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
 	                    poliza.id_cia = dcia.idcia AND
 	                    poliza.codvend = enp.cod AND
+						drecibo.id_tarjeta = tarjeta.id_tarjeta AND
 	                  	poliza.id_poliza = $id_poliza
 	                    ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -525,9 +604,18 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total2_by_id($id_poliza)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
+							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
+							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							fpago, t_cuenta, forma_pago, n_tarjeta, cvv, nombre_titular,
+							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
+							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
+							cell, telf, titular.email, direcc, id, per_gc,
+							id_cod_ramo, id_tpoliza, obs, created_at, monto, enr.currency as currencyM
+				  		FROM 
 	                    poliza
-	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr
+	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, tarjeta
 	                  	WHERE 
 	                  	poliza.id_poliza = drecibo.idrecibo AND
 	                  	poliza.id_titular = titular.id_titular AND 
@@ -535,6 +623,7 @@ class Trabajo extends Conectar{
 	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
 	                    poliza.id_cia = dcia.idcia AND
 	                    poliza.codvend = enr.cod AND
+						drecibo.id_tarjeta = tarjeta.id_tarjeta AND
 	                  	poliza.id_poliza = $id_poliza
 	                    ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -558,9 +647,18 @@ class Trabajo extends Conectar{
 
 		public function get_poliza_total3_by_id($id_poliza)
 		    {
-		      	$sql="SELECT *  FROM 
+		      	$sql="SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
+							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
+							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							fpago, t_cuenta, forma_pago, n_tarjeta, cvv, nombre_titular,
+							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
+							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
+							cell, telf, titular.email, direcc, id, per_gc,
+							id_cod_ramo, id_tpoliza, obs, created_at
+				  		FROM 
 	                    poliza
-	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, lider_enp
+	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, lider_enp, tarjeta
 	                  	WHERE 
 	                  	poliza.id_poliza = drecibo.idrecibo AND
 	                  	poliza.id_titular = titular.id_titular AND 
@@ -568,6 +666,7 @@ class Trabajo extends Conectar{
 	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
 	                    poliza.id_cia = dcia.idcia AND
 	                    poliza.codvend = lider_enp.cod_proyecto AND
+						drecibo.id_tarjeta = tarjeta.id_tarjeta AND
 	                  	poliza.id_poliza = $id_poliza
 	                    ORDER BY poliza.id_poliza ASC";
 				$res=mysqli_query(Conectar::con(),$sql);
@@ -14880,13 +14979,23 @@ class Trabajo extends Conectar{
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
+	public function agregarTarjeta($n_tarjeta,$cvv,$fechaV,$titular_tarjeta){
+
+		$sql="INSERT into tarjeta (n_tarjeta, cvv, fechaV, nombre_titular)
+				values ('$n_tarjeta',
+						'$cvv',
+						'$fechaV',
+						'$titular_tarjeta')";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
 	public function agregarRecibo($cod_recibo,$f_desderecibo,$f_hastarecibo,$prima,$fpago,
 									$ncuotas,$montocuotas,$idtom,$idtitu,
-									$cod_poliza){
+									$cod_poliza,$forma_pago,$id_tarjeta){
 
 
 			$sql="INSERT into drecibo (cod_recibo,f_desderecibo, f_hastarecibo, prima, fpago,
-										ncuotas, montocuotas, idtom, idtitu, cod_poliza)
+										ncuotas, montocuotas, idtom, idtitu, cod_poliza, forma_pago, id_tarjeta)
 									values ('$cod_recibo',
 											'$f_desderecibo',
 											'$f_hastarecibo',
@@ -14896,7 +15005,9 @@ class Trabajo extends Conectar{
 											'$montocuotas',
 											'$idtom',
 											'$idtitu',
-											'$cod_poliza')";
+											'$cod_poliza',
+											'$forma_pago',
+											'$id_tarjeta')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -14936,7 +15047,7 @@ class Trabajo extends Conectar{
 
 
 			$sql="INSERT into enr (cod,nombre,num_cuenta,banco,
-									tipo_cuenta,email,id,cel,obs,pago,ref_cuenta,currency,monto)
+									tipo_cuenta,email,id,cel,obs,pago,ref_cuenta,currency,monto, f_pago)
 									values ('$datos[0]',
 											'$datos[1]',
 											'$datos[2]',
@@ -14949,7 +15060,8 @@ class Trabajo extends Conectar{
 											'$datos[9]',
 											'$datos[10]',
 											'$datos[11]',
-											'$datos[12]')";
+											'$datos[12]',
+											'$datos[13]')";
 			return mysqli_query(Conectar::con(),$sql);
 		}
 
@@ -15314,7 +15426,7 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 
 			$sql="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
+							ci, poliza.currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -15326,91 +15438,55 @@ public function agregarEditP($id_poliza,$campos,$usuario){
                     poliza.codvend = ena.cod AND
 					poliza.id_poliza = dveh.idveh AND
                   	poliza.cod_poliza LIKE '%$id%'
-					ORDER BY poliza.f_hastapoliza DESC, nombre_t ASC";
+					
+					UNION
+
+			SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
+							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
+							poliza
+							INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, dveh, enr
+							WHERE 
+							poliza.id_poliza = drecibo.idrecibo AND
+							poliza.id_titular = titular.id_titular AND 
+							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_cia = dcia.idcia AND
+							poliza.codvend = enr.cod AND
+							poliza.id_poliza = dveh.idveh AND
+							poliza.cod_poliza LIKE '%$id%'
+
+					UNION
+
+			SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
+							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
+							poliza
+							INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, dveh, enp
+							WHERE 
+							poliza.id_poliza = drecibo.idrecibo AND
+							poliza.id_titular = titular.id_titular AND 
+							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+							poliza.id_cod_ramo = dramo.cod_ramo AND
+							poliza.id_cia = dcia.idcia AND
+							poliza.codvend = enp.cod AND
+							poliza.id_poliza = dveh.idveh AND
+							poliza.cod_poliza LIKE '%$id%'
+							ORDER BY f_hastapoliza DESC, nombre_t ASC";
 			$result=mysqli_query(Conectar::con(),$sql);
 			if (!$result) {
-				    //echo "nada";
+				//nada
+			}else{
+				$filas2=mysqli_num_rows($result); 
+				if ($filas2 == 0) { 
+					//exit();
 				}else{
-					$filas=mysqli_num_rows($result); 
-					if ($filas == 0) { 
-						
-						$sql1="SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
-							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
-		                    poliza
-		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
-		                  	WHERE 
-		                  	poliza.id_poliza = drecibo.idrecibo AND
-		                  	poliza.id_titular = titular.id_titular AND 
-		                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-		                  	poliza.id_cod_ramo = dramo.cod_ramo AND
-		                    poliza.id_cia = dcia.idcia AND
-		                    poliza.codvend = enp.cod AND
-							poliza.id_poliza = dveh.idveh AND
-		                  	poliza.cod_poliza LIKE '%$id%'
-		                    ORDER BY poliza.f_poliza DESC";
-						$result1=mysqli_query(Conectar::con(),$sql1);
-
-						if (!$result1) {
-						    //echo "nada";
-						}else{
-							$filas1=mysqli_num_rows($result1); 
-							if ($filas1 == 0) { 
-								
-								$sql2="SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
-									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
-				                    poliza
-				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
-				                  	WHERE 
-				                  	poliza.id_poliza = drecibo.idrecibo AND
-				                  	poliza.id_titular = titular.id_titular AND 
-				                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-				                  	poliza.id_cod_ramo = dramo.cod_ramo AND
-				                    poliza.id_cia = dcia.idcia AND
-				                    poliza.codvend = enr.cod AND
-									poliza.id_poliza = dveh.idveh AND
-				                  	poliza.cod_poliza LIKE '%$id%'
-				                    ORDER BY poliza.f_poliza DESC";
-								$result2=mysqli_query(Conectar::con(),$sql2);
-
-								if (!$result2) {
-								    //nada
-								}else{
-									$filas2=mysqli_num_rows($result2); 
-									if ($filas2 == 0) { 
-										//exit();
-									}else{
-										while($row2 = mysqli_fetch_assoc($result2)){
-											$datos2[] = array_map('utf8_encode', $row2);
-										}
-										return $datos2;
-									}
-
-
-									
-
-								}
-
-								
-					      	}else{
-
-								while($row1 = mysqli_fetch_assoc($result1)){
-									$datos1[] = array_map('utf8_encode', $row1);
-								}
-								return $datos1;
-
-								}	
-						}
-			      	}else{
-
-						while($row = mysqli_fetch_assoc($result)){
-						    $datos[] = array_map('utf8_encode', $row);
-						}
-						return $datos;
-
-						}
-			}		
+					while($row2 = mysqli_fetch_assoc($result)){
+						$datos2[] = array_map('utf8_encode', $row2);
+					}
+					return $datos2;
+				}
+			}	
 		}
 
 	
@@ -15617,10 +15693,10 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 	}
 
 
-	public function editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador,$idtitular,$n_poliza){
+	public function editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador,$idtitular,$n_poliza,$forma_pago,$id_tarjeta){
 
-
-		$sql="UPDATE drecibo set cod_recibo='$n_recibo',
+		if ($id_tarjeta=='no') {
+			$sql="UPDATE drecibo set cod_recibo='$n_recibo',
 								f_desderecibo='$fdesde_recibo',
 								f_hastarecibo='$fhasta_recibo',
 								prima='$prima',
@@ -15629,9 +15705,26 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 								montocuotas='$monto_cuotas',
 								idtom='$idtomador',
 								idtitu='$idtitular',
-								cod_poliza='$n_poliza'
+								cod_poliza='$n_poliza',
+								forma_pago='$forma_pago'
 
 					where idrecibo= '$id_poliza'";
+		}else {
+			$sql="UPDATE drecibo set cod_recibo='$n_recibo',
+								f_desderecibo='$fdesde_recibo',
+								f_hastarecibo='$fhasta_recibo',
+								prima='$prima',
+								fpago='$f_pago',
+								ncuotas='$n_cuotas',
+								montocuotas='$monto_cuotas',
+								idtom='$idtomador',
+								idtitu='$idtitular',
+								cod_poliza='$n_poliza',
+								forma_pago='$forma_pago',
+								id_tarjeta='$id_tarjeta'
+
+					where idrecibo= '$id_poliza'";
+		}
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
@@ -15703,7 +15796,7 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 		return mysqli_query(Conectar::con(),$sql);
 	}
 
-	public function editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act){
+	public function editarAsesor($id_asesor,$a,$id,$nombre,$cel,$email,$banco,$tipo_cuenta,$num_cuenta,$obs,$act,$pago,$f_pago,$monto){
 
 		if ($a==1) {
 			$sql="UPDATE ena set 	id='$id',
@@ -15744,7 +15837,10 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 									tipo_cuenta='$tipo_cuenta',
 									num_cuenta='$num_cuenta',
 									obs='$obs',
-									act='$act'
+									act='$act',
+									pago='$pago',
+									f_pago='$f_pago',
+									monto='$monto'
 
 					where id_enr= '$id_asesor'";
 			return mysqli_query(Conectar::con(),$sql);
@@ -15798,6 +15894,18 @@ public function agregarEditP($id_poliza,$campos,$usuario){
 		$sql="UPDATE comision set 	cod_vend='$codasesor'
 
 					where id_poliza= '$id_poliza'";
+		return mysqli_query(Conectar::con(),$sql);
+	}
+
+	public function editarTarjeta($id_tarjeta,$n_tarjeta,$cvv,$fechaVP,$titular_tarjeta){
+
+
+		$sql="UPDATE tarjeta set n_tarjeta='$n_tarjeta',
+								cvv='$cvv',
+								fechaV='$fechaVP',
+								nombre_titular='$titular_tarjeta'
+
+					where id_tarjeta= '$id_tarjeta'";
 		return mysqli_query(Conectar::con(),$sql);
 	}
 

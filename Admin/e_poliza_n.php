@@ -41,7 +41,31 @@ if(isset($_SESSION['seudonimo'])) {
     $u=explode('=', $codasesor);
 	$ramo=$_POST['ramo'];
 	$cia=$_POST['cia'];
-	$titular=$_POST['titular'];
+    $titular=$_POST['titular'];
+    
+    $forma_pago='PAGO VOLUNTARIO';
+    if ($_POST['forma_pago']==1) {
+        $forma_pago='ACH (CARGO EN CUENTA)';
+    }
+    if ($_POST['forma_pago']==2) {
+        $forma_pago='TARJETA DE CREDITO / DEBITO';
+    }
+    $n_tarjeta=$_POST['n_tarjeta'];
+    if ($_POST['n_tarjeta']==null || $_POST['n_tarjeta']==0) {
+        $n_tarjeta='N/A';
+    }
+    $cvv=$_POST['cvv'];
+    if ($_POST['cvv']==null || $_POST['cvv']==0) {
+        $cvv='N/A';
+    }
+    $fechaV=$_POST['fechaV'];
+    if ($_POST['fechaV']==null || $_POST['fechaV']=='01-01-2000') {
+        $fechaV='N/A';
+    }
+    $titular_tarjeta=$_POST['titular_tarjeta'];
+    if ($_POST['titular_tarjeta']==null) {
+        $titular_tarjeta='N/A';
+    }
 	
 	
 	$n_recibo=$_POST['n_recibo'];
@@ -149,20 +173,28 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obj7= new Trabajo();
     $asesor_ind = $obj7->get_element_by_id('ena','cod',$u[0]); 
+    $as=0;
+    if ($ramo==35) {
+        $per_gc=$asesor_ind[0]['gc_viajes'];
+    } else {
+        $per_gc=$asesor_ind[0]['nopre1'];
+    }
 
     if ($asesor_ind[0]['nopre1']==null) {
-        echo "es nulo, buscar en referidor";
+        //echo "es nulo, buscar en referidor";
         $obj7= new Trabajo();
         $asesor_ind = $obj7->get_element_by_id('enr','cod',$u[0]); 
-
-    }else{
-        //echo "no es nulo";
-        if ($ramo==35) {
-            $per_gc=$asesor_ind[0]['gc_viajes'];
-        } else {
-            $per_gc=$asesor_ind[0]['nopre1'];
+        $as=1;
+        if ($asesor_ind[0]['currency']=='$') {
+           $tipo_r=1;
         }
- 
+        if ($asesor_ind[0]['currency']=='%') {
+            $tipo_r=2;
+        }
+
+    }if ($asesor_ind[0]['nopre1']==null && $asesor_ind[0]['monto']==null) {
+        echo 'aqui';
+        exit();
     }
 
     $placa=$_POST['placa'];
@@ -181,7 +213,7 @@ if(isset($_SESSION['seudonimo'])) {
     $obj77= new Trabajo();
     $cia_pref = $obj77->get_per_gc_cia_pref($newDesdePc,$cia,$u[0]); 
     if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35) {
-         $per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
+        $per_gc=$per_gc+$cia_pref[0]['per_gc_sum'];
     }
 
 
@@ -229,7 +261,18 @@ if(isset($_SESSION['seudonimo'])) {
     }
     $f_pago_h=$_POST['f_pago_h'];
     if ($f_pago_h!=$_POST['f_pago']) {
+        $campos=$campos.'Periocidad de Pago. ';
+    }
+    $forma_pago_h=$_POST['forma_pago_h'];
+    if ($forma_pago_h!=$_POST['forma_pago']) {
         $campos=$campos.'Forma de Pago. ';
+    }
+    $n_tarjeta_h=$_POST['n_tarjeta_h'];
+    $cvv_h=$_POST['cvv_h'];
+    $fechaV_h=$_POST['fechaV_h'];
+    $titular_tarjeta_h=$_POST['titular_tarjeta_h'];
+    if ($n_tarjeta_h!=$_POST['n_tarjeta'] || $cvv_h!=$_POST['cvv'] || $fechaV_h!=$_POST['fechaV'] || $titular_tarjeta_h!=$_POST['titular_tarjeta']) {
+        $campos=$campos.'Datos Tarjeta. ';
     }
     $n_recibo1=$_POST['n_recibo1'];
     if ($n_recibo1!=$_POST['n_recibo']) {
@@ -367,7 +410,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
                                     <th nowrap>Suma Asegurada</th>
                                     <th nowrap>Prima Suscrita</th>
-                                    <th nowrap>Forma de Pago</th>
+                                    <th nowrap>Periocidad de Pago</th>
                                     <th nowrap>N° de Cuotas</th>
                                     <th nowrap>Monto Cuotas</th>
                                 </tr>
@@ -377,6 +420,21 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?php echo $f_pago;?>"></td>
                                     <td><input type="text" class="form-control" name="n_cuotas" readonly="readonly" value="<?php echo $n_cuotas;?>"></td>
                                     <td><input type="text" class="form-control" name="monto_cuotas" readonly="readonly" value="<?php echo $currencyl.number_format($monto_cuotas,2);?>"></td>
+                                </tr>
+
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th nowrap>Forma de Pago</th>
+                                    <th nowrap>Nº Tarjeta</th>
+                                    <th nowrap>CVV</th>
+                                    <th nowrap>Fecha de Vencimiento</th>
+                                    <th nowrap>Nombre Tarjetahabiente</th>
+                                </tr>
+                                <tr >
+                                    <td><input type="text" class="form-control" name="forma_pago" readonly="readonly" value="<?php echo $forma_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="n_tarjeta" readonly="readonly" value="<?php echo $n_tarjeta;?>"></td>
+                                    <td><input type="text" class="form-control" name="cvv" readonly="readonly" value="<?php echo $cvv;?>"></td>
+                                    <td><input type="text" class="form-control" name="fechaV" readonly="readonly" value="<?php echo $fechaV;?>"></td>
+                                    <td><input type="text" class="form-control" name="titular_tarjeta" readonly="readonly" value="<?php echo $titular_tarjeta;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -408,6 +466,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 <?php   
                                         }
+                                        if ($as==0) {
                                 ?>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -417,12 +476,58 @@ if(isset($_SESSION['seudonimo'])) {
                                 <tr >
                                     <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
+                                    <!--
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>-->
+
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $por_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
+
                                     <?php } else {?>
-                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
-                                    <?php    } ?>
+                                        <!--<td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>-->
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $por_gc;?>" readonly></td>
+                                    <?php    } ?> 
                                     
                                 </tr>
+                                <?php  
+                                        }echo $tipo_r;
+                                        if ($as==1 && $tipo_r==1) {
+                                ?>
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th nowrap colspan="3">Referidor</th>
+                                    <th nowrap colspan="2">Monto GC Referidor</th>
+                                </tr>
+                                <tr >
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <?php if ($permiso==1) { ?>
+
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $por_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Referidor (Sólo números)"></td>
+
+                                    <?php } else {?>
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $por_gc;?>" readonly></td>
+                                    <?php    } ?> 
+                                    
+                                </tr>
+                                <?php  
+                                        }
+                                        if ($as==1 && $tipo_r==2) {
+                                ?>
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th nowrap colspan="3">Referidor</th>
+                                    <th nowrap colspan="2">% GC Referidor</th>
+                                </tr>
+                                <tr >
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <?php if ($permiso==1) { ?>
+
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='e_poliza_nn.php?t_cuenta=<?php echo $_POST['t_cuenta'];?>&id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&per_gc='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $por_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Referidor (Sólo números)"></td>
+
+                                    <?php } else {?>
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $por_gc;?>" readonly></td>
+                                    <?php    } ?> 
+                                    
+                                </tr>
+                                <?php  
+                                        }
+                                ?>
                                 
 
 
@@ -486,9 +591,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                     
 
-
                       <center>
-                        <a name="enlace" href="e_poliza_nn.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $asesor_ind[0]['nopre1'];?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_poliza_nn.php?id_poliza=<?php echo $id_poliza;?>&n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&per_gc=<?php echo $por_gc;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs_p=<?php echo $obs_p;?>&campos=<?php echo $campos;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

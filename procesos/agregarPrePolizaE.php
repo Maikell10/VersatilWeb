@@ -48,7 +48,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obj6= new Trabajo();
     $recibo = $obj6->agregarRecibo($_POST['num_polizaE'],$f_hasta,$f_hasta_n,$poliza[0]['prima'],
-    $poliza[0]['fpago'],$poliza[0]['ncuotas'],$poliza[0]['montocuotas'],0,0,$_POST['num_polizaE']);
+    $poliza[0]['fpago'],$poliza[0]['ncuotas'],$poliza[0]['montocuotas'],0,0,$_POST['num_polizaE'],1,0);
 
     
     $z_produc='';

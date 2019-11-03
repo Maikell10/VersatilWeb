@@ -24,6 +24,10 @@ if(isset($_SESSION['seudonimo'])) {
     $obs=$_POST['obs'];
     $act=$_POST['act'];
 
+    $pago=$_POST['pago'];
+    $f_pago=$_POST['f_pago'];
+    $monto=$_POST['monto'];
+
   
 
     $estatus='Inactivo';
@@ -119,6 +123,25 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" name="tipo_cuenta" readonly="readonly" value="<?php echo $tipo_cuenta;?>"></td>
                                     <td colspan="2"><input type="text" class="form-control" name="num_cuenta" readonly="readonly" value="<?php echo $num_cuenta;?>"></td>
                                 </tr>
+
+                                <?php
+                                if ($a==3) {
+                                ?>
+
+                                <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
+                                    <th>Forma de Pago</th>
+                                    <th>Frecuencia de Pago</th>
+                                    <th colspan="2">Monto</th>
+                                </tr>
+                                <tr>
+                                </tr>
+                                    <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?php echo $f_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="pago" readonly="readonly" value="<?php echo $pago;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="monto" readonly="readonly" value="<?php echo $monto;?>"></td>
+
+                                <?php
+                                }
+                                ?>
                                     
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
                                     <th colspan="3">Observaciones</th>
@@ -164,7 +187,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?php echo $id_asesor;?>&nombre=<?php echo $nombre;?>&email=<?php echo $email;?>&id=<?php echo $id;?>&cel=<?php echo $cel;?>&banco=<?php echo $banco;?>&tipo_cuenta=<?php echo $tipo_cuenta;?>&num_cuenta=<?php echo $num_cuenta;?>&obs=<?php echo $obs;?>&a=<?php echo $a;?>&act=<?php echo $act;?>&nopre1=<?php echo $nopre1;?>&nopre1_renov=<?php echo $nopre1_renov;?>&gc_viajes=<?php echo $gc_viajes;?>&gc_viajes_renov=<?php echo $gc_viajes_renov;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?php echo $id_asesor;?>&nombre=<?php echo $nombre;?>&email=<?php echo $email;?>&id=<?php echo $id;?>&cel=<?php echo $cel;?>&banco=<?php echo $banco;?>&tipo_cuenta=<?php echo $tipo_cuenta;?>&num_cuenta=<?php echo $num_cuenta;?>&obs=<?php echo $obs;?>&a=<?php echo $a;?>&act=<?php echo $act;?>&nopre1=<?php echo $nopre1;?>&nopre1_renov=<?php echo $nopre1_renov;?>&gc_viajes=<?php echo $gc_viajes;?>&gc_viajes_renov=<?php echo $gc_viajes_renov;?>&pago=<?php echo $pago;?>&f_pago=<?php echo $f_pago;?>&monto=<?php echo $monto;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

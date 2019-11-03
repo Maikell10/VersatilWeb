@@ -31,7 +31,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obj6= new Trabajo();
     $recibo = $obj6->agregarRecibo($_POST['num_poliza'],$fhoy,$nuevafecha,0,
-    'CONTADO',1,0,0,0,$_POST['num_poliza']);
+    'CONTADO',1,0,0,0,$_POST['num_poliza'],1,0);
 
     $obj7= new Trabajo();
     $usuario = $obj7->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 

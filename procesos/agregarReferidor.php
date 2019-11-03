@@ -21,10 +21,11 @@ if(isset($_SESSION['seudonimo'])) {
 		$_POST['id_r'],
 		$_POST['cel'],
 		$_POST['obs'],
-		$_POST['pago'],
+        $_POST['pago'],
 		$_POST['cuenta'],
 		$_POST['currency'],
-		$_POST['monto']
+        $_POST['monto'],
+        $_POST['f_pago']
 				);
 
 	echo $obj->agregarReferidor($datos);
