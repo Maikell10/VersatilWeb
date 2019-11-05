@@ -201,7 +201,7 @@ else {
                                 for ($i=0; $i < sizeof($tarjeta); $i++) { 
                                     $fechaV = date("d/m/Y", strtotime($tarjeta[$i]['fechaV']));
                             ?>
-                            <tr>
+                            <tr style="cursor:pointer">
                                 <td hidden><?php echo $tarjeta[$i]['idrecibo']; ?></td>
                                 <td><?php echo $tarjeta[$i]['n_tarjeta']; ?></td>
                                 <td><?php echo $tarjeta[$i]['cvv']; ?></td>

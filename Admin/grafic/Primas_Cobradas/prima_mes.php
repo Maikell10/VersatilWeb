@@ -341,7 +341,7 @@ if ($permiso==3) {
                 </tfoot>
               </table></div></center>
 
-
+<button id="generarPDF" class="btn btn-primary">GenerarPDF</button>
     
       </div>
     </div>
@@ -490,6 +490,11 @@ if ($permiso==3) {
     
   </script>
   <script language="javascript">
+
+  $( "#generarPDF" ).click(function() {
+    window.open ("../../grafic_pdf/Primas_Cobradas/printpdf.php?desde=2019" ,'_blank');
+  });
+
 
     function Exportar(table, name){
         var uri = 'data:application/vnd.ms-excel;base64,'

@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (isset($_SESSION['seudonimo'])) { } else {
-  header("Location: login.php");
-  exit();
-}
 
 require_once("../../../class/clases.php");
 
@@ -25,20 +20,24 @@ if (isset($_GET["ramo"]) != null) {
   $ramo = '';
 }
 
+$anioGet = date("Y");
+$mesGet = date("m");
 
-$mes = $_GET['mes'];
-$desde = $_GET['anio'] . "-" . $_GET['mes'] . "-01";
-$hasta = $_GET['anio'] . "-" . $_GET['mes'] . "-31";
+$mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+$mes = $mesGet;
+$desde = $anioGet . "-" . $mesGet . "-01";
+$hasta = $anioGet . "-" . $mesGet . "-31";
 
 if ($mes == null) {
   $mesD = 01;
   $mesH = 12;
-  $desde = $_GET['anio'] . "-" . $mesD . "-01";
-  $hasta = $_GET['anio'] . "-" . $mesH . "-31";
+  $desde = $anioGet . "-" . $mesD . "-01";
+  $hasta = $anioGet . "-" . $mesH . "-31";
 }
 
 
-$anio = $_GET['anio'];
+$anio = $anioGet;
 if ($anio == null) {
   $obj11 = new Trabajo();
   $fechaMin = $obj11->get_fecha_min('f_hastapoliza', 'poliza');
@@ -67,7 +66,7 @@ for ($i = 0; $i < sizeof($ejecutivo); $i++) {
   $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6($ejecutivo[$i]['codvend'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
 
   $ejecutivoArray[$i] = $ejecutivoPoliza[0]['idnom'];
-
+  //." [ ".$ejecutivoPoliza[0]['cod']." ] "
 
   if ($ejecutivoPoliza[0]['idnom'] == null) {
     $ejecutivoPoliza = $obj2->get_poliza_graf_prima_c_6_r($ejecutivo[$i]['codvend'], $ramo, $desde, $hasta, $cia, $tipo_cuenta);
@@ -116,25 +115,6 @@ foreach ($sumatotalEjecutivo as $key => $value) {
 
 <body class="profile-page ">
 
-  <?php require('navigation.php'); ?>
-
-
-
-
-  <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../../assets/img/logo2.png');">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 ml-auto mr-auto">
-          <div class="brand">
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
 
 
   <div class="main main-raised">
@@ -144,74 +124,66 @@ foreach ($sumatotalEjecutivo as $key => $value) {
 
     <div class="section">
       <div class="container">
-        <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round">
-          <- Regresar</a> <div class="col-md-auto col-md-offset-2">
-            <center>
-              <h1 class="title">Primas Suscritas por Ejecutivo</h1>
-              <br />
-
-              <a href="../primas_s.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
-            </center>
-            <center><a class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Suscritas por Ejecutivo')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
-      </div>
-      <br>
+        <div class="col-md-auto col-md-offset-2" style="text-align:center">
+            <h1 class="title">Distribución de la Cartera por Ejecutivo</h1>
+            <h2>Año: <?php echo $anioGet; ?></h2>
+            <h3>Mes: <?php echo $mes_arr[$mesGet-1]; ?></h3>
+        </div>
+        <br>
 
 
-      <div class="table-reponsive">
-        <table class="table table-hover table-striped table-bordered nowrap" id="Exportar_a_Excel">
-          <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-            <tr>
-              <th scope="col">Ejecutivo Cuenta</th>
-              <th scope="col">Prima Suscrita</th>
-              <th scope="col">%</th>
-              <th scope="col">Cantidad</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
+        <div class="table-reponsive">
 
-
-            for ($i = sizeof($ejecutivo); $i > 0; $i--) {
-              //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
-              ?>
+          <table class="table table-hover table-striped table-bordered nowrap" id="Exportar_a_Excel">
+            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
               <tr>
-                <th scope="row"><?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>
-                </th>
-                <td align="right"><?php echo "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
-                <td><?php echo number_format(($sumatotalEjecutivo[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="col">Ejecutivo Cuenta</th>
+                <th scope="col">Prima Suscrita</th>
+                <th scope="col">%</th>
+                <th scope="col">Cantidad</th>
               </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
-              <th scope="col">100%</th>
-              <th scope="col"><?php echo $totalCant; ?></th>
-            </tr>
-          </thead>
-        </table>
+            </thead>
+            <tbody>
+              <?php
+
+
+              for ($i = sizeof($ejecutivo); $i > 0; $i--) {
+                //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
+                ?>
+                <tr>
+                  <th scope="row"><?php echo utf8_encode($ejecutivoArray[$x[$i]]); ?>
+                  </th>
+                  <td align="right"><?php echo "$" . number_format($sumatotalEjecutivo[$x[$i]], 2); ?></td>
+                  <td><?php echo number_format(($sumatotalEjecutivo[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
+                  <td><?php echo $cantArray[$x[$i]]; ?></td>
+                </tr>
+              <?php
+              }
+              ?>
+            </tbody>
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">TOTAL</th>
+                <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
+                <th scope="col">100%</th>
+                <th scope="col"><?php echo $totalCant; ?></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
+      <br><br>
+      <div class="container">
+        <canvas id="myChart">
+
+        </canvas>
+      </div>
+
+
+      <br><br>
+
+
     </div>
-
-    <div class="container">
-      <canvas id="myChart">
-
-      </canvas>
-    </div>
-
-
-    <br><br><br><br>
-
-
-
-    <?php require('footer_b.php'); ?>
-
-
-  </div>
   </div>
 
 
@@ -237,8 +209,6 @@ foreach ($sumatotalEjecutivo as $key => $value) {
 
 
 
-
-
   <script>
     let myChart = document.getElementById('myChart').getContext('2d');
 
@@ -258,7 +228,7 @@ foreach ($sumatotalEjecutivo as $key => $value) {
         datasets: [{
 
           data: [<?php for ($i = sizeof($ejecutivo); $i > 0; $i--) {
-                    ?> '<?php echo $sumatotalEjecutivo[$x[$i]]; ?>',
+                    ?> '<?php echo number_format(($sumatotalEjecutivo[$x[$i]] * 100) / $totals, 2); ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',
@@ -270,7 +240,6 @@ foreach ($sumatotalEjecutivo as $key => $value) {
             'rgba(153, 102, 255, 0.6)',
             'rgba(255, 159, 64, 0.6)',
             'rgba(255, 99, 132, 0.6)',
-            'rgb(255, 153, 204)',
             'red',
             'blue',
             'black',
@@ -285,6 +254,7 @@ foreach ($sumatotalEjecutivo as $key => $value) {
             'rgb(0, 102, 102)',
             'rgb(51, 204, 51)',
             'rgb(255, 80, 80)',
+            'rgb(255, 153, 204)',
             'rgb(102, 0, 204)',
             'rgba(53, 57, 235, 0.6)',
             'rgba(255, 206, 86, 0.6)',
@@ -327,7 +297,7 @@ foreach ($sumatotalEjecutivo as $key => $value) {
       options: {
         title: {
           display: true,
-          text: 'Prima Suscrita por Ejecutivo',
+          text: 'Prima Suscrita por Ejecutivo (%)',
           fontSize: 25
         },
         legend: {
@@ -352,6 +322,9 @@ foreach ($sumatotalEjecutivo as $key => $value) {
     });
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+  <script src="../../../js/html2canvas.js"></script>
+
   <!--   Core JS Files   -->
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="../../../assets/js/core/popper.min.js"></script>
@@ -361,26 +334,26 @@ foreach ($sumatotalEjecutivo as $key => $value) {
   <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
   <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-  <script language="javascript">
-    function Exportar(table, name) {
-      var uri = 'data:application/vnd.ms-excel;base64,',
-        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
-        base64 = function(s) {
-          return window.btoa(unescape(encodeURIComponent(s)))
-        },
-        format = function(s, c) {
-          return s.replace(/{(\w+)}/g, function(m, p) {
-            return c[p];
-          })
-        }
-      if (!table.nodeType) table = document.getElementById(table)
-      var ctx = {
-        worksheet: name || 'Worksheet',
-        table: table.innerHTML
-      }
-      window.location.href = uri + base64(format(template, ctx))
-    }
-  </script>
+
+<script>
+
+setTimeout(() => {
+    html2canvas(document.body, {
+        scale: window.devicePixelRatio,
+        logging: true,
+        profile: true,
+        useCORS: false
+    }).then(function(canvas) {
+        const img = canvas.toDataURL('data:image/jpeg', 0.9);
+        var doc = new jsPDF();
+        doc.addImage(img, 'JPEG', 5, 10, 195, 200);
+        //doc.addPage();
+        //doc.addImage(img, 'JPEG', 5, 10, 195, 200);
+        doc.save('Distribucion_Ejecutivo.pdf');
+    });
+}, 1000);
+
+</script>
 </body>
 
 </html>
