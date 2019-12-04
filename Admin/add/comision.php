@@ -220,41 +220,7 @@ if(isset($_SESSION['seudonimo'])) {
                         
                     </div>
 
-                        <?php
-                            $primaRestante=$primat_comt-$totalPrima;
-                            if ($totalPrima>$primat_comt) {
-                        ?>  
-                            <h2 style="color:red">[Error!] La prima sujeta a comisión es superior al total del reporte</h2>
-                        <?php      
-                            } elseif($totalPrima<$primat_comt) {
-                        ?>
-                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
-                        <?php 
-                            }elseif($totalPrima==$primat_comt) {
-                                $primaRestante=0;
-                        ?>
-                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0 de prima sujeta a comisión</h2>
-                        <?php 
-                            }
-                        ?>
-
-                        <?php
-                            $primaRestante=$comtt-$totalComision;
-                            if ($totalComision>$comtt) {
-                        ?>  
-                            <h2 style="color:red">[Error!] Las comisiones cargadas son superiores al total del reporte</h2>
-                        <?php      
-                            } elseif($totalComision<$comtt) {
-                        ?>
-                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de comisiones</h2>
-                        <?php 
-                            }elseif($totalComision==$comtt) {
-                                $primaRestante=0;
-                        ?>
-                        <h2 style="color:green;font-weight:bold" id="Rest">Pendiente a Cargar $0 de comisiones</h2>
-                        <?php 
-                            }
-                        ?>
+                        
                     
                     
                     <button type="submit" id="btnForm" class="btn btn-info btn-lg btn-round">Confirmar</button>
@@ -271,10 +237,6 @@ if(isset($_SESSION['seudonimo'])) {
 
 
         <?php require('footer_b.php');?>
-
-
-
-
 
         
     </div>
@@ -297,7 +259,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>

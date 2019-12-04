@@ -1,23 +1,27 @@
 <?php
 session_start();
-if(isset($_SESSION['seudonimo'])) {
+if (isset($_SESSION['seudonimo'])) { } else {
+    header("Location: login.php");
+    exit();
+}
 
-  }
-    else {
-        header("Location: login.php");
-        exit();
-      }
+require_once("../class/clases.php");
+
+$obj10 = new Trabajo();
+$polizas_r = $obj10->get_polizas_r();
+
+$contN = sizeof($polizas_r);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>   
-    <?php require('header.php');?>
+<head>
+    <?php require('header.php'); ?>
 </head>
 
 <body class="profile-page ">
 
-    <?php require('navigation.php');?>
+    <?php require('navigation.php'); ?>
 
 
 
@@ -27,7 +31,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
                     <div class="brand">
-                        
+
                     </div>
                 </div>
             </div>
@@ -39,19 +43,29 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="main main-raised">
-        
 
-        
+
+
 
         <div class="section">
             <div class="container">
+
+                <?php
+                if ($contN != 0) {
+                    ?>
+                    <div class="float-right">
+                        <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Referidores para pagar" class="badge badge-warning navbar-badge h3" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-clipboard-list" aria-hidden="true"></i> <?php echo $contN; ?> </a>
+                    </div>
+                <?php
+                }
+                ?>
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Administración (Listados)</a></h2>
                 </div>
                 <br><br>
-               
-                
+
+
                 <div class="collapse" id="collapse1">
                     <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
@@ -67,18 +81,28 @@ if(isset($_SESSION['seudonimo'])) {
                                     <h5 class="card-title">Reportes de Comisión por Compañias</h5>
                                 </div>
                             </a>
-                        </div> 
+                        </div>
+                        <div class="card text-white bg-info mb-3">
+                            <a href="gc/b_pagos_ref.php">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pago de Referidores</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-deck">
                         <div class="card text-white bg-info mb-3">
                             <a href="b_reportes_gc.php">
                                 <div class="card-body">
                                     <h5 class="card-title">Reportes de GC</h5>
                                 </div>
                             </a>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
- 
+
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
@@ -99,45 +123,76 @@ if(isset($_SESSION['seudonimo'])) {
                 </div>
             </div>
 
-            <?php if ($permiso==1) { ?>
-            <div class="container">
+            <?php if ($permiso == 1) { ?>
+                <div class="container">
 
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a></h2>
-                </div>
-                <br><br>
+                    <div class="col-md-auto col-md-offset-2 hover-collapse">
+                        <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Generar Pago GC</a></h2>
+                    </div>
+                    <br><br>
 
-                <div class="collapse" id="collapse3">
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="gc/b_gc.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Generar</h5>
-                                </div>
-                            </a>
+                    <div class="collapse" id="collapse3">
+                        <div class="card-deck">
+                            <div class="card text-white bg-info mb-3">
+                                <a href="gc/b_gc.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Generar GC Pago Asesores</h5>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php }?>
+
+                <div class="container">
+                    <div class="col-md-auto col-md-offset-2 hover-collapse">
+                        <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a></h2>
+                    </div>
+                    <br><br>
+
+                    <div class="collapse" id="collapse4">
+                        <div class="card-deck">
+                            <div class="card text-white bg-info mb-3">
+                                <a href="gc/b_gc_r.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Generar Pago</h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card text-white bg-info mb-3">
+                                <a href="gc/pago_gc_r.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Cargar Pago</h5>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card text-white bg-info mb-3">
+                                <a href="gc/b_gc_r.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Generar GC Pago</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            <?php } ?>
 
         </div>
-
-
-
-
-
-
-
-        <?php require('footer_b.php');?>
-
-
-
-
-
-        
     </div>
 
+
+
+
+
+
+
+    <?php require('footer_b.php'); ?>
 
 
 
@@ -156,7 +211,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
@@ -203,16 +258,28 @@ if(isset($_SESSION['seudonimo'])) {
         });
     </script>
     <script language="javascript">
-
-    function Exportar(table, name){
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        if (!table.nodeType) table = document.getElementById(table)
-         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-         window.location.href = uri + base64(format(template, ctx))
+        function Exportar(table, name) {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+                template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+                base64 = function(s) {
+                    return window.btoa(unescape(encodeURIComponent(s)))
+                },
+                format = function(s, c) {
+                    return s.replace(/{(\w+)}/g, function(m, p) {
+                        return c[p];
+                    })
+                }
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = {
+                worksheet: name || 'Worksheet',
+                table: table.innerHTML
+            }
+            window.location.href = uri + base64(format(template, ctx))
         }
+
+        $(function() {
+            $('[data-tooltip="tooltip"]').tooltip()
+        });
     </script>
 </body>
 

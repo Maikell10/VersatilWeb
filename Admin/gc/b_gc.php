@@ -22,12 +22,12 @@ if(isset($_SESSION['seudonimo'])) {
 
   $obj4= new Trabajo();
   $cia = $obj4->get_distinct_element('nomcia','dcia'); 
-
+/*
   $obj31= new Trabajo();
   $liderp = $obj31->get_element('enp','nombre'); 
 
   $obj32= new Trabajo();
-  $referidor = $obj32->get_element('enr','nombre');
+  $referidor = $obj32->get_element('enr','nombre');*/
 
 
 
@@ -134,7 +134,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label>Cía:</label>
-                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione la Cía" data-live-search="true">
+                        <select class="form-control selectpicker" name="cia[]" multiple data-style="btn-white" data-header="Seleccione la Cía" data-actions-box="true" data-live-search="true">
                           <?php
                             for($i=0;$i<sizeof($cia);$i++)
                               {  

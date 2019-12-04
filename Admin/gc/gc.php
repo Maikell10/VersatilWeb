@@ -70,7 +70,7 @@ if(isset($_SESSION['seudonimo'])) {
             $asesor1 = $ob3->get_element_by_id('enr','cod',$distinct_a[$i]['codvend']); 
             $nombre=$asesor1[0]['nombre'];
         }
-
+        
         $Ejecutivo[$i]=$nombre;
         $codEj[$i]=$distinct_a[$i]['codvend'];                   
   }
@@ -85,7 +85,6 @@ if(isset($_SESSION['seudonimo'])) {
         utf8_encode($Ejecutivo[$x[$a]]);
         $codEj[$x[$a]]."  --  ";
     }
-
 
 
 
@@ -636,7 +635,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>

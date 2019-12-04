@@ -16,13 +16,13 @@ if(isset($_SESSION['seudonimo'])) {
 </head>
 
 <body class="profile-page ">
-
+    
     <?php require('navigation.php');?>
 
 
 
 
-    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../assets/img/logo2.png');">
+    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../assets/img/logo2.png');">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
@@ -45,9 +45,10 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
-
+            <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
+            
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Gráficos</h1>  
+                    <h1 class="title">Gráficos de Comparativo</h1>  
                 </div>
                 <br>
 
@@ -55,28 +56,20 @@ if(isset($_SESSION['seudonimo'])) {
 
             <div class="card-deck">
                 
-                <div class="card text-white bg-info mb-3">
-                <a href="grafic/porcentaje.php">
+                <div class="card text-white bg-info mb-6">
+                <a href="resumen/busqueda_resumen_ramo.php" >
                   <div class="card-body">
-                    <center><h5 class="card-title">Porcentaje</h5></center>
+                    <h5 class="card-title">Resumen por Ramo</h5>
                   </div>
                 </a>
                 </div>
                 
                 
                 
-                <div class="card text-white bg-info mb-3">
-                <a href="grafic/primas_s.php">
+                <div class="card text-white bg-info mb-6">
+                <a href="resumen/busqueda_resumen.php">
                   <div class="card-body">
-                    <center><h5 class="card-title">Primas Suscritas</h5></center>
-                  </div>
-                </a>
-                </div>
-
-                <div class="card text-white bg-info mb-3">
-                <a href="grafic/primas_c.php">
-                  <div class="card-body">
-                    <center><h5 class="card-title">Primas Cobradas</h5></center>
+                    <h5 class="card-title">Resumen General</h5>
                   </div>
                 </a>
                 </div>
@@ -85,50 +78,21 @@ if(isset($_SESSION['seudonimo'])) {
 
             </div>
 
-            <div class="card-deck">
-
-                <div class="card text-white bg-info mb-6">
-                <a href="grafic/comisiones_c.php">
-                  <div class="card-body">
-                    <center><h5 class="card-title">Comisiones Cobradas</h5></center>
-                  </div>
-                </a>
-                </div>
-
-                <?php if ($permiso!=3) {?>
-                <div class="card text-white bg-info mb-6">
-                <a href="grafic/resumen.php" >
-                  <div class="card-body">
-                    <center><h5 class="card-title">Resúmenes</h5></center>
-                  </div>
-                </a>
-                </div>
-                <?php }?>
-
-                <div class="card text-white bg-info mb-6">
-                <a href="grafic/comparativo.php" >
-                  <div class="card-body">
-                    <center><h5 class="card-title">Comparativo</h5></center>
-                  </div>
-                </a>
-                </div>
-
-
-            </div>
             
 
-         
-
+            
         </div>
-        
 
 
 
         <br><br><br><br>
 
-        </div>
 
+        </div>
         <?php require('footer_b.php');?>
+
+
+
 
 
         
@@ -152,25 +116,25 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
     </footer>
     <!--   Core JS Files   -->
 
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/bootstrap-material-design.js"></script>
+    <script src="../../assets/js/core/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap-material-design.js"></script>
     <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
-    <script src="../assets/js/plugins/moment.min.js"></script>
+    <script src="../../assets/js/plugins/moment.min.js"></script>
     <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-    <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
     <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="../assets/js/plugins/nouislider.min.js"></script>
+    <script src="../../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../assets/js/material-kit.js?v=2.0.1"></script>
+    <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
     <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
-    <script src="../assets/assets-for-demo/js/material-kit-demo.js"></script>
+    <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script language="javascript">
 
@@ -184,7 +148,6 @@ if(isset($_SESSION['seudonimo'])) {
          window.location.href = uri + base64(format(template, ctx))
         }
     </script>
-
 
 </body>
 
