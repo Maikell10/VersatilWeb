@@ -61,8 +61,8 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cliente: <?php echo $cliente[0]['nombre_t']." ".$cliente[0]['apellido_t']; ?></h1>  
-                    <h2 class="title">Nº ID: <?php echo $cliente[0]['ci']; ?></h2>  
+                    <h1 class="title">Cliente: <?php echo utf8_encode($datos_c[0]['nombre_t'])." ".utf8_encode($datos_c[0]['apellido_t']); ?></h1>  
+                    <h2 class="title">Nº ID: <?php echo $datos_c[0]['ci']; ?></h2>  
                 </div>
 
                 <hr>

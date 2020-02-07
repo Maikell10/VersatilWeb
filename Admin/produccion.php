@@ -14,6 +14,9 @@ $tarjeta = $obj10->get_tarjeta_venc($fhoy);
 
 $contN = sizeof($tarjeta);
 
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -237,7 +240,7 @@ $contN = sizeof($tarjeta);
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
 
 
-    <!-- Modal SEGUIMIENTO -->
+    <!-- Modal TARJETA -->
     <div class="modal fade" id="tarjetaV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -263,6 +266,8 @@ $contN = sizeof($tarjeta);
                                     <th>CVV</th>
                                     <th>Fecha Vencimiento</th>
                                     <th>Nombre titular</th>
+                                    <th>Banco</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -276,6 +281,8 @@ $contN = sizeof($tarjeta);
                                         <td><?php echo $tarjeta[$i]['cvv']; ?></td>
                                         <td><?php echo $fechaV; ?></td>
                                         <td><?php echo $tarjeta[$i]['nombre_titular']; ?></td>
+                                        <td><?php echo $tarjeta[$i]['banco']; ?></td>
+                                        <td class="text-center"><a href="b_polizaT.php?id_tarjeta=<?php echo $tarjeta[$i]['id_tarjeta']; ?>" target="_blank" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>
                                     </tr>
                                 <?php
                                 }

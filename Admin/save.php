@@ -20,7 +20,7 @@ $guardado=$_FILES['archivo']['tmp_name'];
 $permitidos = array("application/pdf");
 $limite_kb = 200;
 
-$ftp_server="181.197.87.15";
+$ftp_server="186.75.241.90";
 $port=21;
 $ftp_usuario="usuario";
 $ftp_pass="20127247";

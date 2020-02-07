@@ -24,7 +24,7 @@ if(isset($_SESSION['seudonimo'])) {
     $u_id_p=($ultimo_id_p[0]['id_poliza']+1);
 
     $obj4= new Trabajo();
-    $asegurado = $obj4->agregarAsegurado($_POST['asegurado'],$u_id_p);
+    $asegurado = $obj4->agregarAsegurado($_POST['asegurado'],$u_id_p,0);
 
     $obj5= new Trabajo();
     $veh = $obj5->agregarVehiculo('-','-','-','-','-','-','-','-',$_POST['num_poliza']);

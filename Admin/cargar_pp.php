@@ -126,11 +126,11 @@ if(isset($_SESSION['seudonimo'])) {
                     
                     
                     echo utf8_encode($nombre); ?></h1>
+
+                    <h2 class="title">ID: <?php echo $asegurado[0]['ci']; ?></h2> 
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
-                        if (isset($poliza[0]['idnom'])==null) {
-                            $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
-                        }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];}
+                        $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
                     ?>
                     <h3 class="title">Asesor: <?php echo $asesorr; ?></h3> 
                 </div>
@@ -261,22 +261,38 @@ if(isset($_SESSION['seudonimo'])) {
                                     <option value="3">PAGO VOLUNTARIO</option>
                                 </select>
                             </td>
+                            <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_e" value="<?php echo $poliza[0]['forma_pago']; ?>"></td>
                         </tr>
 
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;" hidden id="trTarjeta1">
                             <th>Nº Tarjeta</th>
                             <th>CVV</th>
                             <th>Fecha de Vencimiento</th>
-                            <th colspan="2">Nombre Tarjetahabiente</th>
+                            <th>Nombre Tarjetahabiente</th>
+                            <th>Banco</th>
+                            <th hidden>alert</th>
+                            <th hidden>id_tarjeta</th>
                         </tr>
                         <tr style="background-color: white" hidden id="trTarjeta2">
-                            <td><input type="number" step="0.01" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)"></td>
-                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)"></td>
+                            <td><input type="number" step="0.01" onblur="validarTarjeta(this)" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['cvv']; ?>"></td>
                             <td><div class="input-group date">
-                                    <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off">
+                                    <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?php echo $poliza[0]['fechaV']; ?>">
                                 </div>
                             </td>
-                            <td colspan="2"><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" onkeypress="return tabular(event,this)"></td>
+                            <td><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
+                            <td><input type="text" class="form-control" id="bancoT" name="bancoT" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Banco" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['banco']; ?>"></td>
+
+                            <td hidden><input type="text" class="form-control" id="alert" name="alert" value="0"></td>
+                            <td hidden><input type="text" class="form-control" id="id_tarjeta" name="id_tarjeta" value="<?php echo $poliza[0]['id_tarjeta']; ?>"></td>
+
+                            <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                            <td hidden><div class="input-group date">
+                                    <input type="text" class="form-control" id="fechaV_h" name="fechaV_h" value="<?php echo $poliza[0]['fechaV']; ?>">
+                                </div>
+                            </td>
+                            <td hidden><input type="text" class="form-control" id="titular_tarjeta_h" name="titular_tarjeta_h" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="bancoT_h" name="bancoT_h" value="<?php echo $poliza[0]['banco']; ?>"></td>
                         </tr>
                         </div>
                     </tbody>
@@ -436,16 +452,17 @@ if(isset($_SESSION['seudonimo'])) {
                                         for($i=0;$i<sizeof($asesor);$i++)
                                         {  
                                     ?>
-                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
                                     <?php }for($i=0;$i<sizeof($liderp);$i++)
                                         { ?> 
-                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?>  (Proyecto)</option>
                                     <?php } for($i=0;$i<sizeof($referidor);$i++)
                                         {?>
-                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
                                     <?php } ?>
                                 </select>
                             </td>
+                            <td hidden><input type="text" class="form-control" id="asesor_e" name="asesor_e" value="<?php echo $poliza[0]['cod']."=".$poliza[0]['nombre']; ?>"></td>
                         </tr>
                     </tbody>
                 </table></center>
@@ -531,15 +548,15 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/bootstrap-material-design.js"></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <!--  Plugin fo Dat Time Picker and Full Calendar Plugin  -->
     <script src="../assets/js/plugins/moment.min.js"></script>
-    <!--    Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <!--    Plugin fo the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
     <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--    Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <!--    Plugin fo the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script src="../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  
@@ -562,8 +579,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="modal-body">
                     <form id="frmnuevoT" autocomplete="off">
 
-                        <div class="form-row">  
-                        <div class="table-responsive">  
+                        <div class="form-row">   
                         <table class="table table-hover table-striped table-bordered" id="iddatatable">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
@@ -623,8 +639,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 </div>
                             </tbody>
-                        </table>
-                        </div>  
+                        </table> 
                         </div>
 
                     </form>
@@ -650,8 +665,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <div class="modal-body">
                     <form id="frmnuevoTom" autocomplete="off">
 
-                        <div class="form-row">  
-                        <div class="table-responsive">      
+                        <div class="form-row">       
                         <table class="table table-hover table-striped table-borderedp" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
@@ -711,14 +725,55 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 </div>
                             </tbody>
-                        </table>
-                        </div>  
+                        </table> 
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="btnAgregarnuevoT" class="btn btn-success">Agregar nuevo</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Tarjetas Existentes-->
+    <div class="modal fade" id="tarjetaexistente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Seleccione la Tarjeta</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <form id="frmnuevoP">
+                        <div class="table-responsive">
+                        <a onclick="selecTarjetaNew()" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Tarjeta Nueva" class="btn btn-success btn-sm pull-right">Añadir Tarjeta Nueva <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <table class="table table-hover table-striped table-bordered" id="tablaPE">
+                            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+                                <tr>
+                                    <th>Nº de Tarjeta</th>
+                                    <th>CVV</th>
+                                    <th>F Vencimiento</th>
+                                    <th>Nombre Tarjetahabiente</th>
+                                    <th>Banco</th>
+                                    <th>Póliza(s) Asociada(s)</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        </div>
+                    </form>
+                </div>
+                <!--
+                <div class="modal-footer">
+                    <button type="button" id="btnAgregarnuevo" class="btn btn-info">Agregar nuevo</button>
+                </div>
+                -->
             </div>
         </div>
     </div>
@@ -734,6 +789,8 @@ if(isset($_SESSION['seudonimo'])) {
             }else{
                 $('#tablaveh').attr('hidden',true);
             }
+
+            $('#asesor').val($('#asesor_e').val());
 
             $("#tipo_poliza").val(1);
             $("#f_pago").val(1);
@@ -753,6 +810,10 @@ if(isset($_SESSION['seudonimo'])) {
                 format: "dd-mm-yyyy"
             });
 
+            $('#fechaV_h').datepicker({  
+                format: "dd-mm-yyyy"
+            });
+
             $('#desde_recibo').datepicker({  
                 format: "dd-mm-yyyy"
             });
@@ -762,7 +823,49 @@ if(isset($_SESSION['seudonimo'])) {
             });
 
 
+            $('#forma_pago').val($('#forma_pago_e').val());
+            if ($('#forma_pago').val()==2) {
+                $('#trTarjeta1').removeAttr('hidden');
+                $('#trTarjeta2').removeAttr('hidden');
+            
 
+                $('#fechaV').val();
+                var mydate = new Date($('#fechaV').val());
+                
+                $('#fechaV').val((mydate.getFullYear() ) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                var fechaV = ($('#fechaV').val()).split('-').reverse().join('-');
+                $('#fechaV').val(fechaV);
+                $( "#fechaV" ).datepicker( "setDate", fechaV );
+
+                $('#fechaV_h').val();
+                var mydate = new Date($('#fechaV_h').val());
+                $('#fechaV_h').val((mydate.getFullYear() ) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                var fechaV = ($('#fechaV_h').val()).split('-').reverse().join('-');
+                $('#fechaV_h').val(fechaV);
+                $( "#fechaV_h" ).datepicker( "setDate", fechaV );
+
+            }else{
+                $('#trTarjeta1').attr('hidden',true);
+                $('#trTarjeta2').attr('hidden',true);
+
+                $('#n_tarjeta').val('');
+                $('#cvv').val('');
+                $('#titular_tarjeta').val('');
+                $('#bancoT').val('');
+                $('#fechaV').val('');
+
+                $('#n_tarjeta_h').val('');
+                $('#cvv_h').val('');
+                $('#titular_tarjeta_h').val('');
+                $('#bancoT_h').val('');
+                $('#fechaV_h').val('');
+
+                $('#id_tarjeta').val('');
+            }
+
+
+            $('#asesor').val($('#asesor_e').val());
+            $('#asesor').change();
             $('#ramo').val($('#ramo_e').val());
             $('#cia').val($('#cia_e').val());
             $('#cia').css('pointer-events','none');
@@ -998,6 +1101,214 @@ if(isset($_SESSION['seudonimo'])) {
                 $('#n_cuotas').val(1);
                 $("#n_cuotas").attr("readonly",true);
             }else{$('#n_cuotas').removeAttr('readonly');}
+        }
+
+
+        async function validarTarjeta(n_tarjeta){
+            $('#alert').val('0');
+            $('#id_tarjeta').val('0');
+
+            if($("#n_tarjeta").val().length < 1) {  
+                alertify.error("Debe escribir en la casilla para realizar la búsqueda");
+                return false;  
+            } 
+
+            $.ajax({
+                type:"POST",
+                data:"n_tarjeta=" + n_tarjeta.value,        
+                url:"add/validar_tarjeta.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+
+
+                    
+                    if (datos == null) {
+                        $('#cvv').val('');
+                        $('#fechaV').val('');
+                        $('#titular_tarjeta').val('');
+                        $('#bancoT').val('');
+                        $('#cvv_h').val('');
+                        $('#fechaV_h').val('');
+                        $('#titular_tarjeta_h').val('');
+                        $('#bancoT_h').val('');
+                        $("#bancoT").css('background-color', 'white');
+                        $('#alert').val('1');
+                        alertify.success('Número de Tarjeta no existente en la BD');
+                    }
+                    else{
+
+                        if (datos[0]['n_tarjeta']==null) {
+                            $('#cvv').val('');
+                            $('#fechaV').val('');
+                            $('#titular_tarjeta').val('');
+                            $('#bancoT').val('');
+                            $('#cvv_h').val('');
+                            $('#fechaV_h').val('');
+                            $('#titular_tarjeta_h').val('');
+                            $('#bancoT_h').val('');
+                            $("#bancoT").css('background-color', 'white');
+                            $('#alert').val('1');
+                            alertify.success('Número de Tarjeta no existente en la BD');
+                        }
+                        else{
+
+                            $("#tablaPE  tbody").empty();
+
+                            for (let index = 0; index < datos.length; index++) {
+
+                                $.ajax({
+                                    type:"POST",
+                                    data:"id_tarjeta=" + datos[index].id_tarjeta,        
+                                    url:"add/ver_poliza_tarjeta.php",
+                                    success:function(r){
+                                        datos1=jQuery.parseJSON(r);
+                                        //console.log(datos1);
+
+                                        var d = new Date();
+                                        var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                                        
+                                        var f = new Date(datos[index]['fechaV']);
+                                        var f_venc = (f.getDate()+1) + "-" + (f.getMonth()+1) + "-" + f.getFullYear();
+
+
+                                        if (datos1 == null) {
+                                            if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
+                                                var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
+                                                    '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + f_venc + '</td>' +
+                                                    '<td>' + datos[index]['nombre_titular'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['banco'] + '</td>' +
+                                                    '<td nowrap>No</td>' +
+
+                                                    '<td nowrap style="color:white"><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn btn-success btn-sm"><i class="fa fa-check-square" ></i></a></td>' +
+                                                    '</tr>';
+
+                                            } else {
+
+                                                var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
+                                                    '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + f_venc + '</td>' +
+                                                    '<td>' + datos[index]['nombre_titular'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['banco'] + '</td>' +
+                                                    '<td nowrap>No</td>' +
+
+                                                    '<td nowrap style="color:white"><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></a></td>' +
+                                                    '</tr>';
+
+                                            }
+                                        } else {
+                                            if ((new Date(strDate).getTime() <= new Date(datos[index]['fechaV']).getTime())) {
+                                                var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
+                                                    '<td style="color:green">' + datos[index]['n_tarjeta'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + f_venc + '</td>' +
+                                                    '<td>' + datos[index]['nombre_titular'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['banco'] + '</td>' +
+                                                    '<td nowrap>Sí</td>' +
+
+                                                    '<td nowrap style="color:white"><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn btn-success btn-sm"><i class="fa fa-check-square" ></i></a><a href="b_polizaT.php?id_tarjeta=' + datos[index]['id_tarjeta'] + '" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>' +
+                                                    '</tr>';
+
+                                            } else {
+
+                                                var htmlTags = '<tr ondblclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="cursor:pointer">' +
+                                                    '<td style="color:red">' + datos[index]['n_tarjeta'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['cvv'] + '</td>' +
+                                                    '<td nowrap>' + f_venc + '</td>' +
+                                                    '<td>' + datos[index]['nombre_titular'] + '</td>' +
+                                                    '<td nowrap>' + datos[index]['banco'] + '</td>' +
+                                                    '<td nowrap>Sí</td>' +
+
+                                                    '<td nowrap style="color:white"><a onclick="selecTarjeta(' + datos[index]['id_tarjeta'] + ')" style="color:white" data-tooltip="tooltip" data-placement="top" title="Añadir Tarjeta" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></a><a href="b_polizaT.php?id_tarjeta=' + datos[index]['id_tarjeta'] + '" target="_blank" style="color:white" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>' +
+                                                    '</tr>';
+
+                                            }
+                                        }
+
+
+                                        
+                                        $('#tablaPE tbody').append(htmlTags);
+                                        
+
+                                    }
+                                });
+                                    
+                                
+                            }
+                            $('#tarjetaexistente').modal({backdrop: 'static', keyboard: false});
+                            $('#tarjetaexistente').modal('show'); 
+                        }
+                    } 
+                }
+            });
+        }
+
+        async function selecTarjeta(id_tarjeta) {
+            await $.ajax({
+                type:"POST",
+                data:"id_tarjeta=" + id_tarjeta,        
+                url:"add/b_tarjeta.php",
+                success:function(r){
+                    datos=jQuery.parseJSON(r);
+                    
+                    if (datos[0]['id_tarjeta']==null) {
+                        //console.log('vacio');
+                        alert('seleccione una tarjeta');
+                    }
+                    else{
+                        $('#n_tarjeta').val(datos[0]['n_tarjeta']);
+                        $('#cvv').val(datos[0]['cvv']);
+                        $('#titular_tarjeta').val(datos[0]['nombre_titular']);
+                        $('#bancoT').val(datos[0]['banco']);
+
+                        $('#n_tarjeta_h').val(datos[0]['n_tarjeta_h']);
+                        $('#cvv_h').val(datos[0]['cvv']);
+                        $('#titular_tarjeta_h').val(datos[0]['nombre_titular']);
+                        $('#bancoT_h').val(datos[0]['banco']);
+
+                        $('#id_tarjeta').val(datos[0]['id_tarjeta']);
+                        
+
+                        $('#fechaV').val(datos[0]['fechaV']);
+                        var mydate = new Date($('#fechaV').val());
+                        $('#fechaV').val((mydate.getFullYear() ) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                        var fechaV = ($('#fechaV').val()).split('-').reverse().join('-');
+                        $('#fechaV').val(fechaV);
+                        $( "#fechaV" ).datepicker( "setDate", fechaV );
+
+                        $('#fechaV_h').val(datos[0]['fechaV']);
+                        var mydate = new Date($('#fechaV_h').val());
+                        $('#fechaV_h').val((mydate.getFullYear() ) + '-' + (mydate.getMonth() + 01) + '-' + (mydate.getDate()+1) );
+                        var fechaV = ($('#fechaV_h').val()).split('-').reverse().join('-');
+                        $('#fechaV_h').val(fechaV);
+                        $( "#fechaV_h" ).datepicker( "setDate", fechaV );
+
+                        alertify.success('Tarjeta Existente');
+                    
+                        
+                        
+                        $('#tarjetaexistente').modal('hide'); 
+                    }
+                }   
+            });
+        }
+
+        function selecTarjetaNew() {
+            $('#cvv').val('');
+            $('#fechaV').val('');
+            $('#titular_tarjeta').val('');
+            $('#bancoT').val('');
+            $('#cvv_h').val('');
+            $('#fechaV_h').val('');
+            $('#titular_tarjeta_h').val('');
+            $('#bancoT_h').val('');
+            $('#tarjetaexistente').modal('hide');
+            $('#alert').val('1');
+            $('#id_tarjeta').val('0');
+
+            alertify.success('Ingrese los datos faltantes de la Tarjeta');
         }
 
 

@@ -24,7 +24,6 @@ if(isset($_SESSION['seudonimo'])) {
   $comt=$_GET['comtt'];
 
 
-
   if ($id_rep==0) {
 
       $obj1= new Trabajo();

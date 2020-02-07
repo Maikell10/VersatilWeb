@@ -50,15 +50,7 @@ $contN = sizeof($polizas_r);
         <div class="section">
             <div class="container">
 
-                <?php
-                if ($contN != 0) {
-                    ?>
-                    <div class="float-right">
-                        <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Referidores para pagar" class="badge badge-warning navbar-badge h3" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-clipboard-list" aria-hidden="true"></i> <?php echo $contN; ?> </a>
-                    </div>
-                <?php
-                }
-                ?>
+                
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Administración (Listados)</a></h2>
@@ -146,7 +138,20 @@ $contN = sizeof($polizas_r);
 
                 <div class="container">
                     <div class="col-md-auto col-md-offset-2 hover-collapse">
-                        <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a></h2>
+                        
+                        <h2 class="title">
+                            <a class="dropdown-toggle" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">Cobranza Referidores</a>
+                            
+
+                            <?php
+                            if ($contN != 0) {
+                                ?>
+                                    <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Referidores para pagar" class="badge badge-warning navbar-badge h3 text-white" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-clipboard-list" aria-hidden="true"></i> <?php echo $contN; ?> </a>
+                            <?php
+                            }
+                            ?>
+                        </h2>
+                        
                     </div>
                     <br><br>
 

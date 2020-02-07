@@ -108,23 +108,62 @@ if(isset($_SESSION['seudonimo'])) {
     $fechaV=$_GET['fechaV'];
     $fechaVP = date("Y-m-d", strtotime($fechaV));
     $titular_tarjeta=$_GET['titular_tarjeta'];
+    $bancoT=$_GET['bancoT'];
 
+    $id_tarjeta = $_GET['id_tarjeta'];
+    $n_tarjeta_h=$_GET['n_tarjeta_h'];
 
     //Editar la tarjeta si la forma de pago es por tarjeta
     if ($forma_pago==2) {
-        $obj44= new Trabajo();
-        $id_tarjeta = $obj44->get_element_by_id('drecibo', 'idrecibo', $id_poliza); 
 
-        $obj4= new Trabajo();
-  	    $tarjeta = $obj4->editarTarjeta($id_tarjeta[0]['id_tarjeta'],$n_tarjeta,$cvv,$fechaVP,$titular_tarjeta); 
+        if ($_GET['alert']==1) {
+            $obj4= new Trabajo();
+            $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta,$bancoT); 
+            
+            $ob10= new Trabajo();
+            $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+
+            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+        }
+
+        if ($_GET['alert']==0) {
+
+            if ($_GET['condTar']==0) {
+                if ($_GET['id_tarjeta']!=0) {
+                    $ob10= new Trabajo();
+                    $id_tarjeta = $ob10->get_element_by_id('tarjeta','id_tarjeta',$_GET['id_tarjeta']);
+                    $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+                }
+            }
+
+            if ($_GET['condTar']==1) {
+                $obj4= new Trabajo();
+                $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta,$bancoT); 
+                
+                $ob10= new Trabajo();
+                $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+    
+                $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+            }
+        }
+
     }
 
+    
 
 	$obj1= new Trabajo();
-  	$poliza = $obj1->editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta,$obs_p); 
+    $poliza = $obj1->editarPoliza($id_poliza,$n_poliza,$fhoy,$t_cobertura,$fdesdeP,$fhastaP,$currency,$tipo_poliza,$sumaA,$z_produc,$codasesor,$ramo,$cia,$idtitular[0]['id_titular'],$idtomador[0]['id_titular'],$asesor_ind,$t_cuenta,$obs_p); 
+      
+    if ($forma_pago!=2) {
+        $obj= new Trabajo();
+        $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza,$forma_pago,'no'); 
+    }
+    else {
+        $obj= new Trabajo();
+        $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza,$forma_pago,$id_tarjeta); 
+    }
 
-  	$obj= new Trabajo();
-    $recibo = $obj->editarRecibo($id_poliza,$n_recibo,$fdesde_recibo,$fhasta_recibo,$prima,$f_pago,$n_cuotas,$monto_cuotas,$idtomador[0]['id_titular'],$idtitular[0]['id_titular'],$n_poliza,$forma_pago,'no'); 
+  	
       
     $obj11= new Trabajo();
     $vehiculo = $obj11->editarVehiculo($id_poliza,$placa,$tipo,$marca,$modelo,$anio,$serial,$color,$categoria,$n_recibo); 

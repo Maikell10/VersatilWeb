@@ -57,9 +57,9 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="card-deck">
                 
                 <div class="card text-white bg-info mb-6">
-                <a href="resumen/busqueda_resumen_ramo.php" >
+                <a href="comparativo/b_ramo.php" >
                   <div class="card-body">
-                    <h5 class="card-title">Resumen por Ramo</h5>
+                    <h5 class="card-title">Primas Suscritas por Ramo</h5>
                   </div>
                 </a>
                 </div>
@@ -67,9 +67,17 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 
                 <div class="card text-white bg-info mb-6">
-                <a href="resumen/busqueda_resumen.php">
+                <a href="comparativo/b_c_ramo.php">
                   <div class="card-body">
-                    <h5 class="card-title">Resumen General</h5>
+                    <h5 class="card-title">Primas Cobradas por Ramo</h5>
+                  </div>
+                </a>
+                </div>
+
+                <div class="card text-white bg-info mb-6">
+                <a href="comparativo/b_mm_ramo.php">
+                  <div class="card-body">
+                    <h5 class="card-title">Gráfico Resúmen Mes a Mes</h5>
                   </div>
                 </a>
                 </div>

@@ -179,6 +179,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                         <td hidden><input type="text" class="form-control" ></td>
                                         <td hidden><input type="text" class="form-control" ></td>
                                     </tr>
+                                <tbody >
                             <?php
                                     }
                                 }
@@ -186,11 +187,9 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 for ($i=0; $i < $cant_poliza ; $i++) {   
                                 
                             ?>
-                            <tbody >
+                            
                                 <tr style="background-color: white">
                                     <td><input onblur="<?php echo 'validarPoliza'.$i.'(this)';?>" type="text" class="form-control <?php echo 'validarpoliza'.$i;?>" id="<?php echo 'n_poliza'.$i;?>" name="<?php echo 'n_poliza'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
-
-                                    
 
                                     <td><input type="text" class="form-control" readonly="true" id="<?php echo 'nom_titu'.$i;?>" name="<?php echo 'nom_titu'.$i;?>" ></td>
                                     <td><div class="input-group date">
@@ -199,7 +198,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                     </td>
                                     <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
-                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?>, <?php echo 'calcularRest1(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
+                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?> ;<?php echo 'calcularRest1(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
 
                                     <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
 
@@ -210,16 +209,17 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
                                     <td hidden><input type="text" class="form-control" id="<?php echo 'id_poliza'.$i;?>" name="<?php echo 'id_poliza'.$i;?>" ></td>
 
-                                    <td hidden><input type="text" class="form-control" id="<?php echo 'num'.$i;?>" name="<?php echo 'num'.$i;?>" ></td>
+                                    <td hidden><input type="text" class="form-control" id="<?php echo 'num';?>" name="<?php echo 'num';?>" ></td>
 
                                     
                                 </tr>
                                 <tr><td colspan="7" style="padding:0px;background-color: white;text-align: center"><a style="width: 40%" href="" class="btn btn-round btn btn-primary" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
                                 
-                            </tbody>
+                            
                             <?php
                             }
                             ?>
+                            </tbody>
                         </table>
                         
                         
@@ -500,6 +500,8 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                 var num_poliza = $('#num_poliza').val();
                 var asegurado = $('#asegurado').val();
 
+                console.log($("#num").val());
+
                 $.ajax({
                     type:"POST",
                     data:datos,
@@ -509,7 +511,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             $('#frmnuevoP')[0].reset();
                             alertify.success("Agregada con Exito!!");
 
-                            if (($("#num0").val())==0) {
+                            if (($("#num").val())==0) {
                                 $("#n_poliza0").val(datos['cod_poliza']);
                                 $("#n_poliza0").css('background-color', 'green');
                                 $("#n_poliza0").css('color', 'white');
@@ -522,7 +524,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre0').attr('hidden',true);
                                 $('#id_poliza0').val('0'); 
                             }
-                            if (($("#num1").val())==1) {
+                            if (($("#num").val())==1) {
                                 $("#n_poliza1").val(datos['cod_poliza']);
                                 $("#n_poliza1").css('background-color', 'green');
                                 $("#n_poliza1").css('color', 'white');
@@ -535,7 +537,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre1').attr('hidden',true);
                                 $('#id_poliza1').val('0'); 
                             }
-                            if (($("#num2").val())==2) {
+                            if (($("#num").val())==2) {
                                 $("#n_poliza2").val(datos['cod_poliza']);
                                 $("#n_poliza2").css('background-color', 'green');
                                 $("#n_poliza2").css('color', 'white');
@@ -548,7 +550,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre2').attr('hidden',true);
                                 $('#id_poliza2').val('0'); 
                             }
-                            if (($("#num3").val())==3) {
+                            if (($("#num").val())==3) {
                                 $("#n_poliza3").val(datos['cod_poliza']);
                                 $("#n_poliza3").css('background-color', 'green');
                                 $("#n_poliza3").css('color', 'white');
@@ -561,7 +563,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre3').attr('hidden',true);
                                 $('#id_poliza3').val('0'); 
                             }
-                            if (($("#num4").val())==4) {
+                            if (($("#num").val())==4) {
                                 $("#n_poliza4").val(datos['cod_poliza']);
                                 $("#n_poliza4").css('background-color', 'green');
                                 $("#n_poliza4").css('color', 'white');
@@ -574,7 +576,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre4').attr('hidden',true);
                                 $('#id_poliza4').val('0'); 
                             }
-                            if (($("#num5").val())==5) {
+                            if (($("#num").val())==5) {
                                 $("#n_poliza5").val(datos['cod_poliza']);
                                 $("#n_poliza5").css('background-color', 'green');
                                 $("#n_poliza5").css('color', 'white');
@@ -587,7 +589,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre5').attr('hidden',true);
                                 $('#id_poliza5').val('0'); 
                             }
-                            if (($("#num6").val())==6) {
+                            if (($("#num").val())==6) {
                                 $("#n_poliza6").val(datos['cod_poliza']);
                                 $("#n_poliza6").css('background-color', 'green');
                                 $("#n_poliza6").css('color', 'white');
@@ -600,7 +602,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre6').attr('hidden',true);
                                 $('#id_poliza6').val('0'); 
                             }
-                            if (($("#num7").val())==7) {
+                            if (($("#num").val())==7) {
                                 $("#n_poliza7").val(datos['cod_poliza']);
                                 $("#n_poliza7").css('background-color', 'green');
                                 $("#n_poliza7").css('color', 'white');
@@ -613,7 +615,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre7').attr('hidden',true);
                                 $('#id_poliza7').val('0'); 
                             }
-                            if (($("#num8").val())==8) {
+                            if (($("#num").val())==8) {
                                 $("#n_poliza8").val(datos['cod_poliza']);
                                 $("#n_poliza8").css('background-color', 'green');
                                 $("#n_poliza8").css('color', 'white');
@@ -626,7 +628,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 $('#btnPre8').attr('hidden',true);
                                 $('#id_poliza8').val('0'); 
                             }
-                            if (($("#num9").val())==9) {
+                            if (($("#num").val())==9) {
                                 $("#n_poliza9").val(datos['cod_poliza']);
                                 $("#n_poliza9").css('background-color', 'green');
                                 $("#n_poliza9").css('color', 'white');
@@ -2526,70 +2528,70 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
         function botonPreCarga0(){
             if ($("#n_poliza0").val() != '') {
                 $("#num_poliza").val($("#n_poliza0").val());
-                $("#num0").val(0);
+                $("#num").val(0);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga1(){
             if ($("#n_poliza1").val() != '') {
                 $("#num_poliza").val($("#n_poliza1").val());
-                $("#num1").val(1);
+                $("#num").val(1);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga2(){
             if ($("#n_poliza2").val() != '') {
                 $("#num_poliza").val($("#n_poliza2").val());
-                $("#num2").val(2);
+                $("#num").val(2);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga3(){
             if ($("#n_poliza3").val() != '') {
                 $("#num_poliza").val($("#n_poliza3").val());
-                $("#num3").val(3);
+                $("#num").val(3);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga4(){
             if ($("#n_poliza4").val() != '') {
                 $("#num_poliza").val($("#n_poliza4").val());
-                $("#num4").val(4);
+                $("#num").val(4);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga5(){
             if ($("#n_poliza5").val() != '') {
                 $("#num_poliza").val($("#n_poliza5").val());
-                $("#num5").val(5);
+                $("#num").val(5);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga6(){
             if ($("#n_poliza6").val() != '') {
                 $("#num_poliza").val($("#n_poliza6").val());
-                $("#num6").val(6);
+                $("#num").val(6);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga7(){
             if ($("#n_poliza7").val() != '') {
                 $("#num_poliza").val($("#n_poliza7").val());
-                $("#num7").val(7);
+                $("#num").val(7);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga8(){
             if ($("#n_poliza8").val() != '') {
                 $("#num_poliza").val($("#n_poliza8").val());
-                $("#num8").val(8);
+                $("#num").val(8);
                 $("#asegurado").val('');
             }
         }
         function botonPreCarga9(){
             if ($("#n_poliza9").val() != '') {
                 $("#num_poliza").val($("#n_poliza9").val());
-                $("#num9").val(9);
+                $("#num").val(9);
                 $("#asegurado").val('');
             }
         }

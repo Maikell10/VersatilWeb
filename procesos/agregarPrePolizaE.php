@@ -27,15 +27,13 @@ if(isset($_SESSION['seudonimo'])) {
     $poliza = $ob1->get_poliza_pre_carga($_POST['idpolizaE']);
     $nombre_t= $poliza[0]['nombre_t'].' - '.$poliza[0]['apellido_t'];
 
-   
-
 
     $obj3= new Trabajo();
     $ultimo_id_p = $obj3->get_last_element('poliza','id_poliza');
     $u_id_p=($ultimo_id_p[0]['id_poliza'])+1;
 
     $obj4= new Trabajo();
-    $asegurado = $obj4->agregarAsegurado($nombre_t,$u_id_p);
+    $asegurado = $obj4->agregarAsegurado($nombre_t,$u_id_p,$poliza[0]['ci']);
     
     if ($poliza[0]['id_cod_ramo'] == 2 || $poliza[0]['id_cod_ramo'] == 25) {
         $obj5= new Trabajo();
@@ -48,7 +46,7 @@ if(isset($_SESSION['seudonimo'])) {
 
     $obj6= new Trabajo();
     $recibo = $obj6->agregarRecibo($_POST['num_polizaE'],$f_hasta,$f_hasta_n,$poliza[0]['prima'],
-    $poliza[0]['fpago'],$poliza[0]['ncuotas'],$poliza[0]['montocuotas'],0,0,$_POST['num_polizaE'],1,0);
+    $poliza[0]['fpago'],$poliza[0]['ncuotas'],$poliza[0]['montocuotas'],0,0,$_POST['num_polizaE'],$poliza[0]['forma_pago'],$poliza[0]['id_tarjeta']);
 
     
     $z_produc='';

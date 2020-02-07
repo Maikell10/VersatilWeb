@@ -95,18 +95,25 @@ if(isset($_SESSION['seudonimo'])) {
     $fechaV=$_GET['fechaV'];
     $fechaVP = date("Y-m-d", strtotime($fechaV));
     $titular_tarjeta=$_GET['titular_tarjeta'];
+    $bancoT=$_GET['bancoT'];
 
-    $id_tarjeta =0;
+    $id_tarjeta = $_GET['id_tarjeta'];
     
     if ($forma_pago==2) {
 
-        $obj4= new Trabajo();
-  	    $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta); 
-        
-        $ob10= new Trabajo();
-        $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+        if ($_GET['alert']==1 || $_GET['condTar']==1) {
 
-        $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+            $obj4= new Trabajo();
+            $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta,$bancoT); 
+            
+            $ob10= new Trabajo();
+            $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+
+            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+
+        }
+
+
     }
     
    
@@ -219,15 +226,15 @@ if(isset($_SESSION['seudonimo'])) {
 
     <script src="../../assets/js/core/popper.min.js"></script>
     <script src="../../assets/js/bootstrap-material-design.js"></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <!--  Plugin fo Dat Time Picker and Full Calendar Plugin  -->
     <script src="../../assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <!--	Plugin fo the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
     <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <!--	Plugin fo the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
     <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script src="../../bootstrap-datepicker/js/bootstrap-datepicker.js"></script>  

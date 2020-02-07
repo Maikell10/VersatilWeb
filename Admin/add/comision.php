@@ -136,6 +136,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>Fecha de Pago de la Prima *</th>
                                     <th>Prima Sujeta a Comisión *</th>
                                     <th>Comisión *</th>
+                                    <th hidden>Comisión *</th>
                                     <th>% Comisión</th>
                                     <th>Asesor - Ejecutivo</th>
                                     <th hidden>Cod Asesor - Ejecutivo</th>
@@ -193,7 +194,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <td><input type="text" class="form-control" id="<?php echo 'nom_titu'.$i;?>" name="<?php echo 'nom_titu'.$i;?>" value="<?php echo $_GET['nom_titu'.$i];?>" readonly></td>
                                     <td><input type="text" class="form-control" id="<?php echo 'f_pago'.$i;?>" name="<?php echo 'f_pago'.$i;?>" value="<?php echo $_GET['f_pago'.$i];?>" readonly></td>
                                     <td style="background-color: #E54848"><input style="background-color: #E54848;color: white;text-align: right" type="text" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" value="<?php echo $_GET['prima'.$i];?>" readonly></td>
-                                    <td><input type="text" class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>" value="<?php echo number_format($_GET['comision'.$i],2);?>" readonly style="text-align: right"></td>
+                                    
+                                    
+                                    <td><input type="text" class="form-control" id="comi" name="comi" value="<?php echo number_format($_GET['comision'.$i],2);?>" readonly style="text-align: right"></td>
+                                    <td hidden><input type="text" class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>" value="<?php echo $_GET['comision'.$i];?>" readonly style="text-align: right"></td>
+
                                     <td><input style="text-align: center;" type="text" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" value="<?php echo $_GET['comisionPor'.$i];?>" readonly></td>
                                     <td><input type="text" class="form-control" id="<?php echo 'asesor'.$i;?>" name="<?php echo 'asesor'.$i;?>" value="<?php echo $_GET['asesor'.$i];?>" readonly></td>
                                     

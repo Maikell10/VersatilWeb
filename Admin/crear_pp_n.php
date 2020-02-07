@@ -93,18 +93,34 @@ if(isset($_SESSION['seudonimo'])) {
     $fechaV=$_GET['fechaV'];
     $fechaVP = date("Y-m-d", strtotime($fechaV));
     $titular_tarjeta=$_GET['titular_tarjeta'];
+    $bancoT=$_GET['bancoT'];
 
-    $id_tarjeta =0;
+    $id_tarjeta = $_GET['id_tarjeta'];
     
     if ($forma_pago==2) {
 
-        $obj4= new Trabajo();
-  	    $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta); 
-        
-        $ob10= new Trabajo();
-        $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+        if ($_GET['alert']==1) {
 
-        $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+            $obj4= new Trabajo();
+            $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta,$bancoT); 
+            
+            $ob10= new Trabajo();
+            $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+
+            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+
+        }
+
+        if ($_GET['condTar']==1) {
+            $obj4= new Trabajo();
+            $tarjeta = $obj4->agregarTarjeta($n_tarjeta,$cvv,$fechaVP,$titular_tarjeta,$bancoT); 
+            
+            $ob10= new Trabajo();
+            $id_tarjeta = $ob10->get_last_element('tarjeta','id_tarjeta');
+
+            $id_tarjeta = $id_tarjeta[0]['id_tarjeta'];
+        }
+
     }
 
     
@@ -123,7 +139,10 @@ if(isset($_SESSION['seudonimo'])) {
   	$tipo_poliza_print="";
   	if ($tipo_poliza==1) {
   		$tipo_poliza_print="Primer Año";
-  	}
+      }
+      
+    $obj1111= new Trabajo();
+  	$editP = $obj1111->agregarEditP($id_poliza,'Carga de Poliza Pendiente',$_SESSION['seudonimo']); 
 
 
 ?>

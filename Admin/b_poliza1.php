@@ -23,20 +23,24 @@ if(isset($_SESSION['seudonimo'])) {
     $cia=$_GET["cia"]; 
   }else{$cia='';}
 
+  if (isset($_GET["ramo"])!=null) {
+    $ramo=$_GET["ramo"]; 
+  }else{$ramo='';}
+
   if (isset($_GET["asesor"])!=null) {
     $asesor=$_GET["asesor"]; 
   }else{$asesor='';}
 
-
+ echo $mes ;
 
   $obj1= new Trabajo();
-  $poliza = $obj1->get_poliza_total_by_filtro($mes,$anio,$cia,$asesor); 
+  $poliza = $obj1->get_poliza_total_by_filtro($mes,$anio,$cia,$ramo,$asesor); 
 
   $obj2= new Trabajo();
-  $poliza1 = $obj2->get_poliza_total_by_filtro_enp($mes,$anio,$cia,$asesor); 
+  $poliza1 = $obj2->get_poliza_total_by_filtro_enp($mes,$anio,$cia,$ramo,$asesor); 
 
   $obj3= new Trabajo();
-  $poliza2 = $obj3->get_poliza_total_by_filtro_enr($mes,$anio,$cia,$asesor); 
+  $poliza2 = $obj3->get_poliza_total_by_filtro_enr($mes,$anio,$cia,$ramo,$asesor); 
 
 
   $totalPrimaC=0;

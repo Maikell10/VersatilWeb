@@ -55,9 +55,11 @@ if(isset($_SESSION['seudonimo'])) {
   $originalCreacion = $poliza[0]['f_poliza'];
   $newCreacion = date("d/m/Y", strtotime($originalCreacion));
 
-  
+
     $obj77= new Trabajo();
     $cia_pref = $obj77->get_per_gc_cia_pref($poliza[0]['f_desdepoliza'],$poliza[0]['id_cia'],$poliza[0]['codvend']);
+
+    
 
 
 ?>
@@ -128,7 +130,7 @@ if(isset($_SESSION['seudonimo'])) {
                     $id_poliza=$poliza[0]['id_poliza'].".pdf";
                     $archivo='./'.$id_poliza;
                     
-   /*                 
+   /*               
 //190.140.224.69                    
 $ftp_server="186.75.241.90";
 $port=21;
@@ -215,6 +217,7 @@ if ( (!$con_id) || (!$lr) ) {
                     
                     
                     echo utf8_encode($nombre); ?></h1>
+
                     <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {
@@ -335,6 +338,7 @@ if ( (!$con_id) || (!$lr) ) {
                             <th>CVV</th>
                             <th>Fecha de Vencimiento</th>
                             <th>Nombre Tarjetahabiente</th>
+                            <th>Banco</th>
                         </tr>
                     </thead>
 
@@ -345,6 +349,7 @@ if ( (!$con_id) || (!$lr) ) {
                                 <td><?php echo $poliza[0]['cvv']; ?></td>
                                 <td><?php echo $newfechaV; ?></td>
                                 <td><?php echo $poliza[0]['nombre_titular']; ?></td>
+                                <td><?php echo $poliza[0]['banco']; ?></td>
                             </tr>
                     </tbody>
                     <?php
@@ -773,6 +778,7 @@ if ( (!$con_id) || (!$lr) ) {
                         <table class="table table-hover table-striped table-bordered" id="iddatatable1">
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <tr>
+                                    <th>Ejecutivo</th>
                                     <th>Prima Cobrada</th>
                                     <th>F Pago Prima</th>
                                     <th>Comisión Cobrada</th>
@@ -797,9 +803,13 @@ if ( (!$con_id) || (!$lr) ) {
                                     $newFPago = date("d/m/Y", strtotime($polizap[$i]['f_pago_prima']));
                                     $newFHastaR = date("d/m/Y", strtotime($polizap[$i]['f_hasta_rep']));
                                     $newFPagoGC = date("d/m/Y", strtotime($polizap[$i]['f_pago_gc']));
+
+                                    $obj777= new Trabajo();
+                                    $ejecutivo = $obj777->get_ejecutivo($polizap[$i]['cod_vend']);
                                 
                             ?>
                                 <tr >
+                                    <td><?php echo $ejecutivo[0]['nombre'];?></td>
                                     <td align="right"><?php echo $polizap[$i]['prima_com'];?></td>
                                     <td><?php echo $newFPago;?></td>
                                     <td align="right"><?php echo $polizap[$i]['comision'];?></td>
@@ -811,6 +821,7 @@ if ( (!$con_id) || (!$lr) ) {
                                 }
                             ?> 
                                 <tr>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold"></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold">Prima Cobrada: <?php echo $currency.number_format($totalprimaC,2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold">Comisión Cobrada: <?php echo $currency.number_format($totalcomisionC,2); ?></td>
@@ -955,7 +966,7 @@ if ( (!$con_id) || (!$lr) ) {
                 $('#pagos').modal('show'); 
             }
 
-
+            
 
             $('#btnAgregarnuevo').click(function(){
                 datos=$('#frmnuevo').serialize();

@@ -89,7 +89,7 @@ $contPR = sizeof($polizas_r);
                                         <i class="material-icons">schedule</i> Administración
 
                                         <?php
-                                            if ($contPR != 0) {
+                                            if ($contPR != 0 && $permiso == 1) {
                                                 ?>
                                             <span class="badge badge-warning ml-2"><?php echo $contPR; ?></span>
                                         <?php
