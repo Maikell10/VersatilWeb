@@ -287,11 +287,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr >
-                                    <td colspan="2"><input type="text" class="form-control" name="n_poliza" readonly="readonly" value="<?php echo $n_poliza;?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
-                                    <!--<td><input type="text" class="form-control" name="emisionP" readonly="readonly" value="<?php echo $newEmision;?>"></td>-->
-                                    <td><input type="text" class="form-control" name="desdeP" readonly="readonly" value="<?php echo $newDesdeP;?>"></td>
-                                    <td><input type="text" class="form-control" name="hastaP" readonly="readonly" value="<?php echo $newHastaP;?>"></td>
-                                    <td><input type="text" class="form-control" name="tipo_poliza" readonly="readonly" value="<?php echo $tipo_poliza_print;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="n_poliza" readonly="readonly" value="<?= $n_poliza;?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <!--<td><input type="text" class="form-control" name="emisionP" readonly="readonly" value="<?= $newEmision;?>"></td>-->
+                                    <td><input type="text" class="form-control" name="desdeP" readonly="readonly" value="<?= $newDesdeP;?>"></td>
+                                    <td><input type="text" class="form-control" name="hastaP" readonly="readonly" value="<?= $newHastaP;?>"></td>
+                                    <td><input type="text" class="form-control" name="tipo_poliza" readonly="readonly" value="<?= $tipo_poliza_print;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -301,10 +301,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th hidden nowrap>Tipo de Cobertura</th>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?php echo $nombre_ramo[0]['nramo'];?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?php echo $nombre_cia[0]['nomcia'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
-                                    <td><input type="text" class="form-control" name="t_cuenta" readonly="readonly" value="<?php echo $t_cuenta;?>"></td>
-                                    <td hidden><input type="text" class="form-control" name="t_cobertura" readonly="readonly" value="<?php echo $t_cobertura;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="ramo" readonly="readonly" value="<?= $nombre_ramo[0]['nramo'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="cia" readonly="readonly" value="<?= $nombre_cia[0]['nomcia'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td><input type="text" class="form-control" name="t_cuenta" readonly="readonly" value="<?= $t_cuenta;?>"></td>
+                                    <td hidden><input type="text" class="form-control" name="t_cobertura" readonly="readonly" value="<?= $t_cobertura;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -315,11 +315,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap>Monto Cuotas</th>
                                 </tr>
                                 <tr >
-                                    <td><input type="text" class="form-control" name="sumaA" readonly="readonly" value="<?php echo $currencyl.number_format($sumaA,2);?>"></td>
-                                    <td><input type="text" class="form-control" name="prima" readonly="readonly" value="<?php echo $currencyl.number_format($prima,2);?>" style="background-color:rgba(228, 66, 66, 0.87);color:white"></td>
-                                    <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?php echo $f_pago;?>"></td>
-                                    <td><input type="text" class="form-control" name="n_cuotas" readonly="readonly" value="<?php echo $n_cuotas;?>"></td>
-                                    <td><input type="text" class="form-control" name="monto_cuotas" readonly="readonly" value="<?php echo $currencyl.number_format($monto_cuotas,2);?>"></td>
+                                    <td><input type="text" class="form-control" name="sumaA" readonly="readonly" value="<?= $currencyl.number_format($sumaA,2);?>"></td>
+                                    <td><input type="text" class="form-control" name="prima" readonly="readonly" value="<?= $currencyl.number_format($prima,2);?>" style="background-color:rgba(228, 66, 66, 0.87);color:white"></td>
+                                    <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?= $f_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="n_cuotas" readonly="readonly" value="<?= $n_cuotas;?>"></td>
+                                    <td><input type="text" class="form-control" name="monto_cuotas" readonly="readonly" value="<?= $currencyl.number_format($monto_cuotas,2);?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -329,10 +329,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap>Fecha de Vencimiento</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="2"><input type="text" class="form-control" name="forma_pago" readonly="readonly" value="<?php echo $forma_pago;?>"></td>
-                                    <td><input type="text" class="form-control" name="n_tarjeta" readonly="readonly" value="<?php echo $n_tarjeta;?>"></td>
-                                    <td><input type="text" class="form-control" name="cvv" readonly="readonly" value="<?php echo $cvv;?>"></td>
-                                    <td><input type="text" class="form-control" name="fechaV" readonly="readonly" value="<?php echo $fechaV;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="forma_pago" readonly="readonly" value="<?= $forma_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="n_tarjeta" readonly="readonly" value="<?= $n_tarjeta;?>"></td>
+                                    <td><input type="text" class="form-control" name="cvv" readonly="readonly" value="<?= $cvv;?>"></td>
+                                    <td><input type="text" class="form-control" name="fechaV" readonly="readonly" value="<?= $fechaV;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -340,8 +340,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap colspan="2">Banco</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="titular_tarjeta" readonly="readonly" value="<?php echo $titular_tarjeta;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="bancoT" readonly="readonly" value="<?php echo $bancoT;?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="titular_tarjeta" readonly="readonly" value="<?= $titular_tarjeta;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="bancoT" readonly="readonly" value="<?= $bancoT;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -351,10 +351,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap>Zona de Produc</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="2"><input type="text" class="form-control" name="n_recibo" readonly="readonly" value="<?php echo $n_recibo;?>"></td>
-                                    <td><input type="text" class="form-control" name="desde_recibo" readonly="readonly" value="<?php echo $newDesdeR;?>"></td>
-                                    <td><input type="text" class="form-control" name="hasta_recibo" readonly="readonly" value="<?php echo $newHastaR;?>"></td>
-                                    <td><input type="text" class="form-control" name="z_produc" readonly="readonly" value="<?php echo $z_produc;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="n_recibo" readonly="readonly" value="<?= $n_recibo;?>"></td>
+                                    <td><input type="text" class="form-control" name="desde_recibo" readonly="readonly" value="<?= $newDesdeR;?>"></td>
+                                    <td><input type="text" class="form-control" name="hasta_recibo" readonly="readonly" value="<?= $newHastaR;?>"></td>
+                                    <td><input type="text" class="form-control" name="z_produc" readonly="readonly" value="<?= $z_produc;?>"></td>
                                 </tr>
 
                                 <?php   if ($cia_pref[0]['per_gc_sum']!=null && $ramo!=35 && $as==0) {
@@ -366,9 +366,9 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap colspan="2">% GC Preferencial del Asesor por Cía</th>
                                 </tr>
                                 <tr >
-                                    <td><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo 'Sí';?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $per_gc-$cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
-                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= 'Sí';?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= $per_gc-$cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= $cia_pref[0]['per_gc_sum'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                 </tr>
                                 <?php   
                                         }
@@ -379,11 +379,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap colspan="2">% GC Asesor</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs=<?php echo $obs;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&bancoT=<?php echo $bancoT;?>&alert=<?php echo $alert;?>&id_tarjeta=<?php echo $id_tarjeta;?>&condTar=<?php echo $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?= $n_poliza;?>&fhoy=<?= $fhoy;?>&emisionP=<?= $femisionP;?>&t_cobertura=<?= $t_cobertura;?>&desdeP=<?= $fdesdeP;?>&hastaP=<?= $fhastaP;?>&currency=<?= $currency;?>&tipo_poliza=<?= $tipo_poliza;?>&sumaA=<?= $sumaA;?>&z_produc=<?= $z_produc;?>&asesor=<?= $u[0];?>&ramo=<?= $ramo;?>&cia=<?= $cia;?>&titular=<?= $titular;?>&n_recibo=<?= $n_recibo;?>&desde_recibo=<?= $fdesde_recibo;?>&hasta_recibo=<?= $fhasta_recibo;?>&prima=<?= $prima;?>&f_pago=<?= $f_pago;?>&n_cuotas=<?= $n_cuotas;?>&monto_cuotas=<?= $monto_cuotas;?>&tomador=<?= $tomador;?>&placa=<?= $placa;?>&tipo=<?= $tipo;?>&marca=<?= $marca;?>&modelo=<?= $modelo;?>&anio=<?= $anio;?>&color=<?= $color;?>&serial=<?= $serial;?>&categoria=<?= $categoria;?>&t_cuenta=<?= $_POST['t_cuenta'];?>&obs=<?= $obs;?>&forma_pago=<?= $_POST['forma_pago'];?>&n_tarjeta=<?= $n_tarjeta;?>&cvv=<?= $cvv;?>&fechaV=<?= $fechaV;?>&titular_tarjeta=<?= $titular_tarjeta;?>&bancoT=<?= $bancoT;?>&alert=<?= $alert;?>&id_tarjeta=<?= $id_tarjeta;?>&condTar=<?= $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Asesor (Sólo números)"></td>
                                     <?php } else {?>
-                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?= $per_gc;?>" readonly></td>
                                     <?php    } ?>
                                     
                                 </tr>
@@ -396,11 +396,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap colspan="2">Monto GC Referidor</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs=<?php echo $obs;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&bancoT=<?php echo $bancoT;?>&alert=<?php echo $alert;?>&id_tarjeta=<?php echo $id_tarjeta;?>&condTar=<?php echo $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Referidor (Sólo números)"></td>
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?= $n_poliza;?>&fhoy=<?= $fhoy;?>&emisionP=<?= $femisionP;?>&t_cobertura=<?= $t_cobertura;?>&desdeP=<?= $fdesdeP;?>&hastaP=<?= $fhastaP;?>&currency=<?= $currency;?>&tipo_poliza=<?= $tipo_poliza;?>&sumaA=<?= $sumaA;?>&z_produc=<?= $z_produc;?>&asesor=<?= $u[0];?>&ramo=<?= $ramo;?>&cia=<?= $cia;?>&titular=<?= $titular;?>&n_recibo=<?= $n_recibo;?>&desde_recibo=<?= $fdesde_recibo;?>&hasta_recibo=<?= $fhasta_recibo;?>&prima=<?= $prima;?>&f_pago=<?= $f_pago;?>&n_cuotas=<?= $n_cuotas;?>&monto_cuotas=<?= $monto_cuotas;?>&tomador=<?= $tomador;?>&placa=<?= $placa;?>&tipo=<?= $tipo;?>&marca=<?= $marca;?>&modelo=<?= $modelo;?>&anio=<?= $anio;?>&color=<?= $color;?>&serial=<?= $serial;?>&categoria=<?= $categoria;?>&t_cuenta=<?= $_POST['t_cuenta'];?>&obs=<?= $obs;?>&forma_pago=<?= $_POST['forma_pago'];?>&n_tarjeta=<?= $n_tarjeta;?>&cvv=<?= $cvv;?>&fechaV=<?= $fechaV;?>&titular_tarjeta=<?= $titular_tarjeta;?>&bancoT=<?= $bancoT;?>&alert=<?= $alert;?>&id_tarjeta=<?= $id_tarjeta;?>&condTar=<?= $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese Monto de GC del Referidor (Sólo números)"></td>
                                     <?php } else {?>
-                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?= $per_gc;?>" readonly></td>
                                     <?php    } ?>
                                     
                                 </tr>
@@ -413,11 +413,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th nowrap colspan="2">% GC Referidor</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?php echo $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="asesor" readonly="readonly" value="<?= $u[0]." => ".$u[1];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                     <?php if ($permiso==1) { ?>
-                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs=<?php echo $obs;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&bancoT=<?php echo $bancoT;?>&alert=<?php echo $alert;?>&id_tarjeta=<?php echo $id_tarjeta;?>&condTar=<?php echo $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?php echo $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Referidor (Sólo números)"></td>
+                                        <td colspan="2" style="background-color:white"><input type="text" onChange="document.links.enlace.href='poliza_n.php?n_poliza=<?= $n_poliza;?>&fhoy=<?= $fhoy;?>&emisionP=<?= $femisionP;?>&t_cobertura=<?= $t_cobertura;?>&desdeP=<?= $fdesdeP;?>&hastaP=<?= $fhastaP;?>&currency=<?= $currency;?>&tipo_poliza=<?= $tipo_poliza;?>&sumaA=<?= $sumaA;?>&z_produc=<?= $z_produc;?>&asesor=<?= $u[0];?>&ramo=<?= $ramo;?>&cia=<?= $cia;?>&titular=<?= $titular;?>&n_recibo=<?= $n_recibo;?>&desde_recibo=<?= $fdesde_recibo;?>&hasta_recibo=<?= $fhasta_recibo;?>&prima=<?= $prima;?>&f_pago=<?= $f_pago;?>&n_cuotas=<?= $n_cuotas;?>&monto_cuotas=<?= $monto_cuotas;?>&tomador=<?= $tomador;?>&placa=<?= $placa;?>&tipo=<?= $tipo;?>&marca=<?= $marca;?>&modelo=<?= $modelo;?>&anio=<?= $anio;?>&color=<?= $color;?>&serial=<?= $serial;?>&categoria=<?= $categoria;?>&t_cuenta=<?= $_POST['t_cuenta'];?>&obs=<?= $obs;?>&forma_pago=<?= $_POST['forma_pago'];?>&n_tarjeta=<?= $n_tarjeta;?>&cvv=<?= $cvv;?>&fechaV=<?= $fechaV;?>&titular_tarjeta=<?= $titular_tarjeta;?>&bancoT=<?= $bancoT;?>&alert=<?= $alert;?>&id_tarjeta=<?= $id_tarjeta;?>&condTar=<?= $condTar;?>&asesor_ind='+this.value+'';" class="form-control validanumericos" name="per_gc" value="<?= $per_gc;?>" require data-toggle="tooltip" data-placement="bottom" title="Ingrese % de GC del Referidor (Sólo números)"></td>
                                     <?php } else {?>
-                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?php echo $per_gc;?>" readonly></td>
+                                        <td colspan="2" ><input type="text" class="form-control" name="per_gc" value="<?= $per_gc;?>" readonly></td>
                                     <?php    } ?>
                                     
                                 </tr>
@@ -435,8 +435,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="3">Nombre(s) y Apellido(s) Titular</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="2"><input type="text" class="form-control" name="titular" readonly="readonly" value="<?php echo $titular;?>"></td>
-                                    <td colspan="3"><input type="text" class="form-control" name="n_titular" readonly="readonly" value="<?php echo $idtitular[0]['nombre_t']." ".$idtitular[0]['apellido_t'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="titular" readonly="readonly" value="<?= $titular;?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="n_titular" readonly="readonly" value="<?= $idtitular[0]['nombre_t']." ".$idtitular[0]['apellido_t'];?>" style="background-color:rgba(26, 197, 26, 0.932);color:white"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -444,8 +444,8 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="3">Nombre(s) y Apellido(s) Tomador</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="2"><input type="text" class="form-control" name="tomador" readonly="readonly" value="<?php echo $idtomador[0]['ci'];?>"></td>
-                                    <td colspan="3"><input type="text" class="form-control" name="n_tomador" readonly="readonly" value="<?php echo $idtomador[0]['nombre_t']." ".$idtomador[0]['apellido_t'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="tomador" readonly="readonly" value="<?= $idtomador[0]['ci'];?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="n_tomador" readonly="readonly" value="<?= $idtomador[0]['nombre_t']." ".$idtomador[0]['apellido_t'];?>"></td>
                                 </tr>
 
                                 <?php 
@@ -459,11 +459,11 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>Año</th>
                                 </tr>
                                 <tr >
-                                    <td><input type="text" class="form-control" name="placa" readonly="readonly" value="<?php echo $placa;?>"></td>
-                                    <td><input type="text" class="form-control" name="marca" readonly="readonly" value="<?php echo $marca;?>"></td>
-                                    <td><input type="text" class="form-control" name="modelo" readonly="readonly" value="<?php echo $modelo;?>"></td>
-                                    <td><input type="text" class="form-control" name="tipo" readonly="readonly" value="<?php echo $tipo;?>"></td>
-                                    <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?php echo $anio;?>"></td>
+                                    <td><input type="text" class="form-control" name="placa" readonly="readonly" value="<?= $placa;?>"></td>
+                                    <td><input type="text" class="form-control" name="marca" readonly="readonly" value="<?= $marca;?>"></td>
+                                    <td><input type="text" class="form-control" name="modelo" readonly="readonly" value="<?= $modelo;?>"></td>
+                                    <td><input type="text" class="form-control" name="tipo" readonly="readonly" value="<?= $tipo;?>"></td>
+                                    <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?= $anio;?>"></td>
                                 </tr>
 
                                 <!--<tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -473,10 +473,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="2">Categoría</th>
                                 </tr>
                                 <tr >
-                                    <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?php echo $anio;?>"></td>
-                                    <td><input type="text" class="form-control" name="color" readonly="readonly" value="<?php echo $color;?>"></td>
-                                    <td><input type="text" class="form-control" name="serial" readonly="readonly" value="<?php echo $serial;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="categoria" readonly="readonly" value="<?php echo $categoria;?>"></td>
+                                    <td><input type="text" class="form-control" name="anio" readonly="readonly" value="<?= $anio;?>"></td>
+                                    <td><input type="text" class="form-control" name="color" readonly="readonly" value="<?= $color;?>"></td>
+                                    <td><input type="text" class="form-control" name="serial" readonly="readonly" value="<?= $serial;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="categoria" readonly="readonly" value="<?= $categoria;?>"></td>
                                 </tr>-->
 
                                 <?php   
@@ -487,7 +487,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="5">Observaciones</th>
                                 </tr>
                                 <tr >
-                                    <td colspan="5"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?php echo $obs;?>"></td>
+                                    <td colspan="5"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?= $obs;?>"></td>
                                 </tr>
 
                                 </div>
@@ -499,7 +499,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="poliza_n.php?n_poliza=<?php echo $n_poliza;?>&fhoy=<?php echo $fhoy;?>&emisionP=<?php echo $femisionP;?>&t_cobertura=<?php echo $t_cobertura;?>&desdeP=<?php echo $fdesdeP;?>&hastaP=<?php echo $fhastaP;?>&currency=<?php echo $currency;?>&tipo_poliza=<?php echo $tipo_poliza;?>&sumaA=<?php echo $sumaA;?>&z_produc=<?php echo $z_produc;?>&asesor=<?php echo $u[0];?>&ramo=<?php echo $ramo;?>&cia=<?php echo $cia;?>&titular=<?php echo $titular;?>&n_recibo=<?php echo $n_recibo;?>&desde_recibo=<?php echo $fdesde_recibo;?>&hasta_recibo=<?php echo $fhasta_recibo;?>&prima=<?php echo $prima;?>&f_pago=<?php echo $f_pago;?>&n_cuotas=<?php echo $n_cuotas;?>&monto_cuotas=<?php echo $monto_cuotas;?>&tomador=<?php echo $tomador;?>&placa=<?php echo $placa;?>&tipo=<?php echo $tipo;?>&marca=<?php echo $marca;?>&modelo=<?php echo $modelo;?>&anio=<?php echo $anio;?>&color=<?php echo $color;?>&serial=<?php echo $serial;?>&categoria=<?php echo $categoria;?>&asesor_ind=<?php echo $per_gc;?>&t_cuenta=<?php echo $_POST['t_cuenta'];?>&obs=<?php echo $obs;?>&forma_pago=<?php echo $_POST['forma_pago'];?>&n_tarjeta=<?php echo $n_tarjeta;?>&cvv=<?php echo $cvv;?>&fechaV=<?php echo $fechaV;?>&titular_tarjeta=<?php echo $titular_tarjeta;?>&bancoT=<?php echo $bancoT;?>&alert=<?php echo $alert;?>&id_tarjeta=<?php echo $id_tarjeta;?>&condTar=<?php echo $condTar;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="poliza_n.php?n_poliza=<?= $n_poliza;?>&fhoy=<?= $fhoy;?>&emisionP=<?= $femisionP;?>&t_cobertura=<?= $t_cobertura;?>&desdeP=<?= $fdesdeP;?>&hastaP=<?= $fhastaP;?>&currency=<?= $currency;?>&tipo_poliza=<?= $tipo_poliza;?>&sumaA=<?= $sumaA;?>&z_produc=<?= $z_produc;?>&asesor=<?= $u[0];?>&ramo=<?= $ramo;?>&cia=<?= $cia;?>&titular=<?= $titular;?>&n_recibo=<?= $n_recibo;?>&desde_recibo=<?= $fdesde_recibo;?>&hasta_recibo=<?= $fhasta_recibo;?>&prima=<?= $prima;?>&f_pago=<?= $f_pago;?>&n_cuotas=<?= $n_cuotas;?>&monto_cuotas=<?= $monto_cuotas;?>&tomador=<?= $tomador;?>&placa=<?= $placa;?>&tipo=<?= $tipo;?>&marca=<?= $marca;?>&modelo=<?= $modelo;?>&anio=<?= $anio;?>&color=<?= $color;?>&serial=<?= $serial;?>&categoria=<?= $categoria;?>&asesor_ind=<?= $per_gc;?>&t_cuenta=<?= $_POST['t_cuenta'];?>&obs=<?= $obs;?>&forma_pago=<?= $_POST['forma_pago'];?>&n_tarjeta=<?= $n_tarjeta;?>&cvv=<?= $cvv;?>&fechaV=<?= $fechaV;?>&titular_tarjeta=<?= $titular_tarjeta;?>&bancoT=<?= $bancoT;?>&alert=<?= $alert;?>&id_tarjeta=<?= $id_tarjeta;?>&condTar=<?= $condTar;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

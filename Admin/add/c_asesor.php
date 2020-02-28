@@ -101,7 +101,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $u[0]."-".($u[1]+1);?> "></td>
+                                    <td><input type="text" class="form-control" name="cod" readonly="true" value="<?= $u[0]."-".($u[1]+1);?> "></td>
                                     <td><input type="text" class="form-control validanumericos" name="id_a" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                     <td><input type="text" class="form-control" name="nombre_a" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                     <td><input type="email" class="form-control" name="email" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" placeholder="ejemplo@email.com"></td>

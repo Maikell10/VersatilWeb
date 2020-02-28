@@ -75,7 +75,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
+                    <h1 class="title">Asesor: <?= utf8_encode($nombre); ?></h1>  
                     <?php 
                     if ($asesor[0]['act']==0) {
                     ?>
@@ -87,7 +87,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <?php
                     }
                     ?>
-                    <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
+                    <h2 class="title">Cod: <?= $asesor[0]['cod']; ?></h2>  
                 </div>
 
                 
@@ -104,10 +104,10 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td ><?php echo $asesor[0]['id']; ?></td>
-                            <td ><?php echo utf8_encode($nombre); ?></td>
-                            <td><a href=mailto:<?php echo $asesor[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?php echo $asesor[0]['email']; ?></a></td>
-                            <td><?php echo $asesor[0]['cel']; ?></td>
+                            <td ><?= $asesor[0]['id']; ?></td>
+                            <td ><?= utf8_encode($nombre); ?></td>
+                            <td><a href=mailto:<?= $asesor[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?= $asesor[0]['email']; ?></a></td>
+                            <td><?= $asesor[0]['cel']; ?></td>
                         </tr>
 
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -116,9 +116,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th colspan="2">N Cuenta</th>
 						</tr>
                         <tr>
-                            <td ><?php echo $asesor[0]['banco']; ?></td>
-                            <td ><?php echo $asesor[0]['tipo_cuenta']; ?></td>
-                            <td colspan="2"><?php echo $asesor[0]['num_cuenta']; ?></td>
+                            <td ><?= $asesor[0]['banco']; ?></td>
+                            <td ><?= $asesor[0]['tipo_cuenta']; ?></td>
+                            <td colspan="2"><?= $asesor[0]['num_cuenta']; ?></td>
                         </tr>
 
                         <?php
@@ -131,9 +131,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th colspan="2">Monto</th>
 						</tr>
                         <tr>
-                            <td ><?php echo $asesor[0]['f_pago']; ?></td>
-                            <td ><?php echo $asesor[0]['pago']; ?></td>
-                            <td colspan="2"><?php echo $asesor[0]['monto']; ?></td>
+                            <td ><?= $asesor[0]['f_pago']; ?></td>
+                            <td ><?= $asesor[0]['pago']; ?></td>
+                            <td colspan="2"><?= $asesor[0]['monto']; ?></td>
                         </tr>
 
                         <?php
@@ -145,7 +145,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Estatus</th>
 						</tr>
                         <tr>
-                            <td colspan="3"><?php echo utf8_encode($asesor[0]['obs']); ?></td>
+                            <td colspan="3"><?= utf8_encode($asesor[0]['obs']); ?></td>
                             <td><?php   $estatus='Inactivo';
                                         if ($asesor[0]['act']==1) {
                                             $estatus='Activo';
@@ -165,10 +165,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>%GC Viajes (Renovación)</th>
                         </tr>
                         <tr>
-                            <td><?php echo $asesor[0]['nopre1']." %"; ?></td>
-                            <td><?php echo $asesor[0]['nopre1_renov']." %"; ?></td>
-                            <td><?php echo $asesor[0]['gc_viajes']." %"; ?></td>
-                            <td><?php echo $asesor[0]['gc_viajes_renov']." %"; ?></td>
+                            <td><?= $asesor[0]['nopre1']." %"; ?></td>
+                            <td><?= $asesor[0]['nopre1_renov']." %"; ?></td>
+                            <td><?= $asesor[0]['gc_viajes']." %"; ?></td>
+                            <td><?= $asesor[0]['gc_viajes_renov']." %"; ?></td>
                         </tr>
                         <?php
                         }
@@ -181,13 +181,13 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <hr>
                 <center>
-                <a  href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?php echo $asesor[0]['cod'];?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-lg">Ver Pólizas Asesor  &nbsp;<i class="fa fa-eye" aria-hidden="true"></i></a>
+                <a  href="b_poliza1.php?anio=&mes=&asesor%5B%5D=<?= $asesor[0]['cod'];?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-lg">Ver Pólizas Asesor  &nbsp;<i class="fa fa-eye" aria-hidden="true"></i></a>
 
-                <a  href="e_asesor.php?id_asesor=<?php echo $id;?>&a=<?php echo $a;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_asesor.php?id_asesor=<?= $id;?>&a=<?= $a;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Asesor  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
 
                 <?php if ($permiso==1) { ?>
-                <button  onclick="eliminarDatos('<?php echo $id; ?>', '<?php echo $a; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button  onclick="eliminarDatos('<?= $id; ?>', '<?= $a; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Asesor  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 <?php }?>
                 </center>
                 <hr>

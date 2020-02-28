@@ -215,9 +215,9 @@ foreach ($sumatotalRamoProm as $key => $value) {
 
               ?>
               <tr>
-                <th scope="row"><?php echo ($ramoArray[$x[$i]]); ?></th>
-                <td><?php echo "$" . number_format(($sumatotalRamo[$x[$i]]) / $cantArray[$x[$i]], 2); ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="row"><?= ($ramoArray[$x[$i]]); ?></th>
+                <td><?= "$" . number_format(($sumatotalRamo[$x[$i]]) / $cantArray[$x[$i]], 2); ?></td>
+                <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
             <?php
             }
@@ -226,8 +226,8 @@ foreach ($sumatotalRamoProm as $key => $value) {
           <thead class="thead-dark">
             <tr>
               <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
-              <th scope="col"><?php echo $totalCant; ?></th>
+              <th align="right"><?= "$" . number_format($totals, 2); ?></th>
+              <th scope="col"><?= $totalCant; ?></th>
             </tr>
           </thead>
         </table>
@@ -296,14 +296,14 @@ foreach ($sumatotalRamoProm as $key => $value) {
     let massPopChart = new Chart(myChart, {
       type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data: {
-        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?php echo ($ramoArray[$x[$i]]); ?>',
+        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= ($ramoArray[$x[$i]]); ?>',
 
           <?php } ?>
         ],
 
         datasets: [{
           label: "Valores Promedio",
-          data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {  ?> '<?php echo ($sumatotalRamo[$x[$i]]) / $cantArray[$x[$i]]; ?>',
+          data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {  ?> '<?= ($sumatotalRamo[$x[$i]]) / $cantArray[$x[$i]]; ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

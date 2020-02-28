@@ -239,7 +239,7 @@ if ($permiso==3) {
 
               <div class="col-md-auto col-md-offset-2" style="text-align:center">
                   <h1 class="title">Comparativo de Primas Cobradas por Ramo</h1> 
-                  <h2>Año: <?php echo $_GET['anio'];?> Mes: <?php echo $mesArray[$_GET['mes']-1];?></h2>
+                  <h2>Año: <?= $_GET['anio'];?> Mes: <?= $mesArray[$_GET['mes']-1];?></h2>
                   <br>
                   
                   <a href="../comparativo.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
@@ -255,9 +255,9 @@ if ($permiso==3) {
                 <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                   <tr>
                     <th>Ramo</th>
-                    <th><?php echo $mesArray[$_GET['mes']-1].' - '.intval($_GET['anio']-1);?></th>
+                    <th><?= $mesArray[$_GET['mes']-1].' - '.intval($_GET['anio']-1);?></th>
                     <th>Cantidad</th>
-                    <th style="background-color: #28a745;"><?php echo $mesArray[$_GET['mes']-1].' - '.$_GET['anio'];?></th>
+                    <th style="background-color: #28a745;"><?= $mesArray[$_GET['mes']-1].' - '.$_GET['anio'];?></th>
                     <th style="background-color: #28a745;">Cantidad</th>
                   </tr>
                 </thead>
@@ -270,11 +270,11 @@ if ($permiso==3) {
                       
                   ?>
                   <tr>
-                    <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-                    <td align="right"><?php echo "$".number_format($p1[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo $cantidadOld[$x[$i]]; ?></td>
-                    <td align="right"><?php echo "$".number_format($p2[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo $cantidad[$x[$i]]; ?></td>
+                    <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
+                    <td align="right"><?= "$".number_format($p1[$x[$i]],2); ?></td>
+                    <td align="right"><?= $cantidadOld[$x[$i]]; ?></td>
+                    <td align="right"><?= "$".number_format($p2[$x[$i]],2); ?></td>
+                    <td align="right"><?= $cantidad[$x[$i]]; ?></td>
                   </tr>
                   <?php
                       }
@@ -283,10 +283,10 @@ if ($permiso==3) {
                 <tfoot>
                   <tr>
                     <th>TOTAL</th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes1,2); ?></th>
-                    <th style="text-align: right;"><?php echo $totalCantOld; ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes2,2); ?></th>
-                    <th style="text-align: right;"><?php echo $totalCant; ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes1,2); ?></th>
+                    <th style="text-align: right;"><?= $totalCantOld; ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes2,2); ?></th>
+                    <th style="text-align: right;"><?= $totalCant; ?></th>
                   </tr>
                 </tfoot>
               </table>
@@ -363,16 +363,16 @@ if ($permiso==3) {
     let massPopChart = new Chart(myChart, {
       type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
-        labels:[<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?php echo utf8_encode($ramoArray[$x[$i]]).' ('.intval($_GET['anio']-1).')'; ?>',
-            '<?php echo ' ('.$_GET['anio'].')'; ?>',
+        labels:[<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]).' ('.intval($_GET['anio']-1).')'; ?>',
+            '<?= ' ('.$_GET['anio'].')'; ?>',
 
           <?php } ?>],
 
         datasets:[{
 
           data:[<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                    ?> '<?php echo $p1[$x[$i]]; ?>',
-                        '<?php echo $p2[$x[$i]]; ?>',
+                    ?> '<?= $p1[$x[$i]]; ?>',
+                        '<?= $p2[$x[$i]]; ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

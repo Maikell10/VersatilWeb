@@ -224,10 +224,10 @@ foreach ($sumatotalTpoliza as $key => $value) {
               //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
               ?>
               <tr>
-                <th scope="row"><?php echo utf8_encode($tpolizaArray[$x[$i]]); ?></th>
-                <td align="right"><?php echo "$" . number_format($sumatotalTpoliza[$x[$i]], 2); ?></td>
-                <td><?php echo number_format(($sumatotalTpoliza[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="row"><?= utf8_encode($tpolizaArray[$x[$i]]); ?></th>
+                <td align="right"><?= "$" . number_format($sumatotalTpoliza[$x[$i]], 2); ?></td>
+                <td><?= number_format(($sumatotalTpoliza[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
+                <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
             <?php
             }
@@ -236,9 +236,9 @@ foreach ($sumatotalTpoliza as $key => $value) {
           <thead class="thead-dark">
             <tr>
               <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
+              <th align="right"><?= "$" . number_format($totals, 2); ?></th>
               <th scope="col">100%</th>
-              <th scope="col"><?php echo $totalCant; ?></th>
+              <th scope="col"><?= $totalCant; ?></th>
             </tr>
           </thead>
         </table>
@@ -295,7 +295,7 @@ foreach ($sumatotalTpoliza as $key => $value) {
     let massPopChart = new Chart(myChart, {
       type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data: {
-        labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?php echo utf8_encode($tpoliza[$i]["tipo_poliza"]); ?>',
+        labels: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) { ?> '<?= utf8_encode($tpoliza[$i]["tipo_poliza"]); ?>',
 
           <?php } ?>
         ],
@@ -304,7 +304,7 @@ foreach ($sumatotalTpoliza as $key => $value) {
 
           data: [<?php for ($i = 0; $i < sizeof($tpoliza); $i++) {
                     $sumasegurada = ($sumatotalTpoliza[$i] * 100) / $totals;
-                    ?> '<?php echo number_format($sumasegurada, 2); ?>',
+                    ?> '<?= number_format($sumasegurada, 2); ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

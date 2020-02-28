@@ -1,11 +1,12 @@
 <?php
 session_start();
-if (isset($_SESSION['seudonimo'])) { } else {
+if (isset($_SESSION['seudonimo'])) {
+} else {
     header("Location: login.php");
     exit();
 }
 
-require_once("../class/clases.php");
+require_once("../class/renovar.php");
 
 $fhoy = date("Y-m-d");
 $obj10 = new Trabajo();
@@ -17,6 +18,19 @@ $obj10 = new Trabajo();
 $polizas_r = $obj10->get_polizas_r();
 
 $contPR = sizeof($polizas_r);
+
+
+
+$obj = new Renovar();
+$polizas = $obj->renovar();
+$cant_p = $obj->cant_renov;
+
+foreach ($polizas as $poliza) {
+    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+    if (sizeof($poliza_renov) != 0) {
+        $cant_p=$cant_p-1;
+    }
+}
 
 
 ?>
@@ -57,7 +71,7 @@ $contPR = sizeof($polizas_r);
 
 
                 <center>
-                    <h1>Bienvenido <?php echo $_SESSION['seudonimo']; ?> <i class="fa fa-user fa-lg"></i></h1>
+                    <h1>Bienvenido <?= $_SESSION['seudonimo']; ?> <i class="fa fa-user fa-lg"></i></h1>
                 </center>
                 <hr>
                 <div class="row">
@@ -69,8 +83,8 @@ $contPR = sizeof($polizas_r);
 
                                     <?php
                                     if ($contN != 0) {
-                                        ?>
-                                        <span class="badge badge-warning ml-2"><?php echo $contN; ?></span>
+                                    ?>
+                                        <span class="badge badge-warning ml-2"><?= $contN; ?></span>
                                     <?php
                                     }
                                     ?>
@@ -79,22 +93,30 @@ $contPR = sizeof($polizas_r);
                             <li class="nav-item m-auto">
                                 <a class="nav-link" href="renovacion.php">
                                     <i class="material-icons">alarm_on</i> Renovación
+
+                                    <?php
+                                    if ($cant_p != 0 ) {
+                                    ?>
+                                        <span class="badge badge-warning ml-2"><?= $cant_p; ?></span>
+                                    <?php
+                                    }
+                                    ?>
                                 </a>
                             </li>
                             <?php
                             if ($permiso != 3) {
-                                ?>
+                            ?>
                                 <li class="nav-item m-auto">
                                     <a class="nav-link" href="administracion.php">
                                         <i class="material-icons">schedule</i> Administración
 
                                         <?php
-                                            if ($contPR != 0 && $permiso == 1) {
-                                                ?>
-                                            <span class="badge badge-warning ml-2"><?php echo $contPR; ?></span>
+                                        if ($contPR != 0 && $permiso == 1) {
+                                        ?>
+                                            <span class="badge badge-warning ml-2"><?= $contPR; ?></span>
                                         <?php
-                                            }
-                                            ?>
+                                        }
+                                        ?>
                                     </a>
                                 </li>
                             <?php

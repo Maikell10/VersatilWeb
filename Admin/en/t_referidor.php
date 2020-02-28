@@ -49,20 +49,20 @@ $totalCant=0;
 					<?php
 						if ($referidor[$i]['act']==1) {
 					?>
-					<td nowrap class="text-success"><?php echo utf8_encode($referidor[$i]['nombre']); ?></td>
+					<td nowrap class="text-success"><?= utf8_encode($referidor[$i]['nombre']); ?></td>
 					<?php
 						}else {
 					?>
-					<td nowrap class="text-danger"><?php echo utf8_encode($referidor[$i]['nombre']); ?></td>
+					<td nowrap class="text-danger"><?= utf8_encode($referidor[$i]['nombre']); ?></td>
 					<?php	
 						}
 					?>
-					<td hidden=""><?php echo $referidor[$i]['id_enr']; ?></td>
-	                <td><?php echo $referidor[$i]['cod']; ?></td>
-	                <td><?php echo $referidor[$i]['id']; ?></td>
-	                <td><?php echo sizeof($referidort); ?></td>
-	                <td><?php echo "$ ".number_format($prima,2); ?></td>
-					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
+					<td hidden=""><?= $referidor[$i]['id_enr']; ?></td>
+	                <td><?= $referidor[$i]['cod']; ?></td>
+	                <td><?= $referidor[$i]['id']; ?></td>
+	                <td><?= sizeof($referidort); ?></td>
+	                <td><?= "$ ".number_format($prima,2); ?></td>
+					<td><?= "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 				</tr>
 				<?php
 			}
@@ -75,9 +75,9 @@ $totalCant=0;
 				<th hidden="">ID</th>
                 <th>Código</th>
                 <th>C.I o Pasaporte</th>
-                <th nowrap>Cant Pólizas <?php echo $totalCant; ?></th>
-                <th >Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
-				<th >Total Prima Cobrada $<?php echo number_format($totalPrimaC,2); ?></th>
+                <th nowrap>Cant Pólizas <?= $totalCant; ?></th>
+                <th >Total Prima Suscrita $<?= number_format($totalPrima,2); ?></th>
+				<th >Total Prima Cobrada $<?= number_format($totalPrimaC,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>

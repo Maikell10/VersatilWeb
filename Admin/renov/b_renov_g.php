@@ -117,7 +117,7 @@ $fechaMax= $date->format($format);
                                  
                              }else{
                         ?>
-                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                            <option value="<?= $i;?>"><?= $i;?></option>
                         <?php
                                 }
                                  
@@ -155,7 +155,7 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
                           ?>
-                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
+                              <option value="<?= $cia[$i]["nomcia"];?>"><?= ($cia[$i]["nomcia"]);?></option>
                           <?php
                             } 
                           ?> 
@@ -168,13 +168,13 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
+                                <option value="<?= $asesor[$i]["cod"];?>"><?= utf8_encode($asesor[$i]["cod"]." ==> ".$asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
+                                <option value="<?= $liderp[$i]["cod"];?>"><?= utf8_encode($liderp[$i]["cod"]." ==> ".$liderp[$i]["nombre"]);?></option>
                             <?php } for($i=0;$i<sizeof($referidor);$i++)
                                 {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
+                                <option value="<?= $referidor[$i]["cod"];?>"><?= utf8_encode($referidor[$i]["cod"]." ==> ".$referidor[$i]["nombre"]);?></option>
                             <?php } ?>
                         </select>
                       </div>
@@ -191,7 +191,7 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
                           ?>
-                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                              <option value="<?= $cia[$i]["nomcia"];?>"><?= utf8_encode($cia[$i]["nomcia"]);?></option>
                           <?php
                             } 
                           ?> 
@@ -200,7 +200,7 @@ $fechaMax= $date->format($format);
                       <div class="form-group col-md-6" hidden>
                         <label>Asesor:</label>
                         <select class="form-control" name="asesor[]">
-                            <option value="<?php echo $user[0]['cod_vend'];?>"></option>
+                            <option value="<?= $user[0]['cod_vend'];?>"></option>
                         </select>
                       </div>
                     </div>
@@ -261,15 +261,15 @@ $fechaMax= $date->format($format);
 
     <script src="../../assets/js/core/popper.min.js"></script>
     <script src="../../assets/js/bootstrap-material-design.js"></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <!--  Plugin fo Date Time Picker and Full Calendar Plugin  -->
     <script src="../../assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <!--	Plugin fo the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
     <script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <!--	Plugin fo the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
     <script src="../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

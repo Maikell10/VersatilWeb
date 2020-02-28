@@ -148,10 +148,10 @@ for ($i = 0; $i < count($asesorB); $i++) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round">
                     <- Regresar</a> <div class="col-md-auto col-md-offset-2" id="tablaLoad1">
                         <h1 class="title">Resultado de Búsqueda de GC a Pagar por Referidor</h1>
-                        <h2>Año: <font style="font-weight:bold"><?php echo $_GET['anio'];
+                        <h2>Año: <font style="font-weight:bold"><?= $_GET['anio'];
                                                                 if ($_GET['mes'] == null) { } else {
                                                                     ?></font>
-                            Mes: <font style="font-weight:bold"><?php echo $mes_arr[$_GET['mes'] - 1];
+                            Mes: <font style="font-weight:bold"><?= $mes_arr[$_GET['mes'] - 1];
                                                                 } ?></font>
                         </h2>
             </div>
@@ -207,12 +207,12 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                 <?php
                                     if ($asesor[0]['act'] == 0) {
                                         ?>
-                                    <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?php echo $nombre; ?></td>
+                                    <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?= $nombre; ?></td>
                                 <?php
                                     }
                                     if ($asesor[0]['act'] == 1) {
                                         ?>
-                                    <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?php echo $nombre; ?></td>
+                                    <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $nombre; ?></td>
                                 <?php
                                     }
                                     ?>
@@ -248,37 +248,37 @@ for ($i = 0; $i < count($asesorB); $i++) {
 
                                         if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
-                                        <td style="color: #2B9E34"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                        <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
                                     <?php
                                             } else {
                                                 ?>
-                                        <td style="color: #E54848"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                        <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
                                     <?php
                                             }
 
                                             ?>
 
-                                    <td><?php echo utf8_encode($nombretitu); ?></td>
-                                    <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
-                                    <td align="right"><?php echo "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
+                                    <td><?= utf8_encode($nombretitu); ?></td>
+                                    <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                    <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
-                                    <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ " . number_format($poliza[$i]['monto'], 2); ?></td>
+                                    <td align="right" style="background-color: #ED7D31;color:white"><?= "$ " . number_format($poliza[$i]['monto'], 2); ?></td>
 
-                                    <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
+                                    <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
                             </tr>
                         <?php
                             }
                             ?>
                         <tr class="no-tocar">
-                            <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font>
+                            <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                             </td>
                             <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                <font size=4><?php echo "$ " . $totalprima; ?></font>
+                                <font size=4><?= "$ " . $totalprima; ?></font>
                             </td>
 
 
                             <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                <font size=4><?php echo "$ " . number_format($totalmonto, 2); ?></font>
+                                <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
                             </td>
 
 
@@ -291,12 +291,12 @@ for ($i = 0; $i < count($asesorB); $i++) {
                         <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="4">Total General</td>
 
                         <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                            <font size=4><?php echo "$ " . number_format($totalprimaT, 2); ?></font>
+                            <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                         </td>
 
 
                         <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                            <font size=4><?php echo "$ " . number_format($totalmontoT, 2); ?></font>
+                            <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
                         </td>
 
 
@@ -360,12 +360,12 @@ for ($i = 0; $i < count($asesorB); $i++) {
                                 <?php
                                     if ($asesor[0]['act'] == 0) {
                                         ?>
-                                    <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?php echo $nombre; ?></td>
+                                    <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-danger"><?= $nombre; ?></td>
                                 <?php
                                     }
                                     if ($asesor[0]['act'] == 1) {
                                         ?>
-                                    <td rowspan="<?php echo sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?php echo $nombre; ?></td>
+                                    <td rowspan="<?= sizeof($poliza); ?>" style="background-color: #D9D9D9;font-weight: bold" class="text-success"><?= $nombre; ?></td>
                                 <?php
                                     }
                                     ?>
@@ -401,36 +401,36 @@ for ($i = 0; $i < count($asesorB); $i++) {
 
                                         if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
-                                        <td style="color: #2B9E34"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                        <td style="color: #2B9E34"><?= $poliza[$i]['cod_poliza']; ?></td>
                                     <?php
                                             } else {
                                                 ?>
-                                        <td style="color: #E54848"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                        <td style="color: #E54848"><?= $poliza[$i]['cod_poliza']; ?></td>
                                     <?php
                                             }
 
                                             ?>
 
-                                    <td><?php echo utf8_encode($nombretitu); ?></td>
-                                    <td nowrap><?php echo ($poliza[$i]['nomcia']); ?></td>
-                                    <td align="right"><?php echo "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
+                                    <td><?= utf8_encode($nombretitu); ?></td>
+                                    <td nowrap><?= ($poliza[$i]['nomcia']); ?></td>
+                                    <td align="right"><?= "$ " . number_format($poliza[$i]['prima'], 2); ?></td>
 
-                                    <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ " . number_format($poliza[$i]['monto'], 2); ?></td>
+                                    <td align="right" style="background-color: #ED7D31;color:white"><?= "$ " . number_format($poliza[$i]['monto'], 2); ?></td>
 
                             </tr>
                         <?php
                             }
                             ?>
                         <tr class="no-tocar">
-                            <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?php echo $nombre; ?>: <font size=4 color="aqua"><?php echo sizeof($poliza); ?></font>
+                            <td colspan="4" style="background-color: #F53333;color: white;font-weight: bold">Total de <?= $nombre; ?>: <font size=4 color="aqua"><?= sizeof($poliza); ?></font>
                             </td>
                             <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                <font size=4><?php echo "$ " . $totalprima; ?></font>
+                                <font size=4><?= "$ " . $totalprima; ?></font>
                             </td>
 
 
                             <td align="right" style="background-color: #F53333;color: white;font-weight: bold">
-                                <font size=4><?php echo "$ " . number_format($totalmonto, 2); ?></font>
+                                <font size=4><?= "$ " . number_format($totalmonto, 2); ?></font>
                             </td>
 
 
@@ -442,12 +442,12 @@ for ($i = 0; $i < count($asesorB); $i++) {
                         <td style="background-color:#2FA4E7;color:white;font-weight: bold" colspan="4">Total General</td>
 
                         <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                            <font size=4><?php echo "$ " . number_format($totalprimaT, 2); ?></font>
+                            <font size=4><?= "$ " . number_format($totalprimaT, 2); ?></font>
                         </td>
 
 
                         <td align="right" style="background-color: #2FA4E7;color: white;font-weight: bold">
-                            <font size=4><?php echo "$ " . number_format($totalmontoT, 2); ?></font>
+                            <font size=4><?= "$ " . number_format($totalmontoT, 2); ?></font>
                         </td>
 
 
@@ -472,10 +472,10 @@ for ($i = 0; $i < count($asesorB); $i++) {
 
 
                 <h1 class="title">Total de Prima Suscrita</h1>
-                <h1 class="title text-danger">$ <?php echo number_format($totalprimaF, 2); ?></h1>
+                <h1 class="title text-danger">$ <?= number_format($totalprimaF, 2); ?></h1>
 
                 <h1 class="title">Total de Pólizas</h1>
-                <h1 class="title text-danger"><?php echo $totalpoliza; ?></h1>
+                <h1 class="title text-danger"><?= $totalpoliza; ?></h1>
             </center>
 
 
@@ -547,7 +547,7 @@ for ($i = 0; $i < count($asesorB); $i++) {
 
             alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                 function() {
-                    window.location.replace("../../procesos/agregarGC_R.php?desde=<?php echo $desde; ?>&hasta=<?php echo $hasta; ?>&cia=<?php echo $ciaEnv; ?>&asesor=<?php echo $asesorEnv; ?>");
+                    window.location.replace("../../procesos/agregarGC_R.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
 
                 },
                 function() {

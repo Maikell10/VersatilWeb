@@ -108,7 +108,7 @@ $fechaMax= $date->format($format);
                                  
                              }else{
                         ?>
-                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                            <option value="<?= $i;?>"><?= $i;?></option>
                         <?php
                                 }
                             $date=$date+1;
@@ -147,7 +147,7 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
                           ?>
-                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
+                              <option value="<?= $cia[$i]["nomcia"];?>"><?= ($cia[$i]["nomcia"]);?></option>
                           <?php
                             } 
                           ?> 

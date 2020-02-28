@@ -59,11 +59,11 @@ $totalCom=0;
 				
 				?>
 				<tr style="cursor: pointer">
-					<td><?php echo ($cia1[0]['nomcia']); ?></td>
-					<td hidden=""><?php echo $asesor[$i]['idena']; ?></td>
-	                <td><?php echo number_format($primap,2); ?></td>
-	                <td><?php echo number_format($prima,2); ?></td>
-	                <td><?php echo "$ ".number_format($comi,2); ?></td>
+					<td><?= ($cia1[0]['nomcia']); ?></td>
+					<td hidden=""><?= $asesor[$i]['idena']; ?></td>
+	                <td><?= number_format($primap,2); ?></td>
+	                <td><?= number_format($prima,2); ?></td>
+	                <td><?= "$ ".number_format($comi,2); ?></td>
 				</tr>
 				<?php
 			}
@@ -75,8 +75,8 @@ $totalCom=0;
 				<th>Nombre de Compañía</th>
 				<th hidden="">ID</th>
                 <th>Prima Suscrita</th>
-                <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
-                <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
+                <th>Prima Cobrada <?= "$ ".number_format($totalPrimaCom,2); ?></th>
+                <th>Comisión Cobrada <?= "$ ".number_format($totalCom,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>

@@ -211,9 +211,9 @@ foreach ($sumatotalCia as $key => $value) {
               //echo $sumatotalCia[$x[$i]]." - ".$ciaArray[$x[$i]];
               ?>
               <tr>
-                <th scope="row"><?php echo ($ciaArray[$x[$i]]); ?></th>
-                <td align="right"><?php echo "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="row"><?= ($ciaArray[$x[$i]]); ?></th>
+                <td align="right"><?= "$" . number_format($sumatotalCia[$x[$i]], 2); ?></td>
+                <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
             <?php
             }
@@ -222,8 +222,8 @@ foreach ($sumatotalCia as $key => $value) {
           <thead class="thead-dark">
             <tr>
               <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
-              <th scope="col"><?php echo $totalCant; ?></th>
+              <th align="right"><?= "$" . number_format($totals, 2); ?></th>
+              <th scope="col"><?= $totalCant; ?></th>
             </tr>
           </thead>
         </table>
@@ -281,7 +281,7 @@ foreach ($sumatotalCia as $key => $value) {
     let massPopChart = new Chart(myChart, {
       type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data: {
-        labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?php echo ($ciaArray[$x[$i]]); ?>',
+        labels: [<?php for ($i = sizeof($cia); $i > 0; $i--) { ?> '<?= ($ciaArray[$x[$i]]); ?>',
 
           <?php } ?>
         ],
@@ -289,7 +289,7 @@ foreach ($sumatotalCia as $key => $value) {
         datasets: [{
 
           data: [<?php for ($i = sizeof($cia); $i > 0; $i--) {
-                    ?> '<?php echo $sumatotalCia[$x[$i]]; ?>',
+                    ?> '<?= $sumatotalCia[$x[$i]]; ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

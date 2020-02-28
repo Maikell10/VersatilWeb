@@ -124,14 +124,14 @@ $permiso = $user[0]['id_permiso'];
 
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-user fa-lg"></i> <?php echo $_SESSION['seudonimo']?>
+                        <i class="fa fa-user fa-lg"></i> <?= $_SESSION['seudonimo']?>
                         </a>
                         <div class="dropdown-menu dropdown-with-icons" style="padding:0px">
                             <a class="btn btn-outline-info btn-block" href="../../perfil.php">
                                 <i class="fa fa-user-cog"> </i>  Ver Perfil
                             </a>
                             <div style="background-color: #00bcd4">
-                                <img src="../../../assets/img/perfil/<?php echo $user[0]['seudonimo'].'.jpg';?>" class="rounded-circle card-img-top btn-sm">
+                                <img src="../../../assets/img/perfil/<?= $user[0]['seudonimo'].'.jpg';?>" class="rounded-circle card-img-top btn-sm">
                             </div>
                             <a class="btn btn-outline-danger btn-block" href="../../../sys/cerrar_sesion.php">
                                 <i class="fa fa-power-off"> </i>  Cerrar Sesión

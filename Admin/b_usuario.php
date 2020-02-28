@@ -109,22 +109,22 @@ if(isset($_SESSION['seudonimo'])) {
     
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $usuario[$i]['id_usuario']; ?></td>
+                                <td hidden><?= $usuario[$i]['id_usuario']; ?></td>
                                 <?php
                                 if ($usuario[$i]['activo']==0) {
                                 ?>
-                                <td class="text-danger"><?php echo $usuario[$i]['seudonimo']; ?></td>
+                                <td class="text-danger"><?= $usuario[$i]['seudonimo']; ?></td>
                                 <?php
                                 }if ($usuario[$i]['activo']==1) {
                                 ?>
-                                <td class="text-success font-weight-bold"><?php echo $usuario[$i]['seudonimo']; ?></td>
+                                <td class="text-success font-weight-bold"><?= $usuario[$i]['seudonimo']; ?></td>
                                 <?php
                                 }
                                 ?>
-                                <td nowrap><?php echo utf8_encode($usuario[$i]['nombre_usuario']." ".$usuario[$i]['apellido_usuario']); ?></td>
-                                <td><?php echo $usuario[$i]['cedula_usuario']; ?></td>
-                                <td><?php echo $permiso; ?></td>
-                                <td><?php echo utf8_encode($usuario[$i]['z_produccion']); ?></td>
+                                <td nowrap><?= utf8_encode($usuario[$i]['nombre_usuario']." ".$usuario[$i]['apellido_usuario']); ?></td>
+                                <td><?= $usuario[$i]['cedula_usuario']; ?></td>
+                                <td><?= $permiso; ?></td>
+                                <td><?= utf8_encode($usuario[$i]['z_produccion']); ?></td>
                             </tr>
                             <?php
                                 

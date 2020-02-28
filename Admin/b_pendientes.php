@@ -124,32 +124,32 @@ $poliza = $obj1->get_poliza_pendiente();
                                                         if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                                             ?>
                                                     <tr style="cursor: pointer;">
-                                                        <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                                        <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                                        <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                                        <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                                                        <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                                        <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                     <?php
                                                         } else {
                                                     ?>
                                                     <tr style="cursor: pointer;">
-                                                        <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                                        <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                                        <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                                        <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                                                        <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                                        <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                                                     <?php
                                                         }
 
                                                     ?>
 
-                                                    <td hidden><?php echo $poliza[$i]['codvend']; ?></td>
-                                                    <td><?php echo $newFProd; ?></td>
-                                                    <td><?php echo $newFRep; ?></td>
-                                                    <td><?php echo $poliza[$i]['nomcia']; ?></td>
-                                                    <td><?php echo $asesor[0]['nombre']; ?></td>
-                                                    <td><?php echo $asegurado[0]['asegurado']; ?></td>
-                                                    <td><?php echo '$ ' . number_format($totalprimaC, 2); ?></td>
+                                                    <td hidden><?= $poliza[$i]['codvend']; ?></td>
+                                                    <td><?= $newFProd; ?></td>
+                                                    <td><?= $newFRep; ?></td>
+                                                    <td><?= $poliza[$i]['nomcia']; ?></td>
+                                                    <td><?= $asesor[0]['nombre']; ?></td>
+                                                    <td><?= $asegurado[0]['asegurado']; ?></td>
+                                                    <td><?= '$ ' . number_format($totalprimaC, 2); ?></td>
                                                     <?php
                                                         if ($totalprimaC == 0) {
                                                     ?>
-                                                        <td><button onclick="eliminarDatos('<?php echo $poliza[$i]['id_poliza']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                                        <td><button onclick="eliminarDatos('<?= $poliza[$i]['id_poliza']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                                     <?php
                                                         } else {
                                                     ?>
@@ -185,7 +185,7 @@ $poliza = $obj1->get_poliza_pendiente();
 
 
                                 <h1 class="title">Total de Pólizas Pendientes</h1>
-                                <h1 class="title text-danger"><?php echo $cont; ?></h1>
+                                <h1 class="title text-danger"><?= $cont; ?></h1>
                             </center>
                         <?php } ?>
 

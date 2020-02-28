@@ -96,7 +96,7 @@ if(isset($_SESSION['seudonimo'])) {
                 for($i=date('Y', strtotime($fechaMin[0]["MIN(f_hastapoliza)"])); $i <= date('Y', strtotime($fechaMax[0]["MAX(f_hastapoliza)"])); $i++)
                 {  
             ?>
-                <option value="<?php echo $date;?>"><?php echo $date;?></option>
+                <option value="<?= $date;?>"><?= $date;?></option>
             <?php
                 $date=$date+1;
                 } 
@@ -139,7 +139,7 @@ if(isset($_SESSION['seudonimo'])) {
                 for($i=0;$i<sizeof($ramo);$i++)
                   {  
               ?>
-                  <option value="<?php echo $ramo[$i]["nramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                  <option value="<?= $ramo[$i]["nramo"];?>"><?= utf8_encode($ramo[$i]["nramo"]);?></option>
               <?php
                 } 
               ?> 
@@ -226,18 +226,18 @@ if(isset($_SESSION['seudonimo'])) {
     <script type="text/javascript">
       $('#desde').datepicker({  
         format: "yyyy-mm-dd", 
-        startDate: '<?php echo $fechaMin[0]["MIN(f_desdepoliza)"];?>',
+        startDate: '<?= $fechaMin[0]["MIN(f_desdepoliza)"];?>',
       });
 
       $('#hasta').datepicker({  
         format: "yyyy-mm-dd", 
-        endDate: '<?php echo $fechaMax[0]["MAX(f_hastapoliza)"];?>',
+        endDate: '<?= $fechaMax[0]["MAX(f_hastapoliza)"];?>',
       });
     </script>
 
     <script type="text/javascript">
       $(document).ready(function(){
-          $('#anio').val(<?php echo $fhoy;?>); 
+          $('#anio').val(<?= $fhoy;?>); 
           $('#anio').change(); 
       });
     </script> 

@@ -127,12 +127,12 @@ if(isset($_SESSION['seudonimo'])) {
                     
                     echo utf8_encode($nombre); ?></h1>
 
-                    <h2 class="title">ID: <?php echo $asegurado[0]['ci']; ?></h2> 
-                    <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
+                    <h2 class="title">ID: <?= $asegurado[0]['ci']; ?></h2> 
+                    <h2 class="title">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
                     ?>
-                    <h3 class="title">Asesor: <?php echo $asesorr; ?></h3> 
+                    <h3 class="title">Asesor: <?= $asesorr; ?></h3> 
                 </div>
 
 
@@ -159,13 +159,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 							?>
 							<tr >
-                                <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>" readonly></td>
+                                <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>" readonly></td>
 				                
                                 <td style="background-color:white"><div class="input-group date">
-                                        <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" value="<?php echo $newDesdeP; ?>"> 
+                                        <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" value="<?= $newDesdeP; ?>"> 
                                 </div></td>
                                 <td style="background-color:white"><div class="input-group date">
-                                        <input type="text" class="form-control" id="hastaP" name="hastaP" required autocomplete="off" value="<?php echo $newHastaP; ?>"> 
+                                        <input type="text" class="form-control" id="hastaP" name="hastaP" required autocomplete="off" value="<?= $newHastaP; ?>"> 
                                 </div></td>
 
                                 <td style="background-color:white"><select class="custom-select" id="tipo_poliza" name="tipo_poliza" required data-toggle="tooltip" data-placement="bottom" title="Seleccione un elemento de la lista">
@@ -176,7 +176,7 @@ if(isset($_SESSION['seudonimo'])) {
                                         <option value="5">Revalorización</option>
                                     </select>
                                 </td>
-                                <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?php echo $id_poliza; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?= $id_poliza; ?>"></td>
 							</tr>
 					</tbody>
 				</table>
@@ -200,7 +200,7 @@ if(isset($_SESSION['seudonimo'])) {
                                         for($i=0;$i<sizeof($ramo);$i++)
                                             {  
                                         ?>
-                                            <option value="<?php echo $ramo[$i]["cod_ramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                                            <option value="<?= $ramo[$i]["cod_ramo"];?>"><?= utf8_encode($ramo[$i]["nramo"]);?></option>
                                         <?php } ?> 
                                 </select>
                             </td>
@@ -209,7 +209,7 @@ if(isset($_SESSION['seudonimo'])) {
                                         for($i=0;$i<sizeof($cia);$i++)
                                             {  
                                         ?>
-                                            <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo utf8_encode($cia[$i]["nomcia"]);?></option>
+                                            <option value="<?= $cia[$i]["idcia"];?>"><?= utf8_encode($cia[$i]["nomcia"]);?></option>
                                         <?php } ?> 
                                 </select>
                             </td>
@@ -219,8 +219,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 </select>
                             </td>
 
-                            <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?php echo utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
-                            <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?php echo utf8_encode($poliza[0]['id_cia']); ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?= utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?= utf8_encode($poliza[0]['id_cia']); ?>"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -261,7 +261,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <option value="3">PAGO VOLUNTARIO</option>
                                 </select>
                             </td>
-                            <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_e" value="<?php echo $poliza[0]['forma_pago']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_e" value="<?= $poliza[0]['forma_pago']; ?>"></td>
                         </tr>
 
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;" hidden id="trTarjeta1">
@@ -274,25 +274,25 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden>id_tarjeta</th>
                         </tr>
                         <tr style="background-color: white" hidden id="trTarjeta2">
-                            <td><input type="number" step="0.01" onblur="validarTarjeta(this)" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
-                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                            <td><input type="number" step="0.01" onblur="validarTarjeta(this)" class="form-control" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?= $poliza[0]['n_tarjeta']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" onkeypress="return tabular(event,this)" value="<?= $poliza[0]['cvv']; ?>"></td>
                             <td><div class="input-group date">
-                                    <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?php echo $poliza[0]['fechaV']; ?>">
+                                    <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?= $poliza[0]['fechaV']; ?>">
                                 </div>
                             </td>
-                            <td><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
-                            <td><input type="text" class="form-control" id="bancoT" name="bancoT" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Banco" onkeypress="return tabular(event,this)" value="<?php echo $poliza[0]['banco']; ?>"></td>
+                            <td><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" onkeypress="return tabular(event,this)" value="<?= $poliza[0]['nombre_titular']; ?>"></td>
+                            <td><input type="text" class="form-control" id="bancoT" name="bancoT" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Banco" onkeypress="return tabular(event,this)" value="<?= $poliza[0]['banco']; ?>"></td>
 
                             <td hidden><input type="text" class="form-control" id="alert" name="alert" value="0"></td>
-                            <td hidden><input type="text" class="form-control" id="id_tarjeta" name="id_tarjeta" value="<?php echo $poliza[0]['id_tarjeta']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="id_tarjeta" name="id_tarjeta" value="<?= $poliza[0]['id_tarjeta']; ?>"></td>
 
-                            <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?= $poliza[0]['cvv']; ?>"></td>
                             <td hidden><div class="input-group date">
-                                    <input type="text" class="form-control" id="fechaV_h" name="fechaV_h" value="<?php echo $poliza[0]['fechaV']; ?>">
+                                    <input type="text" class="form-control" id="fechaV_h" name="fechaV_h" value="<?= $poliza[0]['fechaV']; ?>">
                                 </div>
                             </td>
-                            <td hidden><input type="text" class="form-control" id="titular_tarjeta_h" name="titular_tarjeta_h" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
-                            <td hidden><input type="text" class="form-control" id="bancoT_h" name="bancoT_h" value="<?php echo $poliza[0]['banco']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="titular_tarjeta_h" name="titular_tarjeta_h" value="<?= $poliza[0]['nombre_titular']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="bancoT_h" name="bancoT_h" value="<?= $poliza[0]['banco']; ?>"></td>
                         </tr>
                         </div>
                     </tbody>
@@ -324,15 +324,15 @@ if(isset($_SESSION['seudonimo'])) {
                            
                             ?>
                             <tr style="background-color:white">
-                                <td><input type="text" class="form-control validanumericos2" id="n_recibo" name="n_recibo" value="<?php echo $poliza[0]['cod_recibo']; ?>" required></td>
+                                <td><input type="text" class="form-control validanumericos2" id="n_recibo" name="n_recibo" value="<?= $poliza[0]['cod_recibo']; ?>" required></td>
                                 <td ><div class="input-group date">
-                                        <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desde_recibo" name="desde_recibo" required autocomplete="off" value="<?php echo $newDesdeR; ?>"> 
+                                        <input  onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desde_recibo" name="desde_recibo" required autocomplete="off" value="<?= $newDesdeR; ?>"> 
                                 </div></td>
                                 <td><div class="input-group date">
-                                        <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required autocomplete="off" value="<?php echo $newHastaR; ?>"> 
+                                        <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required autocomplete="off" value="<?= $newHastaR; ?>"> 
                                 </div></td>
                                 
-                                <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?php echo utf8_encode($usuario[0]['z_produccion']);?>"></td>
+                                <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?= utf8_encode($usuario[0]['z_produccion']);?>"></td>
                                 <td><input type="number" class="form-control validanumericos3" id="n_cuotas" name="n_cuotas" min="1" max="12" required></td>
                             </tr>
                     </tbody>
@@ -406,11 +406,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" id="placa" name="placa" value="<?php echo $vehiculo[0]['placa']; ?>"></td>
-                                    <td><input type="text" class="form-control" id="marca" name="marca" value="<?php echo $vehiculo[0]['marca']; ?>"></td>
-                                    <td><input type="text" class="form-control" id="modelo" name="modelo" value="<?php echo $vehiculo[0]['mveh']; ?>"></td>
-                                    <td><input type="text" class="form-control" id="tipo" name="tipo" value="<?php echo $vehiculo[0]['tveh']; ?>"></td>
-                                    <td><input type="text" class="form-control" id="anio" name="anio" value="<?php echo $vehiculo[0]['f_veh']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="placa" name="placa" value="<?= $vehiculo[0]['placa']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="marca" name="marca" value="<?= $vehiculo[0]['marca']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="modelo" name="modelo" value="<?= $vehiculo[0]['mveh']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="tipo" name="tipo" value="<?= $vehiculo[0]['tveh']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="anio" name="anio" value="<?= $vehiculo[0]['f_veh']; ?>"></td>
                                 </tr>
                                 <!--<tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                     <th>Año</th>
@@ -452,17 +452,17 @@ if(isset($_SESSION['seudonimo'])) {
                                         for($i=0;$i<sizeof($asesor);$i++)
                                         {  
                                     ?>
-                                        <option value="<?php echo $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
+                                        <option value="<?= $asesor[$i]["cod"]."=".$asesor[$i]["idnom"];?>"><?= utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
                                     <?php }for($i=0;$i<sizeof($liderp);$i++)
                                         { ?> 
-                                        <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?>  (Proyecto)</option>
+                                        <option value="<?= $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?= utf8_encode($liderp[$i]["nombre"]);?>  (Proyecto)</option>
                                     <?php } for($i=0;$i<sizeof($referidor);$i++)
                                         {?>
-                                        <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
+                                        <option value="<?= $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?= utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
                                     <?php } ?>
                                 </select>
                             </td>
-                            <td hidden><input type="text" class="form-control" id="asesor_e" name="asesor_e" value="<?php echo $poliza[0]['cod']."=".$poliza[0]['nombre']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" id="asesor_e" name="asesor_e" value="<?= $poliza[0]['cod']."=".$poliza[0]['nombre']; ?>"></td>
                         </tr>
                     </tbody>
                 </table></center>

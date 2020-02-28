@@ -206,7 +206,7 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Primas Suscritas por Semana del Año <?php echo $_GET['desde'];?></h1> 
+                    <h1 class="title">Primas Suscritas por Semana del Año <?= $_GET['desde'];?></h1> 
                     <br/>
                     
                     <a href="../primas_s.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
@@ -235,9 +235,9 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
 
         ?>
         <tr>
-          <th scope="row"><?php echo $semSinDuplicado[$i]; ?></th>
-          <td align="right"><?php echo "$".number_format($primaPorMesF[$i],2); ?></td>
-          <td><?php echo $cantArrayF[$i]; ?></td>
+          <th scope="row"><?= $semSinDuplicado[$i]; ?></th>
+          <td align="right"><?= "$".number_format($primaPorMesF[$i],2); ?></td>
+          <td><?= $cantArrayF[$i]; ?></td>
         </tr>
         <?php
             }
@@ -246,8 +246,8 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
       <thead class="thead-dark">
         <tr>
           <th scope="col">TOTAL</th>
-          <th align="right"><?php echo "$".number_format($totals,2); ?></th>
-          <th scope="col"><?php echo $totalCant; ?></th>
+          <th align="right"><?= "$".number_format($totals,2); ?></th>
+          <th scope="col"><?= $totalCant; ?></th>
         </tr>
       </thead>
     </table>
@@ -332,7 +332,7 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
       type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:[<?php for($i=0; $i < sizeof($semSinDuplicado); $i++){ ?>
-        '<?php echo $semSinDuplicado[$i];?>',
+        '<?= $semSinDuplicado[$i];?>',
 
                 <?php }?>],
 
@@ -341,7 +341,7 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
           data:[<?php for($i=0; $i < sizeof($semSinDuplicado); $i++)
             {  
                 ?>
-                '<?php echo $primaPorMesF[$i]; ?>',
+                '<?= $primaPorMesF[$i]; ?>',
             <?php }?>],
           //backgroundColor:'green',
           backgroundColor:'rgba(120, 255, 86, 0.6)',

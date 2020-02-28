@@ -119,11 +119,42 @@ class Trabajo extends Conectar
 
 	public function get_ejecutivo($cod_vend)
 	{
-		$sql = "SELECT idnom, cod AS nombre FROM ena WHERE cod = '$cod_vend'
+		$sql = "SELECT cod, idnom AS nombre FROM ena WHERE cod = '$cod_vend'
 				UNION
 				SELECT nombre, cod FROM enp WHERE cod = '$cod_vend'
 				UNION
 				SELECT nombre, cod FROM enr WHERE cod = '$cod_vend'";
+		$res = mysqli_query(Conectar::con(), $sql);
+
+		if (!$res) {
+			//No hay registros
+		} else {
+			$filas = mysqli_num_rows($res);
+			if ($filas == 0) {
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			} else {
+				while ($reg = mysqli_fetch_assoc($res)) {
+					$this->t[] = $reg;
+				}
+				return $this->t;
+			}
+		}
+	}
+
+	public function get_cia_pref($id_cia, $f_desde, $f_hasta)
+	{
+		$sql = "SELECT id_cia, id_cia_pref, nomcia, rif, cia_pref.f_desde_pref, cia_pref.f_hasta_pref, per_com, 
+						per_gc_sum, cod_vend, idnom, nopre1, nopre1_renov, gc_viajes, gc_viajes_renov
+				FROM cia_pref 
+				INNER JOIN
+				ena, dcia
+				WHERE 
+				cia_pref.id_cia = dcia.idcia AND
+				cia_pref.cod_vend = ena.cod AND
+				id_cia = $id_cia AND
+				cia_pref.f_desde_pref = '$f_desde' AND
+				cia_pref.f_hasta_pref = '$f_hasta'";
 		$res = mysqli_query(Conectar::con(), $sql);
 
 		if (!$res) {
@@ -2819,11 +2850,11 @@ class Trabajo extends Conectar
 			if ($filas == 0) {
 				//header("Location: incorrecto.php?m=2");
 				//echo "NO HAY PÓLIZAS PENDIENTES";
-				return $there= 0;
+				return $there = 0;
 				//exit();
 			} else {
 				while ($reg = mysqli_fetch_assoc($res)) {
-				 	$this->t[] = $reg;
+					$this->t[] = $reg;
 				}
 				return $this->t;
 			}
@@ -3064,9 +3095,10 @@ class Trabajo extends Conectar
 
 
 
-	public function get_f_cia_pref($campo, $id_cia)
+	public function get_f_cia_pref($id_cia)
 	{
-		$sql = "SELECT DISTINCT $campo FROM cia_pref WHERE id_cia=$id_cia ORDER BY $campo DESC";
+		$sql = "SELECT DISTINCT f_desde_pref, f_hasta_pref 
+				FROM cia_pref WHERE id_cia=$id_cia ORDER BY f_desde_pref DESC";
 		$res = mysqli_query(Conectar::con(), $sql);
 
 		$filas = mysqli_num_rows($res);
@@ -16909,7 +16941,7 @@ class Trabajo extends Conectar
 	{
 
 		$sql = "SELECT id_tarjeta, n_tarjeta, cvv, fechaV, banco, nombre_titular FROM tarjeta WHERE n_tarjeta LIKE '%$n_tarjeta%'  ORDER BY fechaV DESC";
-		
+
 
 		$result = mysqli_query(Conectar::con(), $sql);
 		if (!$result) {
@@ -16933,7 +16965,7 @@ class Trabajo extends Conectar
 		$sql = "SELECT poliza.cod_poliza FROM drecibo, poliza WHERE 
 		drecibo.idrecibo = poliza.id_poliza AND
 		id_tarjeta = $id_tarjeta";
-		
+
 
 		$result = mysqli_query(Conectar::con(), $sql);
 		if (!$result) {
@@ -16956,7 +16988,7 @@ class Trabajo extends Conectar
 
 		$sql = "SELECT * FROM tarjeta WHERE 
 		id_tarjeta = $id_tarjeta";
-		
+
 
 		$result = mysqli_query(Conectar::con(), $sql);
 		if (!$result) {
@@ -17401,12 +17433,13 @@ class Trabajo extends Conectar
 	}
 
 
-	public function editarCia($id_cia, $nombre_cia, $rif)
+	public function editarCia($id_cia, $nombre_cia, $rif, $per_com)
 	{
 
 
 		$sql = "UPDATE dcia set nomcia='$nombre_cia',
-								rif='$rif'
+								rif='$rif',
+								per_com='$per_com'
 
 					where idcia= '$id_cia'";
 		return mysqli_query(Conectar::con(), $sql);
@@ -17642,6 +17675,17 @@ class Trabajo extends Conectar
 	{
 
 		$sql2 = "DELETE from gc_h_r where id_poliza='$id'";
+		return mysqli_query(Conectar::con(), $sql2);
+	}
+
+	public function eliminarCiaPref($id_cia, $f_desde, $f_hasta)
+	{
+
+		$sql2 = "DELETE FROM cia_pref 
+				WHERE 
+				id_cia = '$id_cia' AND
+				f_desde_pref = '$f_desde' AND
+				f_hasta_pref = '$f_hasta'";
 		return mysqli_query(Conectar::con(), $sql2);
 	}
 

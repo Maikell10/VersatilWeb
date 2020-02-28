@@ -56,8 +56,8 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Usuario: <?php echo utf8_encode($usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']); ?></h1>  
-                    <h2 class="title">Seudónimo: <?php echo $usuario[0]['seudonimo']; ?></h2>  
+                    <h1 class="title">Usuario: <?= utf8_encode($usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']); ?></h1>  
+                    <h2 class="title">Seudónimo: <?= $usuario[0]['seudonimo']; ?></h2>  
                 </div>
 
 
@@ -75,10 +75,10 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td ><?php echo utf8_encode($usuario[0]['nombre_usuario']); ?></td>
-                            <td ><?php echo utf8_encode($usuario[0]['apellido_usuario']); ?></td>
-                            <td ><?php echo $usuario[0]['cedula_usuario']; ?></td>
-                            <td ><?php echo $usuario[0]['z_produccion']; ?></td>
+                            <td ><?= utf8_encode($usuario[0]['nombre_usuario']); ?></td>
+                            <td ><?= utf8_encode($usuario[0]['apellido_usuario']); ?></td>
+                            <td ><?= $usuario[0]['cedula_usuario']; ?></td>
+                            <td ><?= $usuario[0]['z_produccion']; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -114,10 +114,10 @@ if(isset($_SESSION['seudonimo'])) {
                            
                         ?>
                         <tr>
-                            <td><?php echo $usuario[0]['seudonimo']; ?></td>
-                            <td ><?php echo $usuario[0]['clave_usuario']; ?></td>
-                            <td ><?php echo $permiso; ?></td>
-                            <td ><?php echo $estado; ?></td>
+                            <td><?= $usuario[0]['seudonimo']; ?></td>
+                            <td ><?= $usuario[0]['clave_usuario']; ?></td>
+                            <td ><?= $permiso; ?></td>
+                            <td ><?= $estado; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -152,7 +152,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><?php echo $nombre_a; ?></td>
+                            <td><?= $nombre_a; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -166,9 +166,9 @@ if(isset($_SESSION['seudonimo'])) {
                 <hr>
 
                 <center>
-                <a  href="e_usuario.php?id_usuario=<?php echo $usuario[0]['id_usuario'];?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Usuario  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_usuario.php?id_usuario=<?= $usuario[0]['id_usuario'];?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg text-center">Editar Usuario  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-                <button  onclick="eliminarDatos('<?php echo $usuario[0]['id_usuario']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Usuario  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button  onclick="eliminarDatos('<?= $usuario[0]['id_usuario']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Usuario  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 </center>
                         
                 <hr>

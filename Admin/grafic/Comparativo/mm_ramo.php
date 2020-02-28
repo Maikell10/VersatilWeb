@@ -1,130 +1,85 @@
-<?php 
+<?php
 session_start();
-if(isset($_SESSION['seudonimo'])) {
+if (isset($_SESSION['seudonimo'])) {
+} else {
+  header("Location: login.php");
+  exit();
+}
 
-  }
-    else {
-        header("Location: login.php");
-        exit();
-      }
+require_once("../../../class/comparativo.php");
 
-  require_once("../../../class/clases.php");
+isset($_GET["tipo_cuenta"]) ? $tipo_cuenta = $_GET["tipo_cuenta"] : $tipo_cuenta = '';
 
-  if (isset($_GET["tipo_cuenta"])!=null) {
-    $tipo_cuenta=$_GET["tipo_cuenta"]; 
-  }else{$tipo_cuenta='';}
+isset($_GET["cia"]) ? $cia = $_GET["cia"] : $cia = '';
 
-  if (isset($_GET["cia"])!=null) {
-    $cia=$_GET["cia"]; 
-  }else{$cia='';}
+isset($_GET["ramo"]) ? $ramo = $_GET["ramo"] : $ramo = '';
 
-
-  $obj1= new Trabajo();
-  $mes = $obj1->get_mes_prima_BN(); 
-
-  $mesArray = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
-
-
-  $cantArray[sizeof($mes)]=null;
-  $primaPorMes[sizeof($mes)]=null;
-  $primaCobradaPorMes1=0;
-  $primaCobradaPorMes2=0;
 
 //----------------------------------------------------------------------------
-$obj11= new Trabajo();
-$user = $obj11->get_element_by_id('usuarios','seudonimo',$_SESSION['seudonimo']); 
+$obj = new Comparativo();
+$user = $obj->get_element_by_id('usuarios', 'seudonimo', $_SESSION['seudonimo']);
 
-$asesor_u = $user[0]['cod_vend'];
-$permiso = $user[0]['id_permiso'];
+$asesor_u = $user['cod_vend'];
+$permiso = $user['id_permiso'];
 //---------------------------------------------------------------------------
 
-if ($permiso!=3) { 
-
-  $obj12= new Trabajo();
-  $ramo = $obj12->get_distinct_ramo_prima_c_comp($_GET['anio'],$_GET['mes'],$cia,$tipo_cuenta); 
-
-  $totalPArray[sizeof($ramo)]=null;
-  $ramoArray[sizeof($ramo)]=null;
+$desde = $_GET['anio'] . '-01-01';
+$hasta = ($_GET['anio']) . '-12-31';
 
 
-  $sumasegurada[sizeof($ramo)]=null;
-  $p1[sizeof($ramo)]=null;
-  $p2[sizeof($ramo)]=null;
-  $totalP[sizeof($ramo)]=null;
-  $cantidad[sizeof($ramo)]=null;
-  $cantidadOld[sizeof($ramo)]=null;
+$mes = $obj->get_prima_mm($desde, $hasta, $cia, $ramo, $tipo_cuenta);
 
-      for ($i=0; $i < sizeof($ramo); $i++) { 
-          
-        $obj2= new Trabajo();
-        $primaMes = $obj2->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'],$cia,$_GET['anio'],$_GET['mes'],$tipo_cuenta); 
+$totals = 0;
+$totalc = 0;
+$totalCom = 0;
+$totalCant = 0;
 
-        $obj22= new Trabajo();
-        $cantidadPolizaR = $obj22->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'],$cia,$_GET['anio'],$_GET['mes'],$tipo_cuenta); 
+$mesArray = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
 
-        $obj28= new Trabajo();
-        $primaMesOld = $obj28->get_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'],$cia,intval($_GET['anio']-1),$_GET['mes'],$tipo_cuenta); 
+$ramoArray[sizeof($mes)] = null;
+$cantArray[sizeof($mes)] = null;
+$primaPorMes[sizeof($mes)] = null;
 
-        $obj228= new Trabajo();
-        $cantidadPolizaROld = $obj228->get_count_poliza_c_cobrada_ramo_comp($ramo[$i]['nramo'],$cia,intval($_GET['anio']-1),$_GET['mes'],$tipo_cuenta); 
-
-        //$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
-        
-
-        $sumasegurada=0;
-        $prima_pagada1=0;
-        $prima_pagada2=0;
-
-        $cantP=0;
-        
-        for($a=0;$a<sizeof($primaMes);$a++)
-          { 
-            $sumasegurada=$sumasegurada+$primaMes[$a]['prima'];
-          
-            $prima_pagada2=$prima_pagada2+$primaMes[$a]['prima_com'];
-            $cantP=$cantP+1;
-            
-          } 
-
-        for($a=0;$a<sizeof($primaMesOld);$a++)
-          { 
-            $sumasegurada=$sumasegurada+$primaMesOld[$a]['prima'];
-          
-            $prima_pagada1=$prima_pagada1+$primaMesOld[$a]['prima_com'];
-            $cantP=$cantP+1;
-            
-          } 
-          
-          
-          $totalCant=$totalCant+$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
-          $totalCantOld=$totalCantOld+$cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
-          $primaCobradaPorMes1=$primaCobradaPorMes1+$prima_pagada1;
-          $primaCobradaPorMes2=$primaCobradaPorMes2+$prima_pagada2;
-
-          $p1[$i]=$prima_pagada1;
-          $p2[$i]=$prima_pagada2;
-          $cantidad[$i]=$cantidadPolizaR[0]['count(DISTINCT comision.id_poliza)'];
-          $cantidadOld[$i]=$cantidadPolizaROld[0]['count(DISTINCT comision.id_poliza)'];
-          $ramoArray[$i]=$ramo[$i]['nramo'];
-
-          $totalP[$i]=$prima_pagada1+$prima_pagada2;
-
-          $totalPC=$totalPC+$totalP[$i];
-    
-          $totalPArray[$i]=$totalP[$i];
-      }
-} 
+$primaPorMesC[sizeof($mes)] = null;
+$comisionPorMes[sizeof($mes)] = null;
 
 
-  asort($totalP , SORT_NUMERIC);
+for ($i = 0; $i < sizeof($mes); $i++) {
 
-
-  $x = array();
-  foreach($totalP as $key=>$value) {
-  
-      $x[count($x)] = $key;
-  
+  if ($mes[$i]["Month(f_desdepoliza)"] < 10) {
+    $desde = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+    $hasta = $_GET['anio'] . "-0" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
+  } else {
+    $desde = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-01";
+    $hasta = $_GET['anio'] . "-" . $mes[$i]["Month(f_desdepoliza)"] . "-31";
   }
+
+
+
+  $primaMes = $obj->get_poliza_prima_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+
+  $cantArray[$i] = sizeof($primaMes);
+  $sumasegurada = 0;
+  for ($a = 0; $a < sizeof($primaMes); $a++) {
+    $sumasegurada = $sumasegurada + $primaMes[$a]['prima'];
+  }
+  $totals = $totals + $sumasegurada;
+  $totalCant = $totalCant + $cantArray[$i];
+  $ramoArray[$i] = $primaMes[0]['cod_ramo'];
+  $primaPorMes[$i] = $sumasegurada;
+
+  $primacMes = $obj->get_poliza_pc_mm($ramo, $desde, $hasta, $cia, $tipo_cuenta);
+  $sumaseguradaC = 0;
+  $sumaseguradaCom = 0;
+  for ($a = 0; $a < sizeof($primacMes); $a++) {
+    $sumaseguradaC = $sumaseguradaC + $primacMes[$a]['prima_com'];
+    $sumaseguradaCom = $sumaseguradaCom + $primacMes[$a]['comision'];
+  }
+  $totalc = $totalc + $sumaseguradaC;
+  $totalCom = $totalCom + $sumaseguradaCom;
+  $primaPorMesC[$i] = $sumaseguradaC;
+  $comisionPorMes[$i] = $sumaseguradaCom;
+}
 
 
 ?>
@@ -132,271 +87,244 @@ if ($permiso!=3) {
 <html lang="en">
 
 <head>
-  <?php require('header.php');?>
+  <?php require('header.php'); ?>
 </head>
 
 <body class="profile-page ">
-    
-  <?php require('navigation.php');?>
+
+  <?php require('navigation.php'); ?>
 
 
 
 
-    <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../../assets/img/logo2.png');">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 ml-auto mr-auto">
-                    <div class="brand">
-                        
-                    </div>
-                </div>
-            </div>
+  <div class="page-header  header-filter " data-parallax="true" style="background-image: url('../../../assets/img/logo2.png');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto">
+          <div class="brand">
+
+          </div>
         </div>
-    </div>
-
-
-
-
-
-    <div class="main main-raised">
-        
-
-        
-
-      <div class="section">
-        <div class="container">
-          <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
-
-              <div class="col-md-auto col-md-offset-2" style="text-align:center">
-                  <h1 class="title">Gráfico Resúmen Mes a Mes</h1> 
-                  <h2>Año: <?php echo $_GET['anio'];?></h2>
-                  <br>
-                  
-                  <a href="../comparativo.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
-                  <br>
-                  <a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Cobradas por Mes (Bola de Nieve)')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a>
-              </div>
-              <br>
-
-
-              <center>
-              <div class="table-responsive">
-              <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel" >
-                <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
-                  <tr>
-                    <th>Mes Desde Produc</th>
-                    <th>Prima Suscrita</th>
-                    <th>Prima Cobrada</th>
-                    <th>Comisión</th>
-                    <th>Pendiente</th>
-                    <th>Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    
-                    for ($i=0; $i < 12; $i++) { 
-                    //for ($i=0; $i < sizeof($ramo); $i++) { 
-
-                      
-                  ?>
-                  <tr>
-                    <th scope="row" data-toggle="tooltip" data-placement="top" title="Mes de Suscripción"><?php echo $mesArray[$mes[$i]["Month(f_desdepoliza)"]-1]; ?></th>
-                    <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-                    <td align="right"><?php echo "$".number_format($p1[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo $cantidadOld[$x[$i]]; ?></td>
-                    <td align="right"><?php echo "$".number_format($p2[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo $cantidad[$x[$i]]; ?></td>
-                  </tr>
-                  <?php
-                      }
-                  ?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>TOTAL</th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes1,2); ?></th>
-                    <th style="text-align: right;"><?php echo $totalCantOld; ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes2,2); ?></th>
-                    <th style="text-align: right;"><?php echo $totalCant; ?></th>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </center>
-
-
-    
       </div>
     </div>
+  </div>
 
 
 
-    <div class="container">
-      <div class="wrapper col-12"><canvas id="myChart" ></canvas></div>
-    </div>
 
-    <br><br><br><br>
+
+  <div class="main main-raised">
 
 
 
-    <?php require('footer_b.php');?>
-    
-    
-    </div>
+
+    <div class="section">
+      <div class="container">
+        <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round">
+          <- Regresar</a> <div class="col-md-auto col-md-offset-2" style="text-align:center">
+            <h1 class="title">Gráfico Resúmen Mes a Mes</h1>
+            <h2>Año: <?= $_GET['anio']; ?></h2>
+            <br>
+
+            <a href="../comparativo.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
+            <br>
+            <a class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Primas Cobradas por Mes (Bola de Nieve)')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a>
+      </div>
+      <br>
 
 
-    <footer class="footer ">
-        <div class="container">
-            <nav class="pull-left">
-                <ul>
-                    <li>
-                        <a href="https://www.versatilseguros.com">
-                            Versatil Panamá
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright pull-right">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>, Versatil Seguros S.A.
-            </div>
+      <center>
+        <div class="table-responsive">
+          <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel">
+            <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
+              <tr>
+                <th>Mes Desde Produc</th>
+                <th>Prima Suscrita</th>
+                <th>Prima Cobrada</th>
+                <th>Comisión</th>
+                <th>Pendiente</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+
+              for ($i = 0; $i < sizeof($mes); $i++) {
+                $a = 0;
+
+              ?>
+                <tr>
+                  <th scope="row" data-toggle="tooltip" data-placement="top" title="Mes de Suscripción"><?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?></th>
+                  <td style="text-align: right;"><?= "$" . number_format($primaPorMes[$i], 2); ?></td>
+                  <td style="text-align: right;"><?= "$" . number_format($primaPorMesC[$i], 2); ?></td>
+                  <td style="text-align: right;"><?= "$" . number_format($comisionPorMes[$i], 2); ?></td>
+                  <td style="text-align: right;"><?= "$" . number_format(($primaPorMes[$i] - $primaPorMesC[$i]), 2); ?></td>
+                  <td style="text-align: right;" data-toggle="tooltip" data-placement="top" title="Cantidad de Pólizas Suscritas en <?= $mesArray[$mes[$i]["Month(f_desdepoliza)"] - 1]; ?>"><?= $cantArray[$i]; ?></td>
+                </tr>
+              <?php
+              }
+              ?>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>TOTAL</th>
+                <th style="text-align: right;"><?= "$" . number_format($totals, 2); ?></th>
+                <th style="text-align: right;"><?= "$" . number_format($totalc, 2); ?></th>
+                <th style="text-align: right;"><?= "$" . number_format($totalCom, 2); ?></th>
+                <th style="text-align: right;"><?= "$" . number_format(($totals - $totalc), 2); ?></th>
+                <th style="text-align: right;"><?= $totalCant; ?></th>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-    </footer>
+      </center>
+
+
+
+    </div>
+  </div>
+
+
+
+  <div class="container">
+    <div class="wrapper col-12"><canvas id="chart-0" style="height:500px"></canvas></div>
+  </div>
+
+  <br><br><br><br>
+
+
+
+  <?php require('footer_b.php'); ?>
+
+
+  </div>
+
+
+  <footer class="footer ">
+    <div class="container">
+      <nav class="pull-left">
+        <ul>
+          <li>
+            <a href="https://www.versatilseguros.com">
+              Versatil Panamá
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright pull-right">
+        &copy;
+        <script>
+          document.write(new Date().getFullYear())
+        </script>, Versatil Seguros S.A.
+      </div>
+    </div>
+  </footer>
 
 
 
 
-    <!--   Core JS Files   -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="../../../assets/js/core/popper.min.js"></script>
-    <script src="../../../assets/js/bootstrap-material-design.js"></script>
-    <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
-    <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
-    <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
+  <!--   Core JS Files   -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="../../../assets/js/core/popper.min.js"></script>
+  <script src="../../../assets/js/bootstrap-material-design.js"></script>
+  <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
+  <script src="../../../assets/js/material-kit.js?v=2.0.1"></script>
+  <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
+  <script src="../../../assets/assets-for-demo/js/material-kit-demo.js"></script>
 
-    <script src="../../../Chart/Chart.bundle.js"></script>  
-    <script src="../../../Chart/samples/utils.js"></script>
-    <script src="../../../Chart/samples/charts/area/analyser.js"></script>
+  <script src="../../../Chart/Chart.bundle.js"></script>
+  <script src="../../../Chart/samples/utils.js"></script>
+  <script src="../../../Chart/samples/charts/area/analyser.js"></script>
 
-  
 
-<script>
-    let myChart = document.getElementById('myChart').getContext('2d');
 
-    // Global Options
-    Chart.defaults.global.defaultFontFamily = 'Lato';
-    Chart.defaults.global.defaultFontSize = 18;
-    Chart.defaults.global.defaultFontColor = '#777';
+  <script>
+    var presets = window.chartColors;
+    var utils = Samples.utils;
+    var inputs = {
+      min: 0,
+      count: 12,
+      decimals: 2,
+      continuity: 1
+    };
 
-    let massPopChart = new Chart(myChart, {
-      type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-      data:{
-        labels:[<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?php echo utf8_encode($ramoArray[$x[$i]]).' ('.intval($_GET['anio']-1).')'; ?>',
-            '<?php echo ' ('.$_GET['anio'].')'; ?>',
+    function generateData(config) {
+      return utils.numbers(Chart.helpers.merge(inputs, config || {}));
+    }
 
-          <?php } ?>],
+    function generateLabels(config) {
+      return utils.months(Chart.helpers.merge({
+        count: inputs.count,
+        section: 3
+      }, config || {}));
+    }
 
-        datasets:[{
-
-          data:[<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                    ?> '<?php echo $p1[$x[$i]]; ?>',
-                        '<?php echo $p2[$x[$i]]; ?>',
-            <?php } ?>
-          ],
-          //backgroundColor:'green',
-          backgroundColor:[
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745',
-            '#17a2b8',
-            '#28a745'
-          ],
-          borderWidth:1,
-          borderColor:'#777',
-          hoverBorderWidth:3,
-          hoverBorderColor:'#000'
-        }]
-      },
-      options:{
-        title:{
-          display:true,
-          text:'Grafico Comparativo de Prima Cobrada por Ramo',
-          fontSize:25
-        },
-        legend:{
-          display:false,
-          position:'right',
-          labels:{
-            fontColor:'#000'
-          }
-        },
-        layout:{
-          padding:{
-            left:50,
-            right:0,
-            bottom:0,
-            top:0
-          }
-        },
-        tooltips:{
-          enabled:true
+    var options = {
+      maintainAspectRatio: false,
+      spanGaps: false,
+      elements: {
+        line: {
+          tension: 0.000001
         }
+      },
+      plugins: {
+        filler: {
+          propagate: false
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: false,
+            maxRotation: 0
+          }
+        }]
       }
+    };
+
+    [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
+
+      // reset the random seed to generate the same data for all charts
+      utils.srand(12);
+
+      new Chart('chart-' + index, {
+        type: 'line',
+        data: {
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          datasets: [{
+            backgroundColor: utils.transparentize(presets.red),
+            borderColor: presets.red,
+            data: [<?php for ($i = 0; $i <= 11; $i++) {
+                      if (($mes[$a]["Month(f_desdepoliza)"] - 1) == $i) {
+                        $dataPrima = ($primaPorMes[$a] - $primaPorMesC[$a]);
+                        if ($a < (sizeof($mes) - 1)) {
+                          $a++;
+                        }
+                      } else { 
+                        $dataPrima = 0;
+                      }
+                    ?> '<?= $dataPrima; ?>',
+              <?php } ?>
+            ],
+            label: 'Prima Pendiente',
+            fill: boundary,
+            pointHoverRadius: 30,
+            pointHitRadius: 20,
+            pointRadius: 5,
+          }]
+        },
+        options: Chart.helpers.merge(options, {
+          title: {
+            text: 'Gráfico de Póliza Pendiente por Mes',
+            fontSize: 25,
+            display: true
+          }
+        })
+      });
     });
   </script>
 
-  <script language="javascript">
 
-    function Exportar(table, name){
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        if (!table.nodeType) table = document.getElementById(table)
-         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-         window.location.href = uri + base64(format(template, ctx))
-        }
-    </script>
+</body>
 
-
-  
-
-  </body>
 </html>

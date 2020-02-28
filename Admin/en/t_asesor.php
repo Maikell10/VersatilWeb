@@ -55,21 +55,21 @@ $totalCant=0;
 					<?php
 						if ($asesor[$i]['act']==1) {
 					?>
-					<td nowrap class="text-success"><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<td nowrap class="text-success"><?= utf8_encode($asesor[$i]['idnom']); ?></td>
 					<?php
 						}else {
 					?>
-					<td nowrap class="text-danger"><?php echo utf8_encode($asesor[$i]['idnom']); ?></td>
+					<td nowrap class="text-danger"><?= utf8_encode($asesor[$i]['idnom']); ?></td>
 					<?php	
 						}
 					?>
-					<td hidden=""><?php echo $asesor[$i]['idena']; ?></td>
-	                <td><?php echo $asesor[$i]['cod']; ?></td>
-					<td><?php echo number_format($asesor[$i]['pre1'],0)."%"; ?></td>
-					<td><?php echo number_format($asesor[$i]['gc_viajes'],0)."%"; ?></td>
-	                <td><?php echo sizeof($asesort); ?></td>
-	                <td><?php echo "$ ".number_format($prima,2); ?></td>
-					<td><?php echo "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
+					<td hidden=""><?= $asesor[$i]['idena']; ?></td>
+	                <td><?= $asesor[$i]['cod']; ?></td>
+					<td><?= number_format($asesor[$i]['pre1'],0)."%"; ?></td>
+					<td><?= number_format($asesor[$i]['gc_viajes'],0)."%"; ?></td>
+	                <td><?= sizeof($asesort); ?></td>
+	                <td><?= "$ ".number_format($prima,2); ?></td>
+					<td><?= "$ ".number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
 				</tr>
 				<?php
 			}
@@ -83,9 +83,9 @@ $totalCant=0;
                 <th>Código</th>
 				<th>%GC</th>
 				<th>%GC Viajes</th>
-                <th nowrap>Cant Pólizas <?php echo $totalCant; ?></th>
-                <th >Total Prima Suscrita $<?php echo number_format($totalPrima,2); ?></th>
-				<th >Total Prima Cobrada $<?php echo number_format($totalPrimaC,2); ?></th>
+                <th nowrap>Cant Pólizas <?= $totalCant; ?></th>
+                <th >Total Prima Suscrita $<?= number_format($totalPrima,2); ?></th>
+				<th >Total Prima Cobrada $<?= number_format($totalPrimaC,2); ?></th>
 			</tr>
 		</tfoot>
 	</table>

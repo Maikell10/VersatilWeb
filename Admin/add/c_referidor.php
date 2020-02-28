@@ -104,7 +104,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <tbody >
                                 <tr style="background-color: white">
-                                    <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $cod_ref;?> "></td>
+                                    <td><input type="text" class="form-control" name="cod" readonly="true" value="<?= $cod_ref;?> "></td>
                                     <td><input type="text" class="form-control validanumericos" name="id_r" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                     <td><input onblur="cargarCuenta(this)" type="text" class="form-control" name="nombre_r" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                     <td><input type="text" class="form-control validanumericos1" name="cel" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>

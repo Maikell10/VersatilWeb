@@ -180,7 +180,7 @@ $hasta=($_GET['desde']).'-12-31';
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Mes del Año <?php echo $_GET['desde'];?></h1></h1> 
+                    <h1 class="title">Comisiones Cobradas por Mes del Año <?= $_GET['desde'];?></h1></h1> 
                     <br/>
                     
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>
@@ -218,15 +218,15 @@ $hasta=($_GET['desde']).'-12-31';
 
         ?>
         <tr>
-          <th scope="row"><?php echo $mesArray[$mes[$i]["Month(f_hastapoliza)"]-1]; ?></th>
-          <td align="right"><?php echo "$".number_format($primaPorMes[$i],2); ?></td>
-          <td align="right"><?php echo "$".number_format($primaPorMesPC[$i],2); ?></td>
-          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($primaPorMes[$i]-$primaPorMesPC[$i],2); ?></td>
-          <td align="right"><?php echo "$".number_format($primaPorMesCC[$i],2); ?></td>
-          <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
-          <td align="right"><?php echo number_format($primaPorMesGCP[$i],2); ?></td>
-          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($primaPorMesCC[$i]-$primaPorMesGCP[$i],2); ?></td>
-          <td><?php echo $cantArray[$i]; ?></td>
+          <th scope="row"><?= $mesArray[$mes[$i]["Month(f_hastapoliza)"]-1]; ?></th>
+          <td align="right"><?= "$".number_format($primaPorMes[$i],2); ?></td>
+          <td align="right"><?= "$".number_format($primaPorMesPC[$i],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?= "$".number_format($primaPorMes[$i]-$primaPorMesPC[$i],2); ?></td>
+          <td align="right"><?= "$".number_format($primaPorMesCC[$i],2); ?></td>
+          <td nowrap><?= number_format($per_gc,2)." %"; ?></td>
+          <td align="right"><?= number_format($primaPorMesGCP[$i],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($primaPorMesCC[$i]-$primaPorMesGCP[$i],2); ?></td>
+          <td><?= $cantArray[$i]; ?></td>
         </tr>
         <?php
             }
@@ -235,14 +235,14 @@ $hasta=($_GET['desde']).'-12-31';
       <thead style="background-color: #E54848;color:white">
         <tr>
           <th scope="col">TOTAL</th>
-          <th align="right"><?php echo "$".number_format($totals,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totals-$totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalcc,2); ?></th>
-          <th align="right"><?php echo "$".number_format(($totalcc*100)/$totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalgcp,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalcc-$totalgcp,2); ?></th>
-          <th scope="col"><?php echo $totalCant; ?></th>
+          <th align="right"><?= "$".number_format($totals,2); ?></th>
+          <th align="right"><?= "$".number_format($totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totals-$totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totalcc,2); ?></th>
+          <th align="right"><?= "$".number_format(($totalcc*100)/$totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totalgcp,2); ?></th>
+          <th align="right"><?= "$".number_format($totalcc-$totalgcp,2); ?></th>
+          <th scope="col"><?= $totalCant; ?></th>
         </tr>
       </thead>
 
@@ -389,7 +389,7 @@ $hasta=($_GET['desde']).'-12-31';
                   }
                 }else{$dataPrima=0;}
                 ?>
-                '<?php echo $dataPrima; ?>',
+                '<?= $dataPrima; ?>',
             <?php }?>
           ],
             label: 'Comisión Cobrada',

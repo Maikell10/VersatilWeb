@@ -108,7 +108,7 @@ if(isset($_SESSION['seudonimo'])) {
                         if ($anio=='') {
                         } else { $anioIn = "" . implode(",", $anio) ."";
                     ?>
-                    <h3>Año: <font style="font-weight:bold"><?php echo $anioIn; ?></font>
+                    <h3>Año: <font style="font-weight:bold"><?= $anioIn; ?></font>
                     <?php }; 
                         if ($mes==null) {
                         }else{
@@ -124,13 +124,13 @@ if(isset($_SESSION['seudonimo'])) {
                         if ($cia=='') {
                         } else { $ciaIn = "" . implode(",", $cia) ."";
                     ?>
-                    <h3>Cía: <font style="font-weight:bold"><?php echo $ciaIn; ?></font>
+                    <h3>Cía: <font style="font-weight:bold"><?= $ciaIn; ?></font>
                     <?php
                         }
                         if ($asesor=='') { 
                         } else { 
                     ?>
-                    Asesor: <font style="font-weight:bold"><?php echo $myString; ?></font></h3>
+                    Asesor: <font style="font-weight:bold"><?= $myString; ?></font></h3>
                     <?php
                         }
                     ?>
@@ -194,35 +194,35 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
                             
                                 <?php if ($permiso!=3) { ?>
-                                <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
+                                <td><?= utf8_encode($poliza[$i]['idnom']); ?></td>
                                 <?php }?>
-                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td><?php echo $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                <td><?= $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -263,35 +263,35 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza1[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza1[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza1[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza1[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza1[$i]['id_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza1[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza1[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza1[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza1[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza1[$i]['id_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza1[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
                             
                                 <?php if ($permiso!=3) { ?>
-                                <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
+                                <td><?= utf8_encode($poliza1[$i]['nombre']); ?></td>
                                 <?php }?>
-                                <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
-                                <td><?php echo $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t']); ?></td>
+                                <td><?= ($poliza1[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza1[$i]['prima'],2); ?></td>
+                                <td><?= $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -332,35 +332,35 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza2[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza2[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza2[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza2[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza2[$i]['id_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza2[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza2[$i]['f_desdepoliza']; ?></td>
-                                <td hidden><?php echo $poliza2[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza2[$i]['f_desdepoliza']; ?></td>
+                                <td hidden><?= $poliza2[$i]['id_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza2[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
                             
                                 <?php if ($permiso!=3) { ?>    
-                                <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
+                                <td><?= utf8_encode($poliza2[$i]['nombre']); ?></td>
                                 <?php }?>
-                                <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
-                                <td><?php echo $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t']); ?></td>
+                                <td><?= ($poliza2[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza2[$i]['prima'],2); ?></td>
+                                <td><?= $currency.number_format($primaC[0]['SUM(prima_com)'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -383,7 +383,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Prima Suscrita $<?= number_format($totalprima,2); ?></th>
                             <th>Prima Cobrada</th>
                             <th>Nombre Titular</th>
                             <th>PDF</th>
@@ -446,26 +446,26 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
                             ?>
-                                <td><?php echo utf8_encode($poliza[$i]['idnom']); ?></td>
-                                <td><?php echo ($poliza[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td><?= utf8_encode($poliza[$i]['idnom']); ?></td>
+                                <td><?= ($poliza[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -502,29 +502,29 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza1[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza1[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza1[$i]['cod_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza1[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
                             
                                 
-                                <td><?php echo utf8_encode($poliza1[$i]['nombre']); ?></td>
-                                <td><?php echo ($poliza1[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza1[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t']); ?></td>
+                                <td><?= utf8_encode($poliza1[$i]['nombre']); ?></td>
+                                <td><?= ($poliza1[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza1[$i]['prima'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza1[$i]['nombre_t']." ".$poliza1[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -561,27 +561,27 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza2[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza2[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza2[$i]['cod_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza2[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
-                                <td><?php echo utf8_encode($poliza2[$i]['nombre']); ?></td>
-                                <td><?php echo ($poliza2[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza2[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t']); ?></td>
+                                <td><?= utf8_encode($poliza2[$i]['nombre']); ?></td>
+                                <td><?= ($poliza2[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza2[$i]['prima'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza2[$i]['nombre_t']." ".$poliza2[$i]['apellido_t']); ?></td>
                                 <td>
                                     <?php 
                                         if ($poliza[$i]['pdf']==1) {
                                     ?>
-                                    <a href="download.php?id_poliza=<?php echo $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
+                                    <a href="download.php?id_poliza=<?= $poliza[$i]['id_poliza'];?>" class="btn btn-white btn-round btn-sm" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="30" id="pdf"></a>
                                     <?php 
                                         } else {}
                                     ?>
@@ -600,7 +600,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Prima Suscrita $<?= number_format($totalprima,2); ?></th>
                             <th>Nombre Titular</th>
                             <th>PDF</th>
                         </tr>

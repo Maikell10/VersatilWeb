@@ -56,7 +56,7 @@ if(isset($_SESSION['seudonimo'])) {
                     <label for="archivo">Seleccione la Póliza pdf a cargar</label>
                     <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf" required>
                     <button class="btn btn-success btn-round">Subir Archivo</button>
-                    <input type="text" class="form-control" name="id_poliza" value="<?php echo $id_poliza;?>" hidden>
+                    <input type="text" class="form-control" name="id_poliza" value="<?= $id_poliza;?>" hidden>
                     <input type="text" class="form-control" name="cond" value="1" hidden>
                     </center>
                 </form>

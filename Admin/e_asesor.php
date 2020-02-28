@@ -85,8 +85,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Asesor: <?php echo utf8_encode($nombre); ?></h1>  
-                    <h2 class="title">Cod: <?php echo $asesor[0]['cod']; ?></h2>  
+                    <h1 class="title">Asesor: <?= utf8_encode($nombre); ?></h1>  
+                    <h2 class="title">Cod: <?= $asesor[0]['cod']; ?></h2>  
                 </div>
 
 
@@ -107,12 +107,12 @@ if(isset($_SESSION['seudonimo'])) {
 
 					<tbody >
                         <tr style="background-color: white">
-                            <td><input type="number" step="0.01" class="form-control" name="id" required value="<?php echo $asesor[0]['id']; ?>"></td>
-                            <td><input type="text" class="form-control" name="nombre" required value="<?php echo utf8_encode($nombre); ?>" onkeyup="mayus(this);"></td>
-                            <td><input type="text" class="form-control" name="email" required value="<?php echo $asesor[0]['email']; ?>" ></td>
-                            <td><input type="text" class="form-control" name="cel" required value="<?php echo $asesor[0]['cel']; ?>" ></td>
-                            <td hidden><input type="text" class="form-control" name="id_asesor" required value="<?php echo $id_asesor; ?>" ></td>
-                            <td hidden><input type="text" class="form-control" name="a" required value="<?php echo $a; ?>" ></td>
+                            <td><input type="number" step="0.01" class="form-control" name="id" required value="<?= $asesor[0]['id']; ?>"></td>
+                            <td><input type="text" class="form-control" name="nombre" required value="<?= utf8_encode($nombre); ?>" onkeyup="mayus(this);"></td>
+                            <td><input type="text" class="form-control" name="email" required value="<?= $asesor[0]['email']; ?>" ></td>
+                            <td><input type="text" class="form-control" name="cel" required value="<?= $asesor[0]['cel']; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="id_asesor" required value="<?= $id_asesor; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="a" required value="<?= $a; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th>Banco</th>
@@ -120,9 +120,9 @@ if(isset($_SESSION['seudonimo'])) {
                             <th colspan="2">N Cuenta</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="banco" required  value="<?php echo $asesor[0]['banco']; ?>"></td>
-                            <td><input type="text" class="form-control" name="tipo_cuenta" required value="<?php echo $asesor[0]['tipo_cuenta']; ?>"></td>
-                            <td colspan="2"><input type="text" class="form-control" name="num_cuenta" required value="<?php echo $asesor[0]['num_cuenta']; ?>" ></td>
+                            <td><input type="text" class="form-control" name="banco" required  value="<?= $asesor[0]['banco']; ?>"></td>
+                            <td><input type="text" class="form-control" name="tipo_cuenta" required value="<?= $asesor[0]['tipo_cuenta']; ?>"></td>
+                            <td colspan="2"><input type="text" class="form-control" name="num_cuenta" required value="<?= $asesor[0]['num_cuenta']; ?>" ></td>
                         </tr>
 
                         <?php
@@ -143,7 +143,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <option value="UNICO">UNICO</option>
                                     <option value="PORCENTUAL">PORCENTUAL</option>
                             </select></td>
-                            <td colspan="2"><input type="text" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" value="<?php echo $asesor[0]['monto']; ?>"></td>
+                            <td colspan="2"><input type="text" class="form-control validanumericos3" id="monto" name="monto" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" value="<?= $asesor[0]['monto']; ?>"></td>
                         </tr>
 
                         <?php
@@ -155,7 +155,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Estatus</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td colspan="3"><input type="text" class="form-control" name="obs" required value="<?php echo $asesor[0]['obs']; ?>"></td>
+                            <td colspan="3"><input type="text" class="form-control" name="obs" required value="<?= $asesor[0]['obs']; ?>"></td>
                             <td><select name="act" id="act" class="custom-select">
                                 <option value="0">Inactivo</option>
                                 <option value="1">Activo</option>
@@ -172,10 +172,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>%GC Viajes (Renovación)</th>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control validanumericos" name="nopre1" required value="<?php echo $asesor[0]['nopre1']; ?>"></td>
-                            <td><input type="text" class="form-control validanumericos1" name="nopre1_renov" required value="<?php echo $asesor[0]['nopre1_renov']; ?>"></td>
-                            <td><input type="text" class="form-control validanumericos2" name="gc_viajes" required value="<?php echo $asesor[0]['gc_viajes']; ?>"></td>
-                            <td><input type="text" class="form-control validanumericos3" name="gc_viajes_renov" required value="<?php echo $asesor[0]['gc_viajes_renov']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos" name="nopre1" required value="<?= $asesor[0]['nopre1']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos1" name="nopre1_renov" required value="<?= $asesor[0]['nopre1_renov']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos2" name="gc_viajes" required value="<?= $asesor[0]['gc_viajes']; ?>"></td>
+                            <td><input type="text" class="form-control validanumericos3" name="gc_viajes_renov" required value="<?= $asesor[0]['gc_viajes_renov']; ?>"></td>
                         </tr>
                         <?php
                         }
@@ -274,9 +274,9 @@ if(isset($_SESSION['seudonimo'])) {
 
     $(document).ready(function(){
 
-        document.getElementById("act").value = "<?php echo $asesor[0]['act'];?>";
-        document.getElementById("pago").value =  "<?php echo $asesor[0]['pago'];?>";
-        document.getElementById("f_pago").value = "<?php echo $asesor[0]['f_pago'];?>";
+        document.getElementById("act").value = "<?= $asesor[0]['act'];?>";
+        document.getElementById("pago").value =  "<?= $asesor[0]['pago'];?>";
+        document.getElementById("f_pago").value = "<?= $asesor[0]['f_pago'];?>";
         
     });
 

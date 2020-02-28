@@ -239,9 +239,9 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
           <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
             <tr>
               <th scope="col">Ramo</th>
-              <th scope="col">Prima Suscrita <?php echo '( '.$mes_arr[$_GET['mes']-1].' - '.intval($_GET['anio']-1).' )';?></th>
+              <th scope="col">Prima Suscrita <?= '( '.$mes_arr[$_GET['mes']-1].' - '.intval($_GET['anio']-1).' )';?></th>
               <th scope="col">Cantidad</th>
-              <th scope="col" style="background-color: #28a745;">Prima Suscrita <?php echo '( '.$mes_arr[$_GET['mes']-1].' - '.$_GET['anio'].' )';?></th>
+              <th scope="col" style="background-color: #28a745;">Prima Suscrita <?= '( '.$mes_arr[$_GET['mes']-1].' - '.$_GET['anio'].' )';?></th>
               <th scope="col" style="background-color: #28a745;">Cantidad</th>
             </tr>
           </thead>
@@ -254,11 +254,11 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
 
               ?>
               <tr>
-                <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-                <td align="right"><?php echo "$" . number_format($sumatotalRamoOld[$x[$i]], 2); ?></td>
-                <td><?php echo $cantArrayOld[$x[$i]]; ?></td>
-                <td align="right"><?php echo "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
+                <td align="right"><?= "$" . number_format($sumatotalRamoOld[$x[$i]], 2); ?></td>
+                <td><?= $cantArrayOld[$x[$i]]; ?></td>
+                <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
+                <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
             <?php
             }
@@ -267,10 +267,10 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
           <thead class="thead-dark">
             <tr>
               <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totalsOld, 2); ?></th>
-              <th scope="col"><?php echo $totalCantOld; ?></th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
-              <th scope="col"><?php echo $totalCant; ?></th>
+              <th align="right"><?= "$" . number_format($totalsOld, 2); ?></th>
+              <th scope="col"><?= $totalCantOld; ?></th>
+              <th align="right"><?= "$" . number_format($totals, 2); ?></th>
+              <th scope="col"><?= $totalCant; ?></th>
             </tr>
           </thead>
         </table>
@@ -339,8 +339,8 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
     let massPopChart = new Chart(myChart, {
       type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data: {
-        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?php echo utf8_encode($ramoArray[$x[$i]]).' ('.intval($_GET['anio']-1).')'; ?>',
-            '<?php echo ' ('.$_GET['anio'].')'; ?>',
+        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]).' ('.intval($_GET['anio']-1).')'; ?>',
+            '<?= ' ('.$_GET['anio'].')'; ?>',
 
           <?php } ?>
         ],
@@ -348,8 +348,8 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
         datasets: [{
 
           data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
-                    ?> '<?php echo $sumatotalRamoOld[$x[$i]]; ?>',
-                        '<?php echo $sumatotalRamo[$x[$i]]; ?>',
+                    ?> '<?= $sumatotalRamoOld[$x[$i]]; ?>',
+                        '<?= $sumatotalRamo[$x[$i]]; ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

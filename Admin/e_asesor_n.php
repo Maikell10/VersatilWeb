@@ -107,10 +107,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr >
-                                    <td><input type="text" class="form-control" name="id" readonly="readonly" value="<?php echo $id;?>"></td>
-                                    <td><input type="text" class="form-control" name="nombre" readonly="readonly" value="<?php echo $nombre;?>"></td>
-                                    <td><input type="text" class="form-control" name="email" readonly="readonly" value="<?php echo $email;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel" readonly="readonly" value="<?php echo $cel;?>"></td>
+                                    <td><input type="text" class="form-control" name="id" readonly="readonly" value="<?= $id;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre" readonly="readonly" value="<?= $nombre;?>"></td>
+                                    <td><input type="text" class="form-control" name="email" readonly="readonly" value="<?= $email;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel" readonly="readonly" value="<?= $cel;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -119,9 +119,9 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="2">N Cuenta</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="banco" readonly="readonly" value="<?php echo $banco;?>"></td>
-                                    <td><input type="text" class="form-control" name="tipo_cuenta" readonly="readonly" value="<?php echo $tipo_cuenta;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="num_cuenta" readonly="readonly" value="<?php echo $num_cuenta;?>"></td>
+                                    <td><input type="text" class="form-control" name="banco" readonly="readonly" value="<?= $banco;?>"></td>
+                                    <td><input type="text" class="form-control" name="tipo_cuenta" readonly="readonly" value="<?= $tipo_cuenta;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="num_cuenta" readonly="readonly" value="<?= $num_cuenta;?>"></td>
                                 </tr>
 
                                 <?php
@@ -135,9 +135,9 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
                                 <tr>
                                 </tr>
-                                    <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?php echo $f_pago;?>"></td>
-                                    <td><input type="text" class="form-control" name="pago" readonly="readonly" value="<?php echo $pago;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="monto" readonly="readonly" value="<?php echo $monto;?>"></td>
+                                    <td><input type="text" class="form-control" name="f_pago" readonly="readonly" value="<?= $f_pago;?>"></td>
+                                    <td><input type="text" class="form-control" name="pago" readonly="readonly" value="<?= $pago;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="monto" readonly="readonly" value="<?= $monto;?>"></td>
 
                                 <?php
                                 }
@@ -149,8 +149,8 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
 
                                 <tr>
-                                    <td colspan="3"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?php echo $obs;?>"></td>
-                                    <td><input type="text" class="form-control" name="act" readonly="readonly" value="<?php echo $estatus;?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="obs" readonly="readonly" value="<?= $obs;?>"></td>
+                                    <td><input type="text" class="form-control" name="act" readonly="readonly" value="<?= $estatus;?>"></td>
                                 </tr>
 
                                 <?php
@@ -163,10 +163,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>%GC Viajes (Renovación)</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nopre1" readonly value="<?php echo $nopre1; ?>"></td>
-                                    <td><input type="text" class="form-control" name="nopre1_renov" readonly value="<?php echo $nopre1_renov; ?>"></td>
-                                    <td><input type="text" class="form-control" name="gc_viajes" readonly value="<?php echo $gc_viajes; ?>"></td>
-                                    <td><input type="text" class="form-control" name="gc_viajes_renov" readonly value="<?php echo $gc_viajes_renov; ?>"></td>
+                                    <td><input type="text" class="form-control" name="nopre1" readonly value="<?= $nopre1; ?>"></td>
+                                    <td><input type="text" class="form-control" name="nopre1_renov" readonly value="<?= $nopre1_renov; ?>"></td>
+                                    <td><input type="text" class="form-control" name="gc_viajes" readonly value="<?= $gc_viajes; ?>"></td>
+                                    <td><input type="text" class="form-control" name="gc_viajes_renov" readonly value="<?= $gc_viajes_renov; ?>"></td>
                                 </tr>
                                 <?php
                                 }
@@ -187,7 +187,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?php echo $id_asesor;?>&nombre=<?php echo $nombre;?>&email=<?php echo $email;?>&id=<?php echo $id;?>&cel=<?php echo $cel;?>&banco=<?php echo $banco;?>&tipo_cuenta=<?php echo $tipo_cuenta;?>&num_cuenta=<?php echo $num_cuenta;?>&obs=<?php echo $obs;?>&a=<?php echo $a;?>&act=<?php echo $act;?>&nopre1=<?php echo $nopre1;?>&nopre1_renov=<?php echo $nopre1_renov;?>&gc_viajes=<?php echo $gc_viajes;?>&gc_viajes_renov=<?php echo $gc_viajes_renov;?>&pago=<?php echo $pago;?>&f_pago=<?php echo $f_pago;?>&monto=<?php echo $monto;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_asesor_nn.php?id_asesor=<?= $id_asesor;?>&nombre=<?= $nombre;?>&email=<?= $email;?>&id=<?= $id;?>&cel=<?= $cel;?>&banco=<?= $banco;?>&tipo_cuenta=<?= $tipo_cuenta;?>&num_cuenta=<?= $num_cuenta;?>&obs=<?= $obs;?>&a=<?= $a;?>&act=<?= $act;?>&nopre1=<?= $nopre1;?>&nopre1_renov=<?= $nopre1_renov;?>&gc_viajes=<?= $gc_viajes;?>&gc_viajes_renov=<?= $gc_viajes_renov;?>&pago=<?= $pago;?>&f_pago=<?= $f_pago;?>&monto=<?= $monto;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

@@ -143,13 +143,13 @@ if(isset($_SESSION['seudonimo'])) {
                             
                             ?>
                             <tr style="cursor: pointer">
-                                <td hidden=""><?php echo $rep_com_busq[$i]['f_hasta_rep']; ?></td>
-                                <td hidden=""><?php echo $rep_com_busq[$i]['id_rep_com']; ?></td>
-                                <td><?php echo $f_hasta_rep; ?></td>
-                                <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
-                                <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
-                                <td nowrap><?php echo ($cia[0]['nomcia']); ?></td>
-                                <td><?php echo $f_pago_gc; ?></td>
+                                <td hidden=""><?= $rep_com_busq[$i]['f_hasta_rep']; ?></td>
+                                <td hidden=""><?= $rep_com_busq[$i]['id_rep_com']; ?></td>
+                                <td><?= $f_hasta_rep; ?></td>
+                                <td align="right"><?= "$ ".number_format($prima,2); ?></td>
+                                <td align="right"><?= "$ ".number_format($comi,2); ?></td>
+                                <td nowrap><?= ($cia[0]['nomcia']); ?></td>
+                                <td><?= $f_pago_gc; ?></td>
                             </tr>
                             <?php
                         }
@@ -161,8 +161,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <th hidden="">ID</th>
                             <th hidden="">ID</th>
                             <th>Fecha Hasta Reporte</th>
-                            <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
-                            <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
+                            <th>Prima Cobrada <?= "$ ".number_format($totalPrimaCom,2); ?></th>
+                            <th>Comisión Cobrada <?= "$ ".number_format($totalCom,2); ?></th>
                             <th>Compañía</th>
                             <th>Fecha Pago de la GC</th>
                         </tr>
@@ -210,11 +210,11 @@ if(isset($_SESSION['seudonimo'])) {
                             
                             ?>
                             <tr style="cursor: pointer">
-                                <td><?php echo $f_hasta_rep; ?></td>
-                                <td align="right"><?php echo "$ ".number_format($prima,2); ?></td>
-                                <td align="right"><?php echo "$ ".number_format($comi,2); ?></td>
-                                <td nowrap><?php echo ($cia[0]['nomcia']); ?></td>
-                                <td><?php echo $f_pago_gc; ?></td>
+                                <td><?= $f_hasta_rep; ?></td>
+                                <td align="right"><?= "$ ".number_format($prima,2); ?></td>
+                                <td align="right"><?= "$ ".number_format($comi,2); ?></td>
+                                <td nowrap><?= ($cia[0]['nomcia']); ?></td>
+                                <td><?= $f_pago_gc; ?></td>
                             </tr>
                             <?php
                         }
@@ -224,8 +224,8 @@ if(isset($_SESSION['seudonimo'])) {
                     <tfoot>
                         <tr>
                             <th>Fecha Hasta Reporte</th>
-                            <th>Prima Cobrada <?php echo "$ ".number_format($totalPrimaCom,2); ?></th>
-                            <th>Comisión Cobrada <?php echo "$ ".number_format($totalCom,2); ?></th>
+                            <th>Prima Cobrada <?= "$ ".number_format($totalPrimaCom,2); ?></th>
+                            <th>Comisión Cobrada <?= "$ ".number_format($totalCom,2); ?></th>
                             <th>Compañía</th>
                             <th>Fecha Pago de la GC</th>
                         </tr>

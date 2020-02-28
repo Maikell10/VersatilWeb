@@ -110,8 +110,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr >
-                                    <td colspan="3"><input type="text" class="form-control" name="nombre_cia" readonly="readonly" value="<?php echo $nombre_cia;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="rif" readonly="readonly" value="<?php echo $rif;?>"></td>
+                                    <td colspan="3"><input type="text" class="form-control" name="nombre_cia" readonly="readonly" value="<?= $nombre_cia;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="rif" readonly="readonly" value="<?= $rif;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -122,43 +122,43 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th>e-mail</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nombre1" readonly="readonly" value="<?php echo $nombre1;?>"></td>
-                                    <td><input type="text" class="form-control" name="cargo1" readonly="readonly" value="<?php echo $cargo1;?>"></td>
-                                    <td><input type="text" class="form-control" name="tel1" readonly="readonly" value="<?php echo $tel1;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel1" readonly="readonly" value="<?php echo $cel1;?>"></td>
-                                    <td><input type="text" class="form-control" name="email1" readonly="readonly" value="<?php echo $email1;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre1" readonly="readonly" value="<?= $nombre1;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo1" readonly="readonly" value="<?= $cargo1;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel1" readonly="readonly" value="<?= $tel1;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel1" readonly="readonly" value="<?= $cel1;?>"></td>
+                                    <td><input type="text" class="form-control" name="email1" readonly="readonly" value="<?= $email1;?>"></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nombre2" readonly="readonly" value="<?php echo $nombre2;?>"></td>
-                                    <td><input type="text" class="form-control" name="cargo2" readonly="readonly" value="<?php echo $cargo2;?>"></td>
-                                    <td><input type="text" class="form-control" name="tel2" readonly="readonly" value="<?php echo $tel2;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel2" readonly="readonly" value="<?php echo $cel2;?>"></td>
-                                    <td><input type="text" class="form-control" name="email2" readonly="readonly" value="<?php echo $email2;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre2" readonly="readonly" value="<?= $nombre2;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo2" readonly="readonly" value="<?= $cargo2;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel2" readonly="readonly" value="<?= $tel2;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel2" readonly="readonly" value="<?= $cel2;?>"></td>
+                                    <td><input type="text" class="form-control" name="email2" readonly="readonly" value="<?= $email2;?>"></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nombre3" readonly="readonly" value="<?php echo $nombre3;?>"></td>
-                                    <td><input type="text" class="form-control" name="cargo3" readonly="readonly" value="<?php echo $cargo3;?>"></td>
-                                    <td><input type="text" class="form-control" name="tel3" readonly="readonly" value="<?php echo $tel3;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel3" readonly="readonly" value="<?php echo $cel3;?>"></td>
-                                    <td><input type="text" class="form-control" name="email3" readonly="readonly" value="<?php echo $email3;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre3" readonly="readonly" value="<?= $nombre3;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo3" readonly="readonly" value="<?= $cargo3;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel3" readonly="readonly" value="<?= $tel3;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel3" readonly="readonly" value="<?= $cel3;?>"></td>
+                                    <td><input type="text" class="form-control" name="email3" readonly="readonly" value="<?= $email3;?>"></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nombre4" readonly="readonly" value="<?php echo $nombre4;?>"></td>
-                                    <td><input type="text" class="form-control" name="cargo4" readonly="readonly" value="<?php echo $cargo4;?>"></td>
-                                    <td><input type="text" class="form-control" name="tel4" readonly="readonly" value="<?php echo $tel4;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel4" readonly="readonly" value="<?php echo $cel4;?>"></td>
-                                    <td><input type="text" class="form-control" name="email4" readonly="readonly" value="<?php echo $email4;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre4" readonly="readonly" value="<?= $nombre4;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo4" readonly="readonly" value="<?= $cargo4;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel4" readonly="readonly" value="<?= $tel4;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel4" readonly="readonly" value="<?= $cel4;?>"></td>
+                                    <td><input type="text" class="form-control" name="email4" readonly="readonly" value="<?= $email4;?>"></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" class="form-control" name="nombre5" readonly="readonly" value="<?php echo $nombre5;?>"></td>
-                                    <td><input type="text" class="form-control" name="cargo5" readonly="readonly" value="<?php echo $cargo5;?>"></td>
-                                    <td><input type="text" class="form-control" name="tel5" readonly="readonly" value="<?php echo $tel5;?>"></td>
-                                    <td><input type="text" class="form-control" name="cel5" readonly="readonly" value="<?php echo $cel5;?>"></td>
-                                    <td><input type="text" class="form-control" name="email5" readonly="readonly" value="<?php echo $email5;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre5" readonly="readonly" value="<?= $nombre5;?>"></td>
+                                    <td><input type="text" class="form-control" name="cargo5" readonly="readonly" value="<?= $cargo5;?>"></td>
+                                    <td><input type="text" class="form-control" name="tel5" readonly="readonly" value="<?= $tel5;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel5" readonly="readonly" value="<?= $cel5;?>"></td>
+                                    <td><input type="text" class="form-control" name="email5" readonly="readonly" value="<?= $email5;?>"></td>
                                 </tr>
 
 
@@ -173,7 +173,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="cia_n.php?nombre_cia=<?php echo $nombre_cia;?>&rif=<?php echo $rif;?>&nombre1=<?php echo $nombre1;?>&cargo1=<?php echo $cargo1;?>&tel1=<?php echo $tel1;?>&cel1=<?php echo $cel1;?>&email1=<?php echo $email1;?>&nombre2=<?php echo $nombre2;?>&cargo2=<?php echo $cargo2;?>&tel2=<?php echo $tel2;?>&cel2=<?php echo $cel2;?>&email2=<?php echo $email2;?>&nombre3=<?php echo $nombre3;?>&cargo3=<?php echo $cargo3;?>&tel3=<?php echo $tel3;?>&cel3=<?php echo $cel3;?>&email3=<?php echo $email3;?>&nombre4=<?php echo $nombre4;?>&cargo4=<?php echo $cargo4;?>&tel4=<?php echo $tel4;?>&cel4=<?php echo $cel4;?>&email4=<?php echo $email4;?>&nombre5=<?php echo $nombre5;?>&cargo5=<?php echo $cargo5;?>&tel5=<?php echo $tel5;?>&cel5=<?php echo $cel5;?>&email5=<?php echo $email5;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="cia_n.php?nombre_cia=<?= $nombre_cia;?>&rif=<?= $rif;?>&nombre1=<?= $nombre1;?>&cargo1=<?= $cargo1;?>&tel1=<?= $tel1;?>&cel1=<?= $cel1;?>&email1=<?= $email1;?>&nombre2=<?= $nombre2;?>&cargo2=<?= $cargo2;?>&tel2=<?= $tel2;?>&cel2=<?= $cel2;?>&email2=<?= $email2;?>&nombre3=<?= $nombre3;?>&cargo3=<?= $cargo3;?>&tel3=<?= $tel3;?>&cel3=<?= $cel3;?>&email3=<?= $email3;?>&nombre4=<?= $nombre4;?>&cargo4=<?= $cargo4;?>&tel4=<?= $tel4;?>&cel4=<?= $cel4;?>&email4=<?= $email4;?>&nombre5=<?= $nombre5;?>&cargo5=<?= $cargo5;?>&tel5=<?= $tel5;?>&cel5=<?= $cel5;?>&email5=<?= $email5;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

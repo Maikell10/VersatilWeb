@@ -29,13 +29,13 @@ $ref = $obj1->get_gc_h_r();
             $newCreatedH = date("h:i:s a", strtotime($ref[$i]['created_at']));
             ?>
             <tr>
-                <td hidden><?php echo $ref[$i]['id_poliza'] ?></td>
-                <td><?php echo $ref[$i]['cod_poliza'] ?></td>
-                <td><?php echo $ref[$i]['nombre'] ?></td>
-                <td><?php echo $ref[$i]['monto'] ?></td>
-                <td><?php echo $newCreated . ' ' . $newCreatedH ?></td>
+                <td hidden><?= $ref[$i]['id_poliza'] ?></td>
+                <td><?= $ref[$i]['cod_poliza'] ?></td>
+                <td><?= $ref[$i]['nombre'] ?></td>
+                <td><?= $ref[$i]['monto'] ?></td>
+                <td><?= $newCreated . ' ' . $newCreatedH ?></td>
                 <td></td>
-                <td><a onclick="eliminar(<?php echo $ref[$i]['id_poliza']; ?>)" class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="right" title="Eliminar" style="color:white">X</a></td>
+                <td><a onclick="eliminar(<?= $ref[$i]['id_poliza']; ?>)" class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="right" title="Eliminar" style="color:white">X</a></td>
             </tr>
         <?php
         }

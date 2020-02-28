@@ -117,7 +117,7 @@ $fechaMax= $date->format($format);
                                      
                                  }else{
                             ?>
-                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                <option value="<?= $i;?>"><?= $i;?></option>
                                 <?php
                                     }
                                 $date=$date+1;
@@ -156,13 +156,13 @@ $fechaMax= $date->format($format);
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                <option value="<?= $asesor[$i]["cod"];?>"><?= utf8_encode($asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                <option value="<?= $liderp[$i]["cod"];?>"><?= utf8_encode($liderp[$i]["nombre"]);?></option>
                             <?php } for($i=0;$i<sizeof($referidor);$i++)
                                 {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                <option value="<?= $referidor[$i]["cod"];?>"><?= utf8_encode($referidor[$i]["nombre"]);?></option>
                             <?php } ?>
                         </select>
                       </div>
@@ -173,7 +173,7 @@ $fechaMax= $date->format($format);
                     <div class="form-row" hidden>
                       <div class="form-group col-md-12">
                         <select class="form-control selectpicker" name="asesor[]" >
-                            <option value="<?php echo $user[0]['cod_vend'];?>"></option>
+                            <option value="<?= $user[0]['cod_vend'];?>"></option>
                         </select>
                       </div>
                     </div>

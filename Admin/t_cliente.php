@@ -40,12 +40,12 @@ $cliente = $obj1->get_element('titular','id_titular');
 				
 				?>
 				<tr style="cursor: pointer;">
-					<td hidden=""><?php echo $cliente[$i]['id_titular']; ?></td>
-					<td hidden=""><?php echo $cliente[$i]['ci']; ?></td>
-	                <td><?php echo $cliente[$i]['r_social']." ".$cliente[$i]['ci']; ?></td>
-	                <td><?php echo utf8_encode($cliente[$i]['nombre_t']); ?></td>
-	                <td><?php echo utf8_encode($cliente[$i]['apellido_t']); ?></td>
-	                <td><?php echo sizeof($clientet); ?></td>
+					<td hidden=""><?= $cliente[$i]['id_titular']; ?></td>
+					<td hidden=""><?= $cliente[$i]['ci']; ?></td>
+	                <td><?= $cliente[$i]['r_social']." ".$cliente[$i]['ci']; ?></td>
+	                <td><?= utf8_encode($cliente[$i]['nombre_t']); ?></td>
+	                <td><?= utf8_encode($cliente[$i]['apellido_t']); ?></td>
+	                <td><?= sizeof($clientet); ?></td>
 				</tr>
 				<?php
 			}

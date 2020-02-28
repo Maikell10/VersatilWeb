@@ -68,7 +68,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="container">
             
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Compañía: <?php echo $cia[0]['nomcia']; ?></h1>
+                    <h1 class="title">Compañía: <?= $cia[0]['nomcia']; ?></h1>
                 </div>
 
                 <br>
@@ -77,12 +77,12 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <center>
 
-                <a  href="add/c_comision.php?id_rep=<?php echo $id_rep_com;?>&f_hasta=<?php echo $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?php echo $f_pago_gc;?>&primat_com=<?php echo $rep_com[0]['primat_com'];?>&comt=<?php echo $rep_com[0]['comt'];?>&cia=<?php echo $rep_com[0]['id_cia'];?>&exx=1" data-toggle="tooltip" data-placement="top" title="Añadir Comisión" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a  href="add/c_comision.php?id_rep=<?= $id_rep_com;?>&f_hasta=<?= $f_hasta_rep;?>&cant_poliza=1&f_pagoGc=<?= $f_pago_gc;?>&primat_com=<?= $rep_com[0]['primat_com'];?>&comt=<?= $rep_com[0]['comt'];?>&cia=<?= $rep_com[0]['id_cia'];?>&exx=1" data-toggle="tooltip" data-placement="top" title="Añadir Comisión" class="btn btn-info btn-lg text-center">Añadir Comisión  &nbsp;<i class="fa fa-plus" aria-hidden="true"></i></a>
 
-                <a  href="e_reporte.php?id_rep_com=<?php echo $id_rep_com;?>" data-toggle="tooltip" data-placement="top" title="Editar Fechas y Montos Totales" class="btn btn-success btn-lg text-center">Editar Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_reporte.php?id_rep_com=<?= $id_rep_com;?>" data-toggle="tooltip" data-placement="top" title="Editar Fechas y Montos Totales" class="btn btn-success btn-lg text-center">Editar Reporte  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
                 <?php if ($permiso==1) { ?>
-                <button  onclick="eliminarDatos('<?php echo $id_rep_com; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button  onclick="eliminarDatos('<?= $id_rep_com; ?>')" data-toggle="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Reporte  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 <?php }?>
                 </center>
                         
@@ -108,10 +108,10 @@ if(isset($_SESSION['seudonimo'])) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td ><?php echo $f_hasta_rep; ?></td>
-                            <td ><?php echo $f_pago_gc; ?></td>
-                            <td ><?php echo number_format($rep_com[0]['primat_com'],2); ?></td>
-                            <td ><?php echo number_format($rep_com[0]['comt'],2); ?></td>
+                            <td ><?= $f_hasta_rep; ?></td>
+                            <td ><?= $f_pago_gc; ?></td>
+                            <td ><?= number_format($rep_com[0]['primat_com'],2); ?></td>
+                            <td ><?= number_format($rep_com[0]['comt'],2); ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -155,15 +155,15 @@ if(isset($_SESSION['seudonimo'])) {
 
                         ?>
                         <tr style="cursor: pointer;">
-                            <td hidden><?php echo $comision[$i]['id_poliza']; ?></td>
-                            <td><?php echo $comision[$i]['num_poliza']; ?></td>
-                            <td nowrap><?php echo utf8_encode($nombre); ?></td>
-                            <td><?php echo $f_pago_prima; ?></td>
-                            <td align="right"><?php echo "$ ".number_format($comision[$i]['prima_com'],2); ?></td>
-                            <td align="right"><?php echo "$ ".number_format($comision[$i]['comision'],2); ?></td>
-                            <td align="center"><?php echo number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
-                            <td><?php echo $comision[$i]['cod_vend']; ?></td>
-                            <td><button  onclick="eliminarComision('<?php echo $comision[$i]['id_comision']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                            <td hidden><?= $comision[$i]['id_poliza']; ?></td>
+                            <td><?= $comision[$i]['num_poliza']; ?></td>
+                            <td nowrap><?= utf8_encode($nombre); ?></td>
+                            <td><?= $f_pago_prima; ?></td>
+                            <td align="right"><?= "$ ".number_format($comision[$i]['prima_com'],2); ?></td>
+                            <td align="right"><?= "$ ".number_format($comision[$i]['comision'],2); ?></td>
+                            <td align="center"><?= number_format(($comision[$i]['comision']*100)/$comision[$i]['prima_com'],2)." %"; ?></td>
+                            <td><?= $comision[$i]['cod_vend']; ?></td>
+                            <td><button  onclick="eliminarComision('<?= $comision[$i]['id_comision']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm">&nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button></td>
                         </tr>
                         <?php
                         }
@@ -177,8 +177,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td align="right"><font size=4><?php echo "$ ".number_format($totalPrimaCom,2); ?></font></td>
-                            <td align="right"><font size=4><?php echo "$ ".number_format($totalCom,2); ?></font></td>
+                            <td align="right"><font size=4><?= "$ ".number_format($totalPrimaCom,2); ?></font></td>
+                            <td align="right"><font size=4><?= "$ ".number_format($totalCom,2); ?></font></td>
                             <td></td>
                             <td></td>
                             <td></td>

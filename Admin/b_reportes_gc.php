@@ -108,11 +108,11 @@ $totalCom = 0;
 
                         ?>
                             <tr style="cursor: pointer">
-                                <td><?php echo $gc_h[$i]['id_gc_h']; ?></td>
-                                <td><?php echo $f_pago_gc; ?></td>
-                                <td><?php echo $f_desde_rep; ?></td>
-                                <td><?php echo $f_hasta_rep; ?></td>
-                                <td><?php echo $gc_h[$i]['tPoliza']; ?></td>
+                                <td><?= $gc_h[$i]['id_gc_h']; ?></td>
+                                <td><?= $f_pago_gc; ?></td>
+                                <td><?= $f_desde_rep; ?></td>
+                                <td><?= $f_hasta_rep; ?></td>
+                                <td><?= $gc_h[$i]['tPoliza']; ?></td>
                             </tr>
                         <?php
                         }

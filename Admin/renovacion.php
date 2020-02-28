@@ -1,23 +1,35 @@
 <?php
 session_start();
-if(isset($_SESSION['seudonimo'])) {
+if (isset($_SESSION['seudonimo'])) {
+} else {
+    header("Location: login.php");
+    exit();
+}
 
-  }
-    else {
-        header("Location: login.php");
-        exit();
-      }
+require_once("../class/renovar.php");
+$obj = new Renovar();
+$polizas = $obj->renovar();
+$cant_p = $obj->cant_renov;
+
+foreach ($polizas as $poliza) {
+    $poliza_renov = $obj->comprobar_poliza($poliza['cod_poliza'], $poliza['id_cia']);
+    if (sizeof($poliza_renov) != 0) {
+        $cant_p=$cant_p-1;
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require('header.php');?>
+    <?php require('header.php'); ?>
 </head>
 
 <body class="profile-page ">
-    
-    <?php require('navigation.php');?>
+
+    <?php require('navigation.php'); ?>
 
 
 
@@ -27,7 +39,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
                     <div class="brand">
-                        
+
                     </div>
                 </div>
             </div>
@@ -39,16 +51,16 @@ if(isset($_SESSION['seudonimo'])) {
 
 
     <div class="main main-raised">
-        
 
-        
+
+
 
         <div class="section">
 
-            <div class="container"> 
+            <div class="container">
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Listados Pólizas a Renovar)</a></h2>   
+                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3">Renovación (Listados Pólizas a Renovar)</a></h2>
                 </div>
                 <br><br>
 
@@ -61,16 +73,16 @@ if(isset($_SESSION['seudonimo'])) {
                                 </div>
                             </a>
                         </div>
-                        
-                        <?php if ($permiso!=3) { ?>
-                        <div class="card text-white bg-info mb-3">
-                            <a href="renov/b_renov_por_asesor.php">
-                                <div class="card-body">
-                                    <h5 class="card-title">Organizadas Por Asesor</h5>
-                                </div>
-                            </a>
-                        </div>
-                        <?php }?>
+
+                        <?php if ($permiso != 3) { ?>
+                            <div class="card text-white bg-info mb-3">
+                                <a href="renov/b_renov_por_asesor.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Organizadas Por Asesor</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php } ?>
 
                         <div class="card text-white bg-info mb-3">
                             <a href="renov/b_renov_g.php">
@@ -85,31 +97,41 @@ if(isset($_SESSION['seudonimo'])) {
 
 
             <?php
-                if ($permiso!=3) {
+            if ($permiso != 3) {
             ?>
-            <div class="container">
+                <div class="container">
 
-                <div class="col-md-auto col-md-offset-2 hover-collapse">
-                    <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a></h2>   
-                </div>
-                <br><br>
+                    <div class="col-md-auto col-md-offset-2 hover-collapse">
+                        <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">Renovación (Carga)</a>
 
-                <div class="collapse" id="collapse2">
+                            <?php
+                            if ($cant_p != 0) {
+                            ?>
+                                <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Pólizas para Renovar" class="badge badge-warning navbar-badge h3 text-white" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-stopwatch" aria-hidden="true"></i> <?= $cant_p; ?> </a>
+                            <?php
+                            }
+                            ?>
 
-                    <div class="card-deck">
-                        <div class="card text-white bg-info mb-3">
-                            <a href="add/crear_poliza.php" >
-                                <div class="card-body">
-                                    <h5 class="card-title">Renovar Póliza</h5>
-                                </div>
-                            </a>
-                        </div>
+                        </h2>
                     </div>
-                    
+                    <br><br>
+
+                    <div class="collapse" id="collapse2">
+
+                        <div class="card-deck">
+                            <div class="card text-white bg-info mb-3">
+                                <a href="renov/b_renov_t.php">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Renovar Póliza</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
             <?php
-                }
+            }
             ?>
 
         </div>
@@ -120,13 +142,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 
 
-        <?php require('footer_b.php');?>
+        <?php require('footer_b.php'); ?>
 
 
 
 
 
-        
+
     </div>
 
 
@@ -156,15 +178,15 @@ if(isset($_SESSION['seudonimo'])) {
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/bootstrap-material-design.js"></script>
-    <!--  Plugin for Date Time Picker and Full Calendar Plugin  -->
+    <!--  Plugin fo Date Time Picker and Full Calendar Plugin  -->
     <script src="../assets/js/plugins/moment.min.js"></script>
-    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <!--	Plugin fo the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
     <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--	Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <!--	Plugin fo the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="../assets/js/plugins/nouislider.min.js"></script>
     <!-- Material Kit Core initialisations of plugins and Bootstrap Material Design Library -->
     <script src="../assets/js/material-kit.js?v=2.0.1"></script>
-    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Don't Include it in your project -->
+    <!-- Fixed Sidebar Nav - js With initialisations For Demo Purpose, Dont Include it in your project -->
     <script src="./assets/assets-for-demo/js/material-kit-demo.js"></script>
     <script>
         $(document).ready(function() {
@@ -192,18 +214,10 @@ if(isset($_SESSION['seudonimo'])) {
                 }
             });
         });
-    </script>
-    <script language="javascript">
 
-    function Exportar(table, name){
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-        if (!table.nodeType) table = document.getElementById(table)
-         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-         window.location.href = uri + base64(format(template, ctx))
-        }
+        $(function() {
+            $('[data-tooltip="tooltip"]').tooltip()
+        });
     </script>
 </body>
 

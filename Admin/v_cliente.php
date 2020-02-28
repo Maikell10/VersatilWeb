@@ -61,13 +61,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cliente: <?php echo utf8_encode($datos_c[0]['nombre_t'])." ".utf8_encode($datos_c[0]['apellido_t']); ?></h1>  
-                    <h2 class="title">Nº ID: <?php echo $datos_c[0]['ci']; ?></h2>  
+                    <h1 class="title">Cliente: <?= utf8_encode($datos_c[0]['nombre_t'])." ".utf8_encode($datos_c[0]['apellido_t']); ?></h1>  
+                    <h2 class="title">Nº ID: <?= $datos_c[0]['ci']; ?></h2>  
                 </div>
 
                 <hr>
                 <center>
-                <a  href="e_cliente.php?id_titu=<?php echo $id_titular;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Cliente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_cliente.php?id_titu=<?= $id_titular;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Cliente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </center>
                 <hr>
 
@@ -120,14 +120,14 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
 							<tr>
-				                <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
-				                <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
-                                <td ><?php echo ($cliente[$i]['nomcia']); ?></td>
-                                <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
-                                <td nowrap><?php echo $newDesde; ?></td>
-                                <td nowrap><?php echo $newHasta; ?></td>
-                                <td nowrap><?php echo $currency.number_format($cliente[$i]['prima'],2); ?></td>
-                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true"></i></a></td>
+				                <td ><?= $cliente[$i]['cod_poliza']; ?></td>
+				                <td ><?= utf8_encode($cliente[$i]['nramo']); ?></td>
+                                <td ><?= ($cliente[$i]['nomcia']); ?></td>
+                                <td ><?= utf8_encode($cliente[$i]['idnom']); ?></td>
+                                <td nowrap><?= $newDesde; ?></td>
+                                <td nowrap><?= $newHasta; ?></td>
+                                <td nowrap><?= $currency.number_format($cliente[$i]['prima'],2); ?></td>
+                                <td><a href="v_poliza.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true"></i></a></td>
 							</tr>
 							<?php
                             }
@@ -165,14 +165,14 @@ if(isset($_SESSION['seudonimo'])) {
                             $newHasta = date("d-m-Y", strtotime($cliente[$i]["f_hastapoliza"]));
                             ?>
                             <tr>
-                                <td ><?php echo $cliente[$i]['cod_poliza']; ?></td>
-                                <td ><?php echo utf8_encode($cliente[$i]['nramo']); ?></td>
-                                <td ><?php echo ($cliente[$i]['nomcia']); ?></td>
-                                <td ><?php echo utf8_encode($cliente[$i]['idnom']); ?></td>
-                                <td nowrap><?php echo $newDesde; ?></td>
-                                <td nowrap><?php echo $newHasta; ?></td>
-                                <td nowrap><?php echo $currency.number_format($cliente[$i]['prima'],2); ?></td>
-                                <td><a href="v_poliza.php?id_poliza=<?php echo $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true" ></i></a></td>
+                                <td ><?= $cliente[$i]['cod_poliza']; ?></td>
+                                <td ><?= utf8_encode($cliente[$i]['nramo']); ?></td>
+                                <td ><?= ($cliente[$i]['nomcia']); ?></td>
+                                <td ><?= utf8_encode($cliente[$i]['idnom']); ?></td>
+                                <td nowrap><?= $newDesde; ?></td>
+                                <td nowrap><?= $newHasta; ?></td>
+                                <td nowrap><?= $currency.number_format($cliente[$i]['prima'],2); ?></td>
+                                <td><a href="v_poliza.php?id_poliza=<?= $cliente[$i]['id_poliza']; ?>" data-tooltip="tooltip" data-placement="top" title="Ver" class="btn btn-info btn-sm" target="_blank"><i class="fa fa-info" aria-hidden="true" ></i></a></td>
                             </tr>
                             <?php
                                 }
@@ -210,10 +210,10 @@ if(isset($_SESSION['seudonimo'])) {
 
                             ?>
                             <tr >
-                                <td><?php echo $datos_c[0]['ci']; ?></td>
-                                <td><?php echo utf8_encode($datos_c[0]['nombre_t']); ?></td>
-                                <td><?php echo utf8_encode($datos_c[0]['apellido_t']); ?></td>
-                                <td><?php echo $newFnac; ?></td>
+                                <td><?= $datos_c[0]['ci']; ?></td>
+                                <td><?= utf8_encode($datos_c[0]['nombre_t']); ?></td>
+                                <td><?= utf8_encode($datos_c[0]['apellido_t']); ?></td>
+                                <td><?= $newFnac; ?></td>
                             </tr>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <th>Celular</th>
@@ -221,15 +221,15 @@ if(isset($_SESSION['seudonimo'])) {
                                 <th colspan="2">email</th>
                             </tr>
                             <tr >
-                                <td><?php echo $datos_c[0]['cell']; ?></td>
-                                <td><?php echo $datos_c[0]['telf']; ?></td>
-                                <td colspan="2"><a href=mailto:<?php echo $datos_c[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?php echo $datos_c[0]['email']; ?></a></td>
+                                <td><?= $datos_c[0]['cell']; ?></td>
+                                <td><?= $datos_c[0]['telf']; ?></td>
+                                <td colspan="2"><a href=mailto:<?= $datos_c[0]['email']; ?> data-toggle="tooltip" data-placement="bottom" title="Enviar Correo"><?= $datos_c[0]['email']; ?></a></td>
                             </tr>
                             <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                                 <th colspan="4">Dirección</th>
                             </tr>
                             <tr >
-                                <td colspan="4"><?php echo utf8_encode($datos_c[0]['direcc']); ?></td>
+                                <td colspan="4"><?= utf8_encode($datos_c[0]['direcc']); ?></td>
                             </tr>
                     </tbody>
                 </table>

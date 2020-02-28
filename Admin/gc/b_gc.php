@@ -103,7 +103,7 @@ if(isset($_SESSION['seudonimo'])) {
                             for($i=$dateMax; $i >= $dateMin; $i--)
                             { 
                         ?>
-                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                            <option value="<?= $i;?>"><?= $i;?></option>
                         <?php    
                             } 
                         ?> 
@@ -139,7 +139,7 @@ if(isset($_SESSION['seudonimo'])) {
                             for($i=0;$i<sizeof($cia);$i++)
                               {  
                           ?>
-                              <option value="<?php echo $cia[$i]["nomcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
+                              <option value="<?= $cia[$i]["nomcia"];?>"><?= ($cia[$i]["nomcia"]);?></option>
                           <?php
                             } 
                           ?> 
@@ -157,13 +157,13 @@ if(isset($_SESSION['seudonimo'])) {
                             for($i=0;$i<sizeof($asesor);$i++)
                                 {  
                             ?>
-                                <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                <option value="<?= $asesor[$i]["cod"];?>"><?= utf8_encode($asesor[$i]["idnom"]);?></option>
                             <?php }for($i=0;$i<sizeof($liderp);$i++)
                                 { ?> 
-                                <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                <option value="<?= $liderp[$i]["cod"];?>"><?= utf8_encode($liderp[$i]["nombre"]);?></option>
                             <?php } for($i=0;$i<sizeof($referidor);$i++)
                                 {?>
-                                <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                <option value="<?= $referidor[$i]["cod"];?>"><?= utf8_encode($referidor[$i]["nombre"]);?></option>
                             <?php } ?>
                         </select>
                       </div>

@@ -171,31 +171,31 @@ if(isset($_SESSION['seudonimo'])) {
                       
                       ?>
                         <tr>
-                          <td><?php echo ($cia[$i]['nomcia']); ?></td>
-                          <td align="right"><?php echo "$ ".number_format($prima_suscrita,2); ?></td>
-                          <td align="right"><?php echo "$ ".number_format($prima_cobrada,2); ?></td>
-                          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
-                          <td align="right"><?php echo "$ ".number_format($comision_cobrada,2); ?></td>
-                          <td align="center"><?php echo number_format(($comision_cobrada*100)/$prima_cobrada,2)."%"; ?></td>
-                          <td align="right"><?php echo "$ ".number_format($gc_pagada,2); ?></td>
-                          <td align="center"><?php echo $prom_gc;?></td>
-                          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
-                          <td align="center"><?php echo $totalCantP; ?></td>
+                          <td><?= ($cia[$i]['nomcia']); ?></td>
+                          <td align="right"><?= "$ ".number_format($prima_suscrita,2); ?></td>
+                          <td align="right"><?= "$ ".number_format($prima_cobrada,2); ?></td>
+                          <td align="right" style="background-color: #ED7D31;color:white"><?= "$ ".number_format($prima_suscrita-$prima_cobrada,2); ?></td>
+                          <td align="right"><?= "$ ".number_format($comision_cobrada,2); ?></td>
+                          <td align="center"><?= number_format(($comision_cobrada*100)/$prima_cobrada,2)."%"; ?></td>
+                          <td align="right"><?= "$ ".number_format($gc_pagada,2); ?></td>
+                          <td align="center"><?= $prom_gc;?></td>
+                          <td align="right" style="background-color: #ED7D31;color:white"><?= "$ ".number_format($comision_cobrada-$gc_pagada,2); ?></td>
+                          <td align="center"><?= $totalCantP; ?></td>
                       </tr>
                       <?php
                     }  
                     ?>
                     <tr style="background-color: #E54848;color:white">
                         <td >Total General</td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaCobrada,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalPrimaSuscrita-$totalPrimaCobrada,2); ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada,2); ?></td>
-                        <td align="center"><?php echo number_format((($totalComisionCobrada*100)/$totalPrimaCobrada),2)."%"; ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalGCPagada,2); ?></td>
-                        <td align="center"><?php echo number_format($totalPerGCA/$totalCant,2)."%"; ?></td>
-                        <td align="right"><?php echo "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
-                        <td align="right"><?php echo number_format($totalCantPT,0); ?></td>
+                        <td align="right"><?= "$ ".number_format($totalPrimaSuscrita,2); ?></td>
+                        <td align="right"><?= "$ ".number_format($totalPrimaCobrada,2); ?></td>
+                        <td align="right"><?= "$ ".number_format($totalPrimaSuscrita-$totalPrimaCobrada,2); ?></td>
+                        <td align="right"><?= "$ ".number_format($totalComisionCobrada,2); ?></td>
+                        <td align="center"><?= number_format((($totalComisionCobrada*100)/$totalPrimaCobrada),2)."%"; ?></td>
+                        <td align="right"><?= "$ ".number_format($totalGCPagada,2); ?></td>
+                        <td align="center"><?= number_format($totalPerGCA/$totalCant,2)."%"; ?></td>
+                        <td align="right"><?= "$ ".number_format($totalComisionCobrada-$totalGCPagada,2); ?></td>
+                        <td align="right"><?= number_format($totalCantPT,0); ?></td>
                     </tr>
                   </tbody>
 

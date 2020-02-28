@@ -164,7 +164,7 @@ if ( (!$con_id) || (!$lr) ) {
                     
                 ?>
       
-                    <a href="download.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                    <a href="download.php?id_poliza=<?= $poliza[0]['id_poliza'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
                     <br>
                 <?php
                     }
@@ -174,7 +174,7 @@ if ( (!$con_id) || (!$lr) ) {
                         <label for="archivo">Seleccione la Póliza pdf a cargar</label>
                         <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf" required>
                         <button class="btn btn-success btn-round">Subir Archivo</button>
-                        <input type="text" class="form-control" name="id_poliza" value="<?php echo $poliza[0]['id_poliza'];?>" hidden>
+                        <input type="text" class="form-control" name="id_poliza" value="<?= $poliza[0]['id_poliza'];?>" hidden>
                         </center>
                     </form>
                 <?php
@@ -200,7 +200,7 @@ if ( (!$con_id) || (!$lr) ) {
                 <?php 
                     if ($poliza[0]['nombre_t']=='PENDIENTE') {
                 ?>  
-                        <center><a  href="cargar_pp.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Cargar Póliza Pendiente" class="btn btn-success btn-lg">Cargar Póliza Pendiente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
+                        <center><a  href="cargar_pp.php?id_poliza=<?= $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Cargar Póliza Pendiente" class="btn btn-success btn-lg">Cargar Póliza Pendiente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></center>
                 <?php } ?>
                 
 
@@ -218,13 +218,13 @@ if ( (!$con_id) || (!$lr) ) {
                     
                     echo utf8_encode($nombre); ?></h1>
 
-                    <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>  
+                    <h2 class="title">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>  
                     <?php 
                         if (isset($poliza[0]['idnom'])==null) {
                             $asesorr=$poliza[0]['cod']." -> ".$poliza[0]['nombre'];
                         }else{$asesorr=$poliza[0]['cod']." -> ".$poliza[0]['idnom'];}
                     ?>
-                    <h3 class="title">Asesor: <?php echo utf8_encode($asesorr); ?></h3> 
+                    <h3 class="title">Asesor: <?= utf8_encode($asesorr); ?></h3> 
                 </div>
                 
 
@@ -254,20 +254,20 @@ if ( (!$con_id) || (!$lr) ) {
 
                             ?>
                             <tr >
-                                <td><?php echo $poliza[0]['cod_poliza']; ?></td>
+                                <td><?= $poliza[0]['cod_poliza']; ?></td>
                                 <?php   if ($poliza[0]['f_hastapoliza'] >= date("Y-m-d")) {
                                 ?>
-                                <td class="btn-success"><?php echo "Activa"; ?></td>
+                                <td class="btn-success"><?= "Activa"; ?></td>
                                 <?php            
                                         } else{
                                 ?>
-                                <td class="btn-danger"><?php echo "Inactiva"; ?></td>
+                                <td class="btn-danger"><?= "Inactiva"; ?></td>
                                 <?php
                                         }
                                 ?>
-                                <td><?php echo $newDesdeP; ?></td>
-                                <td><?php echo $newHastaP; ?></td>
-                                <td><?php echo utf8_encode($poliza[0]['tipo_poliza']); ?></td>
+                                <td><?= $newDesdeP; ?></td>
+                                <td><?= $newHastaP; ?></td>
+                                <td><?= utf8_encode($poliza[0]['tipo_poliza']); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -288,11 +288,11 @@ if ( (!$con_id) || (!$lr) ) {
 
                     <tbody >
                             <tr >
-                                <td><?php echo utf8_encode($poliza[0]['nramo']); ?></td>
-                                <td><?php echo ($poliza[0]['nomcia']); ?></td>
-                                <td><?php echo $currency.number_format($poliza[0]['sumaasegurada'],2); ?></td>
-                                <td><?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
-                                <td><?php echo $poliza[0]['fpago']; ?></td>
+                                <td><?= utf8_encode($poliza[0]['nramo']); ?></td>
+                                <td><?= ($poliza[0]['nomcia']); ?></td>
+                                <td><?= $currency.number_format($poliza[0]['sumaasegurada'],2); ?></td>
+                                <td><?= $currency.number_format($poliza[0]['prima'],2); ?></td>
+                                <td><?= $poliza[0]['fpago']; ?></td>
                                 <td><?php 
                                 if ($poliza[0]['t_cuenta']==1) {
                                     echo "Individual";
@@ -345,11 +345,11 @@ if ( (!$con_id) || (!$lr) ) {
                     <tbody >
                             <tr >
                                 <td>TARJETA DE CREDITO / DEBITO</td>
-                                <td><?php echo $poliza[0]['n_tarjeta']; ?></td>
-                                <td><?php echo $poliza[0]['cvv']; ?></td>
-                                <td><?php echo $newfechaV; ?></td>
-                                <td><?php echo $poliza[0]['nombre_titular']; ?></td>
-                                <td><?php echo $poliza[0]['banco']; ?></td>
+                                <td><?= $poliza[0]['n_tarjeta']; ?></td>
+                                <td><?= $poliza[0]['cvv']; ?></td>
+                                <td><?= $newfechaV; ?></td>
+                                <td><?= $poliza[0]['nombre_titular']; ?></td>
+                                <td><?= $poliza[0]['banco']; ?></td>
                             </tr>
                     </tbody>
                     <?php
@@ -387,12 +387,12 @@ if ( (!$con_id) || (!$lr) ) {
                             }
                             ?>
                             <tr >
-                                <td><?php echo $poliza[0]['cod_recibo']; ?></td>
-                                <td><?php echo $newDesdeR; ?></td>
-                                <td><?php echo $newHastaR; ?></td>
-                                <td><?php echo $z_produc; ?></td>
-                                <td><?php echo $poliza[0]['ncuotas']; ?></td>
-                                <td><?php echo $currency.number_format($poliza[0]['montocuotas'],2); ?></td>
+                                <td><?= $poliza[0]['cod_recibo']; ?></td>
+                                <td><?= $newDesdeR; ?></td>
+                                <td><?= $newHastaR; ?></td>
+                                <td><?= $z_produc; ?></td>
+                                <td><?= $poliza[0]['ncuotas']; ?></td>
+                                <td><?= $currency.number_format($poliza[0]['montocuotas'],2); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -407,7 +407,7 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                         <tr >
-                            <td><?php echo $poliza[0]['obs_p']; ?></td>
+                            <td><?= $poliza[0]['obs_p']; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -457,12 +457,12 @@ if ( (!$con_id) || (!$lr) ) {
 
                             ?>
                             <tr >
-                                <td><?php echo $poliza[0]['ci']; ?></td>
-                                <td><?php echo utf8_encode($poliza[0]['nombre_t']); ?></td>
-                                <td><?php echo utf8_encode($poliza[0]['apellido_t']); ?></td>
-                                <!-- <td><?php echo $sexo; ?></td>
-                                <td><?php echo $ecivil; ?></td> -->
-                                <td><?php echo $newFnac; ?></td>
+                                <td><?= $poliza[0]['ci']; ?></td>
+                                <td><?= utf8_encode($poliza[0]['nombre_t']); ?></td>
+                                <td><?= utf8_encode($poliza[0]['apellido_t']); ?></td>
+                                <!-- <td><?= $sexo; ?></td>
+                                <td><?= $ecivil; ?></td> -->
+                                <td><?= $newFnac; ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -481,11 +481,11 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $poliza[0]['cell']; ?></td>
-                                <td><?php echo $poliza[0]['telf']; ?></td>
-                                <!-- <td><?php echo $poliza[0]['telf1']; ?></td> -->
-                                <td><?php echo $poliza[0]['email']; ?></td>
-                                <!-- <td><?php echo $poliza[0]['email1']; ?></td> -->
+                                <td><?= $poliza[0]['cell']; ?></td>
+                                <td><?= $poliza[0]['telf']; ?></td>
+                                <!-- <td><?= $poliza[0]['telf1']; ?></td> -->
+                                <td><?= $poliza[0]['email']; ?></td>
+                                <!-- <td><?= $poliza[0]['email1']; ?></td> -->
                             </tr>
                     </tbody>
                 </table>
@@ -500,7 +500,7 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo utf8_encode($poliza[0]['direcc']); ?></td>
+                                <td><?= utf8_encode($poliza[0]['direcc']); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -513,7 +513,7 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $poliza[0]['direcc1']; ?></td>
+                                <td><?= $poliza[0]['direcc1']; ?></td>
                             </tr>
                     </tbody>
                 </table> -->
@@ -537,9 +537,9 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $tomador[0]['ci']; ?></td>
-                                <td><?php echo utf8_encode($tomador[0]['nombre_t']); ?></td>
-                                <td><?php echo utf8_encode($tomador[0]['apellido_t']); ?></td>
+                                <td><?= $tomador[0]['ci']; ?></td>
+                                <td><?= utf8_encode($tomador[0]['nombre_t']); ?></td>
+                                <td><?= utf8_encode($tomador[0]['apellido_t']); ?></td>
                             </tr>
                     </tbody>
                 </table>
@@ -571,11 +571,11 @@ if ( (!$con_id) || (!$lr) ) {
                         <tbody >
                             <div class="form-group col-md-12">
                             <tr>
-                                <td><?php echo $vehiculo[0]['placa']; ?></td>
-                                <td><?php echo $vehiculo[0]['marca']; ?></td>
-                                <td><?php echo $vehiculo[0]['mveh']; ?></td>
-                                <td><?php echo $vehiculo[0]['tveh']; ?></td>
-                                <td><?php echo $vehiculo[0]['f_veh']; ?></td>
+                                <td><?= $vehiculo[0]['placa']; ?></td>
+                                <td><?= $vehiculo[0]['marca']; ?></td>
+                                <td><?= $vehiculo[0]['mveh']; ?></td>
+                                <td><?= $vehiculo[0]['tveh']; ?></td>
+                                <td><?= $vehiculo[0]['f_veh']; ?></td>
                             </tr>
                             </div>
                         </tbody>
@@ -610,8 +610,8 @@ if ( (!$con_id) || (!$lr) ) {
                     </thead>
                     <tbody >
                             <tr >
-                                <td><?php echo $poliza[0]['cod']; ?></td>
-                                <td><?php echo $poliza[0]['id']; ?></td>
+                                <td><?= $poliza[0]['cod']; ?></td>
+                                <td><?= $poliza[0]['id']; ?></td>
                                 <td><?php 
                                     if (isset($poliza[0]['idnom'])==null) {
                                         echo utf8_encode($poliza[0]['nombre']);
@@ -637,9 +637,9 @@ if ( (!$con_id) || (!$lr) ) {
                                 <th>% GC Preferencial</th>
                             </tr>
                             <tr >
-                                <td><?php echo 'Sí' ?></td>
-                                <td colspan="2"><?php echo $poliza[0]['nopre1']." %"; ?></td>
-                                <td><?php echo $cia_pref[0]['per_gc_sum']." %"; ?></td>
+                                <td><?= 'Sí' ?></td>
+                                <td colspan="2"><?= $poliza[0]['nopre1']." %"; ?></td>
+                                <td><?= $cia_pref[0]['per_gc_sum']." %"; ?></td>
                             </tr>
                             <?php } ?>
                     </tbody>
@@ -657,7 +657,7 @@ if ( (!$con_id) || (!$lr) ) {
                     if ($poliza[0]['nombre_t']=='PENDIENTE') {
                     }else {
                 ?>  
-                    <a  href="e_poliza.php?id_poliza=<?php echo $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Póliza  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a  href="e_poliza.php?id_poliza=<?= $poliza[0]['id_poliza'];?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Póliza  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 <?php
                 } ?>
 
@@ -667,7 +667,7 @@ if ( (!$con_id) || (!$lr) ) {
                 <?php 
                     if ($permiso==1) {
                 ?>
-                <button  onclick="eliminarDatos('<?php echo $poliza[0]['id_poliza']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Póliza  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button  onclick="eliminarDatos('<?= $poliza[0]['id_poliza']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-lg">Eliminar Póliza  &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></button>
                 <?php   
                     }
                 ?>
@@ -751,10 +751,10 @@ if ( (!$con_id) || (!$lr) ) {
                 </div>
                 <div class="modal-body">
                     
-                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?php echo utf8_encode($poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cliente: <?= utf8_encode($poliza[0]['nombre_t']." ".$poliza[0]['apellido_t']); ?></h5>
 
                     <hr>
-                    <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h5>
 
                     <hr>
                     <h5 class="modal-title" id="exampleModalLabel">Asesor: 
@@ -765,12 +765,12 @@ if ( (!$con_id) || (!$lr) ) {
                     ?></h5>
                     <hr>
                     
-                    <h5 class="modal-title" id="exampleModalLabel">Cía: <?php echo $poliza[0]['nomcia']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cía: <?= $poliza[0]['nomcia']; ?></h5>
 
-                    <h5 class="modal-title" id="exampleModalLabel">Ramo: <?php echo utf8_encode($poliza[0]['nramo']); ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ramo: <?= utf8_encode($poliza[0]['nramo']); ?></h5>
                     <hr>
 
-                    <h5 class="modal-title" id="exampleModalLabel">Observaciones: <?php echo $poliza[0]['obs']; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Observaciones: <?= $poliza[0]['obs']; ?></h5>
                     <hr>
 
                     <form id="frmnuevoP">
@@ -809,30 +809,30 @@ if ( (!$con_id) || (!$lr) ) {
                                 
                             ?>
                                 <tr >
-                                    <td><?php echo $ejecutivo[0]['nombre'];?></td>
-                                    <td align="right"><?php echo $polizap[$i]['prima_com'];?></td>
-                                    <td><?php echo $newFPago;?></td>
-                                    <td align="right"><?php echo $polizap[$i]['comision'];?></td>
-                                    <td nowrap><?php echo $newFHastaR;?></td>
-                                    <td align="right"><?php echo ($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100;?></td>
-                                    <td nowrap><?php echo $newFPagoGC;?></td>
+                                    <td><?= $ejecutivo[0]['nombre'];?></td>
+                                    <td align="right"><?= $polizap[$i]['prima_com'];?></td>
+                                    <td><?= $newFPago;?></td>
+                                    <td align="right"><?= $polizap[$i]['comision'];?></td>
+                                    <td nowrap><?= $newFHastaR;?></td>
+                                    <td align="right"><?= ($polizap[$i]['comision']*$polizap[$i]['per_gc'])/100;?></td>
+                                    <td nowrap><?= $newFPagoGC;?></td>
                                 </tr>
                             <?php
                                 }
                             ?> 
                                 <tr>
                                     <td style="background-color: #F53333;color: white;font-weight: bold"></td>
-                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Cobrada: <?php echo $currency.number_format($totalprimaC,2); ?></td>
-                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?php echo $currency.number_format($poliza[0]['prima'],2); ?></td>
-                                    <td style="background-color: #F53333;color: white;font-weight: bold">Comisión Cobrada: <?php echo $currency.number_format($totalcomisionC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Cobrada: <?= $currency.number_format($totalprimaC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">Prima Suscrita: <?= $currency.number_format($poliza[0]['prima'],2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">Comisión Cobrada: <?= $currency.number_format($totalcomisionC,2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold"></td>
-                                    <td style="background-color: #F53333;color: white;font-weight: bold">GC Pagada: <?php echo $currency.number_format($totalGC,2); ?></td>
+                                    <td style="background-color: #F53333;color: white;font-weight: bold">GC Pagada: <?= $currency.number_format($totalGC,2); ?></td>
                                     <td style="background-color: #F53333;color: white;font-weight: bold"></td>
                                 </tr>
                         </table>
                     </div>   
                     </form>
-                    <h2>Prima Pendiente: <?php echo $currency.number_format($poliza[0]['prima']-$totalprimaC,2); ?></h2>
+                    <h2>Prima Pendiente: <?= $currency.number_format($poliza[0]['prima']-$totalprimaC,2); ?></h2>
                 </div>
             </div>
         </div>
@@ -845,7 +845,7 @@ if ( (!$con_id) || (!$lr) ) {
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Seguimiento de la Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h3>
+                    <h3 class="modal-title" id="exampleModalLabel">Seguimiento de la Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -872,8 +872,8 @@ if ( (!$con_id) || (!$lr) ) {
                                         $newCreated = date("d/m/Y", strtotime($originalDesdeP));
                                         $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
                                     ?>
-                                    <td><?php echo $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
-                                    <td><?php echo $newCreated." ".$newCreatedH; ?></td>
+                                    <td><?= $usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']; ?></td>
+                                    <td><?= $newCreated." ".$newCreatedH; ?></td>
                                 </tr>
                         </tbody>
                     </table>
@@ -909,9 +909,9 @@ if ( (!$con_id) || (!$lr) ) {
                                 $newCreatedH = date("h:i:s a", strtotime($originalDesdeP));
                         ?>
                                 <tr>
-                                    <td><?php echo $poliza_ed[$i]['usuario']; ?></td>
-                                    <td><?php echo $newCreated." ".$newCreatedH; ?></td>
-                                    <td><?php echo $poliza_ed[$i]['campos_ed']; ?></td>
+                                    <td><?= $poliza_ed[$i]['usuario']; ?></td>
+                                    <td><?= $newCreated." ".$newCreatedH; ?></td>
+                                    <td><?= $poliza_ed[$i]['campos_ed']; ?></td>
                                 </tr>
                         <?php 
                             }
@@ -962,7 +962,7 @@ if ( (!$con_id) || (!$lr) ) {
 
     <script type="text/javascript">
         $(document).ready(function(){
-            if (<?php echo isset($_GET['pagos']); ?> == 1) {
+            if (<?= isset($_GET['pagos']); ?> == 1) {
                 $('#pagos').modal('show'); 
             }
 

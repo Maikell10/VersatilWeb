@@ -217,10 +217,10 @@ if ($permiso == 3) {
 
               ?>
               <tr>
-                <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-                <td align="right"><?php echo "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
-                <td><?php echo number_format(($sumatotalRamo[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
-                <td><?php echo $cantArray[$x[$i]]; ?></td>
+                <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
+                <td align="right"><?= "$" . number_format($sumatotalRamo[$x[$i]], 2); ?></td>
+                <td><?= number_format(($sumatotalRamo[$x[$i]] * 100) / $totals, 2) . " %"; ?></td>
+                <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
             <?php
             }
@@ -229,9 +229,9 @@ if ($permiso == 3) {
           <thead class="thead-dark">
             <tr>
               <th scope="col">TOTAL</th>
-              <th align="right"><?php echo "$" . number_format($totals, 2); ?></th>
+              <th align="right"><?= "$" . number_format($totals, 2); ?></th>
               <th scope="col">100%</th>
-              <th scope="col"><?php echo $totalCant; ?></th>
+              <th scope="col"><?= $totalCant; ?></th>
             </tr>
           </thead>
         </table>
@@ -297,7 +297,7 @@ if ($permiso == 3) {
     let massPopChart = new Chart(myChart, {
       type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data: {
-        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?php echo utf8_encode($ramoArray[$x[$i]]); ?>',
+        labels: [<?php for ($i = sizeof($ramo); $i > 0; $i--) { ?> '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
 
           <?php } ?>
         ],
@@ -306,7 +306,7 @@ if ($permiso == 3) {
 
           data: [<?php for ($i = sizeof($ramo); $i > 0; $i--) {
                     $sumasegurada = ($sumatotalRamo[$x[$i]] * 100) / $totals;
-                    ?> '<?php echo number_format($sumasegurada, 2); ?>',
+                    ?> '<?= number_format($sumasegurada, 2); ?>',
             <?php } ?>
           ],
           //backgroundColor:'green',

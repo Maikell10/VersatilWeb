@@ -116,10 +116,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr >
-                                    <td><input type="text" class="form-control" name="nombre" readonly value="<?php echo utf8_encode($nombre); ?>"></td>
-                                    <td><input type="text" class="form-control" name="apellido" readonly value="<?php echo utf8_encode($apellido); ?>"></td>
-                                    <td><input type="text" class="form-control" name="ci" readonly value="<?php echo $ci; ?>" ></td>
-                                    <td><input type="text" class="form-control" name="zprod" readonly value="<?php echo $zprod;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre" readonly value="<?= utf8_encode($nombre); ?>"></td>
+                                    <td><input type="text" class="form-control" name="apellido" readonly value="<?= utf8_encode($apellido); ?>"></td>
+                                    <td><input type="text" class="form-control" name="ci" readonly value="<?= $ci; ?>" ></td>
+                                    <td><input type="text" class="form-control" name="zprod" readonly value="<?= $zprod;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -146,10 +146,10 @@ if(isset($_SESSION['seudonimo'])) {
                                     }
                                 ?>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="seudonimo" readonly="readonly" value="<?php echo $seudonimo;?>"></td>
-                                    <td><input type="text" class="form-control" name="clave" readonly="readonly" value="<?php echo $clave;?>"></td>
-                                    <td><input type="text" class="form-control" name="permiso" readonly="readonly" value="<?php echo $permiso;?>"></td>
-                                    <td><input type="text" class="form-control" name="activo" readonly="readonly" value="<?php echo $estado;?>"></td>
+                                    <td><input type="text" class="form-control" name="seudonimo" readonly="readonly" value="<?= $seudonimo;?>"></td>
+                                    <td><input type="text" class="form-control" name="clave" readonly="readonly" value="<?= $clave;?>"></td>
+                                    <td><input type="text" class="form-control" name="permiso" readonly="readonly" value="<?= $permiso;?>"></td>
+                                    <td><input type="text" class="form-control" name="activo" readonly="readonly" value="<?= $estado;?>"></td>
                                 </tr>
 
                                 <?php if ($id_permiso == '3') {   
@@ -158,7 +158,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="4">Asesor Asociado</th>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><input type="text" class="form-control" name="nombre_a" readonly="readonly" value="<?php echo utf8_encode($nombre_a);?>"></td>
+                                    <td colspan="4"><input type="text" class="form-control" name="nombre_a" readonly="readonly" value="<?= utf8_encode($nombre_a);?>"></td>
                                 </tr>
                                 <?php 
                                 }
@@ -176,7 +176,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?php echo $id_usuario;?>&nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&zprod=<?php echo $zprod;?>&seudonimo=<?php echo $seudonimo;?>&clave=<?php echo $clave;?>&id_permiso=<?php echo $id_permiso;?>&asesor=<?php echo $asesor;?>&activo=<?php echo $activo;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_usuario_nn.php?id_usuario=<?= $id_usuario;?>&nombre=<?= $nombre;?>&apellido=<?= $apellido;?>&ci=<?= $ci;?>&zprod=<?= $zprod;?>&seudonimo=<?= $seudonimo;?>&clave=<?= $clave;?>&id_permiso=<?= $id_permiso;?>&asesor=<?= $asesor;?>&activo=<?= $activo;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

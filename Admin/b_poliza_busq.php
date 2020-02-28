@@ -146,28 +146,28 @@ if(isset($_SESSION['seudonimo'])) {
                             if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php            
                             } else{
                             ?>
                             <tr style="cursor: pointer;">
-                                <td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                                <td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-                                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                                <td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+                                <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                             <?php   
                             }
 
                             ?>
                             
                                 
-                                <td><?php echo $Ejecutivo[$i]; ?></td>
-                                <td><?php echo utf8_encode($poliza[$i]['nomcia']); ?></td>
-                                <td><?php echo $newDesde; ?></td>
-                                <td><?php echo $newHasta; ?></td>
-                                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-                                <td nowrap><?php echo utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
+                                <td><?= $Ejecutivo[$i]; ?></td>
+                                <td><?= utf8_encode($poliza[$i]['nomcia']); ?></td>
+                                <td><?= $newDesde; ?></td>
+                                <td><?= $newHasta; ?></td>
+                                <td><?= $currency.number_format($poliza[$i]['prima'],2); ?></td>
+                                <td nowrap><?= utf8_encode($poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']); ?></td>
                             </tr>
                             <?php
                             }
@@ -185,7 +185,7 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Cía</th>
                             <th>F Desde Seguro</th>
                             <th>F Hasta Seguro</th>
-                            <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                            <th>Prima Suscrita $<?= number_format($totalprima,2); ?></th>
                             <th>Nombre Titular</th>
                         </tr>
                     </tfoot>

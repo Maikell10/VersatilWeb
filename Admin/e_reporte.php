@@ -78,7 +78,7 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Compañía: <?php echo $cia[0]['nomcia']; ?></h1>
+                    <h1 class="title">Compañía: <?= $cia[0]['nomcia']; ?></h1>
                 </div>
 
 
@@ -99,14 +99,14 @@ if(isset($_SESSION['seudonimo'])) {
 					<tbody >
                         <tr style="background-color: white">
                             <td><div class="input-group date">
-                                <input type="text" class="form-control" id="f_rep" name="f_rep"  value="<?php echo $f_hasta_rep; ?>">
+                                <input type="text" class="form-control" id="f_rep" name="f_rep"  value="<?= $f_hasta_rep; ?>">
                             </div></td>
                             <td><div class="input-group date">
-                                <input type="text" class="form-control" id="f_pago" name="f_pago"  value="<?php echo $f_pago_gc; ?>">
+                                <input type="text" class="form-control" id="f_pago" name="f_pago"  value="<?= $f_pago_gc; ?>">
                             </div></td>
-                            <td><input type="text" class="form-control validanumericos" name="primat_com" value="<?php echo $rep_com[0]['primat_com']; ?>" ></td>
-                            <td><input type="text" class="form-control validanumericos1" name="comt" value="<?php echo $rep_com[0]['comt']; ?>" ></td>
-                            <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?php echo $id_rep_com; ?>" ></td>
+                            <td><input type="text" class="form-control validanumericos" name="primat_com" value="<?= $rep_com[0]['primat_com']; ?>" ></td>
+                            <td><input type="text" class="form-control validanumericos1" name="comt" value="<?= $rep_com[0]['comt']; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="id_rep_com" value="<?= $id_rep_com; ?>" ></td>
                         </tr>
                     </tbody>
                 </table>
@@ -150,14 +150,14 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
 
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="<?php echo 'n_poliza'.$i;?>" required  value="<?php echo $comision[$i]['num_poliza']; ?>"></td>
-                            <td><input type="text" class="form-control" name="<?php echo 'asegurado'.$i;?>" value="<?php echo utf8_encode($nombre); ?>"></td>
+                            <td><input type="text" class="form-control" name="<?= 'n_poliza'.$i;?>" required  value="<?= $comision[$i]['num_poliza']; ?>"></td>
+                            <td><input type="text" class="form-control" name="<?= 'asegurado'.$i;?>" value="<?= utf8_encode($nombre); ?>"></td>
                             <td><div class="input-group date">
-                                <input type="text" class="form-control" id="<?php echo 'f_pago_prima'.$i;?>" name="<?php echo 'f_pago_prima'.$i;?>"  value="<?php echo $f_pago_prima; ?>">
+                                <input type="text" class="form-control" id="<?= 'f_pago_prima'.$i;?>" name="<?= 'f_pago_prima'.$i;?>"  value="<?= $f_pago_prima; ?>">
                             </div></td>
-                            <td><input type="text" class="form-control" name="<?php echo 'prima_com'.$i;?>" value="<?php echo $comision[$i]['prima_com']; ?>" ></td>
-                            <td><input type="text" class="form-control" name="<?php echo 'comision'.$i;?>" value="<?php echo $comision[$i]['comision']; ?>" ></td>
-                            <td hidden><input type="text" class="form-control" name="cantidad" value="<?php echo sizeof($comision); ?>" ></td>
+                            <td><input type="text" class="form-control" name="<?= 'prima_com'.$i;?>" value="<?= $comision[$i]['prima_com']; ?>" ></td>
+                            <td><input type="text" class="form-control" name="<?= 'comision'.$i;?>" value="<?= $comision[$i]['comision']; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="cantidad" value="<?= sizeof($comision); ?>" ></td>
                         </tr>
 
                         <?php
@@ -272,7 +272,7 @@ if(isset($_SESSION['seudonimo'])) {
         });
 
 
-        var cant = <?php echo sizeof($comision);?>
+        var cant = <?= sizeof($comision);?>
 
         for (let index = 0; index < cant; index++) {
             

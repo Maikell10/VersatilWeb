@@ -68,8 +68,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cía: <?php echo ($cia[0]['nomcia']); ?></h1>
-                    <h2 class="title">RUC/Rif: <?php echo $cia[0]['rif']; ?></h2>  
+                    <h1 class="title">Cía: <?= ($cia[0]['nomcia']); ?></h1>
+                    <h2 class="title">RUC/Rif: <?= $cia[0]['rif']; ?></h2>  
                 </div>
 
 
@@ -81,15 +81,17 @@ if(isset($_SESSION['seudonimo'])) {
 						<tr>
                             <th>Nombre Compañía</th>
                             <th>RUC/Rif</th>
+                            <th>%Comisión</th>
                             <th hidden>id</th>
 						</tr>
 					</thead>
 
 					<tbody >
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?php echo ($cia[0]['nomcia']); ?>" onkeyup="mayus(this);"></td>
-                            <td><input type="text" class="form-control" name="rif" value="<?php echo $cia[0]['rif']; ?>"></td>
-                            <td hidden><input type="text" class="form-control" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
+                            <td><input type="text" class="form-control" name="nombre_cia" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?= ($cia[0]['nomcia']); ?>" onkeyup="mayus(this);"></td>
+                            <td><input type="text" class="form-control" name="rif" value="<?= $cia[0]['rif']; ?>"></td>
+                            <td><input type="text" class="form-control" name="per_com" value="<?= $cia[0]['per_com']; ?>"></td>
+                            <td hidden><input type="text" class="form-control" name="id_cia" value="<?= $cia[0]['idcia']; ?>"></td>
                         </tr>
 					</tbody>
 				</table>
@@ -116,11 +118,11 @@ if(isset($_SESSION['seudonimo'])) {
                            
                         ?>
                         <tr style="background-color: white">
-                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($i+1); ?>" value="<?php echo ($contacto_cia[$i]['nombre']); ?>" onkeyup="mayus(this);"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($i+1); ?>" value="<?php echo ($contacto_cia[$i]['cargo']); ?>" onkeyup="mayus(this);"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'tel'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['tel']; ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cel'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['cel']; ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'email'.($i+1); ?>" value="<?php echo $contacto_cia[$i]['email']; ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'nombre'.($i+1); ?>" value="<?= ($contacto_cia[$i]['nombre']); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'cargo'.($i+1); ?>" value="<?= ($contacto_cia[$i]['cargo']); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'tel'.($i+1); ?>" value="<?= $contacto_cia[$i]['tel']; ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'cel'.($i+1); ?>" value="<?= $contacto_cia[$i]['cel']; ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'email'.($i+1); ?>" value="<?= $contacto_cia[$i]['email']; ?>"></td>
                         </tr>
                         <?php
                             }
@@ -131,11 +133,11 @@ if(isset($_SESSION['seudonimo'])) {
                         ?>
 
                         <tr style="background-color: white">
-                            <td ><input type="text" class="form-control" name="<?php echo 'nombre'.($a+1); ?>" onkeyup="mayus(this);"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cargo'.($a+1); ?>" onkeyup="mayus(this);"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'tel'.($a+1); ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'cel'.($a+1); ?>"></td>
-                            <td ><input type="text" class="form-control" name="<?php echo 'email'.($a+1); ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'nombre'.($a+1); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'cargo'.($a+1); ?>" onkeyup="mayus(this);"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'tel'.($a+1); ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'cel'.($a+1); ?>"></td>
+                            <td ><input type="text" class="form-control" name="<?= 'email'.($a+1); ?>"></td>
                         </tr>
 
                         <?php

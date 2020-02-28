@@ -244,7 +244,7 @@ if(isset($_SESSION['seudonimo'])) {
 
         alertify.confirm('Desea Cargar la Póliza en PDF?', '¿Desea Cargar la Póliza en PDF?', 
 	  	function(){ 
-            window.location.replace("subir_pdf.php?id_poliza=<?php echo $u_p;?>");
+            window.location.replace("subir_pdf.php?id_poliza=<?= $u_p;?>");
 	  		alertify.success('Ok') 
 	  	}, 
 	  	function(){ 

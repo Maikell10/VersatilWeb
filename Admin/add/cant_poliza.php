@@ -58,7 +58,7 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Compañía: <?php echo ($cia[0]['nomcia']);?>
+                    <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Compañía: <?= ($cia[0]['nomcia']);?>
                     </h1>   
                 </div>
 
@@ -117,7 +117,7 @@ if(isset($_SESSION['seudonimo'])) {
                                     </td>
 
                                     <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="0"></td>
-                                    <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?= $idcia;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="exx" name="exx"></td>
                                 </tr>
                             </tbody>
@@ -232,7 +232,7 @@ if(isset($_SESSION['seudonimo'])) {
                 
                 type:"POST",
                 data:"f_hasta=" + (f_hasta.value.split('-').reverse().join('-')),        
-                url:"validarreporte.php?cia=<?php echo $cia[0]['idcia'];?>",
+                url:"validarreporte.php?cia=<?= $cia[0]['idcia'];?>",
                 success:function(r){
                     datos=jQuery.parseJSON(r);
 

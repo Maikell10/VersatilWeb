@@ -42,16 +42,16 @@ $vehiculo = $obj1->get_element('dveh','idveh');
 				}else {
 				?>
 				<tr >
-					<td hidden=""><?php echo $vehiculo[$i]['idveh']; ?></td>
-	                <td><?php echo $vehiculo[$i]['placa']; ?></td>
-	                <td><?php echo $vehiculo[$i]['marca']; ?></td>
-	                <td><?php echo $vehiculo[$i]['mveh']; ?></td>
-	                <td><?php echo $vehiculo[$i]['f_veh']; ?></td>
-	                <td><?php echo $vehiculo[$i]['serial']; ?></td>
-	                <td><?php echo $vehiculo[$i]['cod_recibo']; ?></td>
+					<td hidden=""><?= $vehiculo[$i]['idveh']; ?></td>
+	                <td><?= $vehiculo[$i]['placa']; ?></td>
+	                <td><?= $vehiculo[$i]['marca']; ?></td>
+	                <td><?= $vehiculo[$i]['mveh']; ?></td>
+	                <td><?= $vehiculo[$i]['f_veh']; ?></td>
+	                <td><?= $vehiculo[$i]['serial']; ?></td>
+	                <td><?= $vehiculo[$i]['cod_recibo']; ?></td>
 					<td style="text-align: center;">
-	                    <span data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEditar" onclick="agregaFrmActualizar('<?php echo $vehiculo[$i]['idtitular'] ?>')"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-	                    <span onclick="eliminarDatos('<?php echo $vehiculo[$i]['idtitular']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></span>
+	                    <span data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalEditar" onclick="agregaFrmActualizar('<?= $vehiculo[$i]['idtitular'] ?>')"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+	                    <span onclick="eliminarDatos('<?= $vehiculo[$i]['idtitular']; ?>')" data-tooltip="tooltip" data-placement="top" title="Eliminar" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></span>
 						</span>
 	                </td>
 				</tr>

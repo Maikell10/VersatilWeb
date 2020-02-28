@@ -76,7 +76,7 @@ if(isset($_SESSION['seudonimo'])) {
                     </h1>  
                 </div>
 
-                <a href="n_proyecto.php?cod_proyecto=<?php echo 1; ?>" class="btn btn-danger btn-lg btn-round" >Crear Proyecto</a>
+                <a href="n_proyecto.php?cod_proyecto=<?= 1; ?>" class="btn btn-danger btn-lg btn-round" >Crear Proyecto</a>
 
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;Seleccione Proyecto Existente
@@ -103,7 +103,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($lider_proyecto);$i++)
                                                   {  
                                               ?>
-                                                  <option value="<?php echo $lider_proyecto[$i]["cod_proyecto"];?>"><?php echo utf8_encode($lider_proyecto[$i]["cod_proyecto"])." -> ".$lider_proyecto[$i]["lider"];?></option>
+                                                  <option value="<?= $lider_proyecto[$i]["cod_proyecto"];?>"><?= utf8_encode($lider_proyecto[$i]["cod_proyecto"])." -> ".$lider_proyecto[$i]["lider"];?></option>
                                               <?php } ?> 
                                         </select>
                                     </td>

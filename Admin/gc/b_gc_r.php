@@ -108,7 +108,7 @@ $referidor = $obj32->get_element('enr', 'nombre');
 
                             for ($i = $dateMax; $i >= $dateMin; $i--) {
                                 ?>
-                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                <option value="<?= $i; ?>"><?= $i; ?></option>
                             <?php
                             }
                             ?>
@@ -143,7 +143,7 @@ $referidor = $obj32->get_element('enr', 'nombre');
                             <?php
                             for ($i = 0; $i < sizeof($cia); $i++) {
                                 ?>
-                                <option value="<?php echo $cia[$i]["nomcia"]; ?>"><?php echo ($cia[$i]["nomcia"]); ?></option>
+                                <option value="<?= $cia[$i]["nomcia"]; ?>"><?= ($cia[$i]["nomcia"]); ?></option>
                             <?php
                             }
                             ?>
@@ -158,7 +158,7 @@ $referidor = $obj32->get_element('enr', 'nombre');
                         <select class="form-control selectpicker" name="asesor[]" multiple data-style="btn-white" data-header="Seleccione el Referidor" data-actions-box="true" data-live-search="true">
 
                             <?php for ($i = 0; $i < sizeof($referidor); $i++) { ?>
-                                <option value="<?php echo $referidor[$i]["cod"]; ?>"><?php echo utf8_encode($referidor[$i]["nombre"]); ?></option>
+                                <option value="<?= $referidor[$i]["cod"]; ?>"><?= utf8_encode($referidor[$i]["nombre"]); ?></option>
                             <?php } ?>
                         </select>
                     </div>

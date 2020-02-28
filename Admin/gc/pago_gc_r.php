@@ -75,11 +75,11 @@ $ref = $obj1->get_gc_h_r();
                             for ($i=0; $i < sizeof($ref); $i++) {   
                         ?>
                             <tr>
-                                <td hidden><?php echo $ref[$i]['id_poliza'] ?></td>
-                                <td><?php echo $ref[$i]['cod_poliza'] ?></td>
-                                <td><?php echo $ref[$i]['nombre'] ?></td>
-                                <td><?php echo $ref[$i]['monto'] ?></td>
-                                <td><?php echo $ref[$i]['created_at'] ?></td>
+                                <td hidden><?= $ref[$i]['id_poliza'] ?></td>
+                                <td><?= $ref[$i]['cod_poliza'] ?></td>
+                                <td><?= $ref[$i]['nombre'] ?></td>
+                                <td><?= $ref[$i]['monto'] ?></td>
+                                <td><?= $ref[$i]['created_at'] ?></td>
                             </tr>
                         <?php 
                             }
@@ -159,7 +159,7 @@ $ref = $obj1->get_gc_h_r();
 
             alertify.confirm('!!', '¿Desea Generar la GC para la búsqueda actual?',
                 function() {
-                    window.location.replace("../../procesos/agregarGC.php?desde=<?php echo $desde; ?>&hasta=<?php echo $hasta; ?>&cia=<?php echo $ciaEnv; ?>&asesor=<?php echo $asesorEnv; ?>");
+                    window.location.replace("../../procesos/agregarGC.php?desde=<?= $desde; ?>&hasta=<?= $hasta; ?>&cia=<?= $ciaEnv; ?>&asesor=<?= $asesorEnv; ?>");
 
 
 

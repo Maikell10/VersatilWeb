@@ -60,7 +60,7 @@ $contN = sizeof($tarjeta);
                 if ($contN != 0) {
                     ?>
                     <div class="float-right">
-                        <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Tarjeta de Crédito/Débido vencida" class="badge badge-warning navbar-badge h3" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-bell" aria-hidden="true"></i> <?php echo $contN; ?></a>
+                        <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Tarjeta de Crédito/Débido vencida" class="badge badge-warning navbar-badge h3" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-bell" aria-hidden="true"></i> <?= $contN; ?></a>
                     </div>
                 <?php
                 }
@@ -276,13 +276,13 @@ $contN = sizeof($tarjeta);
                                     $fechaV = date("d/m/Y", strtotime($tarjeta[$i]['fechaV']));
                                     ?>
                                     <tr style="cursor:pointer">
-                                        <td hidden><?php echo $tarjeta[$i]['idrecibo']; ?></td>
-                                        <td><?php echo $tarjeta[$i]['n_tarjeta']; ?></td>
-                                        <td><?php echo $tarjeta[$i]['cvv']; ?></td>
-                                        <td><?php echo $fechaV; ?></td>
-                                        <td><?php echo $tarjeta[$i]['nombre_titular']; ?></td>
-                                        <td><?php echo $tarjeta[$i]['banco']; ?></td>
-                                        <td class="text-center"><a href="b_polizaT.php?id_tarjeta=<?php echo $tarjeta[$i]['id_tarjeta']; ?>" target="_blank" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>
+                                        <td hidden><?= $tarjeta[$i]['idrecibo']; ?></td>
+                                        <td><?= $tarjeta[$i]['n_tarjeta']; ?></td>
+                                        <td><?= $tarjeta[$i]['cvv']; ?></td>
+                                        <td><?= $fechaV; ?></td>
+                                        <td><?= $tarjeta[$i]['nombre_titular']; ?></td>
+                                        <td><?= $tarjeta[$i]['banco']; ?></td>
+                                        <td class="text-center"><a href="b_polizaT.php?id_tarjeta=<?= $tarjeta[$i]['id_tarjeta']; ?>" target="_blank" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>
                                     </tr>
                                 <?php
                                 }

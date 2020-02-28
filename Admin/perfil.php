@@ -43,10 +43,10 @@ if(isset($_SESSION['seudonimo'])) {
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
                             <div class="avatar">
-                                <img src="../assets/img/perfil/<?php echo $user[0]['seudonimo'].'.jpg';?>" class="rounded-circle">
+                                <img src="../assets/img/perfil/<?= $user[0]['seudonimo'].'.jpg';?>" class="rounded-circle">
                             </div>
                             <div class="name">
-                                <h3 class="title"><?php echo $user[0]['nombre_usuario']." ".$user[0]['apellido_usuario'];?></h3>
+                                <h3 class="title"><?= $user[0]['nombre_usuario']." ".$user[0]['apellido_usuario'];?></h3>
                                 <h6><?php 
                                     if ($user[0]['id_permiso']==1) {
                                         echo 'Administrador';
@@ -72,11 +72,11 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Z Producc</th>
                         </tr>
                         <tr>
-                            <td><?php echo $user[0]['nombre_usuario'];?></td>
-                            <td><?php echo $user[0]['apellido_usuario'];?></td>
-                            <td><?php echo $user[0]['cedula_usuario'];?></td>
-                            <td><?php echo $user[0]['seudonimo'];?></td>
-                            <td><?php echo $user[0]['z_produccion'];?></td>
+                            <td><?= $user[0]['nombre_usuario'];?></td>
+                            <td><?= $user[0]['apellido_usuario'];?></td>
+                            <td><?= $user[0]['cedula_usuario'];?></td>
+                            <td><?= $user[0]['seudonimo'];?></td>
+                            <td><?= $user[0]['z_produccion'];?></td>
                         </tr>
                     </table>
                 </div>
@@ -101,7 +101,7 @@ if(isset($_SESSION['seudonimo'])) {
         $uploadedfileload="true";
         $uploadedfile_size=$_FILES['uploadedfile'][size];
         ?>
-        <h4 class="text-center"><?php echo $_FILES[uploadedfile][name]; ?></h4>
+        <h4 class="text-center"><?= $_FILES[uploadedfile][name]; ?></h4>
         <?php
         
         if ($_FILES[uploadedfile][size]>20000000)
@@ -118,18 +118,18 @@ if(isset($_SESSION['seudonimo'])) {
 
         if(move_uploaded_file ($_FILES[uploadedfile][tmp_name], $add)){
         ?>
-        <h4 class="text-center"><?php echo " Ha sido subido satisfactoriamente"; ?></h4>
+        <h4 class="text-center"><?= " Ha sido subido satisfactoriamente"; ?></h4>
         <?php
         
         }else{
         ?>
-        <h4 class="text-center"><?php echo "Error al subir el archivo"; ?></h4>
+        <h4 class="text-center"><?= "Error al subir el archivo"; ?></h4>
         <?php
         }
 
         }else{
         ?>
-        <h4 class="text-center"><?php echo $msg; ?></h4>
+        <h4 class="text-center"><?= $msg; ?></h4>
         <?php
         
         }

@@ -117,14 +117,14 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
             <div class="container">
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round">
                     <- Regresar</a> <div class="col-md-auto col-md-offset-2">
-                        <h1 class="title">Cliente: <?php echo utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
-                        <h2 class="title">Póliza N°: <?php echo $poliza[0]['cod_poliza']; ?></h2>
+                        <h1 class="title">Cliente: <?= utf8_encode($poliza[0]['nombre_t'] . " " . $poliza[0]['apellido_t']); ?></h1>
+                        <h2 class="title">Póliza N°: <?= $poliza[0]['cod_poliza']; ?></h2>
                         <?php
                         
                             $asesorr = $poliza[0]['cod'] . " -> " . $poliza[0]['nombre'];
                         
                         ?>
-                        <h3 class="title">Asesor: <?php echo utf8_encode($asesorr); ?></h3>
+                        <h3 class="title">Asesor: <?= utf8_encode($asesorr); ?></h3>
             </div>
 
 
@@ -155,11 +155,11 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                 <?php
                                 if ($user[0]['id_permiso'] == 1) {
                                 ?>
-                                    <td style="background-color:white"><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>"></td>
+                                    <td style="background-color:white"><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>"></td>
                                 <?php
                                 } else {
                                 ?>
-                                    <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?php echo $poliza[0]['cod_poliza']; ?>" readonly></td>
+                                    <td><input type="text" class="form-control" id="n_poliza" name="n_poliza" value="<?= $poliza[0]['cod_poliza']; ?>" readonly></td>
                                 <?php
                                 }
                                 ?>
@@ -167,12 +167,12 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
 
                                 <td style="background-color:white">
                                     <div class="input-group date">
-                                        <input onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" value="<?php echo $newDesdeP; ?>">
+                                        <input onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desdeP" name="desdeP" required autocomplete="off" value="<?= $newDesdeP; ?>">
                                     </div>
                                 </td>
                                 <td style="background-color:white">
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" id="hastaP" name="hastaP" required autocomplete="off" value="<?php echo $newHastaP; ?>">
+                                        <input type="text" class="form-control" id="hastaP" name="hastaP" required autocomplete="off" value="<?= $newHastaP; ?>">
                                     </div>
                                 </td>
 
@@ -184,14 +184,14 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         <option value="5">Revalorización</option>
                                     </select>
                                 </td>
-                                <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?php echo $id_poliza; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="<?php echo $poliza[0]['id_tpoliza']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="id_poliza" name="id_poliza" value="<?= $id_poliza; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="id_tpoliza" name="id_tpoliza" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
 
                                 <!-- Hidden -->
-                                <td hidden><input type="text" class="form-control" id="n_poliza1" name="n_poliza1" value="<?php echo $poliza[0]['cod_poliza']; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?php echo $newDesdeP; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?php echo $newHastaP; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?php echo $poliza[0]['id_tpoliza']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="n_poliza1" name="n_poliza1" value="<?= $poliza[0]['cod_poliza']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="desdeP1" name="desdeP1" value="<?= $newDesdeP; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="hastaP1" name="hastaP1" value="<?= $newHastaP; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="tipo_poliza1" name="tipo_poliza1" value="<?= $poliza[0]['id_tpoliza']; ?>"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -213,7 +213,7 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         <?php
                                         for ($i = 0; $i < sizeof($ramo); $i++) {
                                         ?>
-                                            <option value="<?php echo $ramo[$i]["cod_ramo"]; ?>"><?php echo utf8_encode($ramo[$i]["nramo"]); ?></option>
+                                            <option value="<?= $ramo[$i]["cod_ramo"]; ?>"><?= utf8_encode($ramo[$i]["nramo"]); ?></option>
                                         <?php } ?>
                                     </select>
                                 </td>
@@ -221,7 +221,7 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         <?php
                                         for ($i = 0; $i < sizeof($cia); $i++) {
                                         ?>
-                                            <option value="<?php echo $cia[$i]["idcia"]; ?>"><?php echo utf8_encode($cia[$i]["nomcia"]); ?></option>
+                                            <option value="<?= $cia[$i]["idcia"]; ?>"><?= utf8_encode($cia[$i]["nomcia"]); ?></option>
                                         <?php } ?>
                                     </select>
                                 </td>
@@ -231,10 +231,10 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                     </select>
                                 </td>
 
-                                <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?php echo utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?php echo utf8_encode($poliza[0]['id_cia']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="ramo_e" name="ramo_e" value="<?= utf8_encode($poliza[0]['id_cod_ramo']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="cia_e" name="cia_e" value="<?= utf8_encode($poliza[0]['id_cia']); ?>"></td>
 
-                                <td hidden><input type="text" class="form-control" id="t_cuenta1" name="t_cuenta1" value="<?php echo utf8_encode($poliza[0]['t_cuenta']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="t_cuenta1" name="t_cuenta1" value="<?= utf8_encode($poliza[0]['t_cuenta']); ?>"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -275,12 +275,12 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         </select>
                                     </td>
 
-                                    <td hidden><input type="text" class="form-control" id="currency_h" name="currency_h" value="<?php echo $poliza[0]['currency']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="sumaA_h" name="sumaA_h" value="<?php echo $poliza[0]['sumaasegurada']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="prima_h" name="prima_h" value="<?php echo $poliza[0]['prima']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="f_pago_h" name="f_pago_h" value="<?php echo $poliza[0]['fpago']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="currency_h" name="currency_h" value="<?= $poliza[0]['currency']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="sumaA_h" name="sumaA_h" value="<?= $poliza[0]['sumaasegurada']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="prima_h" name="prima_h" value="<?= $poliza[0]['prima']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="f_pago_h" name="f_pago_h" value="<?= $poliza[0]['fpago']; ?>"></td>
 
-                                    <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_h" value="<?php echo $poliza[0]['forma_pago']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="forma_pago_e" name="forma_pago_h" value="<?= $poliza[0]['forma_pago']; ?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #00bcd4;color: white; font-weight: bold;" hidden id="trTarjeta1">
@@ -293,26 +293,26 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                     <th hidden>id_tarjeta</th>
                                 </tr>
                                 <tr style="background-color: white" hidden id="trTarjeta2">
-                                    <td><input type="number" step="0.01" class="form-control" onblur="validarTarjeta(this)" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
-                                    <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                                    <td><input type="number" step="0.01" class="form-control" onblur="validarTarjeta(this)" id="n_tarjeta" name="n_tarjeta" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?= $poliza[0]['n_tarjeta']; ?>"></td>
+                                    <td><input type="text" class="form-control validanumericos7" id="cvv" name="cvv" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]" value="<?= $poliza[0]['cvv']; ?>"></td>
                                     <td>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?php echo $newfechaV; ?>">
+                                            <input type="text" class="form-control" id="fechaV" name="fechaV" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off" value="<?= $newfechaV; ?>">
                                         </div>
                                     </td>
-                                    <td><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
-                                    <td><input type="text" class="form-control" id="bancoT" name="bancoT" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Banco" value="<?php echo $poliza[0]['banco']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="titular_tarjeta" name="titular_tarjeta" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Tarjetahabiente" value="<?= $poliza[0]['nombre_titular']; ?>"></td>
+                                    <td><input type="text" class="form-control" id="bancoT" name="bancoT" onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Nombre del Banco" value="<?= $poliza[0]['banco']; ?>"></td>
 
                                     <!-- HIDDEN -->
-                                    <td hidden><input type="text" class="form-control" id="n_tarjeta_h" name="n_tarjeta_h" value="<?php echo $poliza[0]['n_tarjeta']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?php echo $poliza[0]['cvv']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="n_tarjeta_h" name="n_tarjeta_h" value="<?= $poliza[0]['n_tarjeta']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="cvv_h" name="cvv_h" value="<?= $poliza[0]['cvv']; ?>"></td>
                                     <td hidden>
                                         <div class="input-group date">
-                                            <input type="text" class="form-control" id="fechaV_h" name="fechaV_h" value="<?php echo $newfechaV; ?>">
+                                            <input type="text" class="form-control" id="fechaV_h" name="fechaV_h" value="<?= $newfechaV; ?>">
                                         </div>
                                     </td>
-                                    <td hidden><input type="text" class="form-control" id="titular_tarjeta_h" name="titular_tarjeta_h" value="<?php echo $poliza[0]['nombre_titular']; ?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="bancoT_h" name="bancoT_h" value="<?php echo $poliza[0]['banco']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="titular_tarjeta_h" name="titular_tarjeta_h" value="<?= $poliza[0]['nombre_titular']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="bancoT_h" name="bancoT_h" value="<?= $poliza[0]['banco']; ?>"></td>
                                     <td hidden><input type="text" class="form-control" id="alert" name="alert" value="0"></td>
                                     <td hidden><input type="text" class="form-control" id="id_tarjeta" name="id_tarjeta" value="0"></td>
                                 </tr>
@@ -344,26 +344,26 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
 
                             ?>
                             <tr style="background-color:white">
-                                <td><input type="text" class="form-control validanumericos2" id="n_recibo" name="n_recibo" value="<?php echo $poliza[0]['cod_recibo']; ?>" required></td>
+                                <td><input type="text" class="form-control validanumericos2" id="n_recibo" name="n_recibo" value="<?= $poliza[0]['cod_recibo']; ?>" required></td>
                                 <td>
                                     <div class="input-group date">
-                                        <input onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desde_recibo" name="desde_recibo" required autocomplete="off" value="<?php echo $newDesdeR; ?>">
+                                        <input onblur="cargarFechaDesde(this)" type="text" class="form-control" id="desde_recibo" name="desde_recibo" required autocomplete="off" value="<?= $newDesdeR; ?>">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required autocomplete="off" value="<?php echo $newHastaR; ?>">
+                                        <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required autocomplete="off" value="<?= $newHastaR; ?>">
                                     </div>
                                 </td>
 
-                                <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?php echo utf8_encode($usuario[0]['z_produccion']); ?>"></td>
+                                <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?= utf8_encode($usuario[0]['z_produccion']); ?>"></td>
                                 <td><input type="number" class="form-control validanumericos3" id="n_cuotas" name="n_cuotas" min="1" max="12" required></td>
 
-                                <td hidden><input type="text" class="form-control" id="n_cuotas_h" name="n_cuotas_h" value="<?php echo $poliza[0]['ncuotas']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="n_cuotas_h" name="n_cuotas_h" value="<?= $poliza[0]['ncuotas']; ?>"></td>
 
-                                <td hidden><input type="text" class="form-control" id="n_recibo1" name="n_recibo1" value="<?php echo $poliza[0]['cod_recibo']; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="desde_recibo1" name="desde_recibo1" value="<?php echo $newDesdeR; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="hasta_recibo1" name="hasta_recibo1" value="<?php echo $newHastaR; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="n_recibo1" name="n_recibo1" value="<?= $poliza[0]['cod_recibo']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="desde_recibo1" name="desde_recibo1" value="<?= $newDesdeR; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="hasta_recibo1" name="hasta_recibo1" value="<?= $newHastaR; ?>"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -392,9 +392,9 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                 <td><input type="text" class="form-control" id="n_titular" name="n_titular" readonly="readonly" required="true"></td>
                                 <td><input type="text" class="form-control" id="a_titular" name="a_titular" readonly="readonly" required="true"></td>
 
-                                <td hidden><input type="text" class="form-control" id="ci_t" name="ci_t" value="<?php echo $poliza[0]['ci']; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?php echo utf8_encode($poliza[0]['nombre_t']); ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?php echo utf8_encode($poliza[0]['apellido_t']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="ci_t" name="ci_t" value="<?= $poliza[0]['ci']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="nombre_tit" name="nombre_tit" value="<?= utf8_encode($poliza[0]['nombre_t']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="apellido_tit" name="apellido_tit" value="<?= utf8_encode($poliza[0]['apellido_t']); ?>"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -425,9 +425,9 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                 <td><input type="text" class="form-control" id="n_tomador" name="n_tomador" readonly="readonly"></td>
                                 <td><input type="text" class="form-control" id="a_tomador" name="a_tomador" readonly="readonly"></td>
 
-                                <td hidden><input type="text" class="form-control" id="ci_tom" name="ci_tom" value="<?php echo $tomador[0]['ci']; ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?php echo utf8_encode($tomador[0]['nombre_t']); ?>"></td>
-                                <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?php echo utf8_encode($tomador[0]['apellido_t']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="ci_tom" name="ci_tom" value="<?= $tomador[0]['ci']; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="nombre_tom" name="nombre_tom" value="<?= utf8_encode($tomador[0]['nombre_t']); ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="apellido_tom" name="apellido_tom" value="<?= utf8_encode($tomador[0]['apellido_t']); ?>"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -458,11 +458,11 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         <td><input type="text" class="form-control" id="tipo" name="tipo"></td>
                                         <td><input type="text" class="form-control" id="anio" name="anio" placeholder="2019"></td>
 
-                                        <td hidden><input type="text" class="form-control" id="placa_h" name="placa_h" value="<?php echo $vehiculo[0]['placa']; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="marca_h" name="marca_h" value="<?php echo $vehiculo[0]['marca']; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="modelo_h" name="modelo_h" value="<?php echo $vehiculo[0]['mveh']; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="tipo_h" name="tipo_h" value="<?php echo $vehiculo[0]['tveh']; ?>"></td>
-                                        <td hidden><input type="text" class="form-control" id="anio_h" name="anio_h" value="<?php echo $vehiculo[0]['f_veh']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="placa_h" name="placa_h" value="<?= $vehiculo[0]['placa']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="marca_h" name="marca_h" value="<?= $vehiculo[0]['marca']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="modelo_h" name="modelo_h" value="<?= $vehiculo[0]['mveh']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="tipo_h" name="tipo_h" value="<?= $vehiculo[0]['tveh']; ?>"></td>
+                                        <td hidden><input type="text" class="form-control" id="anio_h" name="anio_h" value="<?= $vehiculo[0]['f_veh']; ?>"></td>
                                     </tr>
                                 </div>
                             </tbody>
@@ -494,16 +494,16 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                                         <?php
                                         for ($i = 0; $i < sizeof($asesor); $i++) {
                                         ?>
-                                            <option value="<?php echo $asesor[$i]["cod"] . "=" . $asesor[$i]["idnom"]; ?>"><?php echo utf8_encode($asesor[$i]["idnom"]); ?> (Asesor)</option>
+                                            <option value="<?= $asesor[$i]["cod"] . "=" . $asesor[$i]["idnom"]; ?>"><?= utf8_encode($asesor[$i]["idnom"]); ?> (Asesor)</option>
                                         <?php }
                                         for ($i = 0; $i < sizeof($liderp); $i++) { ?>
-                                            <option value="<?php echo $liderp[$i]["cod"] . "=" . $liderp[$i]["nombre"]; ?>"><?php echo utf8_encode($liderp[$i]["nombre"]); ?> (Proyecto)</option>
+                                            <option value="<?= $liderp[$i]["cod"] . "=" . $liderp[$i]["nombre"]; ?>"><?= utf8_encode($liderp[$i]["nombre"]); ?> (Proyecto)</option>
                                         <?php }
                                         for ($i = 0; $i < sizeof($referidor); $i++) { ?>
-                                            <option value="<?php echo $referidor[$i]["cod"] . "=" . $referidor[$i]["nombre"]; ?>"><?php echo utf8_encode($referidor[$i]["nombre"]); ?> (Referidor)</option>
+                                            <option value="<?= $referidor[$i]["cod"] . "=" . $referidor[$i]["nombre"]; ?>"><?= utf8_encode($referidor[$i]["nombre"]); ?> (Referidor)</option>
                                         <?php } ?>
 
-                                <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?php echo $poliza[0]['cod'] . "=" . $nombre_a; ?>"></td>
+                                <td hidden><input type="text" class="form-control" id="asesor_h" name="asesor_h" value="<?= $poliza[0]['cod'] . "=" . $poliza[0]['nombre']; ?>"></td>
                                 </select>
                                 </td>
                             </tr>
@@ -521,7 +521,7 @@ $newfechaV = date("d-m-Y", strtotime($poliza[0]['fechaV']));
                         </thead>
                         <tbody>
                             <tr style="background-color:white">
-                                <td><input type="text" class="form-control validanumericos2" id="obs_p" name="obs_p" value="<?php echo $poliza[0]['obs_p']; ?>"></td>
+                                <td><input type="text" class="form-control validanumericos2" id="obs_p" name="obs_p" value="<?= $poliza[0]['obs_p']; ?>"></td>
                             </tr>
                         </tbody>
                     </table>

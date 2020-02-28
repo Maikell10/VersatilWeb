@@ -80,29 +80,29 @@ $poliza = $obj1->get_poliza_total();
 				if ($poliza[$i]['f_hastapoliza'] >= date("Y-m-d")) {
                 ?>
 				<tr style="cursor: pointer;">
-					<td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                	<td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-	                <td style="color: #2B9E34;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+					<td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                	<td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+	                <td style="color: #2B9E34;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                 <?php            
                 } else{
                 ?>
 				<tr style="cursor: pointer;">
-					<td hidden><?php echo $poliza[$i]['f_poliza']; ?></td>
-                	<td hidden><?php echo $poliza[$i]['id_poliza']; ?></td>
-	                <td style="color: #E54848;font-weight: bold"><?php echo $poliza[$i]['cod_poliza']; ?></td>
+					<td hidden><?= $poliza[$i]['f_poliza']; ?></td>
+                	<td hidden><?= $poliza[$i]['id_poliza']; ?></td>
+	                <td style="color: #E54848;font-weight: bold"><?= $poliza[$i]['cod_poliza']; ?></td>
                 <?php   
                 }
 
 				?>
 				
 					
-					<td><?php echo $Ejecutivo[$i]; ?></td>
-					<td><?php echo $poliza[$i]['nomcia']; ?></td>
-	                <td><?php echo $newDesde; ?></td>
-	                <td><?php echo $newHasta; ?></td>
-	                <td><?php echo $currency.number_format($poliza[$i]['prima'],2); ?></td>
-					<td nowrap><?php echo $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
-					<td><?php echo 'si'; ?></td>
+					<td><?= $Ejecutivo[$i]; ?></td>
+					<td><?= $poliza[$i]['nomcia']; ?></td>
+	                <td><?= $newDesde; ?></td>
+	                <td><?= $newHasta; ?></td>
+	                <td><?= $currency.number_format($poliza[$i]['prima'],2); ?></td>
+					<td nowrap><?= $poliza[$i]['nombre_t']." ".$poliza[$i]['apellido_t']; ?></td>
+					<td><?= 'si'; ?></td>
 				</tr>
 				<?php
 				//}
@@ -120,7 +120,7 @@ $poliza = $obj1->get_poliza_total();
 				<th>Cía</th>
                 <th>F Desde Seguro</th>
                 <th>F Hasta Seguro</th>
-                <th>Prima Suscrita $<?php echo number_format($totalprima,2); ?></th>
+                <th>Prima Suscrita $<?= number_format($totalprima,2); ?></th>
 				<th>Nombre Titular</th>
 				<th>PDF</th>
 			</tr>

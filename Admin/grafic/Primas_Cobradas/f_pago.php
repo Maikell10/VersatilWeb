@@ -278,7 +278,7 @@ $permiso = $user[0]['id_permiso'];
 
               <div class="col-md-auto col-md-offset-2" style="text-align:center">
                   <h1 class="title">Primas Cobradas por Forma de Pago</h1> 
-                  <h2>Año: <?php echo $_GET['anio'];?></h2>
+                  <h2>Año: <?= $_GET['anio'];?></h2>
                   <br>
                   
                   <a href="../primas_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a>
@@ -320,21 +320,21 @@ $permiso = $user[0]['id_permiso'];
                         
                   ?>
                   <tr>
-                    <th scope="row"><?php echo utf8_encode($fPagoArray[$x[$i]]); ?></th>
-                    <td align="right"><?php echo "$".number_format($p1[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p2[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p3[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p4[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p5[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p6[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p7[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p8[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p9[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p10[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p11[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($p12[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo "$".number_format($totalP[$x[$i]],2); ?></td>
-                    <td align="right"><?php echo $cantidad[$x[$i]]; ?></td>
+                    <th scope="row"><?= utf8_encode($fPagoArray[$x[$i]]); ?></th>
+                    <td align="right"><?= "$".number_format($p1[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p2[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p3[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p4[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p5[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p6[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p7[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p8[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p9[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p10[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p11[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($p12[$x[$i]],2); ?></td>
+                    <td align="right"><?= "$".number_format($totalP[$x[$i]],2); ?></td>
+                    <td align="right"><?= $cantidad[$x[$i]]; ?></td>
                   </tr>
                   <?php
                       }
@@ -343,20 +343,20 @@ $permiso = $user[0]['id_permiso'];
                 <tfoot>
                   <tr>
                     <th>TOTAL</th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes1,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes2,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes3,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes4,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes5,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes6,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes7,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes8,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes9,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes10,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes11,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($primaCobradaPorMes12,2); ?></th>
-                    <th style="text-align: right;"><?php echo "$".number_format($totalPC,2); ?></th>
-                    <th style="text-align: right;"><?php echo $totalCant; ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes1,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes2,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes3,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes4,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes5,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes6,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes7,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes8,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes9,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes10,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes11,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($primaCobradaPorMes12,2); ?></th>
+                    <th style="text-align: right;"><?= "$".number_format($totalPC,2); ?></th>
+                    <th style="text-align: right;"><?= $totalCant; ?></th>
                   </tr>
                 </tfoot>
               </table></div></center>
@@ -432,14 +432,14 @@ $permiso = $user[0]['id_permiso'];
       type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:[<?php for($i=sizeof($f_pago)-1; $i > -1; $i--){ ?>
-                '<?php echo utf8_encode($fPagoArray[$x[$i]]); ?>',
+                '<?= utf8_encode($fPagoArray[$x[$i]]); ?>',
 
                 <?php }?>],
 
         datasets:[{
 
           data:[<?php for($i=sizeof($f_pago)-1; $i > -1; $i--){ ?>
-              '<?php echo $totalP[$x[$i]]; ?>',
+              '<?= $totalP[$x[$i]]; ?>',
 
                 <?php }?>
           ],

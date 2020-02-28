@@ -168,7 +168,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($ramo);$i++)
                                                     {  
                                                 ?>
-                                                    <option value="<?php echo $ramo[$i]["cod_ramo"];?>"><?php echo utf8_encode($ramo[$i]["nramo"]);?></option>
+                                                    <option value="<?= $ramo[$i]["cod_ramo"];?>"><?= utf8_encode($ramo[$i]["nramo"]);?></option>
                                                 <?php } ?> 
                                         </select>
                                     </td>
@@ -178,7 +178,7 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($cia);$i++)
                                                     {  
                                                 ?>
-                                                    <option value="<?php echo $cia[$i]["idcia"];?>"><?php echo ($cia[$i]["nomcia"]);?></option>
+                                                    <option value="<?= $cia[$i]["idcia"];?>"><?= ($cia[$i]["nomcia"]);?></option>
                                                 <?php } ?> 
                                         </select>
                                     </td>
@@ -295,7 +295,7 @@ if(isset($_SESSION['seudonimo'])) {
                                             <input type="text" class="form-control" id="hasta_recibo" name="hasta_recibo" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"> 
                                         </div>
                                     </td>
-                                    <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?php echo utf8_encode($usuario[0]['z_produccion']);?>"></td>
+                                    <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?= utf8_encode($usuario[0]['z_produccion']);?>"></td>
                                     <td><input type="number" class="form-control validanumericos3" id="n_cuotas" name="n_cuotas" min="1" max="12" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                 </tr>
                                 </div>
@@ -415,13 +415,13 @@ if(isset($_SESSION['seudonimo'])) {
                                                 for($i=0;$i<sizeof($asesor);$i++)
                                                   {  
                                               ?>
-                                                  <option value="<?php echo utf8_encode($asesor[$i]["cod"]."=".$asesor[$i]["idnom"]);?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
+                                                  <option value="<?= utf8_encode($asesor[$i]["cod"]."=".$asesor[$i]["idnom"]);?>"><?= utf8_encode($asesor[$i]["idnom"]);?> (Asesor)</option>
                                               <?php }for($i=0;$i<sizeof($liderp);$i++)
                                                   { ?> 
-                                                  <option value="<?php echo $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?> (Proyecto)</option>
+                                                  <option value="<?= $liderp[$i]["cod"]."=".$liderp[$i]["nombre"];?>"><?= utf8_encode($liderp[$i]["nombre"]);?> (Proyecto)</option>
                                               <?php } for($i=0;$i<sizeof($referidor);$i++)
                                                   {?>
-                                                  <option value="<?php echo $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
+                                                  <option value="<?= $referidor[$i]["cod"]."=".$referidor[$i]["nombre"];?>"><?= utf8_encode($referidor[$i]["nombre"]);?> (Referidor)</option>
                                               <?php } ?>
                                         </select>
                                     </td>
@@ -493,7 +493,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
@@ -1884,8 +1884,7 @@ if(isset($_SESSION['seudonimo'])) {
             $('#btnForm').removeAttr('disabled');
         }
 
-        function cargarFechaDesde(desdeP){
-            $('#desdeP').val($(desdeP).val());
+        function cargarFechaDesde(desdeP){  
 
             var desdeP = ($(desdeP).val()).split('-').reverse().join('-');
 

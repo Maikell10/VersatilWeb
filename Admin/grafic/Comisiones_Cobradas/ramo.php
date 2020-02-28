@@ -243,15 +243,15 @@ foreach($sumatotalRamoCC as $key=>$value) {
 
         ?>
         <tr>
-          <th scope="row"><?php echo utf8_encode($ramoArray[$x[$i]]); ?></th>
-          <td align="right"><?php echo "$".number_format($sumatotalRamo[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalRamoPC[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #ED7D31;color:white"><?php echo "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
-          <td align="right"><?php echo "$".number_format($sumatotalRamoCC[$x[$i]],2); ?></td>
-          <td nowrap><?php echo number_format($per_gc,2)." %"; ?></td>
-          <td align="right"><?php echo number_format($sumatotalRamoGCP[$x[$i]],2); ?></td>
-          <td align="right" style="background-color: #ED7D31;color:white"><?php echo number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
-          <td><?php echo $cantArray[$x[$i]]; ?></td>
+          <th scope="row"><?= utf8_encode($ramoArray[$x[$i]]); ?></th>
+          <td align="right"><?= "$".number_format($sumatotalRamo[$x[$i]],2); ?></td>
+          <td align="right"><?= "$".number_format($sumatotalRamoPC[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?= "$".number_format($sumatotalRamo[$x[$i]]-$sumatotalRamoPC[$x[$i]],2); ?></td>
+          <td align="right"><?= "$".number_format($sumatotalRamoCC[$x[$i]],2); ?></td>
+          <td nowrap><?= number_format($per_gc,2)." %"; ?></td>
+          <td align="right"><?= number_format($sumatotalRamoGCP[$x[$i]],2); ?></td>
+          <td align="right" style="background-color: #ED7D31;color:white"><?= number_format($sumatotalRamoCC[$x[$i]]-$sumatotalRamoGCP[$x[$i]],2); ?></td>
+          <td><?= $cantArray[$x[$i]]; ?></td>
         </tr>
         <?php
             }
@@ -260,14 +260,14 @@ foreach($sumatotalRamoCC as $key=>$value) {
       <thead style="background-color: #E54848;color:white">
         <tr>
           <th scope="col">TOTAL</th>
-          <th align="right"><?php echo "$".number_format($totals,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totals-$totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalcc,2); ?></th>
-          <th align="right"><?php echo "$".number_format(($totalcc*100)/$totalpc,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalgcp,2); ?></th>
-          <th align="right"><?php echo "$".number_format($totalcc-$totalgcp,2); ?></th>
-          <th scope="col"><?php echo $totalCant; ?></th>
+          <th align="right"><?= "$".number_format($totals,2); ?></th>
+          <th align="right"><?= "$".number_format($totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totals-$totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totalcc,2); ?></th>
+          <th align="right"><?= "$".number_format(($totalcc*100)/$totalpc,2); ?></th>
+          <th align="right"><?= "$".number_format($totalgcp,2); ?></th>
+          <th align="right"><?= "$".number_format($totalcc-$totalgcp,2); ?></th>
+          <th scope="col"><?= $totalCant; ?></th>
         </tr>
       </thead>
 
@@ -348,7 +348,7 @@ foreach($sumatotalRamoCC as $key=>$value) {
       type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:[<?php for($i=sizeof($ramo); $i > 0; $i--){ ?>
-        '<?php echo utf8_encode($ramoArray[$x[$i]]); ?>',
+        '<?= utf8_encode($ramoArray[$x[$i]]); ?>',
 
                 <?php }?>],
 
@@ -358,7 +358,7 @@ foreach($sumatotalRamoCC as $key=>$value) {
             {  
                 $sumasegurada=($sumatotalRamoCC[$x[$i]]);
                 ?>
-                '<?php echo $sumasegurada; ?>',
+                '<?= $sumasegurada; ?>',
             <?php }?>
           ],
           //backgroundColor:'green',

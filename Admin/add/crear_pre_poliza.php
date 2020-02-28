@@ -80,7 +80,7 @@ if(isset($_SESSION['seudonimo'])) {
             
                 <h2 id="existeP" class="bg-success text-white"><strong></strong></h2>
                 <h2 id="no_existeP" class="bg-danger text-white"><strong></strong></h2>
-                <form class="form-horizontal" id="frmnuevo" action="poliza_pre.php?cia=<?php echo $idcia;?>" method="post" >
+                <form class="form-horizontal" id="frmnuevo" action="poliza_pre.php?cia=<?= $idcia;?>" method="post" >
                     <div class="form-row">      
                         <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="iddatatable" >
                             <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -97,9 +97,9 @@ if(isset($_SESSION['seudonimo'])) {
                                 <div class="form-group col-md-12">
                                 <tr style="background-color: white">
                                     <td><input onblur="validarPoliza(this)" type="text" class="form-control validanumericos" id="n_poliza" name="n_poliza" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
-                                    <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?php echo utf8_encode($usuario[0]['z_produccion']);?>"></td>
+                                    <td><input type="text" class="form-control" id="z_produc" name="z_produc" readonly="true" value="<?= utf8_encode($usuario[0]['z_produccion']);?>"></td>
                                     <td><input type="text" class="form-control" id="cod_vend" name="cod_vend" readonly="true" value="AP-1"></td>
-                                    <td><input type="text" class="form-control" id="cia" name="cia" readonly="true" value="<?php echo utf8_encode($cia[0]['nomcia']);?>"></td>
+                                    <td><input type="text" class="form-control" id="cia" name="cia" readonly="true" value="<?= utf8_encode($cia[0]['nomcia']);?>"></td>
 
                                     <td><input type="text" class="form-control" id="cod_vend" name="cod_vend" readonly="true" value="Cliente Pendiente"></td>
                                 </tr>

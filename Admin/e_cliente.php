@@ -70,8 +70,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Cliente: <?php echo $cliente[0]['nombre_t']." ".$cliente[0]['apellido_t']; ?></h1>  
-                    <h2 class="title">Nº ID: <?php echo $cliente[0]['ci']; ?></h2>  
+                    <h1 class="title">Cliente: <?= $cliente[0]['nombre_t']." ".$cliente[0]['apellido_t']; ?></h1>  
+                    <h2 class="title">Nº ID: <?= $cliente[0]['ci']; ?></h2>  
                 </div>
 
 
@@ -91,13 +91,13 @@ if(isset($_SESSION['seudonimo'])) {
 
 					<tbody >
                         <tr style="background-color: white">
-                            <td><input type="number" step="0.01" class="form-control" name="ci" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?php echo $cliente[0]['ci']; ?>"></td>
-                            <td><input type="text" class="form-control" name="nombre" value="<?php echo $cliente[0]['nombre_t']; ?>" onkeyup="mayus(this);"></td>
-                            <td><input type="text" class="form-control" name="apellido" value="<?php echo $cliente[0]['apellido_t']; ?>" onkeyup="mayus(this);"></td>
+                            <td><input type="number" step="0.01" class="form-control" name="ci" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" value="<?= $cliente[0]['ci']; ?>"></td>
+                            <td><input type="text" class="form-control" name="nombre" value="<?= $cliente[0]['nombre_t']; ?>" onkeyup="mayus(this);"></td>
+                            <td><input type="text" class="form-control" name="apellido" value="<?= $cliente[0]['apellido_t']; ?>" onkeyup="mayus(this);"></td>
                             <td><div class="input-group date">
-                                <input type="text" class="form-control" id="f_nac" name="f_nac"  value="<?php echo $newFPP; ?>">
+                                <input type="text" class="form-control" id="f_nac" name="f_nac"  value="<?= $newFPP; ?>">
                             </div></td>
-                            <td hidden><input type="text" class="form-control" name="id_titular" value="<?php echo $cliente[0]['id_titular']; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="id_titular" value="<?= $cliente[0]['id_titular']; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th>Celular</th>
@@ -105,15 +105,15 @@ if(isset($_SESSION['seudonimo'])) {
                             <th colspan="2">email</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="cel" required  value="<?php echo $cliente[0]['cell']; ?>"></td>
-                            <td><input type="text" class="form-control" name="telf" value="<?php echo $cliente[0]['telf']; ?>"></td>
-                            <td colspan="2"><input type="text" class="form-control" name="email" value="<?php echo $cliente[0]['email']; ?>" ></td>
+                            <td><input type="text" class="form-control" name="cel" required  value="<?= $cliente[0]['cell']; ?>"></td>
+                            <td><input type="text" class="form-control" name="telf" value="<?= $cliente[0]['telf']; ?>"></td>
+                            <td colspan="2"><input type="text" class="form-control" name="email" value="<?= $cliente[0]['email']; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th colspan="4">Dirección</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td colspan="4"><input type="text" class="form-control" name="direcc" value="<?php echo $cliente[0]['direcc']; ?>" onkeyup="mayus(this);"></td>
+                            <td colspan="4"><input type="text" class="form-control" name="direcc" value="<?= $cliente[0]['direcc']; ?>" onkeyup="mayus(this);"></td>
                         </tr>
 					</tbody>
 				</table>

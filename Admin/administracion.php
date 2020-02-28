@@ -146,7 +146,7 @@ $contN = sizeof($polizas_r);
                             <?php
                             if ($contN != 0) {
                                 ?>
-                                    <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Referidores para pagar" class="badge badge-warning navbar-badge h3 text-white" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-clipboard-list" aria-hidden="true"></i> <?php echo $contN; ?> </a>
+                                    <a href="" data-tooltip="tooltip" data-placement="top" title="Hay Referidores para pagar" class="badge badge-warning navbar-badge h3 text-white" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-clipboard-list" aria-hidden="true"></i> <?= $contN; ?> </a>
                             <?php
                             }
                             ?>

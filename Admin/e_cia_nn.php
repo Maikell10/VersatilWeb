@@ -17,6 +17,7 @@ if(isset($_SESSION['seudonimo'])) {
 
   $nombre_cia=$_GET['nombre_cia'];
   $rif=$_GET['rif'];
+  $per_com=$_GET['per_com'];
 
   $nombre1=$_GET['nombre1'];
   $cargo1=$_GET['cargo1'];
@@ -54,7 +55,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 	
 	$obj1= new Trabajo();
-    $cia = $obj1->editarCia($id_cia,$nombre_cia,$rif); 
+    $cia = $obj1->editarCia($id_cia,$nombre_cia,$rif,$per_com); 
       
     $obj2= new Trabajo();
     $e_cia = $obj2->eliminarCiaContacto($id_cia); 

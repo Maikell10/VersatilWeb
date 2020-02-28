@@ -13,10 +13,6 @@ if(isset($_SESSION['seudonimo'])) {
   
   require_once("../../class/clases.php");
 
-  
-
-
-if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
   $idcia=$_GET['cia'];
   $cant_poliza=$_GET['cant_poliza'];
@@ -24,7 +20,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
   $id_rep=$_GET['id_rep'];
 
   
-  //$f_desde = date("Y-m-d", strtotime($_GET['f_desde']));
   $f_hasta = date("Y-m-d", strtotime($_GET['f_hasta']));
   $f_pagoGc = date("Y-m-d", strtotime($_GET['f_pagoGc']));
 
@@ -33,9 +28,6 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
   $cia = $obj1->get_element_by_id('dcia','idcia',$idcia); 
 
   
- 
-
-
 
 ?>
 <!DOCTYPE html>
@@ -89,7 +81,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
                 <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Compañía: <?php echo ($cia[0]['nomcia']);?>
+                    <h1 class="title"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Compañía: <?= ($cia[0]['nomcia']);?>
                     </h1>  
                 </div>
 
@@ -117,17 +109,17 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 </tr>
                             </thead>
                                 <tr>
-                                    <td colspan="2"><input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" readonly value="<?php echo $_GET['f_pagoGc'];?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?php echo $_GET['f_hasta'];?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" id="primat_com" name="primat_com" readonly value="<?php echo "$ ".number_format($_GET['primat_com'],2);?>"></td>
-                                    <td><input type="text" class="form-control" id="comt" name="comt" readonly value="<?php echo "$ ".number_format($_GET['comt'],2);?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="f_pagoGc" name="f_pagoGc" readonly value="<?= $_GET['f_pagoGc'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="f_hasta" name="f_hasta" readonly value="<?= $_GET['f_hasta'];?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" id="primat_com" name="primat_com" readonly value="<?= "$ ".number_format($_GET['primat_com'],2);?>"></td>
+                                    <td><input type="text" class="form-control" id="comt" name="comt" readonly value="<?= "$ ".number_format($_GET['comt'],2);?>"></td>
 
-                                    <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="<?php echo $id_rep;?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?php echo $idcia;?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="cant_poliza" name="cant_poliza" value="<?php echo $cant_poliza;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="id_rep" name="id_rep" value="<?= $id_rep;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="cia" name="cia" value="<?= $idcia;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="cant_poliza" name="cant_poliza" value="<?= $cant_poliza;?>"></td>
 
-                                    <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?php echo $_GET['primat_com'];?>"></td>
-                                    <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?php echo $_GET['comt'];?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="primat_comt" name="primat_comt" value="<?= $_GET['primat_com'];?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="comtt" name="comtt" value="<?= $_GET['comt'];?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -167,14 +159,14 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 				                        $newFPP = date("d/m/Y", strtotime($originalFPP));
                             ?>
                                     <tr >
-                                        <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['num_poliza'];?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo $nombre;?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo $newFPP;?>" readonly></td>
-                                        <td><input type="text" class="form-control" value="<?php echo "$ ".number_format($repEx[$i]['prima_com'],2);?>" readonly style="text-align:right"></td>
-                                        <td><input type="text" class="form-control" value="<?php echo number_format((($repEx[$i]['comision']*100)/$repEx[$i]['prima_com']),2)."%";?>" readonly style="text-align:center"></td>
-                                        <td><input type="text" class="form-control" value="<?php echo "$ ".number_format($repEx[$i]['comision'],2);?>" readonly style="text-align:right"></td>
+                                        <td><input type="text" class="form-control" value="<?= $repEx[$i]['num_poliza'];?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?= $nombre;?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?= $newFPP;?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?= "$ ".number_format($repEx[$i]['prima_com'],2);?>" readonly style="text-align:right"></td>
+                                        <td><input type="text" class="form-control" value="<?= number_format((($repEx[$i]['comision']*100)/$repEx[$i]['prima_com']),2)."%";?>" readonly style="text-align:center"></td>
+                                        <td><input type="text" class="form-control" value="<?= "$ ".number_format($repEx[$i]['comision'],2);?>" readonly style="text-align:right"></td>
                                         
-                                        <td><input type="text" class="form-control" value="<?php echo $repEx[$i]['cod_vend'];?>" readonly></td>
+                                        <td><input type="text" class="form-control" value="<?= $repEx[$i]['cod_vend'];?>" readonly></td>
                                         <td hidden><input type="text" class="form-control" ></td>
                                         <td hidden><input type="text" class="form-control" ></td>
                                         <td hidden><input type="text" class="form-control" ></td>
@@ -189,31 +181,31 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                             ?>
                             
                                 <tr style="background-color: white">
-                                    <td><input onblur="<?php echo 'validarPoliza'.$i.'(this)';?>" type="text" class="form-control <?php echo 'validarpoliza'.$i;?>" id="<?php echo 'n_poliza'.$i;?>" name="<?php echo 'n_poliza'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
+                                    <td><input onblur="<?= 'validarPoliza'.$i.'(this)';?>" type="text" class="form-control <?= 'validarpoliza'.$i;?>" id="<?= 'n_poliza'.$i;?>" name="<?= 'n_poliza'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Sólo introducir números"></td>
 
-                                    <td><input type="text" class="form-control" readonly="true" id="<?php echo 'nom_titu'.$i;?>" name="<?php echo 'nom_titu'.$i;?>" ></td>
+                                    <td><input type="text" class="form-control" readonly="true" id="<?= 'nom_titu'.$i;?>" name="<?= 'nom_titu'.$i;?>" ></td>
                                     <td><div class="input-group date">
-                                            <input type="text" class="form-control" id="<?php echo 'f_pago'.$i;?>" name="<?php echo 'f_pago'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off"> 
+                                            <input type="text" class="form-control" id="<?= 'f_pago'.$i;?>" name="<?= 'f_pago'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio" autocomplete="off"> 
                                         </div>
                                     </td>
-                                    <td><input type="number" step="0.01" onblur="<?php echo 'calcularRest(this)';?>" class="form-control" id="<?php echo 'prima'.$i;?>" name="<?php echo 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
+                                    <td><input style="text-align: center" type="number" step="0.01" onblur="<?= 'calcularRest(this)';?>" class="form-control" id="<?= 'prima'.$i;?>" name="<?= 'prima'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]"></td>
 
-                                    <td><input style="text-align: center" onblur="<?php echo 'calcularP'.$i.'(this)';?> ;<?php echo 'calcularRest1(this)';?>" type="number" step="0.01" class="form-control" id="<?php echo 'comisionPor'.$i;?>" name="<?php echo 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off"></td> 
+                                    <td><input style="text-align: center" onblur="<?= 'calcularP'.$i.'(this)';?> ;<?= 'calcularRest1(this)';?>" type="number" step="0.01" class="form-control" id="<?= 'comisionPor'.$i;?>" name="<?= 'comisionPor'.$i;?>" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números y punto (.) como separador decimal]" autocomplete="off" value="<?= $cia[0]['per_com']; ?>"></td> 
 
-                                    <td><input  type="text"  class="form-control" id="<?php echo 'comision'.$i;?>" name="<?php echo 'comision'.$i;?>"  readonly></td>   
+                                    <td><input  type="text"  class="form-control" id="<?= 'comision'.$i;?>" name="<?= 'comision'.$i;?>"  readonly></td>   
 
                                     
-                                    <td><input type="text" class="form-control" readonly="true" id="<?php echo 'asesor'.$i;?>" name="<?php echo 'asesor'.$i;?>" ></td>
+                                    <td><input type="text" class="form-control" readonly="true" id="<?= 'asesor'.$i;?>" name="<?= 'asesor'.$i;?>" ></td>
 
-                                    <td hidden><input type="text" class="form-control" id="<?php echo 'codasesor'.$i;?>" name="<?php echo 'codasesor'.$i;?>" ></td>
+                                    <td hidden><input type="text" class="form-control" id="<?= 'codasesor'.$i;?>" name="<?= 'codasesor'.$i;?>" ></td>
 
-                                    <td hidden><input type="text" class="form-control" id="<?php echo 'id_poliza'.$i;?>" name="<?php echo 'id_poliza'.$i;?>" ></td>
+                                    <td hidden><input type="text" class="form-control" id="<?= 'id_poliza'.$i;?>" name="<?= 'id_poliza'.$i;?>" ></td>
 
-                                    <td hidden><input type="text" class="form-control" id="<?php echo 'num';?>" name="<?php echo 'num';?>" ></td>
+                                    <td hidden><input type="text" class="form-control" id="<?= 'num';?>" name="<?= 'num';?>" ></td>
 
                                     
                                 </tr>
-                                <tr><td colspan="7" style="padding:0px;background-color: white;text-align: center"><a style="width: 40%" href="" class="btn btn-round btn btn-primary" data-toggle="modal" data-target="#precargapoliza" id="<?php echo 'btnPre'.$i;?>" name="<?php echo 'btnPre'.$i;?>" onclick="<?php echo 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
+                                <tr><td colspan="7" style="padding:0px;background-color: white;text-align: center"><a style="width: 40%" href="" class="btn btn-round btn btn-primary" data-toggle="modal" data-target="#precargapoliza" id="<?= 'btnPre'.$i;?>" name="<?= 'btnPre'.$i;?>" onclick="<?= 'botonPreCarga'.$i.'()';?>" hidden>Precargar Póliza</a></td></tr>
                                 
                             
                             <?php
@@ -238,7 +230,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <?php      
                             } elseif($totalprimaant<$_GET['primat_com']) {
                         ?>
-                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?php echo "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
+                            <h2 style="color:red;font-weight:bold" id="Rest">Falta cargar <?= "$ ".number_format($primaRestante,2);?> de prima sujeta a comisión</h2>
                         <?php 
                             }elseif($totalprimaant==$_GET['primat_com']) {
                                 $primaRestante=0;
@@ -256,7 +248,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                         <?php      
                             } elseif($totalcomant<$_GET['comt']) {
                         ?>
-                            <h2 style="color:red;font-weight:bold" id="Rest1">Falta cargar <?php echo "$ ".number_format($comRestante,2);?> de comisiones</h2>
+                            <h2 style="color:red;font-weight:bold" id="Rest1">Falta cargar <?= "$ ".number_format($comRestante,2);?> de comisiones</h2>
                         <?php 
                             }elseif($totalcomant==$_GET['comt']) {
                                 $comRestante=0;
@@ -358,7 +350,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                 <tr style="background-color:white">
                                     <td><input type="text" class="form-control" id="num_poliza" name="num_poliza" readonly></td>
                                     <td><input type="text" class="form-control" id="asegurado" name="asegurado" required onkeyup="mayus(this);"></td>
-                                    <td hidden><input type="text" class="form-control" id="idcia" name="idcia" readonly value="<?php echo $idcia;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="idcia" name="idcia" readonly value="<?= $idcia;?>"></td>
                                 </tr>
                         </table>
                     </form>
@@ -407,7 +399,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
                                             <input type="text" class="form-control" id="f_hasta_se" name="f_hasta_se" required > 
                                         </div>
                                     </td>
-                                    <td hidden><input type="text" class="form-control" id="idciaE" name="idciaE" readonly value="<?php echo $idcia;?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="idciaE" name="idciaE" readonly value="<?= $idcia;?>"></td>
                                     <td hidden><input type="text" class="form-control" id="idpolizaE" name="idpolizaE"></td>
                                 </tr>
                         </table>
@@ -2392,7 +2384,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
             console.log(prima9);
 
-            var primaRestante = '<?php echo $primaRestante;?>';
+            var primaRestante = '<?= $primaRestante;?>';
 
             var Rest=primaRestante-prima0-prima1-prima2-prima3-prima4-prima5-prima6-prima7-prima8-prima9;
 
@@ -2445,7 +2437,7 @@ if(isset($_POST['f_desde'])){ echo $_POST['f_desde']; }
 
             console.log(comision0);
 
-            var comRestante = '<?php echo $comRestante;?>';
+            var comRestante = '<?= $comRestante;?>';
 
             var Rest=comRestante-comision0-comision1-comision2-comision3-comision4-comision5-comision6-comision7-comision8-comision9;
 

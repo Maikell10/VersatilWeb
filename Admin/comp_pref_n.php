@@ -64,7 +64,7 @@ if(isset($_SESSION['seudonimo'])) {
             <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Previsualizar Preferencial de la Cía <?php echo $cia[0]['nomcia']; ?></h1>  
+                    <h1 class="title">Previsualizar Preferencial de la Cía <?= $cia[0]['nomcia']; ?></h1>  
                 </div>
 
 
@@ -83,11 +83,11 @@ if(isset($_SESSION['seudonimo'])) {
 
                             <tbody >
                                 <tr>
-                                    <td><input type="text" class="form-control" id="desdeP" name="desdeP" readonly value="<?php echo $_POST['desdeP'];?>"></td>
-                                    <td><input type="text" class="form-control" id="hastaP" name="hastaP" readonly value="<?php echo $_POST['hastaP'];?>"></td>
-                                    <td><input type="text" class="form-control" id="per_gc" name="per_gc" readonly value="<?php echo $_POST['per_gc'];?>"></td>
+                                    <td><input type="text" class="form-control" id="desdeP" name="desdeP" readonly value="<?= $_POST['desdeP'];?>"></td>
+                                    <td><input type="text" class="form-control" id="hastaP" name="hastaP" readonly value="<?= $_POST['hastaP'];?>"></td>
+                                    <td><input type="text" class="form-control" id="per_gc" name="per_gc" readonly value="<?= $_POST['per_gc'];?>"></td>
 
-                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?php echo $cia[0]['idcia']; ?>"></td>
+                                    <td hidden><input type="text" class="form-control" id="id_cia" name="id_cia" value="<?= $cia[0]['idcia']; ?>"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,9 +106,9 @@ if(isset($_SESSION['seudonimo'])) {
                                     
                             ?>
                                 <tr>
-                                    <td><?php echo utf8_encode($asesor[$i]['idnom'])." [".$asesor[$i]['cod']."]"; ?></td>
-                                    <td><?php echo $asesor[$i]['nopre1']." %"; ?></td>
-                                    <td><input style="text-align:center" type="text" class="form-control" id="<?php echo 'gc_asesor'.$i;?>" name="<?php echo 'gc_asesor'.$i;?>" readonly value="<?php echo $_POST['gc_asesor'.$i];?>"></td>
+                                    <td><?= utf8_encode($asesor[$i]['idnom'])." [".$asesor[$i]['cod']."]"; ?></td>
+                                    <td><?= $asesor[$i]['nopre1']." %"; ?></td>
+                                    <td><input style="text-align:center" type="text" class="form-control" id="<?= 'gc_asesor'.$i;?>" name="<?= 'gc_asesor'.$i;?>" readonly value="<?= $_POST['gc_asesor'.$i];?>"></td>
                                 </tr>
                             <?php   
                                 }

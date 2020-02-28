@@ -92,10 +92,10 @@ if(isset($_SESSION['seudonimo'])) {
                             <tbody >
                                 <div class="form-group col-md-12">
                                 <tr >
-                                    <td><input type="text" class="form-control" name="ci" readonly="readonly" value="<?php echo $ci;?>"></td>
-                                    <td><input type="text" class="form-control" name="nombre" readonly="readonly" value="<?php echo $nombre;?>"></td>
-                                    <td><input type="text" class="form-control" name="apellido" readonly="readonly" value="<?php echo $apellido;?>"></td>
-                                    <td><input type="text" class="form-control" name="f_nac" readonly="readonly" value="<?php echo $f_nac;?>"></td>
+                                    <td><input type="text" class="form-control" name="ci" readonly="readonly" value="<?= $ci;?>"></td>
+                                    <td><input type="text" class="form-control" name="nombre" readonly="readonly" value="<?= $nombre;?>"></td>
+                                    <td><input type="text" class="form-control" name="apellido" readonly="readonly" value="<?= $apellido;?>"></td>
+                                    <td><input type="text" class="form-control" name="f_nac" readonly="readonly" value="<?= $f_nac;?>"></td>
                                 </tr>
 
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -104,9 +104,9 @@ if(isset($_SESSION['seudonimo'])) {
                                     <th colspan="2">email</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="cel" readonly="readonly" value="<?php echo $cel;?>"></td>
-                                    <td><input type="text" class="form-control" name="telf" readonly="readonly" value="<?php echo $telf;?>"></td>
-                                    <td colspan="2"><input type="text" class="form-control" name="email" readonly="readonly" value="<?php echo $email;?>"></td>
+                                    <td><input type="text" class="form-control" name="cel" readonly="readonly" value="<?= $cel;?>"></td>
+                                    <td><input type="text" class="form-control" name="telf" readonly="readonly" value="<?= $telf;?>"></td>
+                                    <td colspan="2"><input type="text" class="form-control" name="email" readonly="readonly" value="<?= $email;?>"></td>
                                 </tr>
                                     
                                 <tr style="background-color: #92ACC4;color: white; font-weight: bold;">
@@ -114,7 +114,7 @@ if(isset($_SESSION['seudonimo'])) {
                                 </tr>
 
                                 <tr>
-                                    <td colspan="4"><input type="text" class="form-control" name="direcc" readonly="readonly" value="<?php echo $direcc;?>"></td>
+                                    <td colspan="4"><input type="text" class="form-control" name="direcc" readonly="readonly" value="<?= $direcc;?>"></td>
                                 </tr>
 
                                
@@ -132,7 +132,7 @@ if(isset($_SESSION['seudonimo'])) {
 
 
                       <center>
-                        <a name="enlace" href="e_cliente_nn.php?id_titular=<?php echo $id_titular;?>&nombre=<?php echo $nombre;?>&apellido=<?php echo $apellido;?>&ci=<?php echo $ci;?>&cel=<?php echo $cel;?>&telf=<?php echo $telf;?>&email=<?php echo $email;?>&f_nac=<?php echo $f_nac;?>&direcc=<?php echo $direcc;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
+                        <a name="enlace" href="e_cliente_nn.php?id_titular=<?= $id_titular;?>&nombre=<?= $nombre;?>&apellido=<?= $apellido;?>&ci=<?= $ci;?>&cel=<?= $cel;?>&telf=<?= $telf;?>&email=<?= $email;?>&f_nac=<?= $f_nac;?>&direcc=<?= $direcc;?>" class="btn btn-info btn-lg btn-round">Confirmar</a></center>
                         
                 </form>
                 </center>

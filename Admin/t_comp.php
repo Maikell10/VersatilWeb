@@ -52,13 +52,10 @@ $permiso = $user[0]['id_permiso'];
 			for ($i=0; $i < sizeof($cia); $i++) { 
 
 				$obj2= new Trabajo();
-				$desde_pref = $obj2->get_f_cia_pref('f_desde_pref',$cia[$i]['idcia']);
+				$f_cia_pref = $obj2->get_f_cia_pref($cia[$i]['idcia']);
 
-				$obj3= new Trabajo();
-				$hasta_pref = $obj3->get_f_cia_pref('f_hasta_pref',$cia[$i]['idcia']);
-
-				$desde_prefn = date("d/m/Y", strtotime($desde_pref[0]['f_desde_pref']));
-				$hasta_prefn = date("d/m/Y", strtotime($hasta_pref[0]['f_hasta_pref']));
+				$desde_prefn = date("d/m/Y", strtotime($f_cia_pref[0]['f_desde_pref']));
+				$hasta_prefn = date("d/m/Y", strtotime($f_cia_pref[0]['f_hasta_pref']));
 
 				if ($desde_prefn == '01/01/1970') {
 					$desde_prefn=null;
@@ -67,19 +64,19 @@ $permiso = $user[0]['id_permiso'];
 				
 				?>
 				<tr style="cursor:pointer">
-					<td><?php echo ($cia[$i]['nomcia']); ?></td>
-					<td hidden><?php echo $cia[$i]['idcia']; ?></td>
-	                <td><?php if ($desde_pref[0]['f_desde_pref']==0) {
+					<td><?= ($cia[$i]['nomcia']); ?></td>
+					<td hidden><?= $cia[$i]['idcia']; ?></td>
+	                <td><?php if ($f_cia_pref[0]['f_desde_pref']==0) {
 						echo "No";
 					} else {
 						echo "Sí";
 					}
 					?></td>
-					<td><?php echo $desde_prefn; ?></td>
-					<td><?php echo $hasta_prefn; ?></td>
+					<td><?= $desde_prefn; ?></td>
+					<td><?= $hasta_prefn; ?></td>
 					<?php if ($permiso==1) { ?>
 					<td style="text-align: center;">
-	                    <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?php echo $cia[$i]['nomcia'];?>" class="btn btn-info btn-sm btn-round"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+	                    <a data-tooltip="tooltip" data-placement="top" title="Añadir Preferencial" href="comp_pref.php?nomcia=<?= $cia[$i]['nomcia'];?>" class="btn btn-info btn-sm btn-round"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 					</td>
 					<?php }?>
 				</tr>

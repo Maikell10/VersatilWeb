@@ -102,7 +102,7 @@ if(isset($_SESSION['seudonimo'])) {
                         <tbody >
                             <div class="form-group col-md-12">
                             <tr style="background-color: white">
-                                <td><input type="text" class="form-control" name="cod" readonly="true" value="<?php echo $u[0]."-".($u[1]+1);?> "></td>
+                                <td><input type="text" class="form-control" name="cod" readonly="true" value="<?= $u[0]."-".($u[1]+1);?> "></td>
                                 <td><input type="text" class="form-control validanumericos" id="id_lider" name="id_lider" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                 <td><input onblur="cargarCuenta(this)" type="text" class="form-control" id="nombre_l" name="nombre_l" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                 <td><input type="text" class="form-control" id="cuenta" name="cuenta" required readonly="true"></td>
@@ -180,8 +180,8 @@ if(isset($_SESSION['seudonimo'])) {
 
                         <tbody >
                             <tr style="background-color: white">
-                                <td hidden><input type="text" class="form-control" name="id_proyecto" value="<?php echo $lider_p[0]['id_proyecto'];?> "></td>
-                                <td><input type="text" class="form-control" name="cod_proyecto" readonly="true" value="<?php echo $cod_enp;?> "></td>
+                                <td hidden><input type="text" class="form-control" name="id_proyecto" value="<?= $lider_p[0]['id_proyecto'];?> "></td>
+                                <td><input type="text" class="form-control" name="cod_proyecto" readonly="true" value="<?= $cod_enp;?> "></td>
                                 <td><input type="text" class="form-control validanumericos" id="id" name="id" required data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio [Sólo introducir números]"></td>
                                 <td><input type="text" class="form-control" id="nombre_a" name="nombre_a" required onkeyup="mayus(this);" data-toggle="tooltip" data-placement="bottom" title="Campo Obligatorio"></td>
                                 <td><select class="custom-select" name="currency" required>

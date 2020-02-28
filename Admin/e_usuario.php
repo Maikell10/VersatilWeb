@@ -77,8 +77,8 @@ if(isset($_SESSION['seudonimo'])) {
                 <a href="javascript:history.back(-1);" data-tooltip="tooltip" data-placement="right" title="Ir la página anterior" class="btn btn-info btn-round"><- Regresar</a>
 
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title">Usuario: <?php echo utf8_encode($usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']); ?></h1>  
-                    <h2 class="title">Seudónimo: <?php echo $usuario[0]['seudonimo']; ?></h2>  
+                    <h1 class="title">Usuario: <?= utf8_encode($usuario[0]['nombre_usuario']." ".$usuario[0]['apellido_usuario']); ?></h1>  
+                    <h2 class="title">Seudónimo: <?= $usuario[0]['seudonimo']; ?></h2>  
                 </div>
 
 
@@ -98,14 +98,14 @@ if(isset($_SESSION['seudonimo'])) {
 
 					<tbody >
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="nombre" required value="<?php echo utf8_encode($usuario[0]['nombre_usuario']); ?>"></td>
-                            <td><input type="text" class="form-control" name="apellido" value="<?php echo utf8_encode($usuario[0]['apellido_usuario']); ?>"></td>
-                            <td><input type="text" class="form-control" name="ci" value="<?php echo $usuario[0]['cedula_usuario']; ?>" ></td>
+                            <td><input type="text" class="form-control" name="nombre" required value="<?= utf8_encode($usuario[0]['nombre_usuario']); ?>"></td>
+                            <td><input type="text" class="form-control" name="apellido" value="<?= utf8_encode($usuario[0]['apellido_usuario']); ?>"></td>
+                            <td><input type="text" class="form-control" name="ci" value="<?= $usuario[0]['cedula_usuario']; ?>" ></td>
                             <td><select name="zprod" id="zprod" class="custom-select">
                                 <option value="PANAMA">PANAMA</option>
                                 <option value="CARACAS">CARACAS</option>
                             </select></td>
-                            <td hidden><input type="text" class="form-control" name="id_usuario" value="<?php echo $id_usuario; ?>" ></td>
+                            <td hidden><input type="text" class="form-control" name="id_usuario" value="<?= $id_usuario; ?>" ></td>
                         </tr>
                         <tr style="background-color: #00bcd4;color: white; font-weight: bold;">
                             <th>Seudónimo</th>
@@ -114,8 +114,8 @@ if(isset($_SESSION['seudonimo'])) {
                             <th>Activo</th>
                         </tr>
                         <tr style="background-color: white">
-                            <td><input type="text" class="form-control" name="seudonimo" required  value="<?php echo $usuario[0]['seudonimo']; ?>"></td>
-                            <td><input type="text" class="form-control" name="clave" value="<?php echo $usuario[0]['clave_usuario']; ?>"></td>
+                            <td><input type="text" class="form-control" name="seudonimo" required  value="<?= $usuario[0]['seudonimo']; ?>"></td>
+                            <td><input type="text" class="form-control" name="clave" value="<?= $usuario[0]['clave_usuario']; ?>"></td>
                             <td><select name="id_permiso" id="id_permiso" class="custom-select">
                                 <option value="1">Administrador</option>
                                 <option value="2">Usuario</option>
@@ -146,13 +146,13 @@ if(isset($_SESSION['seudonimo'])) {
                                 for($i=0;$i<sizeof($asesor);$i++)
                                     {  
                                 ?>
-                                    <option value="<?php echo $asesor[$i]["cod"];?>"><?php echo utf8_encode($asesor[$i]["idnom"]);?></option>
+                                    <option value="<?= $asesor[$i]["cod"];?>"><?= utf8_encode($asesor[$i]["idnom"]);?></option>
                                 <?php }for($i=0;$i<sizeof($liderp);$i++)
                                     { ?> 
-                                    <option value="<?php echo $liderp[$i]["cod"];?>"><?php echo utf8_encode($liderp[$i]["nombre"]);?></option>
+                                    <option value="<?= $liderp[$i]["cod"];?>"><?= utf8_encode($liderp[$i]["nombre"]);?></option>
                                 <?php } for($i=0;$i<sizeof($referidor);$i++)
                                     {?>
-                                    <option value="<?php echo $referidor[$i]["cod"];?>"><?php echo utf8_encode($referidor[$i]["nombre"]);?></option>
+                                    <option value="<?= $referidor[$i]["cod"];?>"><?= utf8_encode($referidor[$i]["nombre"]);?></option>
                                 <?php } ?>
                             </select>
                             </td>
@@ -252,13 +252,13 @@ if(isset($_SESSION['seudonimo'])) {
 
         $(document).ready(function(){
 
-            document.getElementById("zprod").value = "<?php echo $usuario[0]['z_produccion'];?>";
+            document.getElementById("zprod").value = "<?= $usuario[0]['z_produccion'];?>";
 
-            document.getElementById("id_permiso").value = "<?php echo $usuario[0]['id_permiso'];?>";
+            document.getElementById("id_permiso").value = "<?= $usuario[0]['id_permiso'];?>";
 
-            document.getElementById("activo").value = "<?php echo $usuario[0]['activo'];?>";
+            document.getElementById("activo").value = "<?= $usuario[0]['activo'];?>";
 
-            $('#asesor').val('<?php echo $usuario[0]['cod_vend'];?>'); 
+            $('#asesor').val('<?= $usuario[0]['cod_vend'];?>'); 
             $('#asesor').change(); 
 
             if ($('#id_permiso').val()==3) {
