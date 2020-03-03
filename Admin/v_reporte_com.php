@@ -4,7 +4,7 @@ if(isset($_SESSION['seudonimo'])) {
 
   }
     else {
-        header("Location: login.php");
+        header("Location: ../sys/login.php");
         exit();
       }
       
@@ -66,6 +66,71 @@ if(isset($_SESSION['seudonimo'])) {
 
         <div class="section">
             <div class="container">
+
+
+            <?php
+
+
+                $id_rep_com = $id_rep_com . ".pdf";
+                $archivo = './' . $id_rep_com;
+
+  /*                            
+//190.140.224.69                    
+$ftp_server="186.75.241.90";
+$port=21;
+$ftp_usuario="usuario";
+$ftp_pass="20127247";
+$con_id=@ftp_connect($ftp_server,$port) or die("Unable to connect to server.");
+$lr=ftp_login($con_id, $ftp_usuario, $ftp_pass);
+
+//ftp_pasv($con_id, true);
+
+if ( (!$con_id) || (!$lr) ) {
+    echo "no se pudo conectar";
+} else {
+    
+    
+    
+    
+    # Cambiamos al directorio especificado
+    if(ftp_chdir($con_id,''))
+    {
+        
+        // Obtener los archivos contenidos en el directorio actual
+        $contents = ftp_nlist($con_id, ".");
+        
+        if (in_array($archivo, $contents)) {
+            //echo "<br>";
+            //echo "I found ".$archivo." in directory";
+        
+                    
+                    
+                    
+                ?>
+      
+                    <a href="download.php?id_rep_com=<?= $_GET['id_rep_com'];?>" class="btn btn-white btn-round" target="_blank" style="float: right"><img src="../assets/img/pdf-logo.png" width="60" alt=""></a>
+                    <br>
+                <?php
+                    }
+                ?>
+                    <form class="form-horizontal" action="save_rep.php" method="post" enctype="multipart/form-data" >
+                    <center>
+                        <label for="archivo">Seleccione el Reporte pdf a cargar</label>
+                        <input type="file" class="form-control-file" id="archivo" name="archivo" accept="application/pdf" required>
+                        <button class="btn btn-success btn-round">Subir Archivo</button>
+                        <input type="text" class="form-control" name="id_rep_com" value="<?= $_GET['id_rep_com'];?>" hidden>
+                        </center>
+                    </form>
+                <?php
+                    
+            ftp_close($con_id);
+    }
+
+}
+     */               
+            
+
+                ?>
             
                 <div class="col-md-auto col-md-offset-2">
                     <h1 class="title">Compañía: <?= $cia[0]['nomcia']; ?></h1>

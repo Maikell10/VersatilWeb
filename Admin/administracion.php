@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['seudonimo'])) { } else {
-    header("Location: login.php");
+    header("Location: ../sys/login.php");
     exit();
 }
 

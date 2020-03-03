@@ -4,7 +4,7 @@ require_once "../class/clases.php";
 
 
 $obj1= new Trabajo();
-$cia = $obj1->get_distinct_element('id_cia','rep_com'); 
+$cia = $obj1->get_distinc_c_rep_com(); 
 
 
 
@@ -29,8 +29,6 @@ $totalCom=0;
 		<tbody >
 			<?php
 			for ($i=0; $i < sizeof($cia); $i++) { 
-				$obj2= new Trabajo();
-				$cia1 = $obj2->get_element_by_id('dcia','idcia',$cia[$i]['id_cia']); 
 
 				$primap=0;
 				$obj5= new Trabajo();
@@ -59,7 +57,7 @@ $totalCom=0;
 				
 				?>
 				<tr style="cursor: pointer">
-					<td><?= ($cia1[0]['nomcia']); ?></td>
+					<td><?= ($cia[$i]['nomcia']); ?></td>
 					<td hidden=""><?= $asesor[$i]['idena']; ?></td>
 	                <td><?= number_format($primap,2); ?></td>
 	                <td><?= number_format($prima,2); ?></td>

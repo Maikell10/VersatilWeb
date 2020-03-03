@@ -272,6 +272,82 @@ class Trabajo extends Conectar
 	}
 
 
+	public function get_seguimiento($id_poliza)
+	{
+		$sql = "SELECT * FROM seguimiento 
+				INNER JOIN usuarios
+				WHERE 
+				seguimiento.id_usuario = usuarios.id_usuario AND
+				id_poliza = '$id_poliza'  
+				ORDER BY seguimiento.created_at DESC";
+		$res = mysqli_query(Conectar::con(), $sql);
+
+		if (!$res) {
+			//No hay registros
+		} else {
+			$filas = mysqli_num_rows($res);
+			if ($filas == 0) {
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			} else {
+				while ($reg = mysqli_fetch_assoc($res)) {
+					$this->t[] = $reg;
+				}
+				return $this->t;
+			}
+		}
+	}
+
+
+	public function get_rep_com()
+	{
+		$sql = "SELECT * FROM rep_com 
+				INNER JOIN dcia
+				WHERE
+				rep_com.id_cia = dcia.idcia
+				ORDER BY f_hasta_rep ASC";
+		$res = mysqli_query(Conectar::con(), $sql);
+
+		if (!$res) {
+			//No hay registros
+		} else {
+			$filas = mysqli_num_rows($res);
+			if ($filas == 0) {
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			} else {
+				while ($reg = mysqli_fetch_assoc($res)) {
+					$this->t[] = $reg;
+				}
+				return $this->t;
+			}
+		}
+	}
+
+	public function get_distinc_c_rep_com()
+	{
+		$sql = "SELECT DISTINCT id_cia, nomcia FROM rep_com 
+				INNER JOIN dcia
+				WHERE 
+				rep_com.id_cia = dcia.idcia
+				ORDER BY id_cia ASC";
+		$res = mysqli_query(Conectar::con(), $sql);
+
+		if (!$res) {
+			//No hay registros
+		} else {
+			$filas = mysqli_num_rows($res);
+			if ($filas == 0) {
+				//header("Location: incorrecto.php?m=2");
+				//exit();
+			} else {
+				while ($reg = mysqli_fetch_assoc($res)) {
+					$this->t[] = $reg;
+				}
+				return $this->t;
+			}
+		}
+	}
 
 
 
@@ -16889,6 +16965,18 @@ class Trabajo extends Conectar
 		values ('$id_poliza',
 				'$campos',
 				'$usuario')";
+		return mysqli_query(Conectar::con(), $sql);
+	}
+
+
+
+	public function agregarSeguimiento($datos)
+	{
+
+		$sql = "INSERT INTO seguimiento (id_poliza,comentario,id_usuario)
+									VALUES ('$datos[0]',
+											'$datos[1]',
+											'$datos[2]')";
 		return mysqli_query(Conectar::con(), $sql);
 	}
 
