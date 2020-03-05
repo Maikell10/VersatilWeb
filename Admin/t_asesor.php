@@ -26,7 +26,7 @@ $totalCant=0;
 		<thead style="background-color: #00bcd4;color: white; font-weight: bold;">
 			<tr>
 				<th nowrap>Nombre</th>
-				<th hidden="">ID</th>
+				<th hidden>ID</th>
                 <th nowrap>Código</th>
                 <th nowrap>C.I o Pasaporte</th>
                 <th nowrap>Cant Pólizas</th>

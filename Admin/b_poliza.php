@@ -74,7 +74,7 @@ $fhoy = date("Y");
     <?php require('header.php'); ?>
 </head>
 
-<body class="profile-page ">
+<body class="profile-page">
 
     <?php require('navigation.php'); ?>
 
