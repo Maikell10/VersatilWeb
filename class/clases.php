@@ -736,7 +736,7 @@ class Trabajo extends Conectar
 
 	public function get_poliza_total_by_id($id_poliza)
 	{
-		$sql = "SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 				  			 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							 codvend, nombre_t, apellido_t, poliza.cod_poliza, idnom as nombre, 
 							 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
@@ -778,28 +778,28 @@ class Trabajo extends Conectar
 
 	public function get_poliza_total1_by_id($id_poliza)
 	{
-		$sql = "SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
-							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
-							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
-							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
-							fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
-							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
-							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
-							cell, telf, titular.email, direcc, id, per_gc,
-							id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco
-					    FROM 
-	                    poliza
-	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
-	                  	WHERE 
-	                  	poliza.id_poliza = drecibo.idrecibo AND
-	                  	poliza.id_titular = titular.id_titular AND 
-	                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
-	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
-	                    poliza.id_cia = dcia.idcia AND
-	                    poliza.codvend = enp.cod AND
-						drecibo.id_tarjeta = tarjeta.id_tarjeta AND
-	                  	poliza.id_poliza = $id_poliza
-	                    ORDER BY poliza.id_poliza ASC";
+		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
+			f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
+			codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
+			cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+			fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
+			f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
+			ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
+			cell, telf, titular.email, direcc, id, per_gc,
+			id_cod_ramo, id_tpoliza, obs, created_at, tarjeta.banco
+		FROM 
+		poliza
+		INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
+		WHERE 
+		poliza.id_poliza = drecibo.idrecibo AND
+		poliza.id_titular = titular.id_titular AND 
+		poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
+		poliza.id_cod_ramo = dramo.cod_ramo AND
+		poliza.id_cia = dcia.idcia AND
+		poliza.codvend = enp.cod AND
+		drecibo.id_tarjeta = tarjeta.id_tarjeta AND
+		poliza.id_poliza = $id_poliza
+		ORDER BY poliza.id_poliza ASC";
 		$res = mysqli_query(Conectar::con(), $sql);
 
 		if (!$res) {
@@ -820,7 +820,7 @@ class Trabajo extends Conectar
 
 	public function get_poliza_total2_by_id($id_poliza)
 	{
-		$sql = "SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
 							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
@@ -862,7 +862,7 @@ class Trabajo extends Conectar
 
 	public function get_poliza_total3_by_id($id_poliza)
 	{
-		$sql = "SELECT id_tomador, poliza.currency, id_poliza, id_usuario, 
+		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
 							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
@@ -1626,7 +1626,7 @@ class Trabajo extends Conectar
 
 			$sql = "SELECT *  FROM 
 						poliza
-						INNER JOIN drecibo, titular, tipo_poliza, dcia, enr
+						INNER JOIN drecibo, titular, tipo_poliza, dcia, enr, dramo
 						WHERE 
 						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_tpoliza = tipo_poliza.id_t_poliza AND

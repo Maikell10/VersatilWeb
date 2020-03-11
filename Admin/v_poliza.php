@@ -554,7 +554,7 @@ if ( (!$con_id) || (!$lr) ) {
                     </div>
 
                     <?php
-                    if ($poliza[0]['cod_ramo'] == 2 || $poliza[0]['cod_ramo'] == 25) {
+                    if ($poliza[0]['id_cod_ramo'] == 2 || $poliza[0]['id_cod_ramo'] == 25) {
                     ?>
 
                         <div id="tablaveh">

@@ -39,9 +39,8 @@ class Renovar extends Conectar
         $sql = "SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, idnom AS nombre, poliza.id_cia  FROM 
                         poliza
                         INNER JOIN
-                        drecibo, dcia, titular, ena
+                        dcia, titular, ena
                         WHERE 
-                        poliza.id_poliza = drecibo.idrecibo AND
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = ena.cod AND
@@ -52,9 +51,8 @@ class Renovar extends Conectar
                 SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
                         poliza
                         INNER JOIN
-                        drecibo, dcia, titular, enp
+                        dcia, titular, enp
                         WHERE 
-                        poliza.id_poliza = drecibo.idrecibo AND
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enp.cod AND
@@ -65,9 +63,8 @@ class Renovar extends Conectar
                 SELECT id_poliza, poliza.cod_poliza, nomcia, f_desdepoliza, f_hastapoliza, prima, nombre_t, apellido_t, pdf, nombre, poliza.id_cia  FROM 
                         poliza
                         INNER JOIN
-                        drecibo, dcia, titular, enr
+                        dcia, titular, enr
                         WHERE 
-                        poliza.id_poliza = drecibo.idrecibo AND
                         poliza.id_cia = dcia.idcia AND
                         poliza.id_titular = titular.id_titular AND
                         poliza.codvend = enr.cod AND

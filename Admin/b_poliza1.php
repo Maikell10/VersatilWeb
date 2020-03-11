@@ -31,8 +31,6 @@ if(isset($_SESSION['seudonimo'])) {
     $asesor=$_GET["asesor"]; 
   }else{$asesor='';}
 
- echo $mes ;
-
   $obj1= new Trabajo();
   $poliza = $obj1->get_poliza_total_by_filtro($mes,$anio,$cia,$ramo,$asesor); 
 

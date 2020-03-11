@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION['seudonimo'])) { } else {
+if (isset($_SESSION['seudonimo'])) {
+} else {
     header("Location: ../sys/login.php");
     exit();
 }
@@ -56,15 +57,11 @@ $contN = sizeof($tarjeta);
         <div class="section">
             <div class="container">
 
-                <?php
-                if ($contN != 0) {
-                    ?>
+                <?php if ($contN != 0) { ?>
                     <div class="float-right">
                         <a href="" data-tooltip="tooltip" data-placement="top" title="Ver Tarjeta de Crédito/Débido vencida" class="badge badge-warning navbar-badge h3" data-toggle="modal" data-target="#tarjetaV"><i class="fa fa-bell" aria-hidden="true"></i> <?= $contN; ?></a>
                     </div>
-                <?php
-                }
-                ?>
+                <?php } ?>
 
                 <div class="col-md-auto col-md-offset-2 hover-collapse">
                     <h2 class="title"><a class="dropdown-toggle" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">Producción (Listados)</a></h2>
@@ -91,9 +88,7 @@ $contN = sizeof($tarjeta);
                         </div>
                     </div>
 
-                    <?php
-                    if ($permiso != 3) {
-                        ?>
+                    <?php if ($permiso != 3) { ?>
                         <div class="card-deck">
                             <div class="card text-white bg-info mb-3">
                                 <a href="b_comp.php">
@@ -127,9 +122,7 @@ $contN = sizeof($tarjeta);
                                 </a>
                             </div>
                         </div>
-                    <?php
-                    }
-                    ?>
+                    <?php } ?>
 
                 </div>
 
@@ -138,7 +131,7 @@ $contN = sizeof($tarjeta);
 
             <?php
             if ($permiso != 3) {
-                ?>
+            ?>
                 <div class="container">
 
                     <div class="col-md-auto col-md-offset-2 hover-collapse">
@@ -219,7 +212,7 @@ $contN = sizeof($tarjeta);
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
@@ -274,7 +267,7 @@ $contN = sizeof($tarjeta);
                                 <?php
                                 for ($i = 0; $i < sizeof($tarjeta); $i++) {
                                     $fechaV = date("d/m/Y", strtotime($tarjeta[$i]['fechaV']));
-                                    ?>
+                                ?>
                                     <tr style="cursor:pointer">
                                         <td hidden><?= $tarjeta[$i]['idrecibo']; ?></td>
                                         <td><?= $tarjeta[$i]['n_tarjeta']; ?></td>
@@ -282,7 +275,7 @@ $contN = sizeof($tarjeta);
                                         <td><?= $fechaV; ?></td>
                                         <td><?= $tarjeta[$i]['nombre_titular']; ?></td>
                                         <td><?= $tarjeta[$i]['banco']; ?></td>
-                                        <td class="text-center"><a href="b_polizaT.php?id_tarjeta=<?= $tarjeta[$i]['id_tarjeta']; ?>" target="_blank" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm" ><i class="fa fa-eye"></i></a></td>
+                                        <td class="text-center"><a href="b_polizaT.php?id_tarjeta=<?= $tarjeta[$i]['id_tarjeta']; ?>" target="_blank" data-tooltip="tooltip" data-placement="top" title="Ver Pólizas" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
                                     </tr>
                                 <?php
                                 }
@@ -290,15 +283,6 @@ $contN = sizeof($tarjeta);
                             </tbody>
                         </table>
                     </div>
-
-
-                    <!-- AQUI VA LA TABLA SI LA POLIZA TIENE ALGUNA EDICION -->
-                    <?php
-
-                    $obj99 = new Trabajo();
-                    $poliza_ed = $obj99->get_element_by_id('poliza_ed', 'id_poliza', $id_poliza);
-
-                    ?>
                 </div>
             </div>
         </div>
