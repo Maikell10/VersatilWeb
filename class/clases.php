@@ -739,7 +739,7 @@ class Trabajo extends Conectar
 		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 				  			 f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							 codvend, nombre_t, apellido_t, poliza.cod_poliza, idnom as nombre, 
-							 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							 cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, poliza.prima,
 							 fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
 							 f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
 							 ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
@@ -749,7 +749,6 @@ class Trabajo extends Conectar
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, tarjeta
                   	WHERE 
-                  	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND 
                   	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                   	poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -781,7 +780,7 @@ class Trabajo extends Conectar
 		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 			f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 			codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
-			cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+			cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, poliza.prima,
 			fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
 			f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
 			ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
@@ -791,7 +790,6 @@ class Trabajo extends Conectar
 		poliza
 		INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, tarjeta
 		WHERE 
-		poliza.id_poliza = drecibo.idrecibo AND
 		poliza.id_titular = titular.id_titular AND 
 		poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 		poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -823,7 +821,7 @@ class Trabajo extends Conectar
 		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
-							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, poliza.prima,
 							fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
 							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
 							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
@@ -833,7 +831,6 @@ class Trabajo extends Conectar
 	                    poliza
 	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, tarjeta
 	                  	WHERE 
-	                  	poliza.id_poliza = drecibo.idrecibo AND
 	                  	poliza.id_titular = titular.id_titular AND 
 	                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -865,7 +862,7 @@ class Trabajo extends Conectar
 		$sql = "SELECT id_tomador, poliza.currency, poliza.id_poliza, id_usuario, 
 							f_poliza, f_desdepoliza, f_hastapoliza, id_cia,
 							codvend, nombre_t, apellido_t, poliza.cod_poliza, nombre, 
-							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, prima,
+							cod, fechaV, tipo_poliza, nramo, nomcia, sumaasegurada, poliza.prima,
 							fpago, t_cuenta, forma_pago, tarjeta.id_tarjeta, n_tarjeta, cvv, nombre_titular,
 							f_desderecibo, f_hastarecibo, id_zproduccion, cod_recibo,
 							ncuotas, montocuotas, obs_p, f_nac, id_sexo, id_ecivil, ci,
@@ -875,7 +872,6 @@ class Trabajo extends Conectar
 	                    poliza
 	                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, lider_enp, tarjeta
 	                  	WHERE 
-	                  	poliza.id_poliza = drecibo.idrecibo AND
 	                  	poliza.id_titular = titular.id_titular AND 
 	                  	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 	                  	poliza.id_cod_ramo = dramo.cod_ramo AND
