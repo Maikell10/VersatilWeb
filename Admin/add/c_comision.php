@@ -87,11 +87,6 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <br/><br/>
 
-
-            
-                <h2 id="existeRep" class="text-success"><strong></strong></h2>
-                <h2 id="no_existeRep" class="text-danger"><strong></strong></h2>
-
                 <form class="form-horizontal" id="frmnuevo" method="get" action="comision.php" >
                     <div class="form-row table-responsive">
                         <table class="table table-hover table-striped table-bordered" id="iddatatable" >

@@ -268,8 +268,6 @@ if(isset($_SESSION['seudonimo'])) {
                     </h1>  
                 </div>
 
-
-            
                 
                 <form class="form-horizontal" id="frmnuevo" >
                     <div class="form-row table-responsive">      

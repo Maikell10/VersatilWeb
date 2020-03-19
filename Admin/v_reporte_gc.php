@@ -569,7 +569,7 @@ if(isset($_SESSION['seudonimo'])) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
@@ -603,7 +603,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 if (customerId == null) {
                     var customerId = $(this).find("td").eq(9).html();  
-                } 
+                }
 
                 window.open ("v_poliza.php?id_poliza="+customerId ,'_blank');
             }

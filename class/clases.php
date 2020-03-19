@@ -2879,7 +2879,7 @@ class Trabajo extends Conectar
 	public function get__last_poliza_by_id($cod_poliza)
 	{
 		$sql = "SELECT id_poliza FROM poliza WHERE cod_poliza = '$cod_poliza'
-		      							ORDER BY f_poliza DESC";
+		      			ORDER BY f_poliza DESC";
 		$res = mysqli_query(Conectar::con(), $sql);
 
 		if (!$res) {
@@ -16596,13 +16596,14 @@ class Trabajo extends Conectar
 		$asesor_ind,
 		$t_cuenta,
 		$id_usuario,
-		$obs
+		$obs,
+		$prima
 	) {
 
 
 		$sql = "INSERT into poliza (cod_poliza,f_poliza, f_emi, tcobertura, f_desdepoliza,
 										f_hastapoliza, currency, id_tpoliza, sumaasegurada, id_zproduccion, codvend,
-										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario, obs_p)
+										id_cod_ramo, id_cia, id_titular, id_tomador, per_gc, t_cuenta, id_usuario, obs_p, prima)
 									values ('$cod_poliza',
 											'$f_poliza',
 											'$f_emi',
@@ -16621,7 +16622,8 @@ class Trabajo extends Conectar
 											'$asesor_ind',
 											'$t_cuenta',
 											'$id_usuario',
-											'$obs')";
+											'$obs',
+											'$prima')";
 		return mysqli_query(Conectar::con(), $sql);
 	}
 
@@ -17096,7 +17098,7 @@ class Trabajo extends Conectar
 
 		$sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+							ci, currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, drecibo.prima  FROM 
                     poliza
                   	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
@@ -17118,7 +17120,7 @@ class Trabajo extends Conectar
 
 				$sql1 = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, drecibo.prima  FROM 
 		                    poliza
 		                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enp, dveh
 		                  	WHERE 
@@ -17141,7 +17143,7 @@ class Trabajo extends Conectar
 
 						$sql2 = "SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
 									poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
-									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima  FROM 
+									ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, drecibo.prima  FROM 
 				                    poliza
 				                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, enr, dveh
 				                  	WHERE 
@@ -17192,12 +17194,11 @@ class Trabajo extends Conectar
 	{
 
 		$sql = "SELECT f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
-							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							poliza.id_titular, id_tomador, codvend, 
 							ci, poliza.currency, idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
                     poliza
-                  	INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, ena, dveh
+                  	INNER JOIN titular, tipo_poliza, dramo, dcia, ena, dveh
                   	WHERE 
-                  	poliza.id_poliza = drecibo.idrecibo AND
                   	poliza.id_titular = titular.id_titular AND 
                   	poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
                   	poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -17209,12 +17210,11 @@ class Trabajo extends Conectar
 					UNION
 
 			SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
-							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							poliza.id_titular, id_tomador, codvend, 
 							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
 							poliza
-							INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, dveh, enr
+							INNER JOIN titular, tipo_poliza, dramo, dcia, dveh, enr
 							WHERE 
-							poliza.id_poliza = drecibo.idrecibo AND
 							poliza.id_titular = titular.id_titular AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -17226,12 +17226,11 @@ class Trabajo extends Conectar
 					UNION
 
 			SELECT  f_emi, f_desdepoliza, f_hastapoliza, id_cod_ramo, id_cia, tcobertura,
-							poliza.id_titular, id_tomador, f_desderecibo, f_hastarecibo, codvend, 
+							poliza.id_titular, id_tomador, codvend, 
 							ci, poliza.currency, nombre AS idnom, nombre_t, apellido_t, placa, tveh, marca, mveh, f_veh, serial, cveh, catveh, id_poliza, t_cuenta, poliza.cod_poliza, prima, dcia.nomcia  FROM 
 							poliza
-							INNER JOIN drecibo, titular, tipo_poliza, dramo, dcia, dveh, enp
+							INNER JOIN titular, tipo_poliza, dramo, dcia, dveh, enp
 							WHERE 
-							poliza.id_poliza = drecibo.idrecibo AND
 							poliza.id_titular = titular.id_titular AND 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND
 							poliza.id_cod_ramo = dramo.cod_ramo AND
@@ -17371,7 +17370,7 @@ class Trabajo extends Conectar
 	public function obtenSumaReporte($id_rep_com)
 	{
 
-		$sql = "SELECT SUM(prima_com), SUM(comt) FROM rep_com, comision
+		$sql = "SELECT SUM(prima_com), SUM(comision) FROM rep_com, comision
 				WHERE 
 				rep_com.id_rep_com=comision.id_rep_com AND
 				comision.id_rep_com= '$id_rep_com'";

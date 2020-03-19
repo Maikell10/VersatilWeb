@@ -187,7 +187,7 @@ if(isset($_SESSION['seudonimo'])) {
 	  	function(){ 
 	  		window.location.replace("../sesionadmin.php");
 	  		alertify.error('Cancel')
-	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show(); ;
+	  	}).set('labels', {ok:'Sí', cancel:'No'}).set({transition:'zoom'}).show();
 
 	
 
