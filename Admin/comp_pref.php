@@ -240,8 +240,8 @@ $cia[0]['idcia'];
 
 
         $(function() {
-            $('[data-tooltip="tooltip"]').tooltip()
-        })
+            $('[data-tooltip="tooltip"]').tooltip();
+        });
     </script>
 
 </body>

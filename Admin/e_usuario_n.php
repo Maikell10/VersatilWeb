@@ -94,7 +94,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <center>
                 <div class="col-md-auto col-md-offset-2">
-                    <h1 class="title"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Previsualizar Edición del Cliente
+                    <h1 class="title"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Previsualizar Edición del Usuario
                     </h1>  
                 </div>
 

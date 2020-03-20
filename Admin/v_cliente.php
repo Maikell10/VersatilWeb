@@ -67,7 +67,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <hr>
                 <center>
-                <a  href="e_cliente.php?id_titu=<?= $id_titular;?>"" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Cliente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <a  href="e_cliente.php?id_titu=<?= $id_titular;?>" data-tooltip="tooltip" data-placement="top" title="Editar" class="btn btn-success btn-lg">Editar Cliente  &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </center>
                 <hr>
 

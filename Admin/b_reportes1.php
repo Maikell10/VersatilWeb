@@ -36,7 +36,7 @@ if(isset($_SESSION['seudonimo'])) {
   }
   $cia = $_GET['cia'];
   if ($cia=='Seleccione Cía') {
-    $cia=0;
+    $cia='Seleccione Cía';
   }
 
   
