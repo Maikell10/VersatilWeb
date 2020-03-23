@@ -3937,9 +3937,9 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ciaIn = "('" . implode("','", $cia) . "')";
 
-			$sql = "SELECT poliza.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo FROM comision 
-							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
-							WHERE poliza.id_poliza = drecibo.idrecibo AND 
+			$sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo FROM comision 
+							INNER JOIN titular, tipo_poliza, dcia, dramo, poliza, rep_com 
+							WHERE 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
@@ -3956,10 +3956,10 @@ class Trabajo extends Conectar
 		}
 
 		if ($cia == '') {
-			$sql = "SELECT poliza.cod_poliza, sumaasegurada, prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo
+			$sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, prima_com, comision, per_gc, f_desdepoliza, f_hastapoliza, currency, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, f_pago_prima,f_pago_gc, f_hasta_rep, id_comision, nramo
 							FROM comision 
-							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, poliza, rep_com 
-							WHERE poliza.id_poliza = drecibo.idrecibo AND 
+							INNER JOIN titular, tipo_poliza, dcia, dramo, poliza, rep_com 
+							WHERE 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
 							poliza.id_titular = titular.id_titular AND
 							poliza.id_cia = dcia.idcia AND
@@ -10319,9 +10319,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ramoIn = "('" . implode("','", $ramo) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10332,9 +10331,8 @@ class Trabajo extends Conectar
 						ORDER BY Month(f_desdepoliza) ASC ";
 		} //1
 		if ($cia == '' && $tipo_cuenta == '' && $ramo == '') {
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10346,9 +10344,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ciaIn = "('" . implode("','", $cia) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10361,9 +10358,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10376,9 +10372,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ramoIn = "('" . implode("','", $ramo) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10393,9 +10388,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10411,9 +10405,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ramoIn = "('" . implode("','", $ramo) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -10429,9 +10422,8 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ramoIn = "('" . implode("','", $ramo) . "')";
 
-			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,drecibo,dcia,dramo
+			$sql = "SELECT DISTINCT Month(f_desdepoliza) FROM poliza,dcia,dramo
 						WHERE 
-						poliza.id_poliza = drecibo.idrecibo AND
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_cia=dcia.idcia AND
 						f_desdepoliza >= '$cond1' AND
@@ -14148,9 +14140,8 @@ class Trabajo extends Conectar
 			$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
 			$sql = "SELECT count(DISTINCT comision.id_poliza) FROM poliza 
-						INNER JOIN dcia, drecibo, dramo, comision WHERE 
-						poliza.id_cia=dcia.idcia AND
-						poliza.id_poliza=drecibo.idrecibo AND 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_poliza = comision.id_poliza AND 
 						YEAR(f_pago_prima)=$anio AND
@@ -14160,9 +14151,8 @@ class Trabajo extends Conectar
 		}
 		if ($ramo == '' && $tipo_cuenta == '') {
 			$sql = "SELECT count(DISTINCT comision.id_poliza) FROM poliza 
-						INNER JOIN dcia, drecibo, dramo, comision WHERE 
-						poliza.id_cia=dcia.idcia AND
-						poliza.id_poliza=drecibo.idrecibo AND 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_poliza = comision.id_poliza AND 
 						YEAR(f_pago_prima)=$anio AND
@@ -14174,9 +14164,8 @@ class Trabajo extends Conectar
 			$tipo_cuentaIn = "('" . implode("','", $tipo_cuenta) . "')";
 
 			$sql = "SELECT count(DISTINCT comision.id_poliza) FROM poliza 
-						INNER JOIN dcia, drecibo, dramo, comision WHERE 
-						poliza.id_cia=dcia.idcia AND
-						poliza.id_poliza=drecibo.idrecibo AND 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_poliza = comision.id_poliza AND 
 						YEAR(f_pago_prima)=$anio AND
@@ -14189,9 +14178,8 @@ class Trabajo extends Conectar
 			$ramoIn = "('" . implode("','", $ramo) . "')";
 
 			$sql = "SELECT count(DISTINCT comision.id_poliza) FROM poliza 
-						INNER JOIN dcia, drecibo, dramo, comision WHERE 
-						poliza.id_cia=dcia.idcia AND
-						poliza.id_poliza=drecibo.idrecibo AND 
+						INNER JOIN dcia, dramo, comision WHERE 
+						poliza.id_cia=dcia.idcia AND 
 						poliza.id_cod_ramo=dramo.cod_ramo AND
 						poliza.id_poliza = comision.id_poliza AND 
 						YEAR(f_pago_prima)=$anio AND

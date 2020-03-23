@@ -37,23 +37,6 @@ $numeroConCeros = str_pad($mesA, 2, "0", STR_PAD_LEFT);
 $desde=$_GET['desde'].'-'.$numeroConCeros.'-01';
 $hasta=$_GET['desde'].'-'.$numeroConCeros.'-31';
 
-#separas la fecha en subcadenas y asignarlas a variables
-#relacionadas en contenido, por ejemplo dia, mes y anio.
-
-$dia   = substr($desde,8,2);
-$mes = substr($desde,5,2);
-$anio = substr($desde,0,4); 
-
-
-$semana = date('W',  mktime(0,0,0,$mes,$dia,$anio));  
-
-//donde:
-        
-#W (mayúscula) te devuelve el número de semana
-#w (minúscula) te devuelve el número de día dentro de la semana (0=domingo, #6=sabado)
-
-//echo $semana;  
-
 if ($permiso!=3) { 
 
   $obj1= new Trabajo();
@@ -294,7 +277,7 @@ $semSinDuplicado=array_values(array_unique($semanaMesArray));
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>

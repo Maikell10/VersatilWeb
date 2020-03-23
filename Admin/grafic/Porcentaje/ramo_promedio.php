@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION['seudonimo'])) { } else {
+if (isset($_SESSION['seudonimo'])) {
+} else {
   header("Location: login.php");
   exit();
 }
@@ -208,20 +209,14 @@ foreach ($sumatotalRamoProm as $key => $value) {
           </thead>
           <tbody>
             <?php
-
-
             for ($i = sizeof($ramo); $i > 0; $i--) {
-              //echo $sumatotalRamo[$x[$i]]." - ".$ramoArray[$x[$i]];
-
-              ?>
+            ?>
               <tr>
                 <th scope="row"><?= ($ramoArray[$x[$i]]); ?></th>
                 <td><?= "$" . number_format(($sumatotalRamo[$x[$i]]) / $cantArray[$x[$i]], 2); ?></td>
                 <td><?= $cantArray[$x[$i]]; ?></td>
               </tr>
-            <?php
-            }
-            ?>
+            <?php } ?>
           </tbody>
           <thead class="thead-dark">
             <tr>
@@ -274,7 +269,7 @@ foreach ($sumatotalRamoProm as $key => $value) {
       <div class="copyright pull-right">
         &copy;
         <script>
-          document.write(new Date().getFullYear())
+          document.write(new Date().getFullYear());
         </script>, Versatil Seguros S.A.
       </div>
     </div>

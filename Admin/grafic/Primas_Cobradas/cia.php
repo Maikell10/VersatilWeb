@@ -289,7 +289,7 @@ if ($permiso==3) {
               <table class="table table-hover table-striped table-bordered" id="Exportar_a_Excel" style="font-size:14px; margin:0 auto;width: auto;">
                 <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
                   <tr>
-                    <th>Ramo</th>
+                    <th>Cía</th>
                     <th>Enero</th>
                     <th>Febrero</th>
                     <th>Marzo</th>
@@ -391,7 +391,7 @@ if ($permiso==3) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
