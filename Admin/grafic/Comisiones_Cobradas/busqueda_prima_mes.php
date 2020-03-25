@@ -68,7 +68,7 @@ if(isset($_SESSION['seudonimo'])) {
 
                 <div class="col-md-auto col-md-offset-2">
                   <center>
-                    <h1 class="title">Comisiones Cobradas por Forma de Pago</h1> 
+                    <h1 class="title">Comisiones Cobradas por Mes</h1> 
                     <br/>
                     <a name="nombre"></a>
                     <a href="../comisiones_c.php" class="btn btn-info btn-lg btn-round">Menú de Gráficos</a></center>

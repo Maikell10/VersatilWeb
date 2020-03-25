@@ -211,9 +211,6 @@ foreach($sumatotalCiaCC as $key=>$value) {
                     <center><a  class="btn btn-success" onclick="tableToExcel('Exportar_a_Excel', 'Distribución de la Cartera por Cía')" data-toggle="tooltip" data-placement="right" title="Exportar a Excel"><img src="../../../assets/img/excel.png" width="40" alt=""></a></center>
                 </div>
                 <br>
- 
-
-      
 
     <table class="table table-hover table-striped table-bordered display table-responsive nowrap" id="Exportar_a_Excel">
        <thead style="background-color: #00bcd4;color: white; font-weight: bold;">
@@ -320,7 +317,7 @@ foreach($sumatotalCiaCC as $key=>$value) {
             <div class="copyright pull-right">
                 &copy;
                 <script>
-                    document.write(new Date().getFullYear())
+                    document.write(new Date().getFullYear());
                 </script>, Versatil Seguros S.A.
             </div>
         </div>
