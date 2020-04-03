@@ -317,7 +317,7 @@ $mes_arr=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Sep
       <div class="copyright pull-right">
         &copy;
         <script>
-          document.write(new Date().getFullYear())
+          document.write(new Date().getFullYear());
         </script>, Versatil Seguros S.A.
       </div>
     </div>
