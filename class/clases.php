@@ -3726,8 +3726,8 @@ class Trabajo extends Conectar
 								WHERE 
 								poliza.id_cia=dcia.idcia AND
 								poliza.codvend=enr.cod AND
-								poliza.f_poliza >= '$f_desde' AND
-								poliza.f_poliza <= '$f_hasta' AND
+								poliza.f_hastapoliza >= '$f_desde' AND
+								poliza.f_hastapoliza <= '$f_hasta' AND
 								nomcia IN " . $ciaIn . " AND
 								codvend  IN " . $asesorIn . " AND
                             	not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
@@ -3740,8 +3740,8 @@ class Trabajo extends Conectar
 							WHERE 
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
-							poliza.f_poliza >= '$f_desde' AND
-							poliza.f_poliza <= '$f_hasta' AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
 							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
 							ORDER BY `poliza`.`id_poliza` ASC";
 		}
@@ -3756,8 +3756,8 @@ class Trabajo extends Conectar
 							WHERE 
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
-							poliza.f_poliza >= '$f_desde' AND
-							poliza.f_poliza <= '$f_hasta' AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
 							nomcia LIKE '%$cia%' AND
 							codvend  IN " . $asesorIn . " AND
                             not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
@@ -3774,8 +3774,8 @@ class Trabajo extends Conectar
 							WHERE 
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
-							poliza.f_poliza >= '$f_desde' AND
-							poliza.f_poliza <= '$f_hasta' AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
 							codvend LIKE '%$asesor%' AND
 							nomcia  IN " . $ciaIn . " AND
                             not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
@@ -4065,18 +4065,17 @@ class Trabajo extends Conectar
 			// create sql part for IN condition by imploding comma after each id
 			$ciaIn = "('" . implode("','", $cia) . "')";
 
-			$sql = "SELECT poliza.cod_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
+			$sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
 					poliza
-							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, enr 
+							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
 							poliza.id_titular = titular.id_titular AND
-							poliza.id_poliza=drecibo.idrecibo AND
-							poliza.f_poliza >= '$f_desde' AND
-							poliza.f_poliza <= '$f_hasta' AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
 							nomcia IN " . $ciaIn . " AND
 							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
@@ -4084,18 +4083,17 @@ class Trabajo extends Conectar
 		}
 
 		if ($cia == '') {
-			$sql = "SELECT poliza.cod_poliza, sumaasegurada, prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
+			$sql = "SELECT poliza.cod_poliza, sumaasegurada, poliza.prima, f_desdepoliza, f_hastapoliza, poliza.id_titular, poliza.id_poliza, nombre_t, apellido_t, nomcia, nramo, monto FROM 
 					poliza
-							INNER JOIN drecibo, titular, tipo_poliza, dcia, dramo, enr 
+							INNER JOIN titular, tipo_poliza, dcia, dramo, enr 
 							WHERE 
 							poliza.id_tpoliza = tipo_poliza.id_t_poliza AND 
 							poliza.id_cod_ramo = dramo.cod_ramo AND
 							poliza.id_cia=dcia.idcia AND
 							poliza.codvend=enr.cod AND
 							poliza.id_titular = titular.id_titular AND
-							poliza.id_poliza=drecibo.idrecibo AND
-							poliza.f_poliza >= '$f_desde' AND
-							poliza.f_poliza <= '$f_hasta' AND
+							poliza.f_hastapoliza >= '$f_desde' AND
+							poliza.f_hastapoliza <= '$f_hasta' AND
 							poliza.codvend = '$asesor' AND 
 							not exists (select 1 from gc_h_r where gc_h_r.id_poliza = poliza.id_poliza)
 							ORDER BY poliza.cod_poliza ASC";
